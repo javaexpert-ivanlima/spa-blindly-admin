@@ -11,7 +11,9 @@ export class AuthenticateComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    $("#overlayblocked").addClass('overlay');
+    
+    $("#navBarHorizontal").hide();
+    $("#sidebar-wrapper").hide();
   }
 
 }

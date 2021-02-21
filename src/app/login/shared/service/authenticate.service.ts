@@ -9,4 +9,5 @@ export class AuthenticateService {
   private readonly BASE_URL = "http://localhost:8080/v1/authenticate/admin";
 
   constructor() { }
+  
 }
