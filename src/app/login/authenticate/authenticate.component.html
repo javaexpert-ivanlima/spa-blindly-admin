@@ -1,10 +1,10 @@
 <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-    <div class="modal-dialog">
-          <div class="loginmodal-container">
+    <div class="">
+          <div class="loginmodal-container ">
               <h1>Login to Your Account</h1><br>
-            <form>
-              <input type="text" name="user" placeholder="Username">
-              <input type="password" name="pass" placeholder="Password">
+              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-group"> 
+              <input id="login" formControlName="login" type="text" name="login" class="form-control" placeholder="Username">
+              <input id="password" formControlName="password" type="password" name="password" class="form-control" placeholder="Password">
               <input type="submit" name="login" class="login loginmodal-submit" value="Login">
             </form>
               
