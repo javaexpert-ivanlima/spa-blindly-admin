@@ -3,7 +3,11 @@ import { ExtraOptions,Routes, RouterModule} from '@angular/router';
 import { LoginRoutes} from './login';
 
 export const routes: Routes = [
-   
+   {
+    path: '',
+    redirectTo: 'login/authenticate',
+    pathMatch: 'full'
+   },
 
     ...LoginRoutes
 ];

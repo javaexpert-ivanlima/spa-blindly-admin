@@ -2,16 +2,27 @@
     <div class="">
           <div class="loginmodal-container ">
               <h1>Login to Your Account</h1><br>
-              <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-group"> 
-              <input id="login" formControlName="login" type="text" name="login" class="form-control" placeholder="Username">
+              <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-group" #f="ngForm" novalidate> 
+              <input id="email" required formControlName="email" type="text" name="email" class="form-control" placeholder="Email">
               <input id="password" formControlName="password" type="password" name="password" class="form-control" placeholder="Password">
               <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+              <div class="form-group">
+                <div  
+                  class="alert alert-danger"
+                  role="alert"
+                  *ngIf="f.submitted && isLoginFailed"
+                >
+                  Login failed: {{ errorMessage }}
+                </div>
+              </div> 
             </form>
               
             <div class="login-help">
               <a href="#">Forgot Password</a>
             </div>
           </div>
+          
       </div>
+      
     </div>
-   
+    

@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} 
 import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { Login } from '../shared/model';
-import { AuthenticateService } from '../shared/service';
+import { AuthenticateService, TokenStorageService } from '../shared/service';
 
 @Component({
   selector: 'app-authenticate',
@@ -14,25 +14,73 @@ export class AuthenticateComponent implements OnInit {
   loginForm: FormGroup;
 
   auth: Login;
-  constructor(private formBuilder: FormBuilder) {
+
+  isLoggedIn = false;
+  isLoginFailed = false;
+  errorMessage = '';
+  roles: string[] = [];
+
+  constructor(private formBuilder: FormBuilder,private authService: AuthenticateService,private tokenStorage: TokenStorageService) {
     this.loginForm = this.formBuilder.group({
       password: [null, [Validators.required, Validators.minLength(8)]],
-      login: [null, [Validators.required, Validators.email]]
+      email: [null, [Validators.required, Validators.email]]
     });
     
   }
   
   ngOnInit(): void {
-    this.auth = new Login();
-    $("#navBarHorizontal").hide();
-    $("#sidebar-wrapper").hide();
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      $("#navBarHorizontal").show();
+      $("#sidebar-wrapper").show();
+      $("#login-modal").hide();
+      //this.roles = this.tokenStorage.getUser().roles;
+    }else{
+      $("#navBarHorizontal").hide();
+      $("#sidebar-wrapper").hide();
+      $("#login-modal").show();
+      this.auth = new Login();
+    }    
+    
+
+    
+    console.log("isLoggedIn => " + this.isLoggedIn);
   }
 
   onSubmit() {
     console.log('Your form data : ', this.loginForm.value );
     Object.assign(this.auth,this.loginForm.value);
     console.log('Your model : ', this.auth );
+    this.authService.login(this.auth).subscribe(
+      data => {
+        console.log(data.data);
+        this.tokenStorage.saveToken(data.data);
+        this.tokenStorage.saveUser(this.auth);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        $("#navBarHorizontal").show();
+        $("#sidebar-wrapper").show();
+        $("#login-modal").hide();
+        //this.roles = this.tokenStorage.getUser().roles;
+        //this.reloadPage();
+      },
+      err => {
+        console.log( err.error);
+        this.errorMessage = err.error.errors.message  + " => ";
+        let array = err.error.errors.errors;
+        for (let i = 0; i < array.length; i++) {
+          this.errorMessage =  this.errorMessage + array[i] + "  "; 
+        }
+        this.isLoginFailed = true;
+      }
+    );
+  }
+
+  reloadPage(): void {
+    window.location.reload();
+  }
 }
 
 
-}
+

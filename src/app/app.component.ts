@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import * as $ from 'jquery';
-import { AuthenticateService } from './login';
+import { AuthenticateService, TokenStorageService } from './login';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,7 @@ import { AuthenticateService } from './login';
 export class AppComponent  implements OnInit{
   title = 'spa-blindly-admin';
   public hasSystemAccess: boolean = false;
-  constructor(private router: Router,private authService: AuthenticateService) {
+  constructor(private router: Router,private authService: AuthenticateService,private tokenStorageService:TokenStorageService) {
     // ...
   }
   remover($event: any){
@@ -21,5 +21,10 @@ export class AppComponent  implements OnInit{
 
   ngOnInit(){
     
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
 }
