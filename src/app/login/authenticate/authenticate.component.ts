@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { Login } from '../shared/model';
 import { AuthenticateService, TokenStorageService } from '../shared/service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-authenticate',
@@ -53,7 +54,15 @@ export class AuthenticateComponent implements OnInit {
     console.log('Your model : ', this.auth );
     this.authService.login(this.auth).subscribe(
       data => {
+        let json: any = JSON.parse(atob(data.data.split('.')[1]));
+        const d = new Date(json.exp).toUTCString();
+        console.log(json.authorities);
+        console.log(json.exp);
+        console.log(moment.unix(json.exp).format('dddd, MMMM Do, YYYY h:mm:ss A'));
+        //d.setUTCMilliseconds(json.exp);
         console.log(data.data);
+   
+        console.log(d);
         this.tokenStorage.saveToken(data.data);
         this.tokenStorage.saveUser(this.auth);
 
