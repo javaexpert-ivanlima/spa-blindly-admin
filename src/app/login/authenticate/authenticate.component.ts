@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { Login } from '../shared/model';
 import { AuthenticateService, TokenStorageService } from '../shared/service';
-import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-authenticate',
@@ -19,7 +19,6 @@ export class AuthenticateComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
-  roles: string[] = [];
 
   constructor(private formBuilder: FormBuilder,private authService: AuthenticateService,private tokenStorage: TokenStorageService) {
     this.loginForm = this.formBuilder.group({
@@ -41,6 +40,7 @@ export class AuthenticateComponent implements OnInit {
       $("#sidebar-wrapper").hide();
       $("#login-modal").show();
       this.auth = new Login();
+      this.isLoggedIn = false;
     }    
     
 
@@ -54,24 +54,12 @@ export class AuthenticateComponent implements OnInit {
     console.log('Your model : ', this.auth );
     this.authService.login(this.auth).subscribe(
       data => {
-        let json: any = JSON.parse(atob(data.data.split('.')[1]));
-        const d = new Date(json.exp).toUTCString();
-        console.log(json.authorities);
-        console.log(json.exp);
-        console.log(moment.unix(json.exp).format('dddd, MMMM Do, YYYY h:mm:ss A'));
-        //d.setUTCMilliseconds(json.exp);
-        console.log(data.data);
-   
-        console.log(d);
         this.tokenStorage.saveToken(data.data);
-        this.tokenStorage.saveUser(this.auth);
-
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         $("#navBarHorizontal").show();
         $("#sidebar-wrapper").show();
         $("#login-modal").hide();
-        //this.roles = this.tokenStorage.getUser().roles;
         //this.reloadPage();
       },
       err => {
@@ -81,6 +69,7 @@ export class AuthenticateComponent implements OnInit {
         for (let i = 0; i < array.length; i++) {
           this.errorMessage =  this.errorMessage + array[i] + "  "; 
         }
+        this.isLoggedIn = false;
         this.isLoginFailed = true;
       }
     );
