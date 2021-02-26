@@ -2,15 +2,28 @@
 
   <!-- Sidebar -->
   <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Blindly admin </div>
+    <div class="sidebar-heading">Backoffice ADMIN</div>
     <div class="list-group list-group-flush">
-      <a href="#" class="list-group-item list-group-item-action bg-light">Dashboard</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light">Categories</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light">Questions</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light">Answers</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light">Quiz</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light">AppUsers</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light">AdminUsers</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-desktop"></i> Dashboard</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-tags"></i> Categories</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-question"></i> Questions</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-hashtag"></i> Answers</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-clipboard"></i> Quiz</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-users"></i> AppUsers</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-id-card"></i> AdminUsers</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-user-circle"></i> Profile</a>
+      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-key"></i> Reset Password</a>
+      <a (click)="logout()" class="menu-mobile list-group-item list-group-item-action bg-light" >
+        <svg class="svg-icon" viewBox="0 0 20 20">
+          <path fill="none" d="M13.53,2.238c-0.389-0.164-0.844,0.017-1.01,0.41c-0.166,0.391,0.018,0.845,0.411,1.01
+            c2.792,1.181,4.598,3.904,4.6,6.937c0,4.152-3.378,7.529-7.53,7.529c-4.151,0-7.529-3.377-7.529-7.529
+            C2.469,7.591,4.251,4.878,7.01,3.683C7.401,3.515,7.58,3.06,7.412,2.67c-0.17-0.392-0.624-0.571-1.014-0.402
+            c-3.325,1.44-5.472,4.708-5.47,8.327c0,5.002,4.069,9.071,9.071,9.071c5.003,0,9.073-4.07,9.073-9.071
+            C19.07,6.939,16.895,3.659,13.53,2.238z"></path>
+          <path fill="none" d="M9.999,7.616c0.426,0,0.771-0.345,0.771-0.771v-5.74c0-0.426-0.345-0.771-0.771-0.771
+            c-0.427,0-0.771,0.345-0.771,0.771v5.74C9.228,7.271,9.573,7.616,9.999,7.616z"></path>
+        </svg> Logout
+      </a>
     </div>
   </div>
   <!-- /#sidebar-wrapper -->
@@ -19,42 +32,12 @@
   <div id="page-content-wrapper">
 
     <nav id="navBarHorizontal" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <button (click)="remover($event)" class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" >Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Quiz</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
-              <svg class="svg-icon" viewBox="0 0 20 20">
-                <path fill="none" d="M13.53,2.238c-0.389-0.164-0.844,0.017-1.01,0.41c-0.166,0.391,0.018,0.845,0.411,1.01
-                  c2.792,1.181,4.598,3.904,4.6,6.937c0,4.152-3.378,7.529-7.53,7.529c-4.151,0-7.529-3.377-7.529-7.529
-                  C2.469,7.591,4.251,4.878,7.01,3.683C7.401,3.515,7.58,3.06,7.412,2.67c-0.17-0.392-0.624-0.571-1.014-0.402
-                  c-3.325,1.44-5.472,4.708-5.47,8.327c0,5.002,4.069,9.071,9.071,9.071c5.003,0,9.073-4.07,9.073-9.071
-                  C19.07,6.939,16.895,3.659,13.53,2.238z"></path>
-                <path fill="none" d="M9.999,7.616c0.426,0,0.771-0.345,0.771-0.771v-5.74c0-0.426-0.345-0.771-0.771-0.771
-                  c-0.427,0-0.771,0.345-0.771,0.771v5.74C9.228,7.271,9.573,7.616,9.999,7.616z"></path>
-              </svg>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Profile</a>
-              <a class="dropdown-item" href="#">Reset Password</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" (click)="logout()" >Logout</a>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      <a (click)="remover($event)" class="menu-mobile bg-light" id="menu-toggle">
+        <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e">
+      </a>
+      <div class="ml-auto mt-2 mt-lg-0 logo-title">Blindly <img src="../assets/imgs/logo.png"/></div>
+     
+     </nav>	  
 
     <div class="container-fluid">
       <router-outlet></router-outlet>

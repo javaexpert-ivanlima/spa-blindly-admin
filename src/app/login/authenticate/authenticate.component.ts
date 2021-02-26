@@ -1,6 +1,5 @@
-import { Component, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} from  '@angular/forms';
-import { Router } from '@angular/router';
 import * as $ from 'jquery';
 import { Login } from '../shared/model';
 import { AuthenticateService, TokenStorageService } from '../shared/service';
@@ -64,11 +63,21 @@ export class AuthenticateComponent implements OnInit {
       },
       err => {
         console.log( err.error);
-        this.errorMessage = err.error.errors.message  + " => ";
-        let array = err.error.errors.errors;
-        for (let i = 0; i < array.length; i++) {
-          this.errorMessage =  this.errorMessage + array[i] + "  "; 
+        if (err.error.errors){
+          this.errorMessage = err.error.errors.message  + " => ";
+          let array = err.error.errors.errors;
+          for (let i = 0; i < array.length; i++) {
+            this.errorMessage =  this.errorMessage + array[i] + "  "; 
+          }
+        }else{
+          if ( err.message.includes("Http failure response for")){
+            this.errorMessage = "Http service unavailable";
+          }else{
+            this.errorMessage = err.message;
+          }
+          
         }
+        
         this.isLoggedIn = false;
         this.isLoginFailed = true;
       }
