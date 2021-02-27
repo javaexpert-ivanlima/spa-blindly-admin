@@ -12,6 +12,7 @@ import { AuthenticateService, TokenStorageService } from '../shared/service';
 })
 export class AuthenticateComponent implements OnInit {
   loginForm: FormGroup;
+  submitted = false;
 
   auth: Login;
 
@@ -21,7 +22,12 @@ export class AuthenticateComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,private authService: AuthenticateService,private tokenStorage: TokenStorageService) {
     this.loginForm = this.formBuilder.group({
-      password: [null, [Validators.required, Validators.minLength(8)]],
+      password: [null, [
+        Validators.required, 
+        Validators.minLength(4)//,
+        //Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+      ]
+    ],
       email: [null, [Validators.required, Validators.email]]
     });
     
@@ -43,6 +49,8 @@ export class AuthenticateComponent implements OnInit {
     console.log("isLoggedIn => " + this.isLoggedIn);
   }
 
+  get f() { return this.loginForm.controls; }
+
   showLoginElements(show: boolean): void{
     if (show){
       $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
@@ -54,6 +62,11 @@ export class AuthenticateComponent implements OnInit {
     }
   }
   onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+            return;
+    }
     //console.log('Your form data : ', this.loginForm.value );
     Object.assign(this.auth,this.loginForm.value);
     //console.log('Your model : ', this.auth );
