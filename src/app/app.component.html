@@ -1,52 +1,59 @@
-  <div class="d-flex" id="wrapper">
 
-  <!-- Sidebar -->
-  <div class="bg-light border-right" id="sidebar-wrapper">
-    <div class="sidebar-heading">Backoffice ADMIN</div>
-    <div class="list-group list-group-flush">
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-desktop"></i> Dashboard</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-tags"></i> Categories</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-question"></i> Questions</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-hashtag"></i> Answers</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-clipboard"></i> Quiz</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-users"></i> AppUsers</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-id-card"></i> AdminUsers</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-user-circle"></i> Profile</a>
-      <a href="#" class="list-group-item list-group-item-action bg-light"><i class="fa fa-key"></i> Reset Password</a>
-      <a (click)="logout()" class="menu-mobile list-group-item list-group-item-action bg-light" >
-        <svg class="svg-icon" viewBox="0 0 20 20">
-          <path fill="none" d="M13.53,2.238c-0.389-0.164-0.844,0.017-1.01,0.41c-0.166,0.391,0.018,0.845,0.411,1.01
-            c2.792,1.181,4.598,3.904,4.6,6.937c0,4.152-3.378,7.529-7.53,7.529c-4.151,0-7.529-3.377-7.529-7.529
-            C2.469,7.591,4.251,4.878,7.01,3.683C7.401,3.515,7.58,3.06,7.412,2.67c-0.17-0.392-0.624-0.571-1.014-0.402
-            c-3.325,1.44-5.472,4.708-5.47,8.327c0,5.002,4.069,9.071,9.071,9.071c5.003,0,9.073-4.07,9.073-9.071
-            C19.07,6.939,16.895,3.659,13.53,2.238z"></path>
-          <path fill="none" d="M9.999,7.616c0.426,0,0.771-0.345,0.771-0.771v-5.74c0-0.426-0.345-0.771-0.771-0.771
-            c-0.427,0-0.771,0.345-0.771,0.771v5.74C9.228,7.271,9.573,7.616,9.999,7.616z"></path>
-        </svg> Logout
-      </a>
-    </div>
+<nav id="navBarHorizontal" class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">
+    <img src="../assets/imgs/logo.png" alt="BLINDLY">
+  </a>
+  <div id="menuContent" class="ml-auto mt-2 mt-lg-0">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+      <li class="nav-item">
+        <a class="nav-link " href="#"><i class="fa fa-desktop"></i> Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <div class="btn-group">
+              <a class="nav-link dropdown-toggle" id="navbarDropdownUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user"></i> Users</a>
+              <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdownUsers">
+                <a class="nav-link bg-dark-dropdownitem" href="#"><i class="fa fa-users"></i> AppUsers</a>
+                <a class="nav-link bg-dark-dropdownitem" href="#"><i class="fa fa-id-card"></i> AdminUsers</a>
+                <div class="dropdown-divider"></div>
+                <a class="nav-link bg-dark-dropdownitem" href="#"><i class="fa fa-user-circle"></i> Profile</a>
+                <a class="nav-link bg-dark-dropdownitem" href="#"><i class="fa fa-key"></i> Reset Password</a>
+              </div>
+        </div>
+
+      </li> 
+      <li class="nav-item" >
+        <div class="btn-group">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownQuiz" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-edit"></i> Q&A</a>
+            <div class="dropdown-menu dropdown-menu-right bg-dark" aria-labelledby="navbarDropdownquiz">
+              <a class="nav-link bg-dark-dropdownitem" href="#"><i class="fa fa-tags"></i> Categories</a>
+              <a class="nav-link bg-dark-dropdownitem" href="#"><i class="fa fa-question"></i> Questions</a>
+              <div class="dropdown-divider"></div>
+              <a class="nav-link bg-dark-dropdownitem" href="#"><i class="fa fa-clipboard"></i> Quiz</a>
+            </div>
+      </div>
+      </li>                      
+      <li class="nav-item">
+        <a class="nav-link" (click)="logout()" href="#"><i class="fa fa-sign-out"></i> Logout</a>
+      </li> 
+    </ul>
   </div>
-  <!-- /#sidebar-wrapper -->
-
-  <!-- Page Content -->
-  <div id="page-content-wrapper">
-
-    <nav id="navBarHorizontal" class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
-      <a (click)="remover($event)" class="menu-mobile bg-light" id="menu-toggle">
-        <img src="data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e">
-      </a>
-      <div class="ml-auto mt-2 mt-lg-0 logo-title">Blindly <img src="../assets/imgs/logo.png"/></div>
-     
-     </nav>	  
-
-    <div class="container-fluid">
-      <router-outlet></router-outlet>
-      <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
-        <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
-      </svg>
-    </div>
-  </div>
-  <!-- /#page-content-wrapper -->
-
 </div>
-<!-- /#wrapper -->
+</nav> 
+
+<div class="container-fluid" style="height: 99%;">
+  <router-outlet></router-outlet>
+</div>
+  <!-- Footer -->
+  <footer  class="fixed-bottom page-footer font-small blue bg-dark">
+    <!-- Copyright -->
+    <div class="text-white footer-copyright text-center py-3">© 2021 Copyright:
+      <a href="https://www.mundodastribos.com/"> mundodastribos.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>

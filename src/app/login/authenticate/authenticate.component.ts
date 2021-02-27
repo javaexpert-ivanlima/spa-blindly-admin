@@ -30,16 +30,12 @@ export class AuthenticateComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      $("#navBarHorizontal").show();
-      $("#sidebar-wrapper").show();
-      $("#login-modal").hide();
-      //this.roles = this.tokenStorage.getUser().roles;
+      this.showLoginElements(true);
+
     }else{
-      $("#navBarHorizontal").hide();
-      $("#sidebar-wrapper").hide();
-      $("#login-modal").show();
       this.auth = new Login();
       this.isLoggedIn = false;
+      this.showLoginElements(false);
     }    
     
 
@@ -47,19 +43,26 @@ export class AuthenticateComponent implements OnInit {
     console.log("isLoggedIn => " + this.isLoggedIn);
   }
 
+  showLoginElements(show: boolean): void{
+    if (show){
+      $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
+      $("#menuContent").show();    
+      $("#login-modal").hide();
+    }else{
+      $("#menuContent").hide();
+      $("#login-modal").show();
+    }
+  }
   onSubmit() {
-    console.log('Your form data : ', this.loginForm.value );
+    //console.log('Your form data : ', this.loginForm.value );
     Object.assign(this.auth,this.loginForm.value);
-    console.log('Your model : ', this.auth );
+    //console.log('Your model : ', this.auth );
     this.authService.login(this.auth).subscribe(
       data => {
         this.tokenStorage.saveToken(data.data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        $("#navBarHorizontal").show();
-        $("#sidebar-wrapper").show();
-        $("#login-modal").hide();
-        //this.reloadPage();
+        this.showLoginElements(true);
       },
       err => {
         console.log( err.error);
@@ -84,9 +87,6 @@ export class AuthenticateComponent implements OnInit {
     );
   }
 
-  reloadPage(): void {
-    window.location.reload();
-  }
 }
 
 

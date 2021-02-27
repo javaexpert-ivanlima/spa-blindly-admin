@@ -16,10 +16,6 @@ export class AppComponent  implements OnInit{
   constructor(private router: Router,private authService: AuthenticateService,private tokenStorageService:TokenStorageService) {
     // ...
   }
-  remover($event: any){
-    $event.preventDefault();
-    $("#wrapper").toggleClass("toggled");
-  }
 
   ngOnInit(){
     
