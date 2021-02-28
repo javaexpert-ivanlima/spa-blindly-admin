@@ -3,6 +3,11 @@ html, body {
     height: 100%;
 }
 
+.bg-dark-dropdownitem:hover{
+  background-color: #e9ecef;
+  color:black!important;
+}
+
 .spinner-message {
     text-align: center;
   }
