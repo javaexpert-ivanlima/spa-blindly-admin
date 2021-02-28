@@ -4,14 +4,16 @@ import {  FormsModule , ReactiveFormsModule } from '@angular/forms'
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app.routing.module';
-import { LoginModule } from './login';
+import { LoginModule, SpinnerShowService } from './login';
 import { RouterModule} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SpinnerComponent } from '../app/login/shared/component/spinner/';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -24,6 +26,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppRoutingModule
   ],
   providers: [
+    SpinnerShowService
   ],
   bootstrap: [AppComponent]
 })

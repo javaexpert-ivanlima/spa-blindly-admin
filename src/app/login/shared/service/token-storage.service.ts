@@ -49,12 +49,8 @@ export class TokenStorageService {
 
   public isTokenExpired(json: any): boolean {
     let currentDate: number = Date.now()/1000;
-    console.log(currentDate);
     let expiredDate: number = json.exp;
     let isExpired: boolean = moment.unix(currentDate).isAfter(moment.unix(expiredDate));
-    console.log("current date "+moment.unix(currentDate).format('dddd, MMMM Do, YYYY h:mm:ss A'));
-    console.log("expired token "+moment.unix(expiredDate).format('dddd, MMMM Do, YYYY h:mm:ss A'));
-    console.log("expired => " + isExpired);
     return isExpired;
   }
 

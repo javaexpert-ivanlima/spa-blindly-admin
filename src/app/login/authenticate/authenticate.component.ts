@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} from  '@angular/forms';
 import * as $ from 'jquery';
+import { BehaviorSubject } from 'rxjs';
 import { Login } from '../shared/model';
-import { AuthenticateService, TokenStorageService } from '../shared/service';
+import { AuthenticateService, SpinnerShowService, TokenStorageService } from '../shared/service';
 
 
 @Component({
@@ -20,11 +21,18 @@ export class AuthenticateComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
 
-  constructor(private formBuilder: FormBuilder,private authService: AuthenticateService,private tokenStorage: TokenStorageService) {
+  public dataObsevable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthenticateService,
+    private tokenStorage: TokenStorageService,
+    private spinnerService:SpinnerShowService
+    ) {
     this.loginForm = this.formBuilder.group({
       password: [null, [
         Validators.required, 
-        Validators.minLength(4)//,
+        Validators.minLength(4)// ,
         //Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
       ]
     ],
@@ -43,13 +51,12 @@ export class AuthenticateComponent implements OnInit {
       this.isLoggedIn = false;
       this.showLoginElements(false);
     }    
-    
-
-    
-    console.log("isLoggedIn => " + this.isLoggedIn);
+    this.spinnerService.hideSpinner();
   }
 
   get f() { return this.loginForm.controls; }
+
+
 
   showLoginElements(show: boolean): void{
     if (show){
@@ -67,18 +74,17 @@ export class AuthenticateComponent implements OnInit {
     if (this.loginForm.invalid) {
             return;
     }
-    //console.log('Your form data : ', this.loginForm.value );
+    this.spinnerService.showSpinner();
     Object.assign(this.auth,this.loginForm.value);
-    //console.log('Your model : ', this.auth );
     this.authService.login(this.auth).subscribe(
       data => {
         this.tokenStorage.saveToken(data.data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
         this.showLoginElements(true);
+        this.spinnerService.hideSpinner();
       },
       err => {
-        console.log( err.error);
         if (err.error.errors){
           this.errorMessage = err.error.errors.message  + " => ";
           let array = err.error.errors.errors;
@@ -96,6 +102,7 @@ export class AuthenticateComponent implements OnInit {
         
         this.isLoggedIn = false;
         this.isLoginFailed = true;
+        this.spinnerService.hideSpinner();
       }
     );
   }

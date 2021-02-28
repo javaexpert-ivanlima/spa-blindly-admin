@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import * as $ from 'jquery';
-import { AuthenticateService, TokenStorageService } from './login';
+import { AuthenticateService, SpinnerShowService, TokenStorageService } from './login';
 
 
 
@@ -12,16 +12,21 @@ import { AuthenticateService, TokenStorageService } from './login';
 })
 export class AppComponent  implements OnInit{
   title = 'spa-blindly-admin';
-  public hasSystemAccess: boolean = false;
-  constructor(private router: Router,private authService: AuthenticateService,private tokenStorageService:TokenStorageService) {
+  constructor(
+    private router: Router,
+    private authService: AuthenticateService,
+    private tokenStorageService:TokenStorageService,
+    private spinnerService:SpinnerShowService
+    ) {
     // ...
   }
 
   ngOnInit(){
-    
+    this.spinnerService.showSpinner();
   }
 
   logout(): void {
+    this.spinnerService.showSpinner();
     this.tokenStorageService.signOut();
     window.location.reload();
   }
