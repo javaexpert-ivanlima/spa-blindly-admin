@@ -3,8 +3,8 @@ import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} 
 import * as $ from 'jquery';
 import { BehaviorSubject } from 'rxjs';
 import { Login } from '../shared/model';
-import { AuthenticateService, SpinnerShowService, TokenStorageService } from '../shared/service';
-
+import { AuthenticateService, TokenStorageService } from '../shared/service';
+import { SpinnerShowService } from '../../shared/service';
 
 @Component({
   selector: 'app-authenticate',

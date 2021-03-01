@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 import * as $ from 'jquery';
-import { AuthenticateService, SpinnerShowService, TokenStorageService } from './login';
-
+import { SpinnerShowService } from './shared/service';
+import { AuthenticateService, TokenStorageService } from './login';
 
 
 @Component({
