@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ListCategoryComponent } from './component/list-category/list-category.component';
-import { DatatableComponent } from '../shared/component/datatable/';
 import { SpinnerComponent } from '../shared/component/spinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -14,8 +13,7 @@ import { CategoryService } from './service';
 @NgModule({
   declarations: [
     ListCategoryComponent,
-    SpinnerComponent,
-    DatatableComponent
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
