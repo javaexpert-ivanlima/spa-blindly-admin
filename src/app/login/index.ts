@@ -1,6 +1,6 @@
 export * from './login.module';
-export * from './shared/model';
-export * from './shared/service';
-export * from './authenticate';
+export * from './model';
+export * from './service';
+export * from './component/authenticate';
 export * from './login-routing.module';
 

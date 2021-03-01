@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} from  '@angular/forms';
 import * as $ from 'jquery';
 import { BehaviorSubject } from 'rxjs';
-import { Login } from '../shared/model';
-import { AuthenticateService, TokenStorageService } from '../shared/service';
-import { SpinnerShowService } from '../../shared/service';
+import { Login } from '../../model';
+import { AuthenticateService, TokenStorageService } from '../../service';
+import { SpinnerShowService } from '../../../shared/service';
 
 @Component({
   selector: 'app-authenticate',

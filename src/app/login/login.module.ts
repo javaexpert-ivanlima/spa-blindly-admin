@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthenticateComponent } from './authenticate';
-import { AuthenticateService} from './shared/service';
-import { TokenStorageService } from './shared/service';
+import { AuthenticateComponent } from './component/authenticate';
+import { AuthenticateService} from './service';
+import { TokenStorageService } from './service';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms' 
 import { HttpClientModule } from '@angular/common/http';
 
