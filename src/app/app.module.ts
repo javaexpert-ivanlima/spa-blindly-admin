@@ -9,6 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent, SpinnerShowService } from './spinner';
 import { SharedModule } from './shared-module/shared.module';
 import { RichtableComponent } from './shared-module';
+import { QuizModule } from './quiz-module/quiz.module';
 
 
 
@@ -24,6 +25,7 @@ import { RichtableComponent } from './shared-module';
     FontAwesomeModule,
     ReactiveFormsModule,
     HttpClientModule,
+    QuizModule,
     SharedModule,
     AppRoutingModule
   ],
