@@ -10,6 +10,7 @@ import { SpinnerComponent, SpinnerShowService } from './spinner';
 import { SharedModule } from './shared-module/shared.module';
 import { RichtableComponent } from './shared-module';
 import { QuizModule } from './quiz-module/quiz.module';
+import { LoginModule } from './login-module';
 
 
 
@@ -26,6 +27,7 @@ import { QuizModule } from './quiz-module/quiz.module';
     ReactiveFormsModule,
     HttpClientModule,
     QuizModule,
+    LoginModule,
     SharedModule,
     AppRoutingModule
   ],
