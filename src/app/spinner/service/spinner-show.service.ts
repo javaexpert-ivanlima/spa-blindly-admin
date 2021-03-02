@@ -19,4 +19,16 @@ export class SpinnerShowService {
       this.dataObsevable.next(true);
       $("#overlayLoading").show();
   }
+
+  
+  showLoginElements(show: boolean): void{
+    if (show){
+      $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
+      $("#menuContent").show();    
+      $("#login-modal").hide();
+    }else{
+      $("#menuContent").hide();
+      $("#login-modal").show();
+    }
+  }
 }

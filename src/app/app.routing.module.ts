@@ -1,7 +1,8 @@
 import { NgModule } from "@angular/core";
 import { ExtraOptions,Routes, RouterModule} from '@angular/router';
-import { CategoryRoutes } from "./category";
-import { LoginRoutes} from './login';
+import { LoginRoutes } from "./login";
+import { QuizRoutes } from "./quiz";
+
 
 export const routes: Routes = [
    {
@@ -10,8 +11,7 @@ export const routes: Routes = [
     pathMatch: 'full'
    },
 
-    ...LoginRoutes,
-    ...CategoryRoutes
+    ...LoginRoutes,...QuizRoutes
 ];
 @NgModule({
     imports: [RouterModule.forRoot(routes)],

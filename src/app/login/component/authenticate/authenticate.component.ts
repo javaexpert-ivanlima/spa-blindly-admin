@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} from  '@angular/forms';
-import * as $ from 'jquery';
 import { BehaviorSubject } from 'rxjs';
+import { SpinnerShowService } from 'src/app/spinner';
+
 import { Login } from '../../model';
 import { AuthenticateService, TokenStorageService } from '../../service';
-import { SpinnerShowService } from '../../../shared/service';
+
 
 @Component({
   selector: 'app-authenticate',
@@ -44,12 +45,12 @@ export class AuthenticateComponent implements OnInit {
   ngOnInit(): void {
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
-      this.showLoginElements(true);
+      this.spinnerService.showLoginElements(true);
 
     }else{
       this.auth = new Login();
       this.isLoggedIn = false;
-      this.showLoginElements(false);
+      this.spinnerService.showLoginElements(false);
     }    
     this.spinnerService.hideSpinner();
   }
@@ -58,16 +59,6 @@ export class AuthenticateComponent implements OnInit {
 
 
 
-  showLoginElements(show: boolean): void{
-    if (show){
-      $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
-      $("#menuContent").show();    
-      $("#login-modal").hide();
-    }else{
-      $("#menuContent").hide();
-      $("#login-modal").show();
-    }
-  }
   onSubmit() {
     this.submitted = true;
     // stop here if form is invalid
@@ -81,7 +72,7 @@ export class AuthenticateComponent implements OnInit {
         this.tokenStorage.saveToken(data.data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.showLoginElements(true);
+        this.spinnerService.showLoginElements(true);
         this.spinnerService.hideSpinner();
       },
       err => {

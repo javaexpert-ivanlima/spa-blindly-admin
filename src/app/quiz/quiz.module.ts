@@ -1,16 +1,32 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CategoriesComponent } from './categories/categories.component';
-import { QuestionsComponent } from './questions/questions.component';
-import { AnswersComponent } from './answers/answers.component';
 import { QuizComponent } from './quiz/quiz.component';
+import { ListCategoryComponent } from './categories/';
+import { RichtableComponent } from './shared';
+import { CreateCategoryComponent } from './categories/create-category/create-category.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TokenStorageService } from '../login';
+
+
 
 
 
 @NgModule({
-  declarations: [CategoriesComponent, QuestionsComponent, AnswersComponent, QuizComponent],
+  declarations: [ 
+    QuizComponent, 
+    ListCategoryComponent,
+    RichtableComponent,
+    CreateCategoryComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
+  ],
+  providers: [
+    TokenStorageService
   ]
 })
 export class QuizModule { }

@@ -1,7 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AuthenticateService } from '../../service';
 
 import { AuthenticateComponent } from './authenticate.component';
-import { AuthenticateService} from '../shared/service';
+
 
 describe('AuthenticateComponent', () => {
   let component: AuthenticateComponent;

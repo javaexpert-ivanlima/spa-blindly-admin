@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { ListCategoryComponent } from './component/list-category';
+import { CreateCategoryComponent, ListCategoryComponent } from './categories';
 
-export const CategoryRoutes: Routes = [
+
+export const QuizRoutes: Routes = [
 
     {
         path: 'categories',
@@ -10,5 +11,9 @@ export const CategoryRoutes: Routes = [
     {
         path: 'categories/list',
         component: ListCategoryComponent
+    },
+    {
+        path: 'categories/create',
+        component: CreateCategoryComponent
     }
 ]
