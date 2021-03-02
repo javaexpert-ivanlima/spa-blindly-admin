@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TokenStorageService } from 'src/app/login';
+import { TokenStorageService } from 'src/app/login-module';
 import { SpinnerShowService } from 'src/app/spinner';
 import { Router } from '@angular/router';
 
@@ -21,19 +21,15 @@ export class ListCategoryComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.spinnerService.showLoginElements(true);
-
+      //todo guardar url atual
     }else{
-      this.isLoggedIn = false;
-      this.spinnerService.showLoginElements(false);
+      this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
   }
 
-  btnClick= function () {
-    this.router.navigateByUrl('/categories/create');
-};
+
 
 }

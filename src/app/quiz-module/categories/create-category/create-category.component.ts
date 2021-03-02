@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TokenStorageService } from 'src/app/login';
+import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/login-module';
 import { SpinnerShowService } from 'src/app/spinner';
 
 @Component({
@@ -16,11 +17,11 @@ export class CreateCategoryComponent implements OnInit {
   isLoggedIn = false;
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService
     ) {
-      console.log("createComponent");
     this.categoryForm = this.formBuilder.group({
       name: [null, [
         Validators.required, 
@@ -32,14 +33,11 @@ export class CreateCategoryComponent implements OnInit {
    }
 
    ngOnInit(): void {
-    console.log("createComponent oninit");
+    this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
-      this.isLoggedIn = true;
-      this.spinnerService.showLoginElements(true);
-
+      //todo guardar url atual
     }else{
-      this.isLoggedIn = false;
-      this.spinnerService.showLoginElements(false);
+      this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
   }

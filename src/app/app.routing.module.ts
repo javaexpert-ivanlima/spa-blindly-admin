@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { ExtraOptions,Routes, RouterModule} from '@angular/router';
-import { LoginRoutes } from "./login";
-import { QuizRoutes } from "./quiz";
+import { LoginRoutes } from "./login-module";
+import { QuizRoutes } from "./quiz-module";
 
 
 export const routes: Routes = [

@@ -1,12 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { QuizComponent } from './quiz/quiz.component';
-import { ListCategoryComponent } from './categories/';
-import { RichtableComponent } from './shared';
+import { ListCategoryComponent } from './categories';
 import { CreateCategoryComponent } from './categories/create-category/create-category.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TokenStorageService } from '../login';
+import { TokenStorageService } from '../login-module';
+import { SharedModule } from '../shared-module/shared.module';
 
 
 
@@ -14,14 +13,17 @@ import { TokenStorageService } from '../login';
 
 @NgModule({
   declarations: [ 
-    QuizComponent, 
     ListCategoryComponent,
-    RichtableComponent,
+    CreateCategoryComponent
+  ],
+  exports:[
+    ListCategoryComponent,
     CreateCategoryComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
+    SharedModule,
     ReactiveFormsModule,
     HttpClientModule
   ],

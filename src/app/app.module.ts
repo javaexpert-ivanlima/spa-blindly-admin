@@ -7,6 +7,8 @@ import { RouterModule} from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent, SpinnerShowService } from './spinner';
+import { SharedModule } from './shared-module/shared.module';
+import { RichtableComponent } from './shared-module';
 
 
 
@@ -22,6 +24,7 @@ import { SpinnerComponent, SpinnerShowService } from './spinner';
     FontAwesomeModule,
     ReactiveFormsModule,
     HttpClientModule,
+    SharedModule,
     AppRoutingModule
   ],
   providers: [
