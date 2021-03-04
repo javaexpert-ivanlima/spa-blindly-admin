@@ -1,0 +1,80 @@
+<div class="d-flex justify-content-center align-items-center" style="height:100%;">
+    <div class="panelbackground-container">
+      <div class="row">  
+          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
+          <div class="col-sm-6"><button (click)="btnClick();" type="button" class="btn btn-primary btn-rounded float-right mb-2">Add New</button></div>
+      
+      
+      </div>
+      <div class="border" style="padding: 2%;">
+          
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="all" checked>
+            <label class="form-check-label" for="exampleRadios1">
+                    All
+                </label>
+          </div>
+        
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="inactive">
+            <label class="form-check-label" for="exampleRadios2">
+                    Inactive
+                </label>
+          </div>
+        
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="active">
+            <label class="form-check-label" for="exampleRadios3">
+                    Active
+                </label>
+          </div>
+          
+      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for category...">            
+  </div>       
+  <br/>
+    <div  *ngIf="tableData" class="table-responsive-xl">
+      <table class="table caption-top table-bordered table-hover table-dark ">
+          <caption>
+              List of {{title}}
+            </caption>
+        <thead class="thead-light">
+          <tr>            
+            <th *ngFor="let col of tableCols" scope="col">{{col | uppercase}}</th>
+            <th scope="col">ACTIONS</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of tableData" scope="row">
+            <th *ngFor="let col of tableCols">{{obj[col]}}</th>
+            <td>
+              <button type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+              <button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button>
+            <button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+            </td>
+          </tr>
+         
+        </tbody>
+      </table>
+      <nav class="pagination-outer" aria-label="Page navigation">
+          <ul class="pagination">
+              <li *ngIf="pageable.first == false" class="page-item">
+                  <a href="#" class="page-link" aria-label="Previous">
+                      <span aria-hidden="true">«</span>
+                  </a>
+              </li>
+              <div  *ngIf="pageable.totalPages > 1"><!---->
+                <li *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active': i === pageable.pageNumber}" class="page-item"><a class="page-link" href="#">{{i}}</a></li>
+
+              </div>
+              <li *ngIf="pageable.last == false" class="page-item">
+                  <a href="#" class="page-link" aria-label="Next">
+                      <span aria-hidden="true">»</span>
+                  </a>
+              </li>
+          </ul>
+      </nav>
+      <br/>
+    </div>
+     </div>
+</div>              
+

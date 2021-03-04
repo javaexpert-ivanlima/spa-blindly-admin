@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TokenStorageService } from 'src/app/login-module';
-import { SpinnerShowService } from 'src/app/spinner';
+import { TokenStorageService } from 'src/app/modules/login-module';
+import { SpinnerShowService } from 'src/app/component/spinner';
 
 @Component({
   selector: 'app-create-category',

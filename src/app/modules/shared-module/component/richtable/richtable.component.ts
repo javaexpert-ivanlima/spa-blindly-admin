@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TokenStorageService } from 'src/app/login-module';
-import { SpinnerShowService } from 'src/app/spinner';
+import { TokenStorageService } from 'src/app/modules/login-module';
+import { SpinnerShowService } from 'src/app/component/spinner';
 
 @Component({
   selector: 'app-richtable',
@@ -9,6 +9,12 @@ import { SpinnerShowService } from 'src/app/spinner';
   styleUrls: ['./richtable.component.css']
 })
 export class RichtableComponent implements OnInit {
+  
+  @Input() title: string;
+  @Input() tableCols: string[]  = [];
+  @Input() tableData: {}[] = [];
+  @Input() pageable: any;
+
   submitted = false;
   errorMessage = '';
   
@@ -19,13 +25,19 @@ export class RichtableComponent implements OnInit {
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService
     ) { }
+    
+
+
+    fakeArray(): Array<any> {
+        return new Array(this.pageable.totalPages);
+    }
 
   ngOnInit(): void {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
     }else{
-      this.router.navigateByUrl('/login/authenticate');
+      //this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
   }

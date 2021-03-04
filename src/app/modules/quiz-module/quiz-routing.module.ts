@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { CreateCategoryComponent, ListCategoryComponent } from './categories';
+import { CreateCategoryComponent, ListCategoryComponent } from './component';
 
 
 export const QuizRoutes: Routes = [

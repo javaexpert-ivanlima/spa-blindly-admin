@@ -6,7 +6,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const AUTH_API =  "http://localhost:8080/v1/authenticate/admin";
+const AUTH_API =  "http://localhost:8080/v1/admin/categories";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  test(): Observable<any> {
-    return this.http.post(AUTH_API , null, httpOptions);
+  getAllCategories(): Observable<any> {
+    return this.http.get(AUTH_API , httpOptions);
   }
 }

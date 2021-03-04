@@ -4,13 +4,14 @@ import {  FormsModule , ReactiveFormsModule } from '@angular/forms'
 import { AppComponent } from './app.component';
 import { AppRoutingModule} from './app.routing.module';
 import { RouterModule} from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { SpinnerComponent, SpinnerShowService } from './spinner';
-import { SharedModule } from './shared-module/shared.module';
-import { RichtableComponent } from './shared-module';
-import { QuizModule } from './quiz-module/quiz.module';
-import { LoginModule } from './login-module';
+import { SpinnerComponent, SpinnerShowService } from './component/spinner';
+import { SharedModule } from './modules/shared-module/shared.module';
+import { RichtableComponent } from './modules/shared-module';
+import { QuizModule } from './modules/quiz-module/quiz.module';
+import { LoginModule } from './modules/login-module';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './helpers/auth.interceptor';
 
 
 
@@ -32,6 +33,7 @@ import { LoginModule } from './login-module';
     AppRoutingModule
   ],
   providers: [
+    { provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     SpinnerShowService
   ],
   bootstrap: [AppComponent]

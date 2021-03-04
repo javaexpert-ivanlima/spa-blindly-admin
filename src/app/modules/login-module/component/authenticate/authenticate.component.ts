@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} from  '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { SpinnerShowService } from 'src/app/spinner';
+import { SpinnerShowService } from 'src/app/component/spinner';
 
 import { Login } from '../../model';
 import { AuthenticateService, TokenStorageService } from '../../service';
