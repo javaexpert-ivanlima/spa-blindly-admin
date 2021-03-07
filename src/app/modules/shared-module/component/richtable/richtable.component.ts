@@ -12,6 +12,7 @@ export class RichtableComponent implements OnInit {
   
   @Input() title: string;
   @Input() tableCols: string[]  = [];
+  @Input() tableLabels: string[]  = [];
   @Input() tableData: {}[] = [];
   @Input() pageable: any;
 
@@ -33,6 +34,9 @@ export class RichtableComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    if (!this.tableLabels){
+        this.tableLabels = this.tableCols;
+    }
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual

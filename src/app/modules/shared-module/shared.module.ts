@@ -4,6 +4,7 @@ import { RichtableComponent } from './component';
 
 
 
+
 @NgModule({
   declarations: [RichtableComponent],
   exports:[RichtableComponent],

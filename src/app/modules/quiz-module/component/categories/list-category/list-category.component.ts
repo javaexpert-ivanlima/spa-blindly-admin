@@ -15,7 +15,8 @@ export class ListCategoryComponent implements OnInit {
   
   isLoggedIn = false;
 
-  columns : string[] = ['id','nameCategory'];
+  columns : string[] = ['id','nameCategory','active','modifiedBy','lastUpdateDate'];
+  labels : string[] = ['id','category','active','owner','update date'];
   rows: any[] = [];
   pageable: any;
 

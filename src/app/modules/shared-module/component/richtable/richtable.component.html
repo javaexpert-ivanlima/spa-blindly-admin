@@ -39,17 +39,32 @@
             </caption>
         <thead class="thead-light">
           <tr>            
-            <th *ngFor="let col of tableCols" scope="col">{{col | uppercase}}</th>
+            <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
             <th scope="col">ACTIONS</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let obj of tableData" scope="row">
-            <th *ngFor="let col of tableCols">{{obj[col]}}</th>
+            <th *ngFor="let col of tableCols">
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
+              <div *ngIf="col.includes('date') === false">
+                <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('active') === true">
+                    {{ obj[col]==='Y'?'YES':'NO' }}
+              </div>
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('active') === false">
+                {{ obj[col] }}
+              </div>
+
+            </div> 
+            </th>
             <td>
-              <button type="button" class="btn btn-primary"><i class="fa fa-eye"></i></button>
-              <button type="button" class="btn btn-success"><i class="fa fa-edit"></i></button>
-            <button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+              <div *ngIf="obj['active']==='N'">
+                  <button type="button" alt="Activated" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+              </div>
+              <div *ngIf="obj['active']==='Y'">
+                <button type="button" class="btn btn-success"><i alt="Edit" class="fa fa-edit"></i></button>
+                <button type="button" class="btn btn-danger"><i alt="Inactivated" class="fa fa-times"></i></button>
+              </div>  
             </td>
           </tr>
          

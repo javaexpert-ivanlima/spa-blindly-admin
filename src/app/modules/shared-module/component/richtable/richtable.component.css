@@ -17,6 +17,10 @@
     }
   }
 
+.inactive {
+    text-decoration: line-through;
+}
+
 .panelbackground-container {
   padding: 30px;
   width: 100% !important;
