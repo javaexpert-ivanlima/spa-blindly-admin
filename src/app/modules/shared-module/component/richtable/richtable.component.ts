@@ -4,6 +4,7 @@ import { TokenStorageService } from 'src/app/modules/login-module';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { EventEmitter } from '@angular/core';
 
+
 @Component({
   selector: 'app-richtable',
   templateUrl: './richtable.component.html',
@@ -22,6 +23,7 @@ export class RichtableComponent implements OnInit {
   @Output() editID = new EventEmitter();
   @Output() activateID = new EventEmitter();
 
+  
   submitted = false;
   errorMessage = '';
   currentPage : number = 0;
@@ -32,9 +34,9 @@ export class RichtableComponent implements OnInit {
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService
-    ) { }
-    
-
+    ) { 
+      
+    }
 
     fakeArray(): Array<any> {
         return new Array(this.pageable.totalPages);
@@ -53,15 +55,14 @@ export class RichtableComponent implements OnInit {
     this.spinnerService.hideSpinner();
   }
 
-  btnClick= function () {
-    this.router.navigateByUrl('/categories/create');
-  };
+
 
   pageClick(page: number){
     this.currentPage = page;
     this.emitterPage.emit(this.currentPage);
   }
 
+  
   deleteClick(id: number){
     this.deleteID.emit(id);
   }

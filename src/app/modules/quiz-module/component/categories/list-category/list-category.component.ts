@@ -3,6 +3,7 @@ import { TokenStorageService } from 'src/app/modules/login-module';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-list-category',
@@ -21,13 +22,21 @@ export class ListCategoryComponent implements OnInit {
   pageable: any;
 
   currentPage: number = 0;
+  filterForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
     private categoryService: CategoryService
-    ) { }
+    ) { 
+      this.filterForm = this.formBuilder.group({
+        exampleRadios: new FormControl(),
+        name: new FormControl()
+      });
+      console.log('errou');
+    }
 
   ngOnInit(): void {
     this.spinnerService.showSpinner();
@@ -101,4 +110,22 @@ export class ListCategoryComponent implements OnInit {
     }
     this.spinnerService.hideSpinner();
   }
+
+  btnClick= function () {
+    this.router.navigateByUrl('/categories/create');
+  };
+  
+  onSubmit() {
+    this.submitted = true;
+    // stop here if form is invalid
+    //if (this.filterForm.invalid) {
+    //        return;
+   // }
+   console.log(this.filterForm.value);
+    //this.filterEmitter.emit({"filterRadio":this.filterForm.value.exampleRadios,"filterName":this.filterForm.value.name});
+  }
+
+  get f() { return this.filterForm.controls; }
+
+
 }
