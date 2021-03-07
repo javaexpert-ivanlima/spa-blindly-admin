@@ -59,11 +59,11 @@
             </th>
             <td>
               <div *ngIf="obj['active']==='N'">
-                  <button type="button" alt="Activated" class="btn btn-primary"><i class="fa fa-eye"></i></button>
+                  <button type="button" (click)="activatedClick(obj['id']);" title="Activated" class="btn btn-primary"><i class="fa fa-eye"></i></button>
               </div>
               <div *ngIf="obj['active']==='Y'">
-                <button type="button" class="btn btn-success"><i alt="Edit" class="fa fa-edit"></i></button>
-                <button type="button" class="btn btn-danger"><i alt="Inactivated" class="fa fa-times"></i></button>
+                <button type="button" (click)="editClick(obj['id']);" title="Edit" class="btn btn-success"><i class="fa fa-edit"></i></button>
+                <button type="button" (click)="deleteClick(obj['id']);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
               </div>  
             </td>
           </tr>
@@ -71,18 +71,17 @@
         </tbody>
       </table>
       <nav class="pagination-outer" aria-label="Page navigation">
-          <ul class="pagination">
-              <li *ngIf="pageable.first == false" class="page-item">
-                  <a href="#" class="page-link" aria-label="Previous">
+          <ul *ngIf="pageable" class="pagination">
+              <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
+                  <a (click)="pageClick(0)" class="page-link" aria-label="Previous">
                       <span aria-hidden="true">«</span>
                   </a>
               </li>
-              <div  *ngIf="pageable.totalPages > 1"><!---->
-                <li *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active': i === pageable.pageNumber}" class="page-item"><a class="page-link" href="#">{{i}}</a></li>
-
-              </div>
-              <li *ngIf="pageable.last == false" class="page-item">
-                  <a href="#" class="page-link" aria-label="Next">
+                <li *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active disabled': i === pageable.pageNumber}" class="page-item">
+                  <a class="page-link" (click)="pageClick(i)">{{i}}</a>
+                </li>
+              <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.last}" class="page-item">
+                  <a (click)="pageClick(pageable.totalPages-1)" class="page-link" aria-label="Next">
                       <span aria-hidden="true">»</span>
                   </a>
               </li>

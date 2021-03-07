@@ -15,7 +15,21 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategories(): Observable<any> {
-    return this.http.get(AUTH_API , httpOptions);
+  getAllCategories(page: number): Observable<any> {
+    let url : string = AUTH_API;
+    if (!page){
+        page = 0;
+    }
+    url = url + '?page=' + page;
+    return this.http.get( url , httpOptions);
+  }
+
+  inactivatedCategory(id: number): Observable<any> {
+    let url : string = AUTH_API + "/inactive";
+    return this.http.put( url , {"id":id,"createdBy": "spa"},httpOptions);
+  }
+  activatedCategory(id: number): Observable<any> {
+    let url : string = AUTH_API + "/active";
+    return this.http.put( url , {"id":id,"createdBy": "spa2"},httpOptions);
   }
 }

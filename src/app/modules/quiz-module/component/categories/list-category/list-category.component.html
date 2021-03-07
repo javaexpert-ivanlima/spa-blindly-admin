@@ -1,2 +1,5 @@
-<app-richtable title="categories" [pageable]='pageable' [tableCols]='columns' [tableLabels]='labels' [tableData]='rows'>
+<app-richtable 
+(emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)'
+[title]="title" [pageable]='pageable' 
+[tableCols]='columns' [tableLabels]='labels' [tableData]='rows'>
 </app-richtable>

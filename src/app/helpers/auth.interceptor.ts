@@ -1,18 +1,26 @@
-import { HTTP_INTERCEPTORS, HttpEvent } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
 import { TokenStorageService } from '../modules/login-module';
-import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+
  
 const TOKEN_HEADER_KEY = 'Authorization';       // for Spring Boot back-end
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private token: TokenStorageService) { }
+  constructor(private router: Router,private token: TokenStorageService) { }
+
+  private handleAuthError(err: HttpErrorResponse) {
+    if (err.status === 401 || err.status === 403) {
+        this.router.navigateByUrl('/login/authenticate');
+    }
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("intercept");
     let authReq = request;
     const token = this.token.getToken();
     if (!request.headers.has('Content-Type')) {
@@ -21,11 +29,34 @@ export class AuthInterceptor implements HttpInterceptor {
 
   request = request.clone({ headers: request.headers.set('Accept', 'application/json') });
     if (token != null) {
-      console.log(token); 
       authReq = request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
     }
-    return next.handle(authReq);
-  }
+    return next.handle(authReq).pipe(
+      retry(1),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+          // client-side error
+          errorMessage = `Error: ${error.error.message}`;
+          window.alert(errorMessage);
+          //TODO (colocar modal)
+        } else {
+          // server-side error
+          if (error.status === 401 || error.status === 403) {
+            this.router.navigateByUrl('/login/authenticate');
+          }else{
+            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+            window.alert(errorMessage);
+            //TODO (colocar modal)
+          }
+          
+        }
+        
+        return throwError(error);
+      })
+    )
+    }    
+  
 }
 
 export const authInterceptorProviders = [

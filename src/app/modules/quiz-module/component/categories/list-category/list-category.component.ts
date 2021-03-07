@@ -14,11 +14,13 @@ export class ListCategoryComponent implements OnInit {
   errorMessage = '';
   
   isLoggedIn = false;
-
+  title : string = 'categories';
   columns : string[] = ['id','nameCategory','active','modifiedBy','lastUpdateDate'];
   labels : string[] = ['id','category','active','owner','update date'];
   rows: any[] = [];
   pageable: any;
+
+  currentPage: number = 0;
 
   constructor(
     private router: Router,
@@ -35,37 +37,68 @@ export class ListCategoryComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
-    this.carregaCategories();
+    this.carregaCategories(this.currentPage);
   
   }
 
-  carregaCategories() {
+  carregaCategories(page: number) {
     this.spinnerService.showSpinner();
-    this.categoryService.getAllCategories().subscribe(
+    this.categoryService.getAllCategories(page).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
-        this.pageable = data.data.pageable;
-        console.log("r -> " + data.data.content);
+        this.pageable = {"page": data.data.pageable,"last":data.data.last,"first":data.data.first,"totalPages":data.data.totalPages,"pageNumber":data.data.number};
       },
       err => {
-        if (err.error.errors){
-          this.errorMessage = err.error.errors.message  + " => ";
-          let array = err.error.errors.errors;
-          for (let i = 0; i < array.length; i++) {
-            this.errorMessage =  this.errorMessage + array[i] + "  "; 
-          }
-        }else{
-          if ( err.message.includes("Http failure response for")){
-            this.errorMessage = "Http service unavailable";
-          }else{
-            this.errorMessage = err.message;
-          }
-          
-        }
-        this.spinnerService.hideSpinner();
+        this.handleError(err);
       }
     );
   }
+  displayPage(page) {
+    this.currentPage = page;
+    this.carregaCategories(page);
+  }
+  exclude(id){
+    this.spinnerService.showSpinner();
+    this.categoryService.inactivatedCategory(id).subscribe(
+      data => {
+        this.carregaCategories(this.currentPage);
+        this.spinnerService.hideSpinner();
+      },
+      err => {
+        this.handleError(err);
+      }
+    );
+  }
+  activated(id){
+    this.spinnerService.showSpinner();
+    this.categoryService.activatedCategory(id).subscribe(
+      data => {
+        this.carregaCategories(this.currentPage);
+        this.spinnerService.hideSpinner();
+      },
+      err => {
+        this.handleError(err);
+      }
+    );
+    
+  }
 
+  handleError(err){
+    if (err.error.errors){
+      this.errorMessage = err.error.errors.message  + " => ";
+      let array = err.error.errors.errors;
+      for (let i = 0; i < array.length; i++) {
+        this.errorMessage =  this.errorMessage + array[i] + "  "; 
+      }
+    }else{
+      if ( err.message.includes("Http failure response for")){
+        this.errorMessage = "Http service unavailable";
+      }else{
+        this.errorMessage = err.message;
+      }
+      
+    }
+    this.spinnerService.hideSpinner();
+  }
 }
