@@ -16,8 +16,8 @@ export class ListCategoryComponent implements OnInit {
   
   isLoggedIn = false;
   title : string = 'categories';
-  columns : string[] = ['id','nameCategory','active','modifiedBy','lastUpdateDate'];
-  labels : string[] = ['id','category','active','owner','update date'];
+  columns : string[] = ['id','nameCategory','active','numberOfQuestions','modifiedBy','lastUpdateDate'];
+  labels : string[] = ['id','category','active','questions','owner','update date'];
   rows: any[] = [];
   pageable: any;
 
@@ -98,8 +98,9 @@ export class ListCategoryComponent implements OnInit {
   }
 
   handleError(err){
-    this.errorMessage = err.error.errors.message ;
+    
     if (err.error.errors){
+      this.errorMessage = err.error.errors.message ;
       if (err.error.errors.errors){
         this.errorMessage = this.errorMessage  + " => ";
         let array = err.error.errors.errors;

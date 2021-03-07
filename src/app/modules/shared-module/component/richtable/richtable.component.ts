@@ -22,6 +22,7 @@ export class RichtableComponent implements OnInit {
   @Output() deleteID = new EventEmitter();
   @Output() editID = new EventEmitter();
   @Output() activateID = new EventEmitter();
+  @Output() childID = new EventEmitter();
 
   
   submitted = false;
@@ -71,5 +72,8 @@ export class RichtableComponent implements OnInit {
   }
   activatedClick(id: number){
     this.activateID.emit(id);
+  }
+  accessChild(id: number){
+    this.childID.emit(id);
   }
 }

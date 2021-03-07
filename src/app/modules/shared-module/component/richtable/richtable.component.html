@@ -17,8 +17,13 @@
                 <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('active') === true">
                     {{ obj[col]==='Y'?'YES':'NO' }}
               </div>
-              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('active') === false">
+          
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('active') === false && col.includes('number') === false">
                 {{ obj[col] }}
+              </div>
+              
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
+                <a class="link" style="cursor: pointer;" (click)="accessChild(obj['id']);">{{ obj[col] }}</a>
               </div>
 
             </div> 
