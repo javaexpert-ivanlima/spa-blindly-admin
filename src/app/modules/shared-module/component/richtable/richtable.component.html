@@ -43,9 +43,11 @@
                       <span aria-hidden="true">«</span>
                   </a>
               </li>
-                <li *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active disabled': i === pageable.pageNumber}" class="page-item">
+              <ng-container *ngIf="pageable.totalPages > 1">
+                <li  *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active disabled': i === pageable.pageNumber}" class="page-item">
                   <a class="page-link" (click)="pageClick(i)">{{i}}</a>
                 </li>
+              </ng-container>
               <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.last}" class="page-item">
                   <a (click)="pageClick(pageable.totalPages-1)" class="page-link" aria-label="Next">
                       <span aria-hidden="true">»</span>

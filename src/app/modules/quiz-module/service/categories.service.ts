@@ -15,12 +15,29 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategories(page: number): Observable<any> {
+  getAllCategories(page: number,filter: string, name: string ): Observable<any> {
     let url : string = AUTH_API;
     if (!page){
         page = 0;
     }
-    url = url + '?page=' + page;
+    if (filter && filter == "all"){
+      url = url + '?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+    }else if (filter && filter == "inactive"){
+      url = url + '/inactive?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+    }else if (filter && filter == "active"){
+      url = url + '/active?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+    }else{
+      url = url + '?page=' + page;
+    }
     return this.http.get( url , httpOptions);
   }
 

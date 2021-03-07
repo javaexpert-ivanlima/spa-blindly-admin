@@ -34,23 +34,9 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(authReq).pipe(
       retry(1),
       catchError((error: HttpErrorResponse) => {
-        let errorMessage = '';
-        if (error.error instanceof ErrorEvent) {
-          // client-side error
-          errorMessage = `Error: ${error.error.message}`;
-          window.alert(errorMessage);
-          //TODO (colocar modal)
-        } else {
-          // server-side error
           if (error.status === 401 || error.status === 403) {
             this.router.navigateByUrl('/login/authenticate');
-          }else{
-            errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-            window.alert(errorMessage);
-            //TODO (colocar modal)
           }
-          
-        }
         
         return throwError(error);
       })

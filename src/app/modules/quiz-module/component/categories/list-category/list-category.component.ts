@@ -24,6 +24,9 @@ export class ListCategoryComponent implements OnInit {
   currentPage: number = 0;
   filterForm: FormGroup;
 
+  searchFor: string = null;
+  searchName: string = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -32,13 +35,14 @@ export class ListCategoryComponent implements OnInit {
     private categoryService: CategoryService
     ) { 
       this.filterForm = this.formBuilder.group({
-        exampleRadios: new FormControl(),
+        filterType: new FormControl(),
         name: new FormControl()
       });
-      console.log('errou');
+      this.filterForm.controls.filterType.setValue("all");
     }
 
   ngOnInit(): void {
+    
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
@@ -52,7 +56,7 @@ export class ListCategoryComponent implements OnInit {
 
   carregaCategories(page: number) {
     this.spinnerService.showSpinner();
-    this.categoryService.getAllCategories(page).subscribe(
+    this.categoryService.getAllCategories(page,this.searchFor,this.searchName).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -94,11 +98,14 @@ export class ListCategoryComponent implements OnInit {
   }
 
   handleError(err){
+    this.errorMessage = err.error.errors.message ;
     if (err.error.errors){
-      this.errorMessage = err.error.errors.message  + " => ";
-      let array = err.error.errors.errors;
-      for (let i = 0; i < array.length; i++) {
-        this.errorMessage =  this.errorMessage + array[i] + "  "; 
+      if (err.error.errors.errors){
+        this.errorMessage = this.errorMessage  + " => ";
+        let array = err.error.errors.errors;
+        for (let i = 0; i < array.length; i++) {
+          this.errorMessage =  this.errorMessage + array[i] + "  "; 
+        }
       }
     }else{
       if ( err.message.includes("Http failure response for")){
@@ -117,12 +124,21 @@ export class ListCategoryComponent implements OnInit {
   
   onSubmit() {
     this.submitted = true;
-    // stop here if form is invalid
-    //if (this.filterForm.invalid) {
-    //        return;
-   // }
-   console.log(this.filterForm.value);
-    //this.filterEmitter.emit({"filterRadio":this.filterForm.value.exampleRadios,"filterName":this.filterForm.value.name});
+    //stop here if form is invalid
+    if (this.filterForm.invalid) {
+            return;
+    }
+    if (this.filterForm.controls.name.value){
+      this.searchName = this.filterForm.controls.name.value;
+    }else{
+      this.searchName = null;  
+    }
+    if (this.filterForm.controls.filterType.value){
+      this.searchFor = this.filterForm.controls.filterType.value;
+    }else{
+      this.searchFor = null;
+    }
+    this.carregaCategories(this.currentPage);
   }
 
   get f() { return this.filterForm.controls; }
