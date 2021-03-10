@@ -4,6 +4,7 @@ import { SpinnerShowService } from 'src/app/component/spinner';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+declare var $: any 
 
 @Component({
   selector: 'app-list-category',
@@ -11,6 +12,12 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./list-category.component.css']
 })
 export class ListCategoryComponent implements OnInit {
+
+  bgColorTitle="#ffc107!important"; 
+  fgColorTitle="white";
+  titleModal="Confirmation";
+  textParagraph1="Are you totally sure about this operation?"
+  textParagraph2="If not please close this confirmation, else if you are sure click on confirm button.";
   submitted = false;
   errorMessage = '';
   
@@ -26,6 +33,12 @@ export class ListCategoryComponent implements OnInit {
 
   searchFor: string = null;
   searchName: string = null;
+
+  confirmButton: boolean = false;  
+
+  selectedID: number = 0;
+  operationType: string = null;
+  modalId = "dialogConfirm";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -71,19 +84,38 @@ export class ListCategoryComponent implements OnInit {
     this.currentPage = page;
     this.carregaCategories(page);
   }
-  exclude(id){
-    this.spinnerService.showSpinner();
-    this.categoryService.inactivatedCategory(id).subscribe(
-      data => {
-        this.carregaCategories(this.currentPage);
-        this.spinnerService.hideSpinner();
-      },
-      err => {
-        this.handleError(err);
-      }
-    );
+
+  confirmOperation(){
+    if (this.operationType == "E"){
+        this.inactivatedCategory(this.selectedID);
+    }else if (this.operationType == "A"){
+        this.activatedCategory(this.selectedID);
+    }
+    this.hideModal();
   }
-  activated(id){
+  exclude(obj){
+    this.titleModal = "Confirmation for exclusion";
+    this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be excluded.";
+    this.showModal(obj['id'],"E");
+  }
+
+  activated(obj){
+    this.titleModal = "Confirmation for activation";
+    this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be activated.";
+    this.showModal(obj['id'],"A");
+  }
+
+  hideModal(){
+    $("#"+this.modalId).modal('hide');
+  }
+
+  showModal(id,operation){
+    this.operationType = operation;
+    this.selectedID = id;
+    $("#"+this.modalId).modal('show');
+
+  }
+  activatedCategory(id){
     this.spinnerService.showSpinner();
     this.categoryService.activatedCategory(id).subscribe(
       data => {
@@ -97,27 +129,22 @@ export class ListCategoryComponent implements OnInit {
     
   }
 
-  handleError(err){
-    
-    if (err.error.errors){
-      this.errorMessage = err.error.errors.message ;
-      if (err.error.errors.errors){
-        this.errorMessage = this.errorMessage  + " => ";
-        let array = err.error.errors.errors;
-        for (let i = 0; i < array.length; i++) {
-          this.errorMessage =  this.errorMessage + array[i] + "  "; 
-        }
-      }
-    }else{
-      if ( err.message.includes("Http failure response for")){
-        this.errorMessage = "Http service unavailable";
-      }else{
-        this.errorMessage = err.message;
-      }
-      
-    }
-    this.spinnerService.hideSpinner();
+  inactivatedCategory(id){
+    this.spinnerService.showSpinner();
+    this.categoryService.inactivatedCategory(id).subscribe(
+          data => {
+            this.carregaCategories(this.currentPage);
+            this.spinnerService.hideSpinner();
+            this.confirmButton = false;
+          },
+          err => {
+            this.handleError(err);
+            this.confirmButton = false;
+          }
+    );
+
   }
+
 
   btnClick= function () {
     this.router.navigateByUrl('/categories/create');
@@ -144,5 +171,26 @@ export class ListCategoryComponent implements OnInit {
 
   get f() { return this.filterForm.controls; }
 
+  handleError(err){
+    
+    if (err.error.errors){
+      this.errorMessage = err.error.errors.message ;
+      if (err.error.errors.errors){
+        this.errorMessage = this.errorMessage  + " => ";
+        let array = err.error.errors.errors;
+        for (let i = 0; i < array.length; i++) {
+          this.errorMessage =  this.errorMessage + array[i] + "  "; 
+        }
+      }
+    }else{
+      if ( err.message.includes("Http failure response for")){
+        this.errorMessage = "Http service unavailable";
+      }else{
+        this.errorMessage = err.message;
+      }
+      
+    }
+    this.spinnerService.hideSpinner();
+  }
 
 }

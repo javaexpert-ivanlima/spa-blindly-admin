@@ -64,13 +64,13 @@ export class RichtableComponent implements OnInit {
   }
 
   
-  deleteClick(id: number){
+  deleteClick(id: any){
     this.deleteID.emit(id);
   }
   editClick(id: number){
     this.editID.emit(id);
   }
-  activatedClick(id: number){
+  activatedClick(id: any){
     this.activateID.emit(id);
   }
   accessChild(id: number){

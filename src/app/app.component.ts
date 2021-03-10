@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
 import { AuthenticateService, TokenStorageService } from './modules/login-module';
 import { SpinnerShowService } from './component/spinner';
-
+//declare var $ : any;
 
 
 
@@ -32,4 +32,6 @@ export class AppComponent  implements OnInit{
     this.tokenStorageService.signOut();
     window.location.reload();
   }
+  
+
 }

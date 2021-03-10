@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import * as $ from 'jquery';
+//import * as $ from 'jquery';
 
 @Injectable()
 export class SpinnerShowService {

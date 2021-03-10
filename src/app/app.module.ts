@@ -7,7 +7,6 @@ import { RouterModule} from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SpinnerComponent, SpinnerShowService } from './component/spinner';
 import { SharedModule } from './modules/shared-module/shared.module';
-import { RichtableComponent } from './modules/shared-module';
 import { QuizModule } from './modules/quiz-module/quiz.module';
 import { LoginModule } from './modules/login-module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';

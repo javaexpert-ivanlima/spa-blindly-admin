@@ -30,11 +30,11 @@
             </th>
             <td>
               <div *ngIf="obj['active']==='N'">
-                  <button type="button" (click)="activatedClick(obj['id']);" title="Activated" class="btn btn-secondary"><i class="fa fa-eye"></i></button>
+                  <button type="button" (click)="activatedClick(obj);" title="Activated" class="btn btn-secondary"><i class="fa fa-eye"></i></button>
               </div>
               <div *ngIf="obj['active']==='Y'">
                 <button type="button" (click)="editClick(obj['id']);" title="Edit" class="btn btn-secondary"><i class="fa fa-edit"></i></button>
-                &nbsp;<button type="button" (click)="deleteClick(obj['id']);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
               </div>  
             </td>
           </tr>
