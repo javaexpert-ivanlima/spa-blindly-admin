@@ -13,7 +13,8 @@ export const QuizRoutes: Routes = [
         component: ListCategoryComponent
     },
     {
-        path: 'categories/audit/:id',
+        //path: 'categories/audit/:id/:name',
+        path: 'categories/audit',
         component: AuditCategoryComponent
     }
 ]

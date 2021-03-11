@@ -23,7 +23,8 @@ export class AuditCategoryComponent implements OnInit {
   currentPage: number = 0;
   errorMessage = '';
   selectedID: number =0;
-  hide: boolean = false;
+  selectedName: string;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -35,8 +36,13 @@ export class AuditCategoryComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-
-    this.selectedID = this.route.snapshot.params.id;
+    //this.selectedID = this.route.snapshot.params.id;
+    //this.selectedName = this.route.snapshot.params.name;
+    if (!this.spinnerService.getCategoryObject()){
+        this.router.navigateByUrl('/categories/list');
+    }
+    this.selectedID = this.spinnerService.getCategoryObject().row.id;
+    this.selectedName = this.spinnerService.getCategoryObject().row.nameCategory;
 
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
@@ -44,18 +50,18 @@ export class AuditCategoryComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
-    this.hide = false;
     this.carregaCategoriesAudit(this.currentPage,this.selectedID);
 
   }
 
   backButton(){
-    this._location.back();
+    //this._location.back();
+    this.router.navigateByUrl('/categories/list');
   }
   carregaCategoriesAudit(page: number,id:number) {
     this.pageable = null;
     this.rows = null;
-    this.hide = null;
+    this.title = "audit category - " + this.selectedName;
     this.spinnerService.showSpinner();
     this.categoryService.getAuditCategory(page,id).subscribe(
       data => {

@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 export class SpinnerShowService {
 
   private dataObsevable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  private categoryObject: any = null;
 
   constructor() {
   }
@@ -15,6 +16,12 @@ export class SpinnerShowService {
     $("#overlayLoading").hide();
   }
 
+  getCategoryObject(): any{
+    return this.categoryObject;
+  }
+  setCategoryObject(obj:any){
+    this.categoryObject = obj;
+  }
   showSpinner():void{
       this.dataObsevable.next(true);
       $("#overlayLoading").show();

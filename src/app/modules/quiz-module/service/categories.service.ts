@@ -65,9 +65,8 @@ export class CategoryService {
     if (!page){
         page = 0;
     }
-    if (id){
-        url = url + '/audit?id=' + id + '&page=' + page;
-    } 
+    url = url + '/audit?id=' + id + '&page=' + page;
+   
     return this.http.get( url , httpOptions);
   }
 }

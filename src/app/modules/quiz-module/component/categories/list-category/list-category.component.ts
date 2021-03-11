@@ -73,7 +73,15 @@ export class ListCategoryComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    
+    //se veio da tela de audit, popula os filtros que ja estavam como paginacao e campos da busca
+    if (this.spinnerService.getCategoryObject()){
+      this.currentPage = this.spinnerService.getCategoryObject().filter.page;
+      this.searchFor = this.spinnerService.getCategoryObject().filter.searchFor;
+      this.searchName = this.spinnerService.getCategoryObject().filter.searchName;
+      this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor);
+      this.filterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
+    }
+    //verificacao de sessao expirada
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
@@ -81,6 +89,7 @@ export class ListCategoryComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
+    //preenche lista
     this.carregaCategories(this.currentPage);
   
   }
@@ -152,7 +161,9 @@ export class ListCategoryComponent implements OnInit {
   }
 
   audit(obj){
-    this.router.navigate(['/categories/audit/',obj['id']]);
+    this.spinnerService.setCategoryObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName}});
+    //this.router.navigate(['/categories/audit/',obj['id'],obj['nameCategory']]);
+    this.router.navigateByUrl('/categories/audit');
   }
 
 
