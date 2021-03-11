@@ -3,7 +3,7 @@ import { TokenStorageService } from 'src/app/modules/login-module';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 declare var $: any 
 
 @Component({
@@ -18,7 +18,10 @@ export class ListCategoryComponent implements OnInit {
   titleModal="Confirmation";
   textParagraph1="Are you totally sure about this operation?"
   textParagraph2="If not please close this confirmation, else if you are sure click on confirm button.";
+  lablelButton="Confirm";
+
   submitted = false;
+  submittedRegister = false;
   errorMessage = '';
   
   isLoggedIn = false;
@@ -36,9 +39,15 @@ export class ListCategoryComponent implements OnInit {
 
   confirmButton: boolean = false;  
 
-  selectedID: number = 0;
+  selectedID: any = null;
   operationType: string = null;
   modalId = "dialogConfirm";
+  content = "<p>"+this.textParagraph1+"</p><p>"+this.textParagraph2+"</p>";
+  categoryForm: FormGroup;
+
+  isRegisterOk: boolean = false;
+
+  showForm: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,11 +56,20 @@ export class ListCategoryComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private categoryService: CategoryService
     ) { 
+      this.categoryForm = this.formBuilder.group({
+        name: [null, [
+          Validators.required, 
+          Validators.minLength(4)// ,
+          //Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+        ]
+      ]
+      });
       this.filterForm = this.formBuilder.group({
         filterType: new FormControl(),
         name: new FormControl()
       });
       this.filterForm.controls.filterType.setValue("all");
+      
     }
 
   ngOnInit(): void {
@@ -87,31 +105,80 @@ export class ListCategoryComponent implements OnInit {
 
   confirmOperation(){
     if (this.operationType == "E"){
-        this.inactivatedCategory(this.selectedID);
+        this.inactivatedCategory(this.selectedID['id']);
     }else if (this.operationType == "A"){
-        this.activatedCategory(this.selectedID);
+        this.activatedCategory(this.selectedID['id']);
+    } else if (this.operationType == "C"){
+        this.submittedRegister = true;
+        this.submitted = false;
+        this.errorMessage = null;
+        if (this.categoryForm.invalid) {
+          return;
+        }
+        this.createCategory(this.categoryForm.controls.name.value);       
+    } else if ( this.operationType == "U"){
+      this.submittedRegister = true;
+      this.submitted = false;
+      this.errorMessage = null;
+      if (this.categoryForm.invalid) {
+        return;
+      }
+      this.updateCategory(this.selectedID['id'],this.categoryForm.controls.name.value);       
+    } else if (this.operationType == "Z"){
+      this.hideModal();
     }
-    this.hideModal();
+    
   }
   exclude(obj){
+    this.lablelButton="Delete";
+    this.bgColorTitle = "#007bff!important"; 
+    this.showForm = false;
     this.titleModal = "Confirmation for exclusion";
     this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be excluded.";
-    this.showModal(obj['id'],"E");
+    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+    this.showModal(obj,"E");
   }
 
+  edit(obj){
+    this.submittedRegister = false;
+    this.submitted = false;
+    this.errorMessage = null;
+    this.lablelButton="Update";
+    this.bgColorTitle = "#007bff!important"; 
+    this.titleModal = "Edit category";
+    this.categoryForm.controls.name.setValue(obj['nameCategory']);
+    this.showForm = true;
+    this.showModal(obj,"U");
+  }
+
+
+  showConfirmation(text){
+    this.lablelButton="OK";
+    this.bgColorTitle = "#ffc107!important"; 
+    this.showForm = false;
+    this.titleModal = "Sucess";
+    this.textParagraph1 = "";
+    this.textParagraph2 = text;
+    this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
+    this.operationType ="Z";
+  }
   activated(obj){
+    this.lablelButton="Activate";
+    this.bgColorTitle = "#007bff!important"; 
+    this.showForm = false;
     this.titleModal = "Confirmation for activation";
     this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be activated.";
-    this.showModal(obj['id'],"A");
+    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+    this.showModal(obj,"A");
   }
 
   hideModal(){
     $("#"+this.modalId).modal('hide');
   }
 
-  showModal(id,operation){
+  showModal(obj,operation){
     this.operationType = operation;
-    this.selectedID = id;
+    this.selectedID = obj;
     $("#"+this.modalId).modal('show');
 
   }
@@ -119,8 +186,43 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.categoryService.activatedCategory(id).subscribe(
       data => {
+        this.currentPage =0;
         this.carregaCategories(this.currentPage);
         this.spinnerService.hideSpinner();
+        this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was activated with sucess.");
+      },
+      err => {
+        this.handleError(err);
+        this.hideModal();
+      }
+    );
+    
+  }
+
+  createCategory(category){
+    
+    this.spinnerService.showSpinner();
+    this.categoryService.createCategory(category).subscribe(
+      data => {
+        this.carregaCategories(this.currentPage);
+        this.spinnerService.hideSpinner();
+        this.showConfirmation("Category ["+category+"] was created with sucess.");
+      },
+      err => {
+        this.handleError(err);
+      }
+    );
+    
+  }
+
+  updateCategory(id,category){
+    
+    this.spinnerService.showSpinner();
+    this.categoryService.updateCategory(id,category).subscribe(
+      data => {
+        this.carregaCategories(this.currentPage);
+        this.spinnerService.hideSpinner();
+        this.showConfirmation("Category ["+category+"] was updated with sucess.");
       },
       err => {
         this.handleError(err);
@@ -133,25 +235,42 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.categoryService.inactivatedCategory(id).subscribe(
           data => {
+            this.currentPage =0;
             this.carregaCategories(this.currentPage);
             this.spinnerService.hideSpinner();
+            this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was deleted with sucess.");
             this.confirmButton = false;
           },
           err => {
             this.handleError(err);
             this.confirmButton = false;
+            this.hideModal();
           }
     );
 
   }
 
 
-  btnClick= function () {
-    this.router.navigateByUrl('/categories/create');
+
+  addNew() {
+    this.submittedRegister = false;
+    this.submitted = false;
+    this.errorMessage = null;
+    this.showForm = true;
+    this.bgColorTitle = "#007bff!important"
+    this.titleModal = "Create a new category";
+    this.lablelButton="Create";
+    this.categoryForm.controls.name.setValue(null);
+    this.showModal(null,"C");
   };
   
+
+
   onSubmit() {
     this.submitted = true;
+    this.submittedRegister = false;
+    this.errorMessage = null;
+    this.currentPage = 0;
     //stop here if form is invalid
     if (this.filterForm.invalid) {
             return;
@@ -171,6 +290,8 @@ export class ListCategoryComponent implements OnInit {
 
   get f() { return this.filterForm.controls; }
 
+  get f2() { return this.categoryForm.controls; }
+  
   handleError(err){
     
     if (err.error.errors){

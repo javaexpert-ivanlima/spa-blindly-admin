@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-modal',
@@ -11,13 +11,16 @@ export class ModalComponent implements OnInit {
   @Input() bgColorTitle: string;
   @Input() fgColorTitle: string;
   @Input() modalID: string;
-  @Input() txtParagraph1: string;
-  @Input() txtParagraph2: string;
+  @Input() lblBtnOK: string;
   @Output() clickOK = new EventEmitter();
+  @ViewChild('contentWrapper') content;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit() {
   }
 
   buttonOK(){

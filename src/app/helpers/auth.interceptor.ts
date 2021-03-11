@@ -6,13 +6,14 @@ import { TokenStorageService } from '../modules/login-module';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { SpinnerShowService } from '../component/spinner';
 
  
 const TOKEN_HEADER_KEY = 'Authorization';       // for Spring Boot back-end
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private router: Router,private token: TokenStorageService) { }
+  constructor(private router: Router,private token: TokenStorageService,private service: SpinnerShowService) { }
 
   private handleAuthError(err: HttpErrorResponse) {
     if (err.status === 401 || err.status === 403) {
@@ -35,6 +36,8 @@ export class AuthInterceptor implements HttpInterceptor {
       retry(1),
       catchError((error: HttpErrorResponse) => {
           if (error.status === 401 || error.status === 403) {
+            this.service.hideSpinner();
+            this.service.hideMainModal();
             this.router.navigateByUrl('/login/authenticate');
           }
         

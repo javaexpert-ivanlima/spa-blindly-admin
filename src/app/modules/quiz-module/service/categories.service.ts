@@ -1,12 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 const AUTH_API =  "http://localhost:8080/v1/admin/categories";
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,10 +45,18 @@ export class CategoryService {
 
   inactivatedCategory(id: number): Observable<any> {
     let url : string = AUTH_API + "/inactive";
-    return this.http.put( url , {"id":id,"createdBy": "spa"},httpOptions);
+    return this.http.put( url , {"id":id},httpOptions);
   }
   activatedCategory(id: number): Observable<any> {
     let url : string = AUTH_API + "/active";
-    return this.http.put( url , {"id":id,"createdBy": "spa2"},httpOptions);
+    return this.http.put( url , {"id":id},httpOptions);
+  }
+
+  createCategory(category: string): Observable<any> {
+    return this.http.post( AUTH_API , {"nameCategory":category},httpOptions);
+  }
+
+  updateCategory(id: number,category: string): Observable<any> {
+    return this.http.put( AUTH_API , {"id":id,"nameCategory":category},httpOptions);
   }
 }

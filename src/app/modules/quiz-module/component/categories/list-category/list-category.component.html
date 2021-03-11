@@ -2,7 +2,7 @@
     <div class="panelbackground-container">
       <div class="row">  
           <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button type="button" data-toggle="modal" data-target="#dialogConfirm" class="btn btn-primary btn-rounded float-right mb-2">Add New</button></div>
+          <div class="col-sm-6"><button type="button" (click)="addNew()" class="btn btn-primary btn-rounded float-right mb-2">Add New</button></div>
       </div>
       <div class="border" style="padding: 2%;">
         <form  [formGroup]="filterForm" class="form-group" #f="ngForm" > 
@@ -41,7 +41,7 @@
     </div>  
     <div class="row">
         <div class="col">
-            <div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+            <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
                 Search failed: {{ errorMessage }}
                 </div>              
         </div>
@@ -53,7 +53,7 @@
 
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)'
-[title]="title" [pageable]='pageable' 
+[title]="title" [pageable]='pageable' (editID)='edit($event)' 
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows'>
 </app-richtable>
 
@@ -61,7 +61,27 @@
 </div> 
 
 <app-modal [modalID]="modalId" [title]="titleModal"  (clickOK)="confirmOperation()"
-[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle"
-[txtParagraph1]="textParagraph1" 
-[txtParagraph2]="textParagraph2"
-> </app-modal>
+[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton">
+
+    <div *ngIf="!showForm" [innerHtml]="content" ></div> 
+    <div *ngIf="showForm">    
+        <div id="login-modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="loginmodal-container ">       
+        <form  [formGroup]="categoryForm" (ngSubmit)="confirmOperation()" class="form-group" #f2="ngForm">
+                    <input id="name" formControlName="name" type="text" name="name" class="form-control" placeholder="Category name" >
+                    
+          <div *ngIf="submittedRegister && categoryForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+            <div *ngIf="submittedRegister && categoryForm.controls.name.errors.required">Category NAME is required</div>
+            <div *ngIf="submittedRegister && categoryForm.controls.name.errors.minlength">Category name must be at least 4 characters</div>
+        </div>					  
+    
+                    <div class="form-group">
+                          <div class="mt-1 alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
+                                  Category failed: {{ errorMessage }}
+                          </div>
+                    </div> 
+          </form>
+          </div>
+          </div>
+  </div>               
+</app-modal>

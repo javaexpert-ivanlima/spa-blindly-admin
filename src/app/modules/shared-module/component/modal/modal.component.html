@@ -9,12 +9,13 @@
           </button>
         </div>
         <div class="modal-body">
-            <p>{{txtParagraph1}}</p>
-            <p>{{txtParagraph2}}</p>
+            <div #contentWrapper>
+                  <ng-content></ng-content>
+            </div>      
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" (click)="buttonOK()" class="btn btn-primary">Confirm</button>
+          <button type="button" (click)="buttonOK()" class="btn btn-primary">{{lblBtnOK}}</button>
         </div>
       </div>
     </div>

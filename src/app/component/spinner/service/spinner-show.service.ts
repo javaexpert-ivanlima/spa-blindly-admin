@@ -20,7 +20,9 @@ export class SpinnerShowService {
       $("#overlayLoading").show();
   }
 
-  
+  hideMainModal(){
+    $("#dialogConfirm").modal('hide');
+  }  
   showLoginElements(show: boolean): void{
     if (show){
       $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
