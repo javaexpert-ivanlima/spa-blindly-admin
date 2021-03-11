@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from 'src/app/modules/login-module';
 import { SpinnerShowService } from 'src/app/component/spinner';
-import { Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 declare var $: any 
@@ -149,6 +149,10 @@ export class ListCategoryComponent implements OnInit {
     this.categoryForm.controls.name.setValue(obj['nameCategory']);
     this.showForm = true;
     this.showModal(obj,"U");
+  }
+
+  audit(obj){
+    this.router.navigate(['/categories/audit/',obj['id']]);
   }
 
 

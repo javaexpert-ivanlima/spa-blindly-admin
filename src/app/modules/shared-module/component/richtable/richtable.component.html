@@ -6,7 +6,7 @@
         <thead class="thead-light">
           <tr>            
             <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
-            <th scope="col">ACTIONS</th>
+            <th *ngIf="hideActionColumn" scope="col">ACTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -28,14 +28,15 @@
 
             </div> 
             </th>
-            <td>
-              <div *ngIf="obj['active']==='N'">
-                  <button type="button" (click)="activatedClick(obj);" title="Activated" class="btn btn-secondary"><i class="fa fa-eye"></i></button>
-              </div>
-              <div *ngIf="obj['active']==='Y'">
-                <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-secondary"><i class="fa fa-edit"></i></button>
+            <td *ngIf="hideActionColumn" >
+              <ng-container *ngIf="obj['active']==='N'">
+                  <button type="button" (click)="activatedClick(obj);" title="Activated" class="btn btn-info"><i class="fa fa-eye"></i></button>
+              </ng-container>
+              <ng-container *ngIf="obj['active']==='Y'">
+                <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-info"><i class="fa fa-edit"></i></button>
                 &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
-              </div>  
+              </ng-container>  
+                &nbsp;<button type="button" (click)="auditClick(obj);" title="Audit" class="btn btn-secondary"><i class="fa fa-camera-retro"></i></button>
             </td>
           </tr>
          

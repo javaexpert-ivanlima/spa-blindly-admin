@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginModule, TokenStorageService } from '../login-module';
 import { SharedModule } from '../shared-module/shared.module';
+import { AuditCategoryComponent } from './component';
 
 
 
@@ -12,10 +13,10 @@ import { SharedModule } from '../shared-module/shared.module';
 
 @NgModule({
   declarations: [ 
-    ListCategoryComponent
+    ListCategoryComponent, AuditCategoryComponent
   ],
   exports:[
-    ListCategoryComponent
+    ListCategoryComponent, AuditCategoryComponent
   ],
   imports: [
     CommonModule,

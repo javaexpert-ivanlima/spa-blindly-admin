@@ -12,6 +12,7 @@ import { EventEmitter } from '@angular/core';
 })
 export class RichtableComponent implements OnInit {
   
+  @Input() hideActionColumn: string = null;
   @Input() title: string;
   @Input() tableCols: string[]  = [];
   @Input() tableLabels: string[]  = [];
@@ -20,6 +21,7 @@ export class RichtableComponent implements OnInit {
 
   @Output() emitterPage = new EventEmitter();
   @Output() deleteID = new EventEmitter();
+  @Output() auditID = new EventEmitter();  
   @Output() editID = new EventEmitter();
   @Output() activateID = new EventEmitter();
   @Output() childID = new EventEmitter();
@@ -54,6 +56,9 @@ export class RichtableComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
+    if (!this.hideActionColumn){
+        this.hideActionColumn = "false";
+    }
   }
 
 
@@ -67,6 +72,11 @@ export class RichtableComponent implements OnInit {
   deleteClick(id: any){
     this.deleteID.emit(id);
   }
+
+  auditClick(id: any){
+    this.auditID.emit(id);
+  }
+
   editClick(id: number){
     this.editID.emit(id);
   }

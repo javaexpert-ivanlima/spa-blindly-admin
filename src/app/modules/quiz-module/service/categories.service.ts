@@ -59,4 +59,15 @@ export class CategoryService {
   updateCategory(id: number,category: string): Observable<any> {
     return this.http.put( AUTH_API , {"id":id,"nameCategory":category},httpOptions);
   }
+
+  getAuditCategory(page: number,id: number ): Observable<any> {
+    let url : string = AUTH_API;
+    if (!page){
+        page = 0;
+    }
+    if (id){
+        url = url + '/audit?id=' + id + '&page=' + page;
+    } 
+    return this.http.get( url , httpOptions);
+  }
 }

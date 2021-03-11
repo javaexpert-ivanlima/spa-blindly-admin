@@ -35,7 +35,7 @@
              <input formControlName="name" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for {{title}}..."> 
             </div>
             <div class="col-sm-auto mt-2">
-      &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-secondary">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
+      &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
     </div>
     
     </div>  
@@ -53,7 +53,7 @@
 
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)'
-[title]="title" [pageable]='pageable' (editID)='edit($event)' 
+[title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' 
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows'>
 </app-richtable>
 
