@@ -78,7 +78,7 @@ export class ListCategoryComponent implements OnInit {
       this.currentPage = this.spinnerService.getCategoryObject().filter.page;
       this.searchFor = this.spinnerService.getCategoryObject().filter.searchFor;
       this.searchName = this.spinnerService.getCategoryObject().filter.searchName;
-      this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor);
+      this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"all");
       this.filterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
     }
     //verificacao de sessao expirada
