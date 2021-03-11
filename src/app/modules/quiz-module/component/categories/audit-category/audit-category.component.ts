@@ -23,7 +23,7 @@ export class AuditCategoryComponent implements OnInit {
   currentPage: number = 0;
   errorMessage = '';
   selectedID: number =0;
-  hide: string = "true";
+  hide: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +44,7 @@ export class AuditCategoryComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
+    this.hide = false;
     this.carregaCategoriesAudit(this.currentPage,this.selectedID);
 
   }
@@ -54,7 +55,7 @@ export class AuditCategoryComponent implements OnInit {
   carregaCategoriesAudit(page: number,id:number) {
     this.pageable = null;
     this.rows = null;
-    this.hide = "true";
+    this.hide = null;
     this.spinnerService.showSpinner();
     this.categoryService.getAuditCategory(page,id).subscribe(
       data => {
