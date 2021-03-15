@@ -4,13 +4,14 @@ import { RichtableComponent } from './component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ModalComponent } from './component';
+import { ComboboxComponent } from './component';
 
 
 
 
 @NgModule({
-  declarations: [RichtableComponent, ModalComponent],
-  exports:[RichtableComponent,ModalComponent],
+  declarations: [RichtableComponent, ModalComponent, ComboboxComponent],
+  exports:[RichtableComponent,ModalComponent,ComboboxComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -54,3 +54,75 @@ font-family: roboto;
     justify-content: center;
     justify-items: center;
   }
+
+  .bg-purple{
+    background-color: #8c54a1!important;
+  }
+  .btn-purple {
+    color: #fff!important;
+    background-color: #8c54a1 !important;
+  }
+  
+  .btn-purple:hover {
+    color: #fff!important;
+    background-color: #8e24aa !important;
+  }
+
+  .btn-link {
+    color: #8c54a1 !important;
+  }
+  
+  .btn-link:hover {
+    color: #8e24aa !important;
+  }
+
+  .btn-purple-secondary {
+    color: #fff!important;
+    background-color: #a6c !important;
+  }
+  
+  .btn-purple-secondary:hover {
+    color: #fff!important;
+    background-color: #8e24aa !important;
+  }
+  
+  input[type='radio']:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+
+    input[type='radio']:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -1px;
+        position: relative;
+        background-color: #8e24aa;
+        content: '';
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+    }
+
+    .btn.focus, .btn:focus {
+      outline: 0;
+      box-shadow: none!important;
+  }
+
+  .form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #a6c!important;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem #8e24aa!important;
+}

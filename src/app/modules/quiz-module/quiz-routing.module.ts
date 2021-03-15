@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {  AuditCategoryComponent, ListCategoryComponent } from './component';
+import {  AuditCategoryComponent, ListCategoryComponent, ListQuestionsComponent } from './component';
 
 
 export const QuizRoutes: Routes = [
@@ -16,5 +16,13 @@ export const QuizRoutes: Routes = [
         //path: 'categories/audit/:id/:name',
         path: 'categories/audit',
         component: AuditCategoryComponent
+    },
+    {
+        path: 'questions',
+        redirectTo: 'questions/list'
+    },
+    {
+        path: 'questions/list',
+        component: ListQuestionsComponent
     }
 ]

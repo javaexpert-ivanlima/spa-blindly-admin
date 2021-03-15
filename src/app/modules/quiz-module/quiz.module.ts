@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginModule, TokenStorageService } from '../login-module';
 import { SharedModule } from '../shared-module/shared.module';
 import { AuditCategoryComponent } from './component';
+import { ListQuestionsComponent } from './component/questions/list-questions/list-questions.component';
 
 
 
@@ -13,7 +14,7 @@ import { AuditCategoryComponent } from './component';
 
 @NgModule({
   declarations: [ 
-    ListCategoryComponent, AuditCategoryComponent
+    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent
   ],
   exports:[
     ListCategoryComponent, AuditCategoryComponent

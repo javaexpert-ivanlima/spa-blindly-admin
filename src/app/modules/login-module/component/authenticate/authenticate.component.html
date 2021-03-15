@@ -8,7 +8,7 @@
               <div *ngIf="submitted && loginForm.controls.email.errors.required">Email is required</div>
               <div *ngIf="submitted && loginForm.controls.email.errors.email">Email must be a valid email address</div>
           </div>					  
-            <input id="password" formControlName="password" type="password" name="password" class="form-control" placeholder="Password">
+            <input id="password" formControlName="password" type="password" name="password" class="form-control mt-2" placeholder="Password">
             <div *ngIf="submitted && loginForm.controls.password.errors" class="form-group alert alert-danger" role="alert">
               <div *ngIf="submitted && loginForm.controls.password.errors.required">Password is required</div>
               <div *ngIf="submitted && loginForm.controls.password.errors.minlength">Password must be at least 6 characters</div>

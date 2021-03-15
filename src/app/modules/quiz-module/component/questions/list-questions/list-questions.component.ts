@@ -4,14 +4,15 @@ import { SpinnerShowService } from 'src/app/component/spinner';
 import {  Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { QuestionsService } from '../../../service/questions.service';
 declare var $: any 
 
 @Component({
-  selector: 'app-list-category',
-  templateUrl: './list-category.component.html',
-  styleUrls: ['./list-category.component.css']
+  selector: 'app-list-questions',
+  templateUrl: './list-questions.component.html',
+  styleUrls: ['./list-questions.component.css']
 })
-export class ListCategoryComponent implements OnInit {
+export class ListQuestionsComponent implements OnInit {
 
   bgColorTitle="#ffc107!important"; 
   fgColorTitle="white";
@@ -25,9 +26,9 @@ export class ListCategoryComponent implements OnInit {
   errorMessage = '';
   
   isLoggedIn = false;
-  title : string = 'categories';
-  columns : string[] = ['id','nameCategory','active','numberOfQuestions','modifiedBy','lastUpdateDate'];
-  labels : string[] = ['id','category','active','questions','owner','update date'];
+  title : string = 'questions';
+  columns : string[] = ['id','question','active','weight','isMulitpleChoice','numberofanswers','category','modifiedBy','lastUpdateDate'];
+  labels : string[] = ['id','question','active','weight','multiplechoice','answers','category','owner','update date'];
   rows: any[] = [];
   pageable: any;
 
@@ -36,6 +37,7 @@ export class ListCategoryComponent implements OnInit {
 
   searchFor: string = null;
   searchName: string = null;
+  searchCategory: number = null;
 
   confirmButton: boolean = false;  
 
@@ -48,7 +50,9 @@ export class ListCategoryComponent implements OnInit {
   isRegisterOk: boolean = false;
 
   showForm: boolean = false;
-  
+
+  itemList = null;
+
   stateCollapse: boolean = true;
 
   constructor(
@@ -56,10 +60,12 @@ export class ListCategoryComponent implements OnInit {
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private questionService: QuestionsService
     ) { 
       this.categoryForm = this.formBuilder.group({
         name: [null, [
+          Validators.required, 
           Validators.required, 
           Validators.minLength(4)// ,
           //Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
@@ -68,31 +74,14 @@ export class ListCategoryComponent implements OnInit {
       });
       this.filterForm = this.formBuilder.group({
         filterType: new FormControl(),
+        filterCategory: new FormControl(),
         name: new FormControl()
       });
       this.filterForm.controls.filterType.setValue("all");
-      
     }
-    changeCollapseLabel(){
-    
-      if (this.stateCollapse){
-          this.stateCollapse = false;
-          $("#collapseCategory").collapse('show');
-      }else{
-        this.stateCollapse = true;
-        $("#collapseCategory").collapse('hide');
-      }
-    }
-  
+
   ngOnInit(): void {
-    //se veio da tela de audit, popula os filtros que ja estavam como paginacao e campos da busca
-    if (this.spinnerService.getCategoryObject()){
-      this.currentPage = this.spinnerService.getCategoryObject().filter.page;
-      this.searchFor = this.spinnerService.getCategoryObject().filter.searchFor;
-      this.searchName = this.spinnerService.getCategoryObject().filter.searchName;
-      this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"all");
-      this.filterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
-    }
+
     //verificacao de sessao expirada
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
@@ -102,13 +91,57 @@ export class ListCategoryComponent implements OnInit {
     }    
     this.spinnerService.hideSpinner();
     //preenche lista
-    this.carregaCategories(this.currentPage);
+    this.carregaCombobox();
   
   }
 
-  carregaCategories(page: number) {
+  changeCollapseLabel(){
+    
+    if (this.stateCollapse){
+        this.stateCollapse = false;
+        $("#collapseQuestion").collapse('show');
+    }else{
+      this.stateCollapse = true;
+      $("#collapseQuestion").collapse('hide');
+    }
+  }
+
+  async carregaCombobox() {
     this.spinnerService.showSpinner();
-    this.categoryService.getAllCategories(page,this.searchFor,this.searchName).subscribe(
+    this.categoryService.getAllCategoriesNoPagination().subscribe(
+      data => {
+        this.spinnerService.hideSpinner();
+        this.itemList = data.data;
+      },
+      err => {
+        this.handleError(err);
+      }
+    );
+  }
+  
+  setupCategory(category: any){
+    if (category){
+      this.filterForm.controls.filterCategory.setValue(category.id);
+    }else{
+      this.filterForm.controls.filterCategory.setValue("");
+    }
+  }
+
+  temp(){
+       //se veio da tela de audit, popula os filtros que ja estavam como paginacao e campos da busca
+       if (this.spinnerService.getCategoryObject()){
+        this.currentPage = this.spinnerService.getCategoryObject().filter.page;
+        this.searchFor = this.spinnerService.getCategoryObject().filter.searchFor;
+        this.searchName = this.spinnerService.getCategoryObject().filter.searchName;
+        this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"all");
+        this.filterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
+      }
+  }
+ 
+  carregaQuestions(page:number){
+ 
+    this.spinnerService.showSpinner();
+    this.questionService.getAllQuestionByCategory(page,this.searchCategory).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -118,10 +151,40 @@ export class ListCategoryComponent implements OnInit {
         this.handleError(err);
       }
     );
+
   }
+
+  onSubmit() {
+    this.submitted = true;
+    this.submittedRegister = false;
+    this.errorMessage = null;
+    this.currentPage = 0;
+    //stop here if form is invalid
+    if (this.filterForm.invalid) {
+            return;
+    }
+    if (this.filterForm.controls.name.value){
+      this.searchName = this.filterForm.controls.name.value;
+    }else{
+      this.searchName = null;  
+    }
+    if (this.filterForm.controls.filterType.value){
+      this.searchFor = this.filterForm.controls.filterType.value;
+    }else{
+      this.searchFor = null;
+    }
+    if (this.filterForm.controls.filterCategory.value){
+      this.searchCategory = this.filterForm.controls.filterCategory.value;
+    }else{
+      this.searchCategory = null;
+    }
+    this.carregaQuestions(this.currentPage);
+  }
+
+
   displayPage(page) {
     this.currentPage = page;
-    this.carregaCategories(page);
+    this.carregaQuestions(page);
   }
 
   confirmOperation(){
@@ -214,7 +277,7 @@ export class ListCategoryComponent implements OnInit {
     this.categoryService.activatedCategory(id).subscribe(
       data => {
         this.currentPage =0;
-        this.carregaCategories(this.currentPage);
+        this.carregaQuestions(this.currentPage);
         this.spinnerService.hideSpinner();
         this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was activated with sucess.");
       },
@@ -231,7 +294,7 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.categoryService.createCategory(category).subscribe(
       data => {
-        this.carregaCategories(this.currentPage);
+        this.carregaQuestions(this.currentPage);
         this.spinnerService.hideSpinner();
         this.showConfirmation("Category ["+category+"] was created with sucess.");
       },
@@ -247,7 +310,7 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.categoryService.updateCategory(id,category).subscribe(
       data => {
-        this.carregaCategories(this.currentPage);
+        this.carregaQuestions(this.currentPage);
         this.spinnerService.hideSpinner();
         this.showConfirmation("Category ["+category+"] was updated with sucess.");
       },
@@ -263,7 +326,7 @@ export class ListCategoryComponent implements OnInit {
     this.categoryService.inactivatedCategory(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaCategories(this.currentPage);
+            this.carregaQuestions(this.currentPage);
             this.spinnerService.hideSpinner();
             this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was deleted with sucess.");
             this.confirmButton = false;
@@ -284,7 +347,7 @@ export class ListCategoryComponent implements OnInit {
     this.submitted = false;
     this.errorMessage = null;
     this.showForm = true;
-    this.bgColorTitle = "#8c54a1!important"
+    this.bgColorTitle = "#007bff!important"
     this.titleModal = "Create a new category";
     this.lablelButton="Create";
     this.categoryForm.controls.name.setValue(null);
@@ -293,27 +356,6 @@ export class ListCategoryComponent implements OnInit {
   
 
 
-  onSubmit() {
-    this.submitted = true;
-    this.submittedRegister = false;
-    this.errorMessage = null;
-    this.currentPage = 0;
-    //stop here if form is invalid
-    if (this.filterForm.invalid) {
-            return;
-    }
-    if (this.filterForm.controls.name.value){
-      this.searchName = this.filterForm.controls.name.value;
-    }else{
-      this.searchName = null;  
-    }
-    if (this.filterForm.controls.filterType.value){
-      this.searchFor = this.filterForm.controls.filterType.value;
-    }else{
-      this.searchFor = null;
-    }
-    this.carregaCategories(this.currentPage);
-  }
 
   get f() { return this.filterForm.controls; }
 
