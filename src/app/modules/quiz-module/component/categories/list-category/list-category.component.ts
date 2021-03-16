@@ -321,7 +321,7 @@ export class ListCategoryComponent implements OnInit {
   
   handleError(err){
     
-    if (err.error.errors){
+    if (err.error && err.error.errors){
       this.errorMessage = err.error.errors.message ;
       if (err.error.errors.errors){
         this.errorMessage = this.errorMessage  + " => ";

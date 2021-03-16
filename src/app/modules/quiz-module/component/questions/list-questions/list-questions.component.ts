@@ -27,13 +27,13 @@ export class ListQuestionsComponent implements OnInit {
   
   isLoggedIn = false;
   title : string = 'questions';
-  columns : string[] = ['id','question','active','weight','isMulitpleChoice','numberofanswers','category','modifiedBy','lastUpdateDate'];
-  labels : string[] = ['id','question','active','weight','multiplechoice','answers','category','owner','update date'];
+  columns : string[] = ['id','question','active','weight','isMulitpleChoice','numberOfAnswers','category','modifiedBy','lastUpdateDate'];
+  labels : string[] = ['id','question','active','weight','multiple','answers','category','owner','update date'];
   rows: any[] = [];
   pageable: any;
 
   currentPage: number = 0;
-  filterForm: FormGroup;
+  questionFilterForm: FormGroup;
 
   searchFor: string = null;
   searchName: string = null;
@@ -66,18 +66,17 @@ export class ListQuestionsComponent implements OnInit {
       this.categoryForm = this.formBuilder.group({
         name: [null, [
           Validators.required, 
-          Validators.required, 
           Validators.minLength(4)// ,
           //Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
         ]
       ]
       });
-      this.filterForm = this.formBuilder.group({
-        filterType: new FormControl(),
-        filterCategory: new FormControl(),
-        name: new FormControl()
+      this.questionFilterForm = this.formBuilder.group({
+        filterType: [ 'all', [Validators.required]],
+        filterCategory: [null, []],
+        name: [null,[Validators.minLength(4)]]
       });
-      this.filterForm.controls.filterType.setValue("all");
+      this.questionFilterForm.controls.filterType.setValue("all");
     }
 
   ngOnInit(): void {
@@ -92,6 +91,7 @@ export class ListQuestionsComponent implements OnInit {
     this.spinnerService.hideSpinner();
     //preenche lista
     this.carregaCombobox();
+    this.carregaQuestions(this.currentPage);
   
   }
 
@@ -121,9 +121,9 @@ export class ListQuestionsComponent implements OnInit {
   
   setupCategory(category: any){
     if (category){
-      this.filterForm.controls.filterCategory.setValue(category.id);
+      this.questionFilterForm.controls.filterCategory.setValue(category.id);
     }else{
-      this.filterForm.controls.filterCategory.setValue("");
+      this.questionFilterForm.controls.filterCategory.setValue("");
     }
   }
 
@@ -133,15 +133,15 @@ export class ListQuestionsComponent implements OnInit {
         this.currentPage = this.spinnerService.getCategoryObject().filter.page;
         this.searchFor = this.spinnerService.getCategoryObject().filter.searchFor;
         this.searchName = this.spinnerService.getCategoryObject().filter.searchName;
-        this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"all");
-        this.filterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
+        this.questionFilterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"all");
+        this.questionFilterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
       }
   }
  
   carregaQuestions(page:number){
  
     this.spinnerService.showSpinner();
-    this.questionService.getAllQuestionByCategory(page,this.searchCategory).subscribe(
+    this.questionService.getAllQuestionByCategory(page,this.searchFor,this.searchCategory,this.searchName).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -160,21 +160,21 @@ export class ListQuestionsComponent implements OnInit {
     this.errorMessage = null;
     this.currentPage = 0;
     //stop here if form is invalid
-    if (this.filterForm.invalid) {
+    if (this.questionFilterForm.invalid) {
             return;
     }
-    if (this.filterForm.controls.name.value){
-      this.searchName = this.filterForm.controls.name.value;
+    if (this.questionFilterForm.controls.name.value){
+      this.searchName = this.questionFilterForm.controls.name.value;
     }else{
       this.searchName = null;  
     }
-    if (this.filterForm.controls.filterType.value){
-      this.searchFor = this.filterForm.controls.filterType.value;
+    if (this.questionFilterForm.controls.filterType.value){
+      this.searchFor = this.questionFilterForm.controls.filterType.value;
     }else{
       this.searchFor = null;
     }
-    if (this.filterForm.controls.filterCategory.value){
-      this.searchCategory = this.filterForm.controls.filterCategory.value;
+    if (this.questionFilterForm.controls.filterCategory.value){
+      this.searchCategory = this.questionFilterForm.controls.filterCategory.value;
     }else{
       this.searchCategory = null;
     }
@@ -357,13 +357,13 @@ export class ListQuestionsComponent implements OnInit {
 
 
 
-  get f() { return this.filterForm.controls; }
+  get f() { return this.questionFilterForm.controls; }
 
   get f2() { return this.categoryForm.controls; }
   
   handleError(err){
     
-    if (err.error.errors){
+    if (err.error && err.error.errors){
       this.errorMessage = err.error.errors.message ;
       if (err.error.errors.errors){
         this.errorMessage = this.errorMessage  + " => ";

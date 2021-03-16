@@ -15,8 +15,39 @@ export class QuestionsService {
 
   constructor(private http: HttpClient) { }
  
-  getAllQuestionByCategory(page: number,category:number): Observable<any>{
-    let url = AUTH_API + '/category?page=' + page + '&categoryId=' +category;
+  getAllQuestionByCategory(page: number,filter:string,category:number,name:string): Observable<any>{
+    let url : string = AUTH_API;
+    if (!page){
+        page = 0;
+    }
+    if (filter && filter == "all"){
+      url = url + '?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+      if (category){
+        url = url + '&categoryId=' + category;
+      } 
+    }else if (filter && filter == "inactive"){
+      url = url + '/inactive?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+      if (category){
+        url = url + '&categoryId=' + category;
+      } 
+    }else if (filter && filter == "active"){
+      url = url + '/active?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+      if (category){
+        url = url + '&categoryId=' + category;
+      }       
+    }else{
+      url = url + '?page=' + page;
+    }
+    //let url = AUTH_API + '/category?page=' + page + '&categoryId=' +category;
     return this.http.get( url , httpOptions);
   }
 }

@@ -76,7 +76,7 @@ export class AuthenticateComponent implements OnInit {
         this.spinnerService.hideSpinner();
       },
       err => {
-        if (err.error.errors){
+        if (err.error && err.error.errors){
           this.errorMessage = err.error.errors.message  + " => ";
           let array = err.error.errors.errors;
           for (let i = 0; i < array.length; i++) {

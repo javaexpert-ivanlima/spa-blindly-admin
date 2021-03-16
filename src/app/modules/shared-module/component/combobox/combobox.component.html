@@ -5,7 +5,7 @@
     (ngModelChange)="getFilteredList()" (keyup)="onKeyPress($event)"
     (blur)="toggleListDisplay(0)" (focus)="toggleListDisplay(1)"
     [ngClass]="{'error': showError}">
-    <i *ngIf="showError" class="error-text">Invalid Selection.</i>
+    <i *ngIf="showError" class="error-text">All categories will be filtered.</i>
     <div class="combobox-options" *ngIf="!listHidden">
         <list-item *ngFor="let item of filteredList;let i = index"
         [ngClass]="{'selected': i===selectedIndex}"

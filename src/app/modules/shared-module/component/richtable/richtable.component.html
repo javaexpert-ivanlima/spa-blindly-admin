@@ -14,12 +14,10 @@
             <th *ngFor="let col of tableCols">
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
               <div *ngIf="col.includes('date') === false">
-                <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('active') === true">
-                    {{ obj[col]==='Y'?'YES':'NO' }}
-              </div>
+   
           
-              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('active') === false && col.includes('number') === false">
-                {{ obj[col] }}
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
+                {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
               </div>
               
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
