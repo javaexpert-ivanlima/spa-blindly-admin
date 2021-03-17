@@ -204,7 +204,7 @@ export class ListQuestionsComponent implements OnInit {
 
   showConfirmation(text){
     this.lablelButton="OK";
-    this.bgColorTitle = "#ffc107!important"; 
+    this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
     this.titleModal = "Sucess";
     this.textParagraph1 = "";
@@ -214,7 +214,7 @@ export class ListQuestionsComponent implements OnInit {
   }
   activated(obj){
     this.lablelButton="Activate";
-    this.bgColorTitle = "#007bff!important"; 
+    this.bgColorTitle = "#a6c!important"; 
     this.showForm = false;
     this.titleModal = "Confirmation for activation";
     this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be activated.";
@@ -224,7 +224,7 @@ export class ListQuestionsComponent implements OnInit {
 
   exclude(obj){
     this.lablelButton="Delete";
-    this.bgColorTitle = "#007bff!important"; 
+    this.bgColorTitle = "#a6c!important"; 
     this.showForm = false;
     this.titleModal = "Confirmation for exclusion";
     this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be excluded.";

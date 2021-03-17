@@ -181,7 +181,7 @@ export class ListCategoryComponent implements OnInit {
 
   showConfirmation(text){
     this.lablelButton="OK";
-    this.bgColorTitle = "#ffc107!important"; 
+    this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
     this.titleModal = "Sucess";
     this.textParagraph1 = "";
