@@ -28,7 +28,7 @@ export class ListQuestionsComponent implements OnInit {
   isLoggedIn = false;
   title : string = 'questions';
   columns : string[] = ['id','question','active','weight','isMulitpleChoice','numberOfAnswers','category','modifiedBy','lastUpdateDate'];
-  labels : string[] = ['id','question','active','weight','multiple','answers','category','owner','update date'];
+  labels : string[] = ['id','name of question','act','wt','multiple','ans','category','owner','update date'];
   rows: any[] = [];
   pageable: any;
 
@@ -54,6 +54,8 @@ export class ListQuestionsComponent implements OnInit {
   itemList = null;
 
   stateCollapse: boolean = true;
+  answersData: any[];
+  answersCols: string[] = ['id','answer','weight','active','lastUpdateDate']; 
 
   constructor(
     private formBuilder: FormBuilder,
@@ -90,6 +92,7 @@ export class ListQuestionsComponent implements OnInit {
     }    
     this.spinnerService.hideSpinner();
     //preenche lista
+    this.setupFilters();
     this.carregaCombobox();
     this.carregaQuestions(this.currentPage);
   
@@ -127,19 +130,20 @@ export class ListQuestionsComponent implements OnInit {
     }
   }
 
-  temp(){
+  setupFilters(){
        //se veio da tela de audit, popula os filtros que ja estavam como paginacao e campos da busca
-       if (this.spinnerService.getCategoryObject()){
-        this.currentPage = this.spinnerService.getCategoryObject().filter.page;
-        this.searchFor = this.spinnerService.getCategoryObject().filter.searchFor;
-        this.searchName = this.spinnerService.getCategoryObject().filter.searchName;
-        this.questionFilterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"all");
-        this.questionFilterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
+      if (this.spinnerService.getQuestionObject()){
+        this.currentPage = this.spinnerService.getQuestionObject().filter.page;
+        this.searchFor = this.spinnerService.getQuestionObject().filter.searchFor;
+        this.searchName = this.spinnerService.getQuestionObject().filter.searchName;
+        this.searchCategory = this.spinnerService.getQuestionObject().filter.searchCategory;
+        this.questionFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
+        this.questionFilterForm.controls.name.setValue(this.searchName);
+        this.questionFilterForm.controls.filterCategory.setValue(this.searchCategory);
       }
   }
  
   carregaQuestions(page:number){
- 
     this.spinnerService.showSpinner();
     this.questionService.getAllQuestionByCategory(page,this.searchFor,this.searchCategory,this.searchName).subscribe(
       data => {
@@ -189,58 +193,14 @@ export class ListQuestionsComponent implements OnInit {
 
   confirmOperation(){
     if (this.operationType == "E"){
-        this.inactivatedCategory(this.selectedID['id']);
+        this.inactivatedQuestion(this.selectedID['id']);
     }else if (this.operationType == "A"){
-        this.activatedCategory(this.selectedID['id']);
-    } else if (this.operationType == "C"){
-        this.submittedRegister = true;
-        this.submitted = false;
-        this.errorMessage = null;
-        if (this.categoryForm.invalid) {
-          return;
-        }
-        this.createCategory(this.categoryForm.controls.name.value);       
-    } else if ( this.operationType == "U"){
-      this.submittedRegister = true;
-      this.submitted = false;
-      this.errorMessage = null;
-      if (this.categoryForm.invalid) {
-        return;
-      }
-      this.updateCategory(this.selectedID['id'],this.categoryForm.controls.name.value);       
+        this.activatedQuestion(this.selectedID['id']);
     } else if (this.operationType == "Z"){
       this.hideModal();
     }
     
   }
-  exclude(obj){
-    this.lablelButton="Delete";
-    this.bgColorTitle = "#007bff!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for exclusion";
-    this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be excluded.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"E");
-  }
-
-  edit(obj){
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.lablelButton="Update";
-    this.bgColorTitle = "#007bff!important"; 
-    this.titleModal = "Edit category";
-    this.categoryForm.controls.name.setValue(obj['nameCategory']);
-    this.showForm = true;
-    this.showModal(obj,"U");
-  }
-
-  audit(obj){
-    this.spinnerService.setCategoryObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName}});
-    //this.router.navigate(['/categories/audit/',obj['id'],obj['nameCategory']]);
-    this.router.navigateByUrl('/categories/audit');
-  }
-
 
   showConfirmation(text){
     this.lablelButton="OK";
@@ -257,9 +217,19 @@ export class ListQuestionsComponent implements OnInit {
     this.bgColorTitle = "#007bff!important"; 
     this.showForm = false;
     this.titleModal = "Confirmation for activation";
-    this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be activated.";
+    this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be activated.";
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.showModal(obj,"A");
+  }
+
+  exclude(obj){
+    this.lablelButton="Delete";
+    this.bgColorTitle = "#007bff!important"; 
+    this.showForm = false;
+    this.titleModal = "Confirmation for exclusion";
+    this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be excluded.";
+    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+    this.showModal(obj,"E");
   }
 
   hideModal(){
@@ -272,14 +242,14 @@ export class ListQuestionsComponent implements OnInit {
     $("#"+this.modalId).modal('show');
 
   }
-  activatedCategory(id){
+  activatedQuestion(id){
     this.spinnerService.showSpinner();
-    this.categoryService.activatedCategory(id).subscribe(
+    this.questionService.activatedQuestion(id).subscribe(
       data => {
         this.currentPage =0;
         this.carregaQuestions(this.currentPage);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was activated with sucess.");
+        this.showConfirmation("Question ["+this.selectedID['question']+"] was activated with sucess.");
       },
       err => {
         this.handleError(err);
@@ -289,46 +259,42 @@ export class ListQuestionsComponent implements OnInit {
     
   }
 
-  createCategory(category){
-    
-    this.spinnerService.showSpinner();
-    this.categoryService.createCategory(category).subscribe(
-      data => {
-        this.carregaQuestions(this.currentPage);
-        this.spinnerService.hideSpinner();
-        this.showConfirmation("Category ["+category+"] was created with sucess.");
-      },
-      err => {
-        this.handleError(err);
-      }
-    );
-    
+  answers(obj){
+    let answs: any[] = this.rows.filter((item) =>  item.id == obj)[0].answers;
+    console.log(answs);
+    $("#"+this.modalId).modal('show');
+    this.lablelButton="OK";
+    this.bgColorTitle = "#a6c!important"; 
+    this.showForm = true;
+    this.titleModal = "Answers";
+    this.textParagraph1 = "";
+    this.textParagraph2 = "";
+    this.content = "";
+    this.operationType ="Z";
+    this.answersData = answs;
+
   }
 
-  updateCategory(id,category){
-    
-    this.spinnerService.showSpinner();
-    this.categoryService.updateCategory(id,category).subscribe(
-      data => {
-        this.carregaQuestions(this.currentPage);
-        this.spinnerService.hideSpinner();
-        this.showConfirmation("Category ["+category+"] was updated with sucess.");
-      },
-      err => {
-        this.handleError(err);
-      }
-    );
-    
+
+  audit(obj){
+    console.log({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory}});
+    this.spinnerService.setQuestionObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory}});
+    //this.router.navigate(['/categories/audit/',obj['id'],obj['nameCategory']]);
+    this.router.navigateByUrl('/questions/audit');
   }
 
-  inactivatedCategory(id){
+
+
+  
+
+  inactivatedQuestion(id){
     this.spinnerService.showSpinner();
-    this.categoryService.inactivatedCategory(id).subscribe(
+    this.questionService.inactivatedQuestion(id).subscribe(
           data => {
             this.currentPage =0;
             this.carregaQuestions(this.currentPage);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was deleted with sucess.");
+            this.showConfirmation("Question ["+this.selectedID['question']+"] was deleted with sucess.");
             this.confirmButton = false;
           },
           err => {
@@ -340,26 +306,16 @@ export class ListQuestionsComponent implements OnInit {
 
   }
 
+  edit(obj){
+    alert('in construction');
+  }
 
-
-  addNew() {
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.showForm = true;
-    this.bgColorTitle = "#007bff!important"
-    this.titleModal = "Create a new category";
-    this.lablelButton="Create";
-    this.categoryForm.controls.name.setValue(null);
-    this.showModal(null,"C");
-  };
-  
-
-
+  addNew(){
+    alert('in construction');
+  }
 
   get f() { return this.questionFilterForm.controls; }
 
-  get f2() { return this.categoryForm.controls; }
   
   handleError(err){
     

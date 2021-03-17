@@ -7,6 +7,7 @@ import { LoginModule, TokenStorageService } from '../login-module';
 import { SharedModule } from '../shared-module/shared.module';
 import { AuditCategoryComponent } from './component';
 import { ListQuestionsComponent } from './component/questions/list-questions/list-questions.component';
+import { AuditQuestionsComponent } from './component/questions/audit-questions/audit-questions.component';
 
 
 
@@ -14,10 +15,10 @@ import { ListQuestionsComponent } from './component/questions/list-questions/lis
 
 @NgModule({
   declarations: [ 
-    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent
+    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent
   ],
   exports:[
-    ListCategoryComponent, AuditCategoryComponent
+    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent
   ],
   imports: [
     CommonModule,

@@ -80,7 +80,7 @@
 
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)'
-[title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' 
+[title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' (childID)='answers($event)'
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
 </app-richtable>
 
@@ -88,27 +88,37 @@
 </div> 
 
 <app-modal [modalID]="modalId" [title]="titleModal"  (clickOK)="confirmOperation()"
-[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton">
+[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 
     <div *ngIf="showForm">    
-        <div id="login-modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-            <div class="loginmodal-container ">       
-        <form  [formGroup]="categoryForm" (ngSubmit)="confirmOperation()" class="form-group" #f2="ngForm">
-                    <input id="name" formControlName="name" type="text" name="name" class="form-control" placeholder="Category name" >
-                    
-          <div *ngIf="submittedRegister && categoryForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-            <div *ngIf="submittedRegister && categoryForm.controls.name.errors.required">Category NAME is required</div>
-            <div *ngIf="submittedRegister && categoryForm.controls.name.errors.minlength">Category name must be at least 4 characters</div>
-        </div>					  
-    
-                    <div class="form-group">
-                          <div class="mt-1 alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
-                                  Category failed: {{ errorMessage }}
-                          </div>
-                    </div> 
-          </form>
-          </div>
-          </div>
+      <table class="table caption-top table-bordered table-hover table-info">
+        <thead class="thead-dark">
+          <tr>            
+            <th *ngFor="let label of answersCols" scope="col">{{label | uppercase}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of answersData" scope="row">
+            <th *ngFor="let col of answersCols">
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
+              <div *ngIf="col.includes('date') === false">
+   
+          
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
+                {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
+              </div>
+              
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
+                <a class="link" style="cursor: pointer;" (click)="accessChild(obj['id']);">{{ obj[col] }}</a>
+              </div>
+
+            </div> 
+            </th>
+            
+          </tr>
+         
+        </tbody>
+      </table>
   </div>               
 </app-modal>

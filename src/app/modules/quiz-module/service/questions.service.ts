@@ -50,4 +50,22 @@ export class QuestionsService {
     //let url = AUTH_API + '/category?page=' + page + '&categoryId=' +category;
     return this.http.get( url , httpOptions);
   }
+
+  inactivatedQuestion(id: number): Observable<any> {
+    let url : string = AUTH_API + "/inactive";
+    return this.http.put( url , {"id":id},httpOptions);
+  }
+  activatedQuestion(id: number): Observable<any> {
+    let url : string = AUTH_API + "/active";
+    return this.http.put( url , {"id":id},httpOptions);
+  }
+  getAuditQuestion(page: number,id: number ): Observable<any> {
+    let url : string = AUTH_API;
+    if (!page){
+        page = 0;
+    }
+    url = url + '/audit?id=' + id + '&page=' + page;
+   
+    return this.http.get( url , httpOptions);
+  }
 }

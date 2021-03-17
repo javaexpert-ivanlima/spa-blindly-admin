@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import {  AuditCategoryComponent, ListCategoryComponent, ListQuestionsComponent } from './component';
+import {  AuditCategoryComponent, AuditQuestionsComponent, ListCategoryComponent, ListQuestionsComponent } from './component';
 
 
 export const QuizRoutes: Routes = [
@@ -24,5 +24,10 @@ export const QuizRoutes: Routes = [
     {
         path: 'questions/list',
         component: ListQuestionsComponent
-    }
+    },
+    {
+        //path: 'categories/audit/:id/:name',
+        path: 'questions/audit',
+        component: AuditQuestionsComponent
+    },
 ]
