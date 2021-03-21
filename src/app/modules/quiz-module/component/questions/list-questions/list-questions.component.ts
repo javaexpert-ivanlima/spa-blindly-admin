@@ -269,9 +269,10 @@ export class ListQuestionsComponent implements OnInit {
   }
 
   answers(obj){
-    let answs: any[] = this.rows.filter((item) =>  item.id == obj)[0].answers;
+    let answs: any[] = this.rows.filter((item) =>  item.id == obj.id)[0].answers;
     $("#"+this.modalId).modal('show');
     this.lablelButton="OK";
+    this.hideBtn = "YES";
     this.bgColorTitle = "#a6c!important"; 
     this.showForm = true;
     this.titleModal = "Answers";

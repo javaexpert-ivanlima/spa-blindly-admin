@@ -323,7 +323,13 @@ export class ListCategoryComponent implements OnInit {
   get f() { return this.filterForm.controls; }
 
   get f2() { return this.categoryForm.controls; }
-  
+
+  questions(obj){
+    this.spinnerService.setQuestionObject({"row":null,"filter":{"page":0,"searchFor":"all","searchName":"","searchCategory":obj.id,"categorySelected":obj.nameCategory}});
+    this.router.navigateByUrl('/questions/list');
+  }
+
+
   handleError(err){
     
     if (err.error && err.error.errors){

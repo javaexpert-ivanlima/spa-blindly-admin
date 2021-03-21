@@ -81,7 +81,7 @@ export class RichtableComponent implements OnInit {
   activatedClick(id: any){
     this.activateID.emit(id);
   }
-  accessChild(id: number){
-    this.childID.emit(id);
+  accessChild(obj: any){
+    this.childID.emit(obj);
   }
 }

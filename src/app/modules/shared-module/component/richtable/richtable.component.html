@@ -21,7 +21,7 @@
               </div>
               
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
-                <a class="link" style="cursor: pointer;" (click)="accessChild(obj['id']);">{{ obj[col] }}</a>
+                <a class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
               </div>
 
             </div> 
