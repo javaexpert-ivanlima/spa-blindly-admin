@@ -58,6 +58,8 @@ export class ListQuestionsComponent implements OnInit {
   answersData: any[];
   answersCols: string[] = ['id','answer','weight','active','lastUpdateDate']; 
 
+  hideBtn: string = "NO";
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -83,7 +85,7 @@ export class ListQuestionsComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    this.hideBtn = "NO";
     //verificacao de sessao expirada
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
@@ -203,11 +205,13 @@ export class ListQuestionsComponent implements OnInit {
         this.activatedQuestion(this.selectedID['id']);
     } else if (this.operationType == "Z"){
       this.hideModal();
+      this.hideBtn = "NO";
     }
     
   }
 
   showConfirmation(text){
+    this.hideBtn = "YES";
     this.lablelButton="OK";
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;

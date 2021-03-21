@@ -50,6 +50,7 @@ export class ListCategoryComponent implements OnInit {
   showForm: boolean = false;
   
   stateCollapse: boolean = true;
+  hideBtn: string = "NO";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,6 +86,7 @@ export class ListCategoryComponent implements OnInit {
     }
   
   ngOnInit(): void {
+    this.hideBtn = "NO";
     //se veio da tela de audit, popula os filtros que ja estavam como paginacao e campos da busca
     if (this.spinnerService.getCategoryObject()){
       this.currentPage = this.spinnerService.getCategoryObject().filter.page;
@@ -147,6 +149,7 @@ export class ListCategoryComponent implements OnInit {
       this.updateCategory(this.selectedID['id'],this.categoryForm.controls.name.value);       
     } else if (this.operationType == "Z"){
       this.hideModal();
+      this.hideBtn = "NO";
     }
     
   }
@@ -180,6 +183,7 @@ export class ListCategoryComponent implements OnInit {
 
 
   showConfirmation(text){
+    this.hideBtn = "YES";
     this.lablelButton="OK";
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;

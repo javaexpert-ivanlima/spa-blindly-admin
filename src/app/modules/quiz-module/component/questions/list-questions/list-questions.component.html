@@ -2,15 +2,15 @@
     <div class="panelbackground-container">
       <div class="row">  
           <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button *ngIf="itemList" type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">Add New</button></div>
+          <div class="col-sm-6"><button *ngIf="itemList?.length > 0" type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">Add New</button></div>
       </div>
-      <div *ngIf="itemList " >
+      <div *ngIf="itemList?.length <= 0" >
             <br/><br/>
       </div>
-      <div *ngIf="itemList " class="alert alert-danger" style="text-align: center;" role="alert">
-            There is no category registered, please register one first.
+      <div *ngIf="itemList?.length <= 0" class="alert alert-danger" style="text-align: center;" role="alert">
+            There is no active category registered, please register one first.
       </div>
-      <div *ngIf="itemList " id="accordion">
+      <div *ngIf="itemList?.length > 0" id="accordion">
        
               
               <button class="btn btn-link" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
@@ -84,7 +84,7 @@
    
   <br/>
 
-<app-richtable *ngIf="itemList "
+<app-richtable *ngIf="itemList?.length > 0"
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)'
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' (childID)='answers($event)'
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
@@ -93,7 +93,7 @@
 </div>
 </div> 
 
-<app-modal [modalID]="modalId" [title]="titleModal"  (clickOK)="confirmOperation()"
+<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 

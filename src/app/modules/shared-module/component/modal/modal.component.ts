@@ -12,6 +12,7 @@ export class ModalComponent implements OnInit {
   @Input() fgColorTitle: string;
   @Input() modalID: string;
   @Input() lblBtnOK: string;
+  @Input() hideCloseBtn: string;
   @Input() style: string;
   @Output() clickOK = new EventEmitter();
   @ViewChild('contentWrapper') content;

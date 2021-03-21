@@ -68,7 +68,7 @@
 </div>
 </div> 
 
-<app-modal [modalID]="modalId" [title]="titleModal"  (clickOK)="confirmOperation()"
+<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 
