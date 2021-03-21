@@ -38,6 +38,7 @@ export class ListQuestionsComponent implements OnInit {
   searchFor: string = null;
   searchName: string = null;
   searchCategory: number = null;
+  categorySelected: string = '';
 
   confirmButton: boolean = false;  
 
@@ -51,7 +52,7 @@ export class ListQuestionsComponent implements OnInit {
 
   showForm: boolean = false;
 
-  itemList = null;
+  itemList : any[];
 
   stateCollapse: boolean = true;
   answersData: any[];
@@ -125,7 +126,9 @@ export class ListQuestionsComponent implements OnInit {
   setupCategory(category: any){
     if (category){
       this.questionFilterForm.controls.filterCategory.setValue(category.id);
+      this.categorySelected = category.nameCategory;
     }else{
+      this.categorySelected = "";
       this.questionFilterForm.controls.filterCategory.setValue("");
     }
   }
@@ -140,6 +143,7 @@ export class ListQuestionsComponent implements OnInit {
         this.questionFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
         this.questionFilterForm.controls.name.setValue(this.searchName);
         this.questionFilterForm.controls.filterCategory.setValue(this.searchCategory);
+        this.categorySelected = this.spinnerService.getQuestionObject().filter.categorySelected;
       }
   }
  
@@ -167,6 +171,7 @@ export class ListQuestionsComponent implements OnInit {
     if (this.questionFilterForm.invalid) {
             return;
     }
+    this.spinnerService.setQuestionObject(null);
     if (this.questionFilterForm.controls.name.value){
       this.searchName = this.questionFilterForm.controls.name.value;
     }else{
@@ -261,7 +266,6 @@ export class ListQuestionsComponent implements OnInit {
 
   answers(obj){
     let answs: any[] = this.rows.filter((item) =>  item.id == obj)[0].answers;
-    console.log(answs);
     $("#"+this.modalId).modal('show');
     this.lablelButton="OK";
     this.bgColorTitle = "#a6c!important"; 
@@ -277,8 +281,7 @@ export class ListQuestionsComponent implements OnInit {
 
 
   audit(obj){
-    console.log({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory}});
-    this.spinnerService.setQuestionObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory}});
+    this.spinnerService.setQuestionObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory,"categorySelected":this.categorySelected}});
     //this.router.navigate(['/categories/audit/',obj['id'],obj['nameCategory']]);
     this.router.navigateByUrl('/questions/audit');
   }

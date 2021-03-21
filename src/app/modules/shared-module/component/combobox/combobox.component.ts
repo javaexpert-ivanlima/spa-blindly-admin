@@ -12,7 +12,7 @@ export class ComboboxComponent implements OnInit,AfterViewInit {
     @Output() category = new EventEmitter();
     itemSelected: any;
     // two way binding for input text
-    inputItem = '';
+    @Input() inputItem : string;
     // enable or disable visiblility of dropdown
     listHidden = true;
     showError = false;

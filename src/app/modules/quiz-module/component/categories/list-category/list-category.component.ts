@@ -302,6 +302,7 @@ export class ListCategoryComponent implements OnInit {
     if (this.filterForm.invalid) {
             return;
     }
+    this.spinnerService.setCategoryObject(null);
     if (this.filterForm.controls.name.value){
       this.searchName = this.filterForm.controls.name.value;
     }else{
