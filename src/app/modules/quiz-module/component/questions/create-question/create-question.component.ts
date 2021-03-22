@@ -24,7 +24,6 @@ export class CreateQuestionComponent implements OnInit {
   categorySelected: string = '';
   weightSelected: string = '';
   weightAnswerSelected: string = '';
-  searchCategory: number = null;
   answersQty: number = 0;
   answersData: any[];
   rows: any[] = [];
@@ -74,9 +73,9 @@ export class CreateQuestionComponent implements OnInit {
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
-    this.spinnerService.hideSpinner();
     this.carregaCombobox();
-
+    this.checkCamesWithCategorySelected();
+    this.spinnerService.hideSpinner();
   }
 
   async carregaCombobox() {
@@ -90,6 +89,14 @@ export class CreateQuestionComponent implements OnInit {
         this.handleError(err);
       }
     );
+  }
+
+  checkCamesWithCategorySelected(){
+    if (this.spinnerService.getQuestionObject()){
+      let catId = this.spinnerService.getQuestionObject().filter.searchCategory;
+      this.questionForm.controls.category.setValue(catId);  
+      this.categorySelected = this.spinnerService.getQuestionObject().filter.categorySelected;
+    }  
   }
 
   setupWeight(weight: any){
