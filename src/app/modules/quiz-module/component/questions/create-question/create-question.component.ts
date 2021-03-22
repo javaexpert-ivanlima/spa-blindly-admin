@@ -140,7 +140,7 @@ export class CreateQuestionComponent implements OnInit {
     this.questionService.createQuestion(catId,name,weight,multiple,this.rows).subscribe(
       data => {
         this.showConfirmation("Question ["+name+"] was created with sucess.");
-        this.spinnerService.hideSpinner();
+        this.showModal(null,"W");
       },
       err => {
         this.handleError(err);
@@ -149,6 +149,7 @@ export class CreateQuestionComponent implements OnInit {
     );    
   }
 
+ 
 
   createAnswer(){
     
@@ -192,6 +193,11 @@ export class CreateQuestionComponent implements OnInit {
     } else if (this.operationType == "Z"){
       this.hideModal();
       this.hideBtn = "NO";
+    } else if (this.operationType == "W"){
+      this.hideModal();
+      this.hideBtn = "NO";
+      this.spinnerService.hideSpinner();
+      this.router.navigateByUrl('/questions/list');
     }
     
   }
