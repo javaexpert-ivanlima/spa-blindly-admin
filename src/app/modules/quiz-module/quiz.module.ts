@@ -6,8 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginModule, TokenStorageService } from '../login-module';
 import { SharedModule } from '../shared-module/shared.module';
 import { AuditCategoryComponent } from './component';
-import { ListQuestionsComponent } from './component/questions/list-questions/list-questions.component';
-import { AuditQuestionsComponent } from './component/questions/audit-questions/audit-questions.component';
+import { ListQuestionsComponent } from './component';
+import { AuditQuestionsComponent } from './component';
+import { CreateQuestionComponent } from './component';
 
 
 
@@ -15,10 +16,10 @@ import { AuditQuestionsComponent } from './component/questions/audit-questions/a
 
 @NgModule({
   declarations: [ 
-    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent
+    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent, CreateQuestionComponent
   ],
   exports:[
-    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent
+    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent, CreateQuestionComponent
   ],
   imports: [
     CommonModule,

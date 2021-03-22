@@ -46,6 +46,12 @@ export class CategoryService {
       let url = AUTH_API + '/all' ;
       return this.http.get( url , httpOptions);
   }
+
+  getAllActiveCategoriesNoPagination(): Observable<any>{
+    let url = AUTH_API + '/active/all' ;
+    return this.http.get( url , httpOptions);
+  }
+
   inactivatedCategory(id: number): Observable<any> {
     let url : string = AUTH_API + "/inactive";
     return this.http.put( url , {"id":id},httpOptions);

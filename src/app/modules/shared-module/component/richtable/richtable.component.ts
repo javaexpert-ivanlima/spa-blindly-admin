@@ -18,6 +18,7 @@ export class RichtableComponent implements OnInit {
   @Input() tableLabels: string[]  = [];
   @Input() tableData: {}[] = [];
   @Input() pageable: any;
+  @Input() onlyDeleteAction: string;
 
   @Output() emitterPage = new EventEmitter();
   @Output() deleteID = new EventEmitter();

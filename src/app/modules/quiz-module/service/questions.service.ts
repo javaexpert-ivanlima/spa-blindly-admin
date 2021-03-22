@@ -68,4 +68,9 @@ export class QuestionsService {
    
     return this.http.get( url , httpOptions);
   }
+
+  createQuestion(categoryCode: number,question: string,weight: number,multipleChoice: string,answers: any[]): Observable<any> {
+    let url : string = AUTH_API;
+    return this.http.post( url , {"categoryCode":categoryCode,"question":question,"weight":weight,"multipleChoice":multipleChoice,"answers":answers},httpOptions);
+  }
 }

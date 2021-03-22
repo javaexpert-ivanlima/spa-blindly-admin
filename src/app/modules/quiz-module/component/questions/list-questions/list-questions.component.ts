@@ -27,7 +27,7 @@ export class ListQuestionsComponent implements OnInit {
   
   isLoggedIn = false;
   title : string = 'questions';
-  columns : string[] = ['id','question','active','weight','isMulitpleChoice','numberOfAnswers','category','modifiedBy','lastUpdateDate'];
+  columns : string[] = ['id','question','active','weight','isMultipleChoice','numberOfAnswers','category','modifiedBy','lastUpdateDate'];
   labels : string[] = ['id','name of question','act','wt','multiple','ans','category','owner','update date'];
   rows: any[] = [];
   pageable: any;
@@ -46,7 +46,6 @@ export class ListQuestionsComponent implements OnInit {
   operationType: string = null;
   modalId = "dialogConfirm";
   content = "<p>"+this.textParagraph1+"</p><p>"+this.textParagraph2+"</p>";
-  categoryForm: FormGroup;
 
   isRegisterOk: boolean = false;
 
@@ -68,15 +67,7 @@ export class ListQuestionsComponent implements OnInit {
     private categoryService: CategoryService,
     private questionService: QuestionsService
     ) { 
-      this.categoryForm = this.formBuilder.group({
-        name: [null, [
-          Validators.required, 
-          Validators.minLength(4)// ,
-          //Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
-        ]
-      ]
-      });
-      this.questionFilterForm = this.formBuilder.group({
+        this.questionFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],
         filterCategory: [null, []],
         name: [null,[Validators.minLength(4)]]
@@ -319,7 +310,8 @@ export class ListQuestionsComponent implements OnInit {
   }
 
   addNew(){
-    alert('in construction');
+    this.router.navigateByUrl('/questions/create');
+  
   }
 
   get f() { return this.questionFilterForm.controls; }

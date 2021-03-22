@@ -9,8 +9,10 @@ export class ComboboxComponent implements OnInit,AfterViewInit {
 
     @Input() list: any[];
     @Input() placeholder: string;
+    @Input() warningMsg: string;
     @Output() category = new EventEmitter();
     itemSelected: any;
+    
     // two way binding for input text
     @Input() inputItem : string;
     // enable or disable visiblility of dropdown
@@ -25,7 +27,11 @@ export class ComboboxComponent implements OnInit,AfterViewInit {
             this.filteredList = this.list;
         } 
       }
-    ngOnInit() {}
+    ngOnInit() {
+        if (!this.warningMsg){
+            this.warningMsg = "All categories will be filtered";    
+        }
+    }
     // modifies the filtered list as per input
     getFilteredList() {
         this.listHidden = false;

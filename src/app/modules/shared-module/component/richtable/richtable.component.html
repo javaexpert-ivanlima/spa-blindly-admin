@@ -6,7 +6,7 @@
         <thead class="thead-light">
           <tr>            
             <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
-            <th *ngIf="hideActionColumn == 'true'" scope="col">ACTIONS</th>
+            <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">ACTIONS</th>
           </tr>
         </thead>
         <tbody>
@@ -21,7 +21,8 @@
               </div>
               
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
-                <a class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
+                <a *ngIf="obj[col] > 0" class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
+                <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>
               </div>
 
             </div> 
@@ -36,6 +37,9 @@
               </ng-container> 
                
                 &nbsp;<button type="button" (click)="auditClick(obj);" title="Audit" class="btn btn-secondary"><i class="fa fa-camera-retro"></i></button>
+            </td>
+            <td *ngIf="onlyDeleteAction == 'true' ">
+                  <button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
             </td>
           </tr>
          
