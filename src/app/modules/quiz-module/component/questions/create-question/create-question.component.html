@@ -109,7 +109,7 @@
   
       <div *ngIf="!showForm" [innerHtml]="content" ></div> 
       <div *ngIf="showForm">    
-          <div id="login-modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+          <div id="login-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
               <div class="loginmodal-container ">       
           <form  [formGroup]="answerForm" (ngSubmit)="confirmOperation()" class="form-group" #f2="ngForm">
             <input formControlName="weight" class="form-check-input " type="hidden" name="weight" id="weight">
