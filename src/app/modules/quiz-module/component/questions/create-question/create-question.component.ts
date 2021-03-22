@@ -78,6 +78,10 @@ export class CreateQuestionComponent implements OnInit {
     this.spinnerService.hideSpinner();
   }
 
+  backButton(){
+    this.router.navigateByUrl('/questions/list');
+  }
+
   async carregaCombobox() {
     this.spinnerService.showSpinner();
     this.categoryService.getAllActiveCategoriesNoPagination().subscribe(
