@@ -73,4 +73,10 @@ export class QuestionsService {
     let url : string = AUTH_API;
     return this.http.post( url , {"categoryCode":categoryCode,"question":question,"weight":weight,"multipleChoice":multipleChoice,"answers":answers},httpOptions);
   }
+
+  updateQuestion(questionID:number,categoryCode: number,question: string,weight: number,multipleChoice: string,answers: any[]): Observable<any> {
+    let url : string = AUTH_API;
+    return this.http.put( url , {"id":questionID,"categoryCode":categoryCode,"question":question,"weight":weight,"multipleChoice":multipleChoice,"answers":answers},httpOptions);
+  }
+
 }

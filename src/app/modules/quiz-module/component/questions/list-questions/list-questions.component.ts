@@ -39,6 +39,7 @@ export class ListQuestionsComponent implements OnInit {
   searchName: string = null;
   searchCategory: number = null;
   categorySelected: string = '';
+  countActiveCategories: number = 0;
 
   confirmButton: boolean = false;  
 
@@ -89,9 +90,25 @@ export class ListQuestionsComponent implements OnInit {
     this.setupFilters();
     this.carregaCombobox();
     this.carregaQuestions(this.currentPage);
-  
+    this.countActCategories();
   }
 
+
+  async countActCategories() {
+    this.categoryService.getAllActiveCategoriesNoPagination().subscribe(
+      data => {
+        if (data.data){
+            this.countActiveCategories = data.data.length;
+        }else{
+          this.countActiveCategories =0;
+        }
+      },
+      err => {
+        this.countActiveCategories = 0;
+        this.handleError(err);
+      }
+    );
+  }
   changeCollapseLabel(){
     
     if (this.stateCollapse){
@@ -306,7 +323,8 @@ export class ListQuestionsComponent implements OnInit {
   }
 
   edit(obj){
-    alert('in construction');
+    this.spinnerService.setQuestionObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory,"categorySelected":this.categorySelected}});
+    this.router.navigateByUrl('/questions/edit');
   }
 
   addNew(){

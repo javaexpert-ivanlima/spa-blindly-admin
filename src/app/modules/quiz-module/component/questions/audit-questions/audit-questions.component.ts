@@ -42,7 +42,7 @@ export class AuditQuestionsComponent implements OnInit {
         this.router.navigateByUrl('/question/list');
     }
     this.selectedID = this.spinnerService.getQuestionObject().row.id;
-    this.selectedName = this.spinnerService.getQuestionObject().row.nameCategory;
+    this.selectedName = this.spinnerService.getQuestionObject().row.question;
 
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
