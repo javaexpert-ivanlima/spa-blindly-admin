@@ -10,6 +10,7 @@ export class ComboboxComponent implements OnInit,AfterViewInit {
     @Input() list: any[];
     @Input() placeholder: string;
     @Input() warningMsg: string;
+    @Input() isNumber: string;
     @Output() category = new EventEmitter();
     itemSelected: any;
     
@@ -36,7 +37,11 @@ export class ComboboxComponent implements OnInit,AfterViewInit {
     getFilteredList() {
         this.listHidden = false;
         if (!this.listHidden && this.inputItem !== undefined) {
-            this.filteredList = this.list.filter((item) =>  item.nameCategory.toUpperCase().startsWith(this.inputItem.toUpperCase()));
+            if (this.isNumber == 'S'){
+                this.filteredList = this.list.filter((item) =>  item.nameCategory.startsWith(this.inputItem));
+            }else{
+                this.filteredList = this.list.filter((item) =>  item.nameCategory.toUpperCase().startsWith(this.inputItem.toUpperCase()));
+            }
     }
 }
     // select highlighted item when enter is pressed or any item that is clicked

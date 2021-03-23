@@ -39,7 +39,7 @@
                     
                     <div class="col">
                           <input formControlName="weight" class="form-check-input " type="hidden" name="weight" id="weight">
-                          <app-combobox [warningMsg]="'Weight is a mandatory field'" (category)="setupWeight($event)" [inputItem]="weightSelected" [placeholder]="'Select a weight'" [list]="weightList"></app-combobox>
+                          <app-combobox [isNumber]="'S'" [warningMsg]="'Weight is a mandatory field'" (category)="setupWeight($event)" [inputItem]="weightSelected" [placeholder]="'Select a weight'" [list]="weightList"></app-combobox>
                     </div>
       
                 </div>
@@ -113,7 +113,7 @@
               <div class="loginmodal-container ">       
           <form  [formGroup]="answerForm" (ngSubmit)="confirmOperation()" class="form-group" #f2="ngForm">
             <input formControlName="weight" class="form-check-input " type="hidden" name="weight" id="weight">
-            <app-combobox [warningMsg]="'Weight is a mandatory field'" (category)="setupWeightAnswer($event)" [inputItem]="weightAnswerSelected" [placeholder]="'Weight'" [list]="weightList"></app-combobox>
+            <app-combobox [isNumber]="'S'" [warningMsg]="'Weight is a mandatory field'" (category)="setupWeightAnswer($event)" [inputItem]="weightAnswerSelected" [placeholder]="'Weight'" [list]="weightList"></app-combobox>
                       <br/>        
                       <input id="name" formControlName="name" type="text" name="name" class="form-control" placeholder="Answer" >
                       <div *ngIf="submittedRegister && answerForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
