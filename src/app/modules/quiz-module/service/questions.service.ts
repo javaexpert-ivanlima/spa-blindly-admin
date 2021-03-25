@@ -7,6 +7,7 @@ const httpOptions = {
 };
 
 const AUTH_API =  "http://localhost:8080/v1/admin/questions";
+const QUIZ_API =  "http://localhost:8080/v1/admin/quiz";
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,11 @@ export class QuestionsService {
   updateQuestion(questionID:number,categoryCode: number,question: string,weight: number,multipleChoice: string,answers: any[]): Observable<any> {
     let url : string = AUTH_API;
     return this.http.put( url , {"id":questionID,"categoryCode":categoryCode,"question":question,"weight":weight,"multipleChoice":multipleChoice,"answers":answers},httpOptions);
+  }
+
+  getQuizOrder(): Observable<any>{
+    let url : string = QUIZ_API;
+    return this.http.get( url , httpOptions);
   }
 
 }

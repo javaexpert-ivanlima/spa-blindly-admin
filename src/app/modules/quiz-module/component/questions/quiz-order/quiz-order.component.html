@@ -1,0 +1,55 @@
+<div style="height: 100%;width: 100%;">
+    <div class="panelbackground-container">
+      <div class="row">  
+          <div class="col"><h4>{{title | titlecase}}</h4></div>
+      </div>
+      <div *ngIf="rows?.length <= 0" >
+            <br/><br/>
+      </div>
+      <div *ngIf="rows?.length <= 0" class="alert alert-danger" style="text-align: center;" role="alert">
+            There is no active question registered, please register one first.
+      </div>
+  <br/>
+
+<app-richtable *ngIf="rows?.length > 0" [title]="title"  (childID)='answers($event)'
+[tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'false'">
+</app-richtable>
+
+</div>
+</div> 
+
+<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
+[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
+
+    <div *ngIf="!showForm" [innerHtml]="content" ></div> 
+    <div *ngIf="showForm">    
+      <table class="table caption-top table-bordered table-hover table-info">
+        <thead class="thead-dark">
+          <tr>            
+            <th *ngFor="let label of answersCols" scope="col">{{label | uppercase}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let obj of answersData" scope="row">
+            <th *ngFor="let col of answersCols">
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
+              <div *ngIf="col.includes('date') === false">
+   
+          
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
+                {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
+              </div>
+              
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
+                <a class="link" style="cursor: pointer;" (click)="accessChild(obj['id']);">{{ obj[col] }}</a>
+              </div>
+
+            </div> 
+            </th>
+            
+          </tr>
+         
+        </tbody>
+      </table>
+  </div>               
+</app-modal>
