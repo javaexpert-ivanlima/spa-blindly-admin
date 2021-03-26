@@ -36,6 +36,7 @@ export class SpinnerShowService {
 
   hideMainModal(){
     $("#dialogConfirm").modal('hide');
+    $("#modal-backdrop").modal('hide');
   }  
   showLoginElements(show: boolean): void{
     if (show){

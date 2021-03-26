@@ -111,6 +111,9 @@ export class QuizOrderComponent implements OnInit {
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data;
+        if ( this.quizOrderForm.controls.basicInfoForm.get('items').length> 0){
+          this.quizOrderForm.controls.basicInfoForm.controls.items = new FormArray([]);
+        }
         if(this.rows.length > 0){
           this.rows.forEach(element => {
             this.quizOrderForm.controls.basicInfoForm.get('items').push(new FormGroup({
