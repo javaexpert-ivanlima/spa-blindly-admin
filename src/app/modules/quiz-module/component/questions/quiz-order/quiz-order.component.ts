@@ -39,7 +39,7 @@ export class QuizOrderComponent implements OnInit {
 
   itemList : any[];
   answersData: any[];
-  answersCols: string[] = ['id','answer','weight','active','lastUpdateDate']; 
+  answersCols: string[] = ['id','answer','weight','lastUpdateDate']; 
 
   hideBtn: string = "NO";
 
@@ -76,11 +76,15 @@ export class QuizOrderComponent implements OnInit {
 
     this.questionService.setQuizOrder(obj).subscribe(
       data => {
-        let result =   data;
+        let result =   data.data;
+        this.showConfirmation("Update "+ result + " records with sucess.");
+        this.showModal("Z");
         this.carregaQuiz();
         this.spinnerService.hideSpinner();
       },
       err => {
+        this.spinnerService.hideSpinner();
+        this.hideModal();
         this.handleError(err);
       }
     );
@@ -154,9 +158,8 @@ export class QuizOrderComponent implements OnInit {
     $("#"+this.modalId).modal('hide');
   }
 
-  showModal(obj,operation){
+  showModal(operation){
     this.operationType = operation;
-    //this.selectedID = obj;
     $("#"+this.modalId).modal('show');
 
   }

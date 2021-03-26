@@ -56,7 +56,7 @@ export class ListQuestionsComponent implements OnInit {
 
   stateCollapse: boolean = true;
   answersData: any[];
-  answersCols: string[] = ['id','answer','weight','active','lastUpdateDate']; 
+  answersCols: string[] = ['id','answer','weight','lastUpdateDate']; 
 
   hideBtn: string = "NO";
 

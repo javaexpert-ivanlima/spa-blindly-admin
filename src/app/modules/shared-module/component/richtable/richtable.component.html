@@ -25,15 +25,17 @@
                 <input type="hidden"  formControlName="questionID" name="questionID" value="1" >
                 <input type="text"  [ngClass]="{'error error-text': !basicInfoForm.controls.items.controls[i].controls.questionOrder.value}" formControlName="questionOrder" size="5%" maxlength="2" name="questionOrder" value="{{obj[col]}}" >
               </div> 
-
-            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
-              {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
-            </div>
-            
-            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
-              <a *ngIf="obj[col] > 0" class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
-              <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>
-            </div>
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === false">
+                <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
+                  {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
+                </div>
+                
+                <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
+                  <a *ngIf="obj[col] > 0" class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
+                  <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>
+                </div>
+    
+              </div>
 
           </div> 
           </th>
