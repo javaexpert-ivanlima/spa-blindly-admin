@@ -64,9 +64,26 @@ export class QuizOrderComponent implements OnInit {
     this.errorMessage = null;
     //stop here if form is invalid
     if (this.quizOrderForm.invalid) {
+            this.validation();
             return;
     }
-    alert('la vai');
+    this.spinnerService.showSpinner();
+    let questions: any = this.quizOrderForm.controls.basicInfoForm.controls.items.controls;
+    let obj: any[] = [];
+    questions.forEach(element => {
+      obj.push({"questionId":element.controls.questionID.value,"order":element.controls.questionOrder.value});
+    });
+
+    this.questionService.setQuizOrder(obj).subscribe(
+      data => {
+        let result =   data;
+        this.carregaQuiz();
+        this.spinnerService.hideSpinner();
+      },
+      err => {
+        this.handleError(err);
+      }
+    );
   }
   ngOnInit(): void {
     this.hideBtn = "NO";
@@ -160,10 +177,33 @@ export class QuizOrderComponent implements OnInit {
 
   }
 
+  validation(){
+    $("#"+this.modalId).modal('show');
+    this.lablelButton="OK";
+    this.hideBtn = "YES";
+    this.bgColorTitle = "red!important"; 
+    this.showForm = false;
+    this.titleModal = "Validation error";
+    this.textParagraph1 = "";
+    this.textParagraph2 = "Please fill out all order fields.";
+    this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
+    this.operationType ="Z";
 
+  }
 
+  showError(descerro){
+    $("#"+this.modalId).modal('show');
+    this.lablelButton="OK";
+    this.hideBtn = "YES";
+    this.bgColorTitle = "red!important"; 
+    this.showForm = false;
+    this.titleModal = "Validation error";
+    this.textParagraph1 = "";
+    this.textParagraph2 = descerro;
+    this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
+    this.operationType ="Z";
 
-  
+  }
   handleError(err){
     
     if (err.error && err.error.errors){
@@ -184,6 +224,7 @@ export class QuizOrderComponent implements OnInit {
       
     }
     this.spinnerService.hideSpinner();
+    if (this.errorMessage) this.showError(this.errorMessage);
   }
 
 }

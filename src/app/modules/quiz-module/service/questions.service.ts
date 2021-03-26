@@ -85,4 +85,8 @@ export class QuestionsService {
     return this.http.get( url , httpOptions);
   }
 
+  setQuizOrder(questions): Observable<any>{
+    let url : string = QUIZ_API;
+    return this.http.put( url ,{"questions":questions},httpOptions);
+  }
 }
