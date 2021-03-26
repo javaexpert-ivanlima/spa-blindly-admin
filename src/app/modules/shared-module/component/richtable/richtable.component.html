@@ -1,77 +1,154 @@
-    <div  *ngIf="tableData" class="table-responsive-xl">
-      <table class="table caption-top table-bordered table-hover table-dark ">
-          <caption>
-              List of {{title}}
-            </caption>
-        <thead class="thead-light">
-          <tr>            
-            <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
-            <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">ACTIONS</th>
-          </tr>
-        </thead>
-        <ng-container [formGroup]="basicInfoForm">
-        <tbody>
-          <ng-container formArrayName="items">
-          <tr *ngFor="let obj of tableData;let i=index;" scope="row" [formGroupName]="i">
-            <th *ngFor="let col of tableCols">
-              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
-              <div *ngIf="col.includes('date') === false">
-   
-                <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === true">
-                  <input type="hidden" formControlName="questionID" name="questionID" value="1" >
-                  <input type="text"  formControlName="questionOrder" size="5%" maxlength="2" name="questionOrder" value="{{obj[col]}}" >
-                </div> 
+<ng-container  *ngIf="basicInfoForm">
+  <div  *ngIf="tableData" class="table-responsive-xl">
+    <table class="table caption-top table-bordered table-hover table-dark ">
+        <caption>
+            List of {{title}}
+          </caption>
+      <thead class="thead-light">
+        <tr>            
+          <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
+          <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">ACTIONS</th>
+        </tr>
+      </thead>
+      <ng-container   [formGroup]="basicInfoForm">
+      <tbody>
+        <ng-container  formArrayName="items">
+        <tr *ngFor="let obj of tableData;let i=index;" scope="row" >
+          <ng-container   [formGroupName]="i">
 
-              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
-                {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
-              </div>
-              
-              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
-                <a *ngIf="obj[col] > 0" class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
-                <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>
-              </div>
+          
+          <th *ngFor="let col of tableCols">
+            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
+            <div *ngIf="col.includes('date') === false">
+ 
+              <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === true">
+                <input type="hidden"  formControlName="questionID" name="questionID" value="1" >
+                <input type="text"  [ngClass]="{'error error-text': !basicInfoForm.controls.items.controls[i].controls.questionOrder.value}" formControlName="questionOrder" size="5%" maxlength="2" name="questionOrder" value="{{obj[col]}}" >
+              </div> 
 
-            </div> 
-            </th>
-            <td *ngIf="hideActionColumn == 'true' ">
-              <ng-container *ngIf="obj['active']==='N'">
-                  <button type="button" (click)="activatedClick(obj);" title="Activated" class="btn btn-purple-secondary"><i class="fa fa-eye"></i></button>
-              </ng-container>
-              <ng-container *ngIf="obj['active']==='Y'">
-                <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-purple-secondary"><i class="fa fa-edit"></i></button>
-                &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
-              </ng-container> 
-               
-                &nbsp;<button type="button" (click)="auditClick(obj);" title="Audit" class="btn btn-secondary"><i class="fa fa-camera-retro"></i></button>
-            </td>
-            <td *ngIf="onlyDeleteAction == 'true' ">
-                  <button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
-            </td>
-          </tr>
-        </ng-container>
-        </tbody>
-      </ng-container>
-      </table>
-      <nav class="pagination-outer" aria-label="Page navigation">
-          <ul *ngIf="pageable" class="pagination">
-              <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
-                  <a (click)="pageClick(0)" class="page-link" aria-label="Previous">
-                      <span aria-hidden="true">«</span>
-                  </a>
-              </li>
-              <ng-container *ngIf="pageable.totalPages > 1">
-                <li  *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active disabled': i === pageable.pageNumber}" class="page-item">
-                  <a class="page-link" (click)="pageClick(i)">{{i}}</a>
-                </li>
-              </ng-container>
-              <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.last}" class="page-item">
-                  <a (click)="pageClick(pageable.totalPages-1)" class="page-link" aria-label="Next">
-                      <span aria-hidden="true">»</span>
-                  </a>
-              </li>
-          </ul>
-      </nav>
-      <br/>
-    </div>
+            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
+              {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
+            </div>
+            
+            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
+              <a *ngIf="obj[col] > 0" class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
+              <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>
+            </div>
+
+          </div> 
+          </th>
+          <td *ngIf="hideActionColumn == 'true' ">
+            <ng-container *ngIf="obj['active']==='N'">
+                <button type="button" (click)="activatedClick(obj);" title="Activated" class="btn btn-purple-secondary"><i class="fa fa-eye"></i></button>
+            </ng-container>
+            <ng-container *ngIf="obj['active']==='Y'">
+              <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-purple-secondary"><i class="fa fa-edit"></i></button>
+              &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
+            </ng-container> 
              
+              &nbsp;<button type="button" (click)="auditClick(obj);" title="Audit" class="btn btn-secondary"><i class="fa fa-camera-retro"></i></button>
+          </td>
+          <td *ngIf="onlyDeleteAction == 'true' ">
+                <button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
+          </td>
+        </ng-container>
+        </tr>
+      </ng-container>
+      </tbody>
+    </ng-container>
+    </table>
+    <nav class="pagination-outer" aria-label="Page navigation">
+        <ul *ngIf="pageable" class="pagination">
+            <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
+                <a (click)="pageClick(0)" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                </a>
+            </li>
+            <ng-container *ngIf="pageable.totalPages > 1">
+              <li  *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active disabled': i === pageable.pageNumber}" class="page-item">
+                <a class="page-link" (click)="pageClick(i)">{{i}}</a>
+              </li>
+            </ng-container>
+            <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.last}" class="page-item">
+                <a (click)="pageClick(pageable.totalPages-1)" class="page-link" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <br/>
+  </div>
+</ng-container>
+<ng-container  *ngIf="!basicInfoForm">
+  <div  *ngIf="tableData" class="table-responsive-xl">
+    <table class="table caption-top table-bordered table-hover table-dark ">
+        <caption>
+            List of {{title}}
+          </caption>
+      <thead class="thead-light">
+        <tr>            
+          <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
+          <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">ACTIONS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let obj of tableData;let i=index;" scope="row" >
+
+          
+          <th *ngFor="let col of tableCols">
+            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
+            <div *ngIf="col.includes('date') === false">
+ 
+            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
+              {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
+            </div>
+            
+            <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
+              <a *ngIf="obj[col] > 0" class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
+              <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>
+            </div>
+
+          </div> 
+          </th>
+          <td *ngIf="hideActionColumn == 'true' ">
+            <ng-container *ngIf="obj['active']==='N'">
+                <button type="button" (click)="activatedClick(obj);" title="Activated" class="btn btn-purple-secondary"><i class="fa fa-eye"></i></button>
+            </ng-container>
+            <ng-container *ngIf="obj['active']==='Y'">
+              <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-purple-secondary"><i class="fa fa-edit"></i></button>
+              &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
+            </ng-container> 
+             
+              &nbsp;<button type="button" (click)="auditClick(obj);" title="Audit" class="btn btn-secondary"><i class="fa fa-camera-retro"></i></button>
+          </td>
+          <td *ngIf="onlyDeleteAction == 'true' ">
+                <button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <nav class="pagination-outer" aria-label="Page navigation">
+        <ul *ngIf="pageable" class="pagination">
+            <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
+                <a (click)="pageClick(0)" class="page-link" aria-label="Previous">
+                    <span aria-hidden="true">«</span>
+                </a>
+            </li>
+            <ng-container *ngIf="pageable.totalPages > 1">
+              <li  *ngFor='let number of fakeArray() ;let i = index' [ngClass]="{'active disabled': i === pageable.pageNumber}" class="page-item">
+                <a class="page-link" (click)="pageClick(i)">{{i}}</a>
+              </li>
+            </ng-container>
+            <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.last}" class="page-item">
+                <a (click)="pageClick(pageable.totalPages-1)" class="page-link" aria-label="Next">
+                    <span aria-hidden="true">»</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <br/>
+  </div>
+</ng-container>
+
+           
 

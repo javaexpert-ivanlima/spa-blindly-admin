@@ -70,6 +70,7 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
+    
 
   }
 

@@ -3,7 +3,7 @@ import { TokenStorageService } from 'src/app/modules/login-module';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import {  Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 declare var $: any 
 
 @Component({
@@ -52,6 +52,7 @@ export class ListCategoryComponent implements OnInit {
   stateCollapse: boolean = true;
   hideBtn: string = "NO";
 
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -72,7 +73,6 @@ export class ListCategoryComponent implements OnInit {
         name: new FormControl()
       });
       this.filterForm.controls.filterType.setValue("all");
-      
     }
     changeCollapseLabel(){
     
@@ -102,10 +102,10 @@ export class ListCategoryComponent implements OnInit {
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
-    this.spinnerService.hideSpinner();
+    
     //preenche lista
     this.carregaCategories(this.currentPage);
-  
+    this.spinnerService.hideSpinner();
   }
 
   carregaCategories(page: number) {

@@ -78,3 +78,10 @@
         margin: 0 0 10px;
     }
 }
+
+.error-text {
+    color: rgb(165, 112, 112);
+}
+.error {
+    border: 1px solid red;
+}

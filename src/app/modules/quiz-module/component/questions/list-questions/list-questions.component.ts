@@ -3,7 +3,7 @@ import { TokenStorageService } from 'src/app/modules/login-module';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import {  Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuestionsService } from '../../../service/questions.service';
 declare var $: any 
 
