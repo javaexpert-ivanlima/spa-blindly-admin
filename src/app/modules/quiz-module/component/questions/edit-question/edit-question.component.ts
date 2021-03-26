@@ -103,7 +103,6 @@ export class EditQuestionComponent implements OnInit {
   }
 
   setupFields(){
-    console.log(this.spinnerService.getQuestionObject().row);
     if (this.spinnerService.getQuestionObject()){
       let questionObj: any = this.spinnerService.getQuestionObject().row;
       this.questionForm.controls.questionID.setValue(questionObj.id);

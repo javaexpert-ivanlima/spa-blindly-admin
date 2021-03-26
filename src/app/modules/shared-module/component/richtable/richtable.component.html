@@ -9,13 +9,19 @@
             <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">ACTIONS</th>
           </tr>
         </thead>
+        <ng-container [formGroup]="basicInfoForm">
         <tbody>
-          <tr *ngFor="let obj of tableData" scope="row">
+          <ng-container formArrayName="items">
+          <tr *ngFor="let obj of tableData;let i=index;" scope="row" [formGroupName]="i">
             <th *ngFor="let col of tableCols">
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
               <div *ngIf="col.includes('date') === false">
    
-          
+                <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === true">
+                  <input type="hidden" formControlName="questionID" name="questionID" value="1" >
+                  <input type="text"  formControlName="questionOrder" size="5%" maxlength="2" name="questionOrder" value="{{obj[col]}}" >
+                </div> 
+
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
                 {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}
               </div>
@@ -42,8 +48,9 @@
                   <button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
             </td>
           </tr>
-         
+        </ng-container>
         </tbody>
+      </ng-container>
       </table>
       <nav class="pagination-outer" aria-label="Page navigation">
           <ul *ngIf="pageable" class="pagination">

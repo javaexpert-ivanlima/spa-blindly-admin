@@ -1,22 +1,35 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, forwardRef, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/modules/login-module';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { EventEmitter } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormArray, FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator, Validators } from '@angular/forms';
 
 
 @Component({
   selector: 'app-richtable',
   templateUrl: './richtable.component.html',
-  styleUrls: ['./richtable.component.css']
+  styleUrls: ['./richtable.component.css'],
+  providers: [
+       {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => RichtableComponent),
+      multi: true
+    },
+     {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => RichtableComponent),
+      multi: true
+    }
+  ]
 })
-export class RichtableComponent implements OnInit {
+export class RichtableComponent implements OnInit, ControlValueAccessor, Validator {
   
   @Input() hideActionColumn: string ;
   @Input() title: string;
   @Input() tableCols: string[]  = [];
   @Input() tableLabels: string[]  = [];
-  @Input() tableData: {}[] = [];
+  @Input() tableData: any[] = [];
   @Input() pageable: any;
   @Input() onlyDeleteAction: string;
 
@@ -33,18 +46,18 @@ export class RichtableComponent implements OnInit {
   currentPage : number = 0;
   
   isLoggedIn = false;
+  @Input() basicInfoForm: any;
 
   constructor(
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService
     ) { 
-      
-    }
+  }
 
-    fakeArray(): Array<any> {
+  fakeArray(): Array<any> {
         return new Array(this.pageable.totalPages);
-    }
+  }
 
   ngOnInit(): void {
     if (!this.tableLabels){
@@ -60,13 +73,10 @@ export class RichtableComponent implements OnInit {
 
   }
 
-
-
   pageClick(page: number){
     this.currentPage = page;
     this.emitterPage.emit(this.currentPage);
   }
-
   
   deleteClick(id: any){
     this.deleteID.emit(id);
@@ -84,5 +94,24 @@ export class RichtableComponent implements OnInit {
   }
   accessChild(obj: any){
     this.childID.emit(obj);
+  }
+
+  public onTouched: () => void = () => {};
+
+  writeValue(val: any): void {
+    val && this.basicInfoForm.setValue(val, { emitEvent: false });
+  }
+  registerOnChange(fn: any): void {
+    this.basicInfoForm.valueChanges.subscribe(fn);
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    isDisabled ? this.basicInfoForm.disable() : this.basicInfoForm.enable();
+  }
+
+  validate(c: AbstractControl): ValidationErrors | null{
+    return this.basicInfoForm.valid ? null : { invalidForm: {valid: false, message: "basicInfoForm fields are invalid"}};
   }
 }

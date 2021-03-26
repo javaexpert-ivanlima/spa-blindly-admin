@@ -1,8 +1,9 @@
 <div style="height: 100%;width: 100%;">
     <div class="panelbackground-container">
       <div class="row">  
-          <div class="col"><h4>{{title | titlecase}}</h4></div>
-      </div>
+          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
+          <div class="col-sm-6"><button *ngIf="rows?.length > 0" type="button" (click)="onSubmit()" class="btn btn-purple btn-rounded float-right mb-2">Save Quiz</button></div>
+        </div>
       <div *ngIf="rows?.length <= 0" >
             <br/><br/>
       </div>
@@ -10,11 +11,11 @@
             There is no active question registered, please register one first.
       </div>
   <br/>
-
-<app-richtable *ngIf="rows?.length > 0" [title]="title"  (childID)='answers($event)'
-[tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'false'">
-</app-richtable>
-
+  <form  [formGroup]="quizOrderForm" class="form-group" #f="ngForm" >
+    <app-richtable [basicInfoForm]="quizOrderForm.controls.basicInfoForm" *ngIf="rows?.length > 0" [title]="title"  (childID)='answers($event)'
+    [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'false'">
+    </app-richtable>
+</form>
 </div>
 </div> 
 

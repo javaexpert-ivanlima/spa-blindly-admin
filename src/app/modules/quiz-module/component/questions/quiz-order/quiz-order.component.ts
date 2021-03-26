@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/modules/login-module';
@@ -35,6 +35,7 @@ export class QuizOrderComponent implements OnInit {
   content = "<p>"+this.textParagraph1+"</p><p>"+this.textParagraph2+"</p>";
 
   showForm: boolean = false;
+  quizOrderForm: any;
 
   itemList : any[];
   answersData: any[];
@@ -42,14 +43,31 @@ export class QuizOrderComponent implements OnInit {
 
   hideBtn: string = "NO";
 
+
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
     private questionService: QuestionsService
     ) { 
+      this.quizOrderForm = this.formBuilder.group({
+        basicInfoForm: new FormGroup({
+          items:new FormArray([])
+        })
+      });  
     }
 
+  get f() { return this.quizOrderForm.controls; }
+  onSubmit() {
+    this.submitted = true;
+    this.errorMessage = null;
+    //stop here if form is invalid
+    if (this.quizOrderForm.invalid) {
+            return;
+    }
+    alert('la vai');
+  }
   ngOnInit(): void {
     this.hideBtn = "NO";
     //verificacao de sessao expirada
@@ -62,6 +80,7 @@ export class QuizOrderComponent implements OnInit {
     this.spinnerService.hideSpinner();
     //preenche lista
     this.carregaQuiz();
+    
   }
 
 
@@ -71,6 +90,14 @@ export class QuizOrderComponent implements OnInit {
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data;
+        if(this.rows.length > 0){
+          this.rows.forEach(element => {
+            this.quizOrderForm.controls.basicInfoForm.get('items').push(new FormGroup({
+              questionID:new FormControl(element.id,[Validators.required]),
+              questionOrder:new FormControl(element.quizOrder,[Validators.required])
+            }))
+          }); 
+        }
       },
       err => {
         this.handleError(err);
