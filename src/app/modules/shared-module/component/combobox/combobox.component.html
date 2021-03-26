@@ -1,16 +1,37 @@
-<div class="combobox">
+<ng-container *ngIf="isNumber == 'S'">
+    <div class="combobox">
     
-    <input type="text" placeholder="{{placeholder}}" 
-    class="combobox-input" [(ngModel)]="inputItem"
-    (ngModelChange)="getFilteredList()" (keyup)="onKeyPress($event)"
-    (blur)="toggleListDisplay(0)" (focus)="toggleListDisplay(1)"
-    [ngClass]="{'error': showError}">
-    <i *ngIf="showError" class="error-text">{{warningMsg}}</i>
-    <div class="combobox-options" *ngIf="!listHidden">
-        <list-item *ngFor="let item of filteredList;let i = index"
-        [ngClass]="{'selected': i===selectedIndex}"
-        (click)="selectItem(i)">
-            {{item.nameCategory}}
-        </list-item>
+        <input type="text" digitOnly maxlength="2" min="1" max="10" placeholder="{{placeholder}}" 
+        class="combobox-input" [(ngModel)]="inputItem"
+        (ngModelChange)="getFilteredList()" (keyup)="onKeyPress($event)"
+        (blur)="toggleListDisplay(0)" (focus)="toggleListDisplay(1)"
+        [ngClass]="{'error': showError}">
+        <i *ngIf="showError" class="error-text">{{warningMsg}}</i>
+        <div class="combobox-options" *ngIf="!listHidden">
+            <list-item *ngFor="let item of filteredList;let i = index"
+            [ngClass]="{'selected': i===selectedIndex}"
+            (click)="selectItem(i)">
+                {{item.nameCategory}}
+            </list-item>
+        </div>
     </div>
-</div>
+</ng-container>
+<ng-container *ngIf="isNumber != 'S'">
+    <div class="combobox">
+    
+        <input type="text" placeholder="{{placeholder}}" 
+        class="combobox-input" [(ngModel)]="inputItem"
+        (ngModelChange)="getFilteredList()" (keyup)="onKeyPress($event)"
+        (blur)="toggleListDisplay(0)" (focus)="toggleListDisplay(1)"
+        [ngClass]="{'error': showError}">
+        <i *ngIf="showError" class="error-text">{{warningMsg}}</i>
+        <div class="combobox-options" *ngIf="!listHidden">
+            <list-item *ngFor="let item of filteredList;let i = index"
+            [ngClass]="{'selected': i===selectedIndex}"
+            (click)="selectItem(i)">
+                {{item.nameCategory}}
+            </list-item>
+        </div>
+    </div>
+</ng-container>
+
