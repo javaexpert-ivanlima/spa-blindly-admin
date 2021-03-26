@@ -23,7 +23,7 @@
  
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === true">
                 <input type="hidden"  formControlName="questionID" name="questionID" value="1" >
-                <input type="text"  [ngClass]="{'error error-text': !basicInfoForm.controls.items.controls[i].controls.questionOrder.value}" formControlName="questionOrder" size="5%" maxlength="2" name="questionOrder" value="{{obj[col]}}" >
+                <input type="text" digitOnly [ngClass]="{'error error-text': !basicInfoForm.controls.items.controls[i].controls.questionOrder.value}" formControlName="questionOrder" size="5%" maxlength="2" name="questionOrder" value="{{obj[col]}}" >
               </div> 
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === false">
                 <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
