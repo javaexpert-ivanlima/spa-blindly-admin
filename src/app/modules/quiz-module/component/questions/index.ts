@@ -3,3 +3,4 @@ export * from './audit-questions';
 export * from './create-question';
 export * from './edit-question';
 export * from './quiz-order';
+export * from './quiz-preview';

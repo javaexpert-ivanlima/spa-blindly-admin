@@ -53,6 +53,8 @@ export class AuthenticateComponent implements OnInit {
       this.spinnerService.showLoginElements(false);
     }    
     this.spinnerService.hideSpinner();
+    this.spinnerService.hideMainModal();
+
   }
 
   get f() { return this.loginForm.controls; }

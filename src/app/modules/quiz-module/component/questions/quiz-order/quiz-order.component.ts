@@ -58,6 +58,10 @@ export class QuizOrderComponent implements OnInit {
       });  
     }
 
+  preview(){
+      this.router.navigateByUrl('/quiz/preview');
+  }   
+  
   get f() { return this.quizOrderForm.controls; }
   onSubmit() {
     this.submitted = true;

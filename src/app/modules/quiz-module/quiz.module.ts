@@ -11,16 +11,31 @@ import { AuditQuestionsComponent } from './component';
 import { CreateQuestionComponent } from './component';
 import { EditQuestionComponent } from './component';
 import { QuizOrderComponent } from './component';
+import { QuizPreviewComponent } from './component/questions/quiz-preview/quiz-preview.component';
 
 
 
 
 @NgModule({
   declarations: [ 
-    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent, CreateQuestionComponent, EditQuestionComponent, QuizOrderComponent
+    ListCategoryComponent,
+    AuditCategoryComponent,
+    ListQuestionsComponent,
+    AuditQuestionsComponent,
+    CreateQuestionComponent,
+    EditQuestionComponent,
+    QuizOrderComponent,
+    QuizPreviewComponent
   ],
   exports:[
-    ListCategoryComponent, AuditCategoryComponent, ListQuestionsComponent, AuditQuestionsComponent, CreateQuestionComponent, EditQuestionComponent, QuizOrderComponent
+    ListCategoryComponent,
+    AuditCategoryComponent,
+    ListQuestionsComponent,
+    AuditQuestionsComponent,
+    CreateQuestionComponent,
+    EditQuestionComponent,
+    QuizOrderComponent,
+    QuizPreviewComponent
   ],
   imports: [
     CommonModule,

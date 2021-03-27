@@ -1,24 +1,47 @@
 <div style="height: 100%;width: 100%;">
     <div class="panelbackground-container">
       <div class="row">  
-          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
+          <div class="col-sm-6"><h4>{{title | titlecase}} - {{this.currentIndex+1}} of {{this.rows.length}} questions</h4></div>
           <div class="col-sm-6">
-                  <button *ngIf="rows?.length > 0" type="button" (click)="onSubmit()" class="ml-3 btn btn-purple btn-rounded float-right mb-2">Save Quiz</button>
-                  <button *ngIf="rows?.length > 0" type="button" (click)="preview()" class="btn btn-secondary btn-rounded float-right mb-2">Preview</button>
+                  <button type="button" (click)="back()" class="btn btn-secondary btn-rounded float-right mb-2">Back</button>
           </div>
+      </div>
+      <br/>
+      <div class="border" style="padding: 2%;">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="getPercentual()" aria-valuemin="0" aria-valuemax="100" style="width: {{getPercentual()}}%;">
+          <span class="sr-only">{{getPercentual()}} Complete</span>
         </div>
-      <div *ngIf="rows?.length <= 0" >
-            <br/><br/>
       </div>
-      <div *ngIf="rows?.length <= 0" class="alert alert-danger" style="text-align: center;" role="alert">
-            There is no active question registered, please register one first.
+      <br>
+      <h1 class="question">{{rows[currentIndex]?.question}}</h1>
+        <div data-toggle="buttons" style="text-align: center;">
+            <div *ngFor="let answer of rows[currentIndex]?.answers;let i=index;" class="row">
+            <div class="col">
+              <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'Y'" class="btn btn-purple">
+                <input type="checkbox" name="options" id="option1"> {{answer?.answer}}
+              </label>
+              <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'N'" class="btn btn-purple">
+                <input type="radio" name="options" id="option1"> {{answer?.answer}}
+              </label>
+
+            </div>
+            </div>
       </div>
-  <br/>
-  <form  [formGroup]="quizOrderForm" class="form-group" #f="ngForm" >
-    <app-richtable [basicInfoForm]="quizOrderForm.controls.basicInfoForm" *ngIf="rows?.length > 0" [title]="title"  (childID)='answers($event)'
-    [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'false'">
-    </app-richtable>
-</form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-6">
+            <button type="button" (click)="nextQuestion()" class="ml-3 btn btn-secondary btn-rounded float-right mb-2">Next</button>
+            <button type="button" (click)="previousQuestion()" class="btn btn-secondary btn-rounded float-right mb-2">Previous</button>
+        </div>
+
+    </div>
+    </div>
 </div>
 </div> 
 
