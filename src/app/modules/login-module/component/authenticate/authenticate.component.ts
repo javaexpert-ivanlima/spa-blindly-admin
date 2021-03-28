@@ -43,6 +43,8 @@ export class AuthenticateComponent implements OnInit {
   }
   
   ngOnInit(): void {
+    this.spinnerService.hideSpinner();
+    this.spinnerService.hideMainModal();
     if (this.tokenStorage.getToken()) {
       this.isLoggedIn = true;
       this.spinnerService.showLoginElements(true);

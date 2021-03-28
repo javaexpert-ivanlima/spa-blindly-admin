@@ -76,7 +76,7 @@
         <div id="login-modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
             <div class="loginmodal-container ">       
         <form  [formGroup]="categoryForm" (ngSubmit)="confirmOperation()" class="form-group" #f2="ngForm">
-                    <input id="name" formControlName="name" type="text" name="name" class="form-control" placeholder="Category name" >
+                    <input id="name" formControlName="name" oninput="this.value = this.value.toUpperCase()" type="text" name="name" class="form-control" placeholder="Category name" >
                     
           <div *ngIf="submittedRegister && categoryForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
             <div *ngIf="submittedRegister && categoryForm.controls.name.errors.required">Category NAME is required</div>

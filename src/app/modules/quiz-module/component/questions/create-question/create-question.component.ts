@@ -255,6 +255,7 @@ export class CreateQuestionComponent implements OnInit {
     this.bgColorTitle = "#8c54a1!important"
     this.titleModal = "Add a answer";
     this.lablelButton="Create";
+    this.weightAnswerSelected = "";
     this.answerForm.controls.name.setValue("");
     this.answerForm.controls.weight.setValue("");
     this.showModal(null,"C");
