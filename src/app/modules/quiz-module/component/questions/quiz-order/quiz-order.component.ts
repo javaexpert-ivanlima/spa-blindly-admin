@@ -24,8 +24,8 @@ export class QuizOrderComponent implements OnInit {
   
   isLoggedIn = false;
   title : string = 'quiz order';
-  columns : string[] = ['quizOrder','question','weight','isMultipleChoice','numberOfAnswers','category'];
-  labels : string[] = ['order','name of question','weigth','multiple','answers','category'];
+  columns : string[] = ['quizOrder','category','question','weight','isMultipleChoice','numberOfAnswers'];
+  labels : string[] = ['order','category','name of question','weigth','multiple','answers'];
   rows: any[] = [];
 
   confirmButton: boolean = false;  

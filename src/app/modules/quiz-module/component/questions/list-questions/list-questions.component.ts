@@ -27,8 +27,8 @@ export class ListQuestionsComponent implements OnInit {
   
   isLoggedIn = false;
   title : string = 'questions';
-  columns : string[] = ['id','question','active','weight','isMultipleChoice','numberOfAnswers','category','modifiedBy','lastUpdateDate'];
-  labels : string[] = ['id','name of question','act','wt','multiple','ans','category','owner','update date'];
+  columns : string[] = ['id','category','question','active','weight','isMultipleChoice','numberOfAnswers','modifiedBy','lastUpdateDate'];
+  labels : string[] = ['id','category','name of question','act','wt','multiple','ans','owner','update date'];
   rows: any[] = [];
   pageable: any;
 
