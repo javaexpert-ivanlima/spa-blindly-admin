@@ -116,13 +116,15 @@
             <input formControlName="weight" class="form-check-input " type="hidden" name="weight" id="weight">
             <app-combobox [isNumber]="'S'" [warningMsg]="'Weight is a mandatory field'" (category)="setupWeightAnswer($event)" [inputItem]="weightAnswerSelected" [placeholder]="'Weight'" [list]="weightList"></app-combobox>
                       <br/>        
-                      <input id="name" formControlName="name" type="text" name="name" class="form-control" placeholder="Answer" >
+                      <input id="name" formControlName="name" type="text" oninput="this.value = this.value.toUpperCase()" name="name" class="form-control" placeholder="Answer" >
                       <div *ngIf="submittedRegister && answerForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                <div *ngIf="submittedRegister && answerForm.controls.name.errors.required">Answer is required</div>
-                                <div *ngIf="submittedRegister && answerForm.controls.name.errors.minlength">Answer must be at least 4 characters</div>
-                                <div *ngIf="submittedRegister && answerForm.controls.weight.errors.required">weight is required</div>
-                            </div>					  
-      
+                        <div *ngIf="submittedRegister && answerForm.controls.name.errors.required">Answer is required</div>
+                        <div *ngIf="submittedRegister && answerForm.controls.name.errors.minlength">Answer must be at least 4 characters</div>
+               </div>					  
+               <div *ngIf="submittedRegister && answerForm.controls.weight.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                    <div *ngIf="submittedRegister && answerForm.controls.weight.errors.required">weight is required</div>
+                </div>					  
+
                       <div class="form-group">
                             <div class="mt-1 alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
                                     Answer failed: {{ errorMessage }}
