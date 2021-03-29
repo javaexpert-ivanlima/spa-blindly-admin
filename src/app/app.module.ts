@@ -11,6 +11,7 @@ import { QuizModule } from './modules/quiz-module/quiz.module';
 import { LoginModule } from './modules/login-module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
+import { UserModule } from './modules/user-module/user.module';
 
 
 
@@ -28,6 +29,7 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
     HttpClientModule,
     QuizModule,
     LoginModule,
+    UserModule,
     SharedModule,
     AppRoutingModule
   ],

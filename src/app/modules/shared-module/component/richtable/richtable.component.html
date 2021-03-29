@@ -1,10 +1,10 @@
 <ng-container  *ngIf="basicInfoForm">
   <div  *ngIf="tableData" class="table-responsive-xl">
-    <table class="table caption-top table-bordered table-hover table-dark ">
+    <table class="table caption-top table-bordered table-hover {{colorTable}} ">
         <caption>
             List of {{title}}
           </caption>
-      <thead class="thead-light">
+      <thead class="{{colorTableHeader}}">
         <tr>            
           <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
           <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">ACTIONS</th>
@@ -83,11 +83,11 @@
 </ng-container>
 <ng-container  *ngIf="!basicInfoForm">
   <div  *ngIf="tableData" class="table-responsive-xl">
-    <table class="table caption-top table-bordered table-hover table-dark ">
+    <table class="table caption-top table-bordered table-hover {{colorTable}} ">
         <caption>
             List of {{title}}
           </caption>
-      <thead class="thead-light">
+      <thead class="{{colorTableHeader}}">
         <tr>            
           <th *ngFor="let label of tableLabels" scope="col">{{label | uppercase}}</th>
           <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">ACTIONS</th>

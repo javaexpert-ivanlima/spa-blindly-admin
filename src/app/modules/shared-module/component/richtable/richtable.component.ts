@@ -32,6 +32,8 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   @Input() tableData: any[] = [];
   @Input() pageable: any;
   @Input() onlyDeleteAction: string;
+  @Input() adminModule: String;
+
 
   @Output() emitterPage = new EventEmitter();
   @Output() deleteID = new EventEmitter();
@@ -44,6 +46,9 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   submitted = false;
   errorMessage = '';
   currentPage : number = 0;
+
+  colorTable: string = 'table-dark';
+  colorTableHeader: string = 'thead-light'
   
   isLoggedIn = false;
   @Input() basicInfoForm: any;
@@ -60,6 +65,13 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   }
 
   ngOnInit(): void {
+    if (!this.adminModule || this.adminModule != 'Y'){
+        this.colorTable = 'table-dark';
+        this.colorTableHeader = 'thead-light'
+    } else {
+      this.colorTable = 'table-info';
+      this.colorTableHeader = 'thead-dark'
+    }
     if (!this.tableLabels){
         this.tableLabels = this.tableCols;
     }
