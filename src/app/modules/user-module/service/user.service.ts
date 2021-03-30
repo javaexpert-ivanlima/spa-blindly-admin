@@ -19,5 +19,19 @@ export class UserService {
   getAllAdminUsers(): Observable<any>{
     let url = AUTH_API;
     return this.http.get( url , httpOptions);
-}
+  }
+
+  createAdminUser(name: string,login: string,superUser: string){
+    let url = AUTH_API;
+    return this.http.post( url , {"email":login,"name":name,"isSuperUser":superUser},httpOptions);
+  }
+
+  inactivatedQuestion(id: number): Observable<any> {
+    let url : string = AUTH_API + "/inactive";
+    return this.http.put( url , {"id":id},httpOptions);
+  }
+  activatedQuestion(id: number): Observable<any> {
+    let url : string = AUTH_API + "/active";
+    return this.http.put( url , {"id":id},httpOptions);
+  }
 }

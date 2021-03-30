@@ -15,8 +15,8 @@ export class ListAdminUsersComponent implements OnInit {
   modalId = "dialogConfirm";
   errorMessage = '';
   rows: any[] = [];
-  columns : string[] = ['id','login','name','superUser','active','blocked','lastUpdateDate'];
-  labels : string[] = ['id','login','name','super_user','active','blocked','last_update_date'];
+  columns : string[] = ['id','login','name','superUser','active','blocked','lastUpdateDate','modifiedBy'];
+  labels : string[] = ['id','login','name','super_user','active','blocked','last_update','modified_by'];
 
   //modal fields
   fgColorTitle:string;
@@ -38,6 +38,7 @@ export class ListAdminUsersComponent implements OnInit {
   pageable: any;
   submitted = false;
   submittedRegister = false;
+  confirmButton: boolean = false;  
 
 
   constructor(
@@ -69,7 +70,7 @@ export class ListAdminUsersComponent implements OnInit {
     }    
     this.spinnerService.hideSpinner();
     //preenche lista
-    this.carregaAdminUser(0);
+    this.carregaAdminUser(this.currentPage);
   }
 
   onSubmit(){
@@ -106,13 +107,66 @@ export class ListAdminUsersComponent implements OnInit {
     this.showModal(null,"C");
   }
 
-  exclude(obj){
-  }
-
   activated(obj){
+    this.lablelButton="Activate";
+    this.bgColorTitle = "#a6c!important"; 
+    this.showForm = false;
+    this.titleModal = "Confirmation for activation";
+    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be activated.";
+    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+    this.showModal(obj,"A");
   }
 
-  audit(obj){ 
+
+  activatedAdminUser(id){
+    this.spinnerService.showSpinner();
+    this.userService.activatedQuestion(id).subscribe(
+      data => {
+        this.currentPage =0;
+        this.carregaAdminUser(this.currentPage);
+        this.spinnerService.hideSpinner();
+        this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was activated with sucess.");
+      },
+      err => {
+        this.handleError(err);
+        this.hideModal();
+      }
+    );
+    
+  }
+
+  inactivatedAdminUser(id){
+    this.spinnerService.showSpinner();
+    this.userService.inactivatedQuestion(id).subscribe(
+          data => {
+            this.currentPage =0;
+            this.carregaAdminUser(this.currentPage);
+            this.spinnerService.hideSpinner();
+            this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was deleted with sucess.");
+            this.confirmButton = false;
+          },
+          err => {
+            this.handleError(err);
+            this.confirmButton = false;
+            this.hideModal();
+          }
+    );
+
+  }
+
+  exclude(obj){
+    this.lablelButton="Delete";
+    this.bgColorTitle = "#a6c!important"; 
+    this.showForm = false;
+    this.titleModal = "Confirmation for exclusion";
+    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be excluded.";
+    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+    this.showModal(obj,"E");
+  }
+
+  audit(obj){
+    //this.spinnerService.setQuestionObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory,"categorySelected":this.categorySelected}});
+    this.router.navigateByUrl('/admin_users/audit');
   }
 
   edit(obj){
@@ -136,17 +190,17 @@ export class ListAdminUsersComponent implements OnInit {
 
   confirmOperation(){
     if (this.operationType == "E"){
-       // this.inactivatedQuestion(this.selectedID['id']);
+        this.inactivatedAdminUser(this.selectedID['id']);
     }else if (this.operationType == "A"){
-        //this.activatedQuestion(this.selectedID['id']);
-    }else if (this.operationType == "Z"){
+        this.activatedAdminUser(this.selectedID['id']);
+    }else if (this.operationType == "C"){
       this.submittedRegister = true;
       this.submitted = false;
       this.errorMessage = null;
       if (this.adminUserForm.invalid) {
         return;
       }
-      this.createAdminUser();       
+      this.createAdminUser();  
     }else if (this.operationType == "Z"){
       this.hideModal();
       this.hideBtn = "NO";
@@ -155,11 +209,22 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   createAdminUser(){
-    
     this.spinnerService.showSpinner();
-    let name = this.adminUserForm.controls.name.value;
-    this.showConfirmation("AdminUser ["+name+"] was added with sucess.");
-    this.spinnerService.hideSpinner();
+    let login = this.adminUserForm.controls.login.value;
+    let nameUser = this.adminUserForm.controls.name.value;
+    let isSuper = this.adminUserForm.controls.superUser.value;
+      this.userService.createAdminUser(nameUser,login,isSuper).subscribe(
+        data => {
+          this.currentPage =0;
+          this.carregaAdminUser(this.currentPage);
+          this.showConfirmation("AdminUser ["+nameUser+"] was added with sucess.");
+          this.spinnerService.hideSpinner();
+                },
+        err => {
+          this.handleError(err);
+          this.spinnerService.hideSpinner();
+        }
+      );
     
   }
 

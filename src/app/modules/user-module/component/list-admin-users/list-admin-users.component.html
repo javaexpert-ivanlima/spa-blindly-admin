@@ -126,18 +126,18 @@
           
           <div class="row">
               <div class="col">
-                  <div *ngIf="submitted && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submitted && adminUserForm.controls.name.errors.required">Name is required</div>
+                  <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                      <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
                   </div>	             
-                  <div *ngIf="submitted && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submitted && adminUserForm.controls.login.errors.required">Login is required</div>
-                      <div *ngIf="submitted && adminUserForm.controls.login.errors.minlength">Login must be at least 4 characters</div>
+                  <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                      <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">Login is required</div>
+                      <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail</div>
                   </div>	           
-                  <div *ngIf="submitted && adminUserForm.controls.password.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submitted && adminUserForm.controls.password.errors.required">Password is required</div>
+                  <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                      <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors.required">SuperUser is required</div>
                   </div>	                                     
-              </div>
-
+              
+             </div> 
           </div>   
           <div class="row">
           <div class="col">
