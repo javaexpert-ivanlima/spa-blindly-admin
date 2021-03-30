@@ -114,11 +114,23 @@
           </th>
           <td *ngIf="hideActionColumn == 'true' ">
             <ng-container *ngIf="obj['active']==='N'">
-                <button type="button" (click)="activatedClick(obj);" title="Activated" class="btn btn-purple-secondary"><i class="fa fa-eye"></i></button>
+              <ng-container *ngIf="adminModule == 'Y'">
+                <button type="button" (click)="activatedClick(obj);" title="Activated"  class="btn btn-info"><i class="fa fa-eye"></i></button>
+              </ng-container>
+              <ng-container *ngIf="adminModule != 'Y'">
+                <button type="button" (click)="activatedClick(obj);" title="Activated"  class="btn btn-purple-secondary"><i class="fa fa-eye"></i></button>
+              </ng-container>
+
             </ng-container>
             <ng-container *ngIf="obj['active']==='Y'">
-              <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-purple-secondary"><i class="fa fa-edit"></i></button>
-              &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>
+              <ng-container *ngIf="adminModule == 'Y'">
+                <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-info"><i class="fa fa-edit"></i></button>
+                &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>  
+              </ng-container>
+              <ng-container *ngIf="adminModule != 'Y'">
+                <button type="button" (click)="editClick(obj);" title="Edit" class="btn btn-purple-secondary"><i class="fa fa-edit"></i></button>
+                &nbsp;<button type="button" (click)="deleteClick(obj);" title="Delete" class="btn btn-danger"><i class="fa fa-times"></i></button>                  
+              </ng-container>
             </ng-container> 
              
               &nbsp;<button type="button" (click)="auditClick(obj);" title="Audit" class="btn btn-secondary"><i class="fa fa-camera-retro"></i></button>

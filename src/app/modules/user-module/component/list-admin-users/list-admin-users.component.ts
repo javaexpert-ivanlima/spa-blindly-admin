@@ -31,6 +31,7 @@ export class ListAdminUsersComponent implements OnInit {
   showForm: boolean = false;
 
   adminUserFilterForm: any;
+  adminUserForm: any;
   currentPage: number = 0;
   selectedID: any = null;
   stateCollapse: boolean = true;
@@ -49,6 +50,11 @@ export class ListAdminUsersComponent implements OnInit {
       this.adminUserFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],
         name: [null,[Validators.minLength(4)]]
+      });
+      this.adminUserForm = this.formBuilder.group({
+        name: [null, [Validators.required, Validators.minLength(3)]],
+        login: [null, [Validators.required, Validators.email]],
+        superUser: [null, [Validators.required]]
       });
     }
 
@@ -85,6 +91,19 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   addNew(){
+    //this.router.navigateByUrl('admin_users/create');
+    this.submittedRegister = false;
+    this.submitted = false;
+    this.errorMessage = null;
+    this.showForm = true;
+    this.bgColorTitle = "#007bff!important";
+    this.fgColorTitle = "white";
+    this.titleModal = "Create AdminUser";
+    this.lablelButton="Save User";
+    //this.weightAnswerSelected = "";
+    this.adminUserForm.controls.name.setValue("");
+    this.adminUserForm.controls.login.setValue("");
+    this.showModal(null,"C");
   }
 
   exclude(obj){
@@ -120,13 +139,42 @@ export class ListAdminUsersComponent implements OnInit {
        // this.inactivatedQuestion(this.selectedID['id']);
     }else if (this.operationType == "A"){
         //this.activatedQuestion(this.selectedID['id']);
-    } else if (this.operationType == "Z"){
+    }else if (this.operationType == "Z"){
+      this.submittedRegister = true;
+      this.submitted = false;
+      this.errorMessage = null;
+      if (this.adminUserForm.invalid) {
+        return;
+      }
+      this.createAdminUser();       
+    }else if (this.operationType == "Z"){
       this.hideModal();
       this.hideBtn = "NO";
     }
     
   }
 
+  createAdminUser(){
+    
+    this.spinnerService.showSpinner();
+    let name = this.adminUserForm.controls.name.value;
+    this.showConfirmation("AdminUser ["+name+"] was added with sucess.");
+    this.spinnerService.hideSpinner();
+    
+  }
+
+  showConfirmation(text){
+    this.hideBtn = "YES";
+    this.lablelButton="OK";
+    this.bgColorTitle = "#6c757d!important"; 
+    this.showForm = false;
+    this.titleModal = "Sucess";
+    this.textParagraph1 = "";
+    this.textParagraph2 = text;
+    this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
+    this.operationType ="Z";
+  }
+  
   hideModal(){
     $("#"+this.modalId).modal('hide');
   }

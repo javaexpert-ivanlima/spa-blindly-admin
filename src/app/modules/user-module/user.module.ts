@@ -10,7 +10,10 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [ListAdminUsersComponent, ListAppUsersComponent],
+  declarations: [
+    ListAdminUsersComponent, 
+    ListAppUsersComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
