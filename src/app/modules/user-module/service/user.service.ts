@@ -34,4 +34,15 @@ export class UserService {
     let url : string = AUTH_API + "/active";
     return this.http.put( url , {"id":id},httpOptions);
   }
+
+  getAuditAdminUser(page: number,id: number ): Observable<any> {
+    let url : string = AUTH_API;
+    if (!page){
+        page = 0;
+    }
+    url = url + '/audit?id=' + id + '&page=' + page;
+   
+    return this.http.get( url , httpOptions);
+  }
+
 }

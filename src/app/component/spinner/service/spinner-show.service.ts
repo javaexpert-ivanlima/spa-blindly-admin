@@ -8,6 +8,7 @@ export class SpinnerShowService {
   private dataObsevable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private categoryObject: any = null;
   private questionObject: any = null;
+  private adminUserObject: any = null;
 
   constructor() {
   }
@@ -28,6 +29,13 @@ export class SpinnerShowService {
   }
   setQuestionObject(obj:any){
     this.questionObject = obj;
+  }
+
+  getAdminUserObject(): any{
+    return this.adminUserObject;
+  }
+  setAdminUserObject(obj:any){
+    this.adminUserObject = obj;
   }
   showSpinner():void{
       this.dataObsevable.next(true);

@@ -50,7 +50,8 @@ export class ListAdminUsersComponent implements OnInit {
     ) { 
       this.adminUserFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],
-        name: [null,[Validators.minLength(4)]]
+        name: [null,[Validators.minLength(4)]],
+        login: [null, [Validators.required, Validators.email]]
       });
       this.adminUserForm = this.formBuilder.group({
         name: [null, [Validators.required, Validators.minLength(3)]],
@@ -165,7 +166,7 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   audit(obj){
-    //this.spinnerService.setQuestionObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchCategory":this.searchCategory,"categorySelected":this.categorySelected}});
+    this.spinnerService.setAdminUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":null,"searchName":null,"searchLogin":null}});
     this.router.navigateByUrl('/admin_users/audit');
   }
 
