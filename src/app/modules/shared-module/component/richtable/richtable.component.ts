@@ -51,6 +51,7 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   colorTableHeader: string = 'thead-light'
   
   isLoggedIn = false;
+  sub: any;
   @Input() basicInfoForm: any;
 
   constructor(
@@ -77,6 +78,7 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
     }
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
+       this.sub = this.tokenStorage.getSub(); 
       //todo guardar url atual
     }else{
       this.router.navigateByUrl('/login/authenticate');

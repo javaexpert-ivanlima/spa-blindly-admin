@@ -3,6 +3,7 @@ import * as moment from 'moment';
 
 const TOKEN_KEY = 'auth-token';
 const ROLE_KEY = 'auth-roles';
+const SUB_KEY = 'auth-sub';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,7 @@ export class TokenStorageService {
     window.sessionStorage.setItem(TOKEN_KEY, token);
     let json: any = this.getJsonFromToken(token);
     this.saveRoles(this.getAuthorities(json));
+    this.saveSub(json);
     this.getToken();
   }
 
@@ -59,6 +61,10 @@ export class TokenStorageService {
     window.sessionStorage.setItem(ROLE_KEY, JSON.stringify(roles));
   }
 
+  private saveSub(json: any): void {
+    window.sessionStorage.removeItem(SUB_KEY);
+    window.sessionStorage.setItem(SUB_KEY, json.sub);
+  }
   public getRoles(): any {
     const roles = window.sessionStorage.getItem(ROLE_KEY);
     if (roles) {
@@ -68,4 +74,12 @@ export class TokenStorageService {
     return {};
   }
 
+  public getSub(): any {
+    const sub = window.sessionStorage.getItem(SUB_KEY);
+    if (sub) {
+      return sub;
+    }
+
+    return null;
+  }
 }
