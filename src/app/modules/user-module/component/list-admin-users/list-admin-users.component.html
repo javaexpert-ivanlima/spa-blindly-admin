@@ -44,19 +44,29 @@
                         </div>
                       </div>
                   </div>
-                       
+                  <div class="row mt-2">
+                    <div class="col">
+                            <input formControlName="login" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for login (email)..."> 
+                            <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                              <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
+                          </div>
+
+                          </div>
+                  </div>        
                   <div class="row mt-2">
                         <div class="col">
-                                <input formControlName="name" style="outline: none!important;"  type="text" id="myInput" placeholder="Search for {{title}}..."> 
+                                <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for {{title}}..."> 
                                 <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
                                   <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
                               </div>
     
                               </div>
-                        <div class="col-sm-auto mt-2">
-                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
-                        </div>
-                  </div>          
+                  </div>  
+                  <div class="row mt-2">
+                          <div class="col">
+                            <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
+                          </div>
+                  </div>        
             <div class="row">
                 <div class="col">
                     <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
@@ -82,7 +92,7 @@
 </div>
 </div> 
 
-<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
+<app-modal [modalID]="modalId" [adminModule]="'Y'" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 

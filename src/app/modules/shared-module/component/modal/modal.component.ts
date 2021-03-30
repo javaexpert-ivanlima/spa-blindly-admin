@@ -14,12 +14,21 @@ export class ModalComponent implements OnInit {
   @Input() lblBtnOK: string;
   @Input() hideCloseBtn: string;
   @Input() style: string;
+  @Input() adminModule: string;
+  
   @Output() clickOK = new EventEmitter();
   @ViewChild('contentWrapper') content;
+
+  buttonColor: string;
 
   constructor() { }
 
   ngOnInit(): void {
+    if (!this.adminModule || this.adminModule != 'Y'){
+          this.buttonColor = 'btn-purple';
+    } else {
+          this.buttonColor = 'btn-info';
+    }
   }
 
   ngAfterViewInit() {

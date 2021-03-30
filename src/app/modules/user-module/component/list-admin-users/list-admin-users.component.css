@@ -10,6 +10,7 @@ input[type='radio']:after {
     display: inline-block;
     visibility: visible;
     border: 2px solid white;
+    box-sizing: initial;
 }
 
 input[type='radio']:checked:after {
@@ -24,4 +25,18 @@ input[type='radio']:checked:after {
     display: inline-block;
     visibility: visible;
     border: 2px solid white;
+    box-sizing: initial;
+}
+
+.btn.focus, .btn:focus {
+    outline: 0;
+    box-shadow: none!important;
+}
+
+.form-control:focus {
+  color: #495057;
+  background-color: #fff;
+  border-color: #007bbb!important;
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem #007bff!important;
 }
