@@ -82,7 +82,13 @@
 
    
   <br/>
-
+  <div class="row">
+    <div class="col">
+        <div class="alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
+            Action failed: {{ errorMessage }}
+        </div>              
+    </div>
+  </div>
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' 
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' [adminModule]="'Y'"

@@ -86,6 +86,7 @@ export class ListAdminUsersComponent implements OnInit {
           this.pageable = {"page": data.data.pageable,"last":data.data.last,"first":data.data.first,"totalPages":data.data.totalPages,"pageNumber":data.data.number};
           },
         err => {
+          this.submittedRegister = true;
           this.handleError(err);
         }
       );
@@ -129,6 +130,7 @@ export class ListAdminUsersComponent implements OnInit {
         this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was activated with sucess.");
       },
       err => {
+        this.submittedRegister = true;
         this.handleError(err);
         this.hideModal();
       }
@@ -147,6 +149,7 @@ export class ListAdminUsersComponent implements OnInit {
             this.confirmButton = false;
           },
           err => {
+            this.submittedRegister = true;
             this.handleError(err);
             this.confirmButton = false;
             this.hideModal();
@@ -171,7 +174,20 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   edit(obj){
+    this.submittedRegister = false;
+    this.submitted = false;
+    this.errorMessage = null;
+    this.lablelButton="Update";
+    this.bgColorTitle = "#007bff!important"; 
+    this.titleModal = "Edit Admin User";
+    let isSuperUser: string = obj['superUser']=='Y'?'Yes':'No';
+    this.adminUserForm.controls.superUser.setValue(isSuperUser);
+    this.adminUserForm.controls.name.setValue(obj['name']);
+    this.adminUserForm.controls.login.setValue(obj['login']);
+    this.showForm = true;
+    this.showModal(obj,"U");
   }
+
 
   changeCollapseLabel(){
     
@@ -189,11 +205,37 @@ export class ListAdminUsersComponent implements OnInit {
     this.carregaAdminUser(page);
   }
 
+  updateAdminUser(id,form){
+    
+    this.spinnerService.showSpinner();
+    this.userService.updateAdminUser(id,form).subscribe(
+      data => {
+        this.carregaAdminUser(this.currentPage);
+        this.spinnerService.hideSpinner();
+        this.showConfirmation("AdminUser ["+form.name.value+"] was updated with sucess.");
+      },
+      err => {
+        this.submittedRegister = true;
+        this.handleError(err);
+      }
+    );
+    
+  }
+
   confirmOperation(){
     if (this.operationType == "E"){
         this.inactivatedAdminUser(this.selectedID['id']);
     }else if (this.operationType == "A"){
         this.activatedAdminUser(this.selectedID['id']);
+    } else if ( this.operationType == "U"){
+        this.submittedRegister = true;
+        this.submitted = false;
+        this.errorMessage = null;
+        if (this.adminUserForm.invalid) {
+          return;
+        }
+        this.updateAdminUser(this.selectedID['id'],this.adminUserForm.controls);       
+        
     }else if (this.operationType == "C"){
       this.submittedRegister = true;
       this.submitted = false;
@@ -222,8 +264,8 @@ export class ListAdminUsersComponent implements OnInit {
           this.spinnerService.hideSpinner();
                 },
         err => {
+          this.submittedRegister = true;
           this.handleError(err);
-          this.spinnerService.hideSpinner();
         }
       );
     
@@ -270,6 +312,5 @@ export class ListAdminUsersComponent implements OnInit {
       }
       
     }
-    this.spinnerService.hideSpinner();
   }
 }

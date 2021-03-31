@@ -26,6 +26,11 @@ export class UserService {
     return this.http.post( url , {"email":login,"name":name,"isSuperUser":superUser},httpOptions);
   }
 
+  updateAdminUser(id: number,form: any){
+    let url = AUTH_API;
+    return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"isSuperUser":form.superUser.value},httpOptions);
+  }
+
   inactivatedQuestion(id: number): Observable<any> {
     let url : string = AUTH_API + "/inactive";
     return this.http.put( url , {"id":id},httpOptions);
