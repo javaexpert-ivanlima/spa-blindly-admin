@@ -16,8 +16,47 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  getAllAdminUsers(): Observable<any>{
-    let url = AUTH_API;
+  getAllAdminUsers(page: number,filter:string,name:string,login:string): Observable<any>{
+    
+    let url : string = AUTH_API;
+    if (!page){
+        page = 0;
+    }
+    if (filter && filter == "all"){
+      url = url + '?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+      if (login){
+        url = url + '&login=' + login;
+      } 
+    }else if (filter && filter == "inactive"){
+      url = url + '/inactive?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+      if (login){
+        url = url + '&login=' + login;
+      } 
+    }else if (filter && filter == "blocked"){
+      url = url + '/blocked?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+      if (login){
+        url = url + '&login=' + login;
+      }  
+    } else if (filter && filter == "active"){
+      url = url + '/active?page=' + page;
+      if (name){
+        url = url + '&name=' + name.toUpperCase();
+      } 
+      if (login){
+        url = url + '&login=' + login;
+      }       
+    }else{
+      url = url + '?page=' + page;
+    }
     return this.http.get( url , httpOptions);
   }
 

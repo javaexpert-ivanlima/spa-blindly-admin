@@ -47,15 +47,15 @@
                   <div class="row mt-2">
                     <div class="col">
                             <input formControlName="login" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for login (email)..."> 
-                            <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                              <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
+                            <div *ngIf="submitted && adminUserFilterForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                              <div *ngIf="submitted && adminUserFilterForm.controls.login.errors.minlength">Login must be at least 4 characters</div>
                           </div>
 
                           </div>
                   </div>        
                   <div class="row mt-2">
                         <div class="col">
-                                <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for {{title}}..."> 
+                                <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for name..."> 
                                 <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
                                   <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
                               </div>
@@ -158,7 +158,7 @@
           <div class="row">
           <div class="col">
               <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
-                  Search failed: {{ errorMessage }}
+                  Error: {{ errorMessage }}
                   </div>              
           </div>
       </div>

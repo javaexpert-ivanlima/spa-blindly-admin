@@ -39,7 +39,12 @@ export class ListAdminUsersComponent implements OnInit {
   submitted = false;
   submittedRegister = false;
   confirmButton: boolean = false;  
-
+  
+  //filter files
+  searchFor: string = null;
+  searchName: string = null;
+  searchLogin: number = null;
+  adminUserSelected: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,7 +56,7 @@ export class ListAdminUsersComponent implements OnInit {
       this.adminUserFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],
         name: [null,[Validators.minLength(4)]],
-        login: [null, [Validators.required, Validators.email]]
+        login: [null, [Validators.minLength(4)]]
       });
       this.adminUserForm = this.formBuilder.group({
         name: [null, [Validators.required, Validators.minLength(3)]],
@@ -70,16 +75,59 @@ export class ListAdminUsersComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
+    this.setupFilters();
     //preenche lista
-    this.carregaAdminUser(this.currentPage);
+    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
   }
 
+  setupFilters(){
+    //se veio da tela de audit, popula os filtros que ja estavam como paginacao e campos da busca
+   if (this.spinnerService.getAdminUserObject()){
+     this.currentPage = this.spinnerService.getAdminUserObject().filter.page;
+     this.searchFor = this.spinnerService.getAdminUserObject().filter.searchFor;
+     this.searchName = this.spinnerService.getAdminUserObject().filter.searchName;
+     this.searchLogin = this.spinnerService.getAdminUserObject().filter.searchLogin;
+     this.adminUserFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
+     this.adminUserFilterForm.controls.name.setValue(this.searchName);
+     this.adminUserFilterForm.controls.login.setValue(this.searchLogin);
+     this.adminUserSelected = this.spinnerService.getAdminUserObject().filter.adminUserSelected;
+   }
+}
   onSubmit(){
+    this.submitted = true;
+    this.submittedRegister = false;
+    this.errorMessage = null;
+    this.currentPage = 0;
+    //stop here if form is invalid
+    if (this.adminUserFilterForm.invalid) {
+            return;
+    }
+    this.spinnerService.setAdminUserObject(null);
+    this.loadFilterFields();
+    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin);
   }
 
-  carregaAdminUser(page){
+  loadFilterFields(){
+    if (this.adminUserFilterForm.controls.name.value){
+      this.searchName = this.adminUserFilterForm.controls.name.value;
+    }else{
+      this.searchName = null;  
+    }
+    if (this.adminUserFilterForm.controls.filterType.value){
+      this.searchFor = this.adminUserFilterForm.controls.filterType.value;
+    }else{
+      this.searchFor = null;
+    }
+    if (this.adminUserFilterForm.controls.login.value){
+      this.searchLogin = this.adminUserFilterForm.controls.login.value;
+    }else{
+      this.searchLogin = null;
+    }
+
+  }
+  carregaAdminUser(page,search,name,login){
     this.spinnerService.showSpinner();
-      this.userService.getAllAdminUsers().subscribe(
+      this.userService.getAllAdminUsers(page,search,name,login).subscribe(
         data => {
           this.spinnerService.hideSpinner();
           this.rows =   data.data.content;
@@ -125,7 +173,7 @@ export class ListAdminUsersComponent implements OnInit {
     this.userService.activatedQuestion(id).subscribe(
       data => {
         this.currentPage =0;
-        this.carregaAdminUser(this.currentPage);
+        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
         this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was activated with sucess.");
       },
@@ -143,7 +191,7 @@ export class ListAdminUsersComponent implements OnInit {
     this.userService.inactivatedQuestion(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaAdminUser(this.currentPage);
+            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
             this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was deleted with sucess.");
             this.confirmButton = false;
@@ -169,7 +217,7 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   audit(obj){
-    this.spinnerService.setAdminUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":null,"searchName":null,"searchLogin":null}});
+    this.spinnerService.setAdminUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchLogin":this.searchLogin,"userAdminSelected":this.adminUserSelected}});
     this.router.navigateByUrl('/admin_users/audit');
   }
 
@@ -202,7 +250,7 @@ export class ListAdminUsersComponent implements OnInit {
 
   displayPage(page) {
     this.currentPage = page;
-    this.carregaAdminUser(page);
+    this.carregaAdminUser(page,this.searchFor,this.searchName,this.searchName);
   }
 
   updateAdminUser(id,form){
@@ -210,7 +258,7 @@ export class ListAdminUsersComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.userService.updateAdminUser(id,form).subscribe(
       data => {
-        this.carregaAdminUser(this.currentPage);
+        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
         this.showConfirmation("AdminUser ["+form.name.value+"] was updated with sucess.");
       },
@@ -259,7 +307,7 @@ export class ListAdminUsersComponent implements OnInit {
       this.userService.createAdminUser(nameUser,login,isSuper).subscribe(
         data => {
           this.currentPage =0;
-          this.carregaAdminUser(this.currentPage);
+          this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
           this.showConfirmation("AdminUser ["+nameUser+"] was added with sucess.");
           this.spinnerService.hideSpinner();
                 },
