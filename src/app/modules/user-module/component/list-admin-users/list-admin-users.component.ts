@@ -159,7 +159,7 @@ export class ListAdminUsersComponent implements OnInit {
 
   activated(obj){
     this.lablelButton="Activate";
-    this.bgColorTitle = "#a6c!important"; 
+    this.bgColorTitle = "#007bff!important"; 
     this.showForm = false;
     this.titleModal = "Confirmation for activation";
     this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be activated.";
@@ -167,10 +167,18 @@ export class ListAdminUsersComponent implements OnInit {
     this.showModal(obj,"A");
   }
 
-
+  unblocked(obj){
+    this.lablelButton="Unblock";
+    this.bgColorTitle = "#007bff!important"; 
+    this.showForm = false;
+    this.titleModal = "Confirmation for unblocking";
+    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be unblocked.";
+    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+    this.showModal(obj,"B");
+  }
   activatedAdminUser(id){
     this.spinnerService.showSpinner();
-    this.userService.activatedQuestion(id).subscribe(
+    this.userService.activatedAdminUser(id).subscribe(
       data => {
         this.currentPage =0;
         this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
@@ -188,7 +196,7 @@ export class ListAdminUsersComponent implements OnInit {
 
   inactivatedAdminUser(id){
     this.spinnerService.showSpinner();
-    this.userService.inactivatedQuestion(id).subscribe(
+    this.userService.inactivatedAdminUser(id).subscribe(
           data => {
             this.currentPage =0;
             this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
@@ -206,9 +214,28 @@ export class ListAdminUsersComponent implements OnInit {
 
   }
 
+  unblockedAdminUser(id){
+    this.spinnerService.showSpinner();
+    this.userService.unblockedAdminUser(id).subscribe(
+          data => {
+            this.currentPage =0;
+            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+            this.spinnerService.hideSpinner();
+            this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was unblocked with sucess.");
+            this.confirmButton = false;
+          },
+          err => {
+            this.submittedRegister = true;
+            this.handleError(err);
+            this.confirmButton = false;
+            this.hideModal();
+          }
+    );
+
+  }
   exclude(obj){
     this.lablelButton="Delete";
-    this.bgColorTitle = "#a6c!important"; 
+    this.bgColorTitle = "#007bff!important"; 
     this.showForm = false;
     this.titleModal = "Confirmation for exclusion";
     this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be excluded.";
@@ -273,6 +300,8 @@ export class ListAdminUsersComponent implements OnInit {
   confirmOperation(){
     if (this.operationType == "E"){
         this.inactivatedAdminUser(this.selectedID['id']);
+    }else if (this.operationType == "B"){
+        this.unblockedAdminUser(this.selectedID['id']);
     }else if (this.operationType == "A"){
         this.activatedAdminUser(this.selectedID['id']);
     } else if ( this.operationType == "U"){

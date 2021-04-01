@@ -39,7 +39,7 @@ export class AdminUserAuditComponent implements OnInit {
     if (!this.spinnerService.getAdminUserObject()){
         this.router.navigateByUrl('admin_users/list');
     }
-    this.selectedID = this.spinnerService.getAdminUserObject().row.id;
+    this.selectedID = this.spinnerService.getAdminUserObject()?.row?.id;
     this.selectedName = this.spinnerService.getAdminUserObject().row.name;
 
     if (this.tokenStorage.getToken()) {

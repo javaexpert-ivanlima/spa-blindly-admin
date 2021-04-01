@@ -70,12 +70,17 @@ export class UserService {
     return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"isSuperUser":form.superUser.value},httpOptions);
   }
 
-  inactivatedQuestion(id: number): Observable<any> {
+  inactivatedAdminUser(id: number): Observable<any> {
     let url : string = AUTH_API + "/inactive";
     return this.http.put( url , {"id":id},httpOptions);
   }
-  activatedQuestion(id: number): Observable<any> {
+  activatedAdminUser(id: number): Observable<any> {
     let url : string = AUTH_API + "/active";
+    return this.http.put( url , {"id":id},httpOptions);
+  }
+
+  unblockedAdminUser(id: number): Observable<any> {
+    let url : string = AUTH_API + "/unblocked";
     return this.http.put( url , {"id":id},httpOptions);
   }
 

@@ -41,6 +41,7 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   @Output() editID = new EventEmitter();
   @Output() activateID = new EventEmitter();
   @Output() childID = new EventEmitter();
+  @Output() unblockedID = new EventEmitter();
 
   
   submitted = false;
@@ -110,7 +111,9 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   accessChild(obj: any){
     this.childID.emit(obj);
   }
-
+  accessUnblocked(obj: any){
+    this.unblockedID.emit(obj);
+  }
   public onTouched: () => void = () => {};
 
   writeValue(val: any): void {

@@ -90,7 +90,7 @@
     </div>
   </div>
 <app-richtable 
-(emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' 
+(emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' (unblockedID)='unblocked($event)'
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' [adminModule]="'Y'"
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
 </app-richtable>
