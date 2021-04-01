@@ -33,7 +33,7 @@ export class AuthInterceptor implements HttpInterceptor {
       authReq = request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
     }
     return next.handle(authReq).pipe(
-      retry(1),
+      retry(0),
       catchError((error: HttpErrorResponse) => {
           if (error.status === 401 || error.status === 403) {
             this.service.hideSpinner();
