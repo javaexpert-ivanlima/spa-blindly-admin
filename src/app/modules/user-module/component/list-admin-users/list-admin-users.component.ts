@@ -61,7 +61,7 @@ export class ListAdminUsersComponent implements OnInit {
       this.adminUserForm = this.formBuilder.group({
         name: [null, [Validators.required, Validators.minLength(3)]],
         login: [null, [Validators.required, Validators.email]],
-        superUser: [null, [Validators.required]]
+        superUser: ['No', [Validators.required]]
       });
     }
 
@@ -134,7 +134,7 @@ export class ListAdminUsersComponent implements OnInit {
           this.pageable = {"page": data.data.pageable,"last":data.data.last,"first":data.data.first,"totalPages":data.data.totalPages,"pageNumber":data.data.number};
           },
         err => {
-          this.submittedRegister = true;
+          this.submitted = true;
           this.handleError(err);
         }
       );
@@ -188,7 +188,8 @@ export class ListAdminUsersComponent implements OnInit {
       err => {
         this.submittedRegister = true;
         this.handleError(err);
-        this.hideModal();
+        //this.hideModal();
+        this.showConfirmation(this.errorMessage);
       }
     );
     
@@ -208,7 +209,8 @@ export class ListAdminUsersComponent implements OnInit {
             this.submittedRegister = true;
             this.handleError(err);
             this.confirmButton = false;
-            this.hideModal();
+            //this.hideModal();
+            this.showConfirmation(this.errorMessage);
           }
     );
 
@@ -228,7 +230,8 @@ export class ListAdminUsersComponent implements OnInit {
             this.submittedRegister = true;
             this.handleError(err);
             this.confirmButton = false;
-            this.hideModal();
+            //this.hideModal();
+            this.showConfirmation(this.errorMessage);
           }
     );
 
@@ -292,6 +295,7 @@ export class ListAdminUsersComponent implements OnInit {
       err => {
         this.submittedRegister = true;
         this.handleError(err);
+        this.showConfirmation(this.errorMessage);
       }
     );
     
@@ -343,6 +347,7 @@ export class ListAdminUsersComponent implements OnInit {
         err => {
           this.submittedRegister = true;
           this.handleError(err);
+          this.showConfirmation(this.errorMessage);
         }
       );
     

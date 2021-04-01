@@ -41,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
             this.router.navigateByUrl('/login/authenticate');
           }else{
             this.service.hideSpinner();
-            this.service.hideMainModal();
+            //this.service.hideMainModal();
           }
         
         return throwError(error);
