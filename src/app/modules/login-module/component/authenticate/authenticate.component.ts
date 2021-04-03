@@ -21,6 +21,7 @@ export class AuthenticateComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   errorMessage = '';
+  userName: string = null;
 
   public dataObsevable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
@@ -46,6 +47,7 @@ export class AuthenticateComponent implements OnInit {
     this.spinnerService.hideSpinner();
     this.spinnerService.hideMainModal();
     if (this.tokenStorage.getToken()) {
+      this.userName = this.tokenStorage.getSub();
       this.isLoggedIn = true;
       this.spinnerService.showLoginElements(true);
 
@@ -73,6 +75,7 @@ export class AuthenticateComponent implements OnInit {
     Object.assign(this.auth,this.loginForm.value);
     this.authService.login(this.auth).subscribe(
       data => {
+        this.userName = this.auth.email;
         this.tokenStorage.saveToken(data.data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;

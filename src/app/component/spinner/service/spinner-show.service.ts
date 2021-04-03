@@ -38,6 +38,7 @@ export class SpinnerShowService {
     this.adminUserObject = obj;
   }
   showSpinner():void{
+    $("#welcome-title").hide();
       this.dataObsevable.next(true);
       $("#overlayLoading").show();
   }
@@ -48,10 +49,14 @@ export class SpinnerShowService {
   }  
   showLoginElements(show: boolean): void{
     if (show){
-      $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
+      //$("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
+      $("#mainContent").css({backgroundImage : 'none'});
+      $("#body").addClass('welcome-cover');
       $("#menuContent").show();    
+      $("#welcome-title").show();
       $("#login-modal").hide();
     }else{
+      $("#welcome-title").hide();
       $("#menuContent").hide();
       $("#login-modal").show();
     }
