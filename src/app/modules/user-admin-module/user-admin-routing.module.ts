@@ -5,7 +5,7 @@ import {
        } from './component';
 
 
-export const UserRoutes: Routes = [
+export const UserAdminRoutes: Routes = [
 
     {
         path: 'admin_users',

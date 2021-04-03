@@ -3,15 +3,15 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/modules/login-module';
-import { UserService } from '../../service';
+import { UserAppService } from '../../service';
 
 @Component({
-  selector: 'app-list-admin-users',
-  templateUrl: './list-admin-users.component.html',
-  styleUrls: ['./list-admin-users.component.css']
+  selector: 'app-list-app-users',
+  templateUrl: './list-app-users.component.html',
+  styleUrls: ['./list-app-users.component.css']
 })
-export class ListAdminUsersComponent implements OnInit {
-  title : string = 'admin users';
+export class ListAppUsersComponent implements OnInit {
+  title : string = 'app users';
   modalId = "dialogConfirm";
   errorMessage = '';
   rows: any[] = [];
@@ -51,7 +51,7 @@ export class ListAdminUsersComponent implements OnInit {
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
-    private userService: UserService
+    private userService: UserAppService
     ) { 
       this.adminUserFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],

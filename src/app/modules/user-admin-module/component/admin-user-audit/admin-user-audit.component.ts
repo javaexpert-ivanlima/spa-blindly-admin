@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/modules/login-module';
-import { UserService } from '../../service';
+import { UserAdminService } from '../../service';
 
 @Component({
   selector: 'app-admin-user-audit',
@@ -30,12 +30,10 @@ export class AdminUserAuditComponent implements OnInit {
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
-    private userService: UserService
+    private userService: UserAdminService
   ) { }
 
   ngOnInit(): void {
-    //this.selectedID = this.route.snapshot.params.id;
-    //this.selectedName = this.route.snapshot.params.name;
     if (!this.spinnerService.getAdminUserObject()){
         this.router.navigateByUrl('admin_users/list');
     }

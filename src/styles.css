@@ -132,3 +132,38 @@ font-family: roboto;
     box-shadow: 0 0 0 0.2rem #8e24aa!important;
 }
 
+.welcome-cover{
+  min-height: 600px;
+  background-image: url(assets/imgs/background/welcome-cover.jpg);
+  background-size: cover;
+  background-position: center top;
+}
+
+.bg-gradient-default {
+  background: linear-gradient(87deg, #172b4d 0, #1a174d 100%) !important;
+}
+
+.opacity-8 {
+  opacity: .8 !important;
+}
+
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: all .15s ease;
+}
+
+.welcome-title{
+  font-size: 1.635rem; 
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: .5rem;
+}
+
+.display-2 span {
+  font-weight: 300;
+  display: block;
+}

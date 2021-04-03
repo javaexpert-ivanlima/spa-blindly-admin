@@ -12,7 +12,7 @@ const AUTH_API =  "http://localhost:8080/v1/admin/users";
 @Injectable({
   providedIn: 'root'
 })
-export class UserService {
+export class UserAdminService {
 
   constructor(private http: HttpClient) { }
 
