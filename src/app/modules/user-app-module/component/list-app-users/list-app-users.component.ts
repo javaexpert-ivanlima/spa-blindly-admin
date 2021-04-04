@@ -15,8 +15,6 @@ export class ListAppUsersComponent implements OnInit {
   modalId = "dialogConfirm";
   errorMessage = '';
   rows: any[] = [];
-  columns : string[] = ['id','login','name','superUser','active','blocked','lastUpdateDate','modifiedBy'];
-  labels : string[] = ['id','login','name','super_user','active','blocked','last_update','modified_by'];
 
   //modal fields
   fgColorTitle:string;
@@ -30,8 +28,7 @@ export class ListAppUsersComponent implements OnInit {
   operationType: string = null;
   showForm: boolean = false;
 
-  adminUserFilterForm: any;
-  adminUserForm: any;
+  appUserFilterForm: any;
   currentPage: number = 0;
   selectedID: any = null;
   stateCollapse: boolean = true;
@@ -44,7 +41,7 @@ export class ListAppUsersComponent implements OnInit {
   searchFor: string = null;
   searchName: string = null;
   searchLogin: number = null;
-  adminUserSelected: string = '';
+  appUserSelected: string = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,15 +50,10 @@ export class ListAppUsersComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private userService: UserAppService
     ) { 
-      this.adminUserFilterForm = this.formBuilder.group({
+      this.appUserFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],
         name: [null,[Validators.minLength(4)]],
         login: [null, [Validators.minLength(4)]]
-      });
-      this.adminUserForm = this.formBuilder.group({
-        name: [null, [Validators.required, Validators.minLength(3)]],
-        login: [null, [Validators.required, Validators.email]],
-        superUser: ['No', [Validators.required]]
       });
     }
 
@@ -102,30 +94,31 @@ export class ListAppUsersComponent implements OnInit {
 
 
 
-  goDetails(){
+  goDetails(obj){
+    this.appUserSelected = obj;
+    this.spinnerService.setAppUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchLogin":this.searchLogin,"userAppSelected":this.appUserSelected}});
     this.router.navigateByUrl('app_users/detail');
   }
 
   setupFilters(){
     //se veio da tela de audit, popula os filtros que ja estavam como paginacao e campos da busca
-   if (this.spinnerService.getAdminUserObject()){
-     this.currentPage = this.spinnerService.getAdminUserObject().filter.page;
-     this.searchFor = this.spinnerService.getAdminUserObject().filter.searchFor;
-     this.searchName = this.spinnerService.getAdminUserObject().filter.searchName;
-     this.searchLogin = this.spinnerService.getAdminUserObject().filter.searchLogin;
-     this.adminUserFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
-     this.adminUserFilterForm.controls.name.setValue(this.searchName);
-     this.adminUserFilterForm.controls.login.setValue(this.searchLogin);
-     this.adminUserSelected = this.spinnerService.getAdminUserObject().filter.adminUserSelected;
+   if (this.spinnerService.getAppUserObject()){
+     this.currentPage = this.spinnerService.getAppUserObject().filter.page;
+     this.searchFor = this.spinnerService.getAppUserObject().filter.searchFor;
+     this.searchName = this.spinnerService.getAppUserObject().filter.searchName;
+     this.searchLogin = this.spinnerService.getAppUserObject().filter.searchLogin;
+     this.appUserFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
+     this.appUserFilterForm.controls.name.setValue(this.searchName);
+     this.appUserFilterForm.controls.login.setValue(this.searchLogin);
+     this.appUserSelected = this.spinnerService.getAppUserObject().filter.appUserSelected;
    }
 }
   onSubmit(){
     this.submitted = true;
-    this.submittedRegister = false;
     this.errorMessage = null;
     this.currentPage = 0;
     //stop here if form is invalid
-    if (this.adminUserFilterForm.invalid) {
+    if (this.appUserFilterForm.invalid) {
             return;
     }
     this.spinnerService.setAdminUserObject(null);
@@ -134,18 +127,18 @@ export class ListAppUsersComponent implements OnInit {
   }
 
   loadFilterFields(){
-    if (this.adminUserFilterForm.controls.name.value){
-      this.searchName = this.adminUserFilterForm.controls.name.value;
+    if (this.appUserFilterForm.controls.name.value){
+      this.searchName = this.appUserFilterForm.controls.name.value;
     }else{
       this.searchName = null;  
     }
-    if (this.adminUserFilterForm.controls.filterType.value){
-      this.searchFor = this.adminUserFilterForm.controls.filterType.value;
+    if (this.appUserFilterForm.controls.filterType.value){
+      this.searchFor = this.appUserFilterForm.controls.filterType.value;
     }else{
       this.searchFor = null;
     }
-    if (this.adminUserFilterForm.controls.login.value){
-      this.searchLogin = this.adminUserFilterForm.controls.login.value;
+    if (this.appUserFilterForm.controls.login.value){
+      this.searchLogin = this.appUserFilterForm.controls.login.value;
     }else{
       this.searchLogin = null;
     }
@@ -171,21 +164,7 @@ export class ListAppUsersComponent implements OnInit {
     return new Array(this.pageable.totalPages);
   }
 
-  addNew(){
-    //this.router.navigateByUrl('admin_users/create');
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.showForm = true;
-    this.bgColorTitle = "#007bff!important";
-    this.fgColorTitle = "white";
-    this.titleModal = "Create AdminUser";
-    this.lablelButton="Save User";
-    //this.weightAnswerSelected = "";
-    this.adminUserForm.controls.name.setValue("");
-    this.adminUserForm.controls.login.setValue("");
-    this.showModal(null,"C");
-  }
+
 
   activated(obj){
     this.lablelButton="Activate";
@@ -206,7 +185,7 @@ export class ListAppUsersComponent implements OnInit {
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.showModal(obj,"B");
   }
-  activatedAdminUser(id){
+  activatedAppUser(id){
     this.spinnerService.showSpinner();
     this.userService.activatedAdminUser(id).subscribe(
       data => {
@@ -225,7 +204,7 @@ export class ListAppUsersComponent implements OnInit {
     
   }
 
-  inactivatedAdminUser(id){
+  inactivatedAppUser(id){
     this.spinnerService.showSpinner();
     this.userService.inactivatedAdminUser(id).subscribe(
           data => {
@@ -246,7 +225,7 @@ export class ListAppUsersComponent implements OnInit {
 
   }
 
-  unblockedAdminUser(id){
+  unblockedAppUser(id){
     this.spinnerService.showSpinner();
     this.userService.unblockedAdminUser(id).subscribe(
           data => {
@@ -277,24 +256,10 @@ export class ListAppUsersComponent implements OnInit {
   }
 
   audit(obj){
-    this.spinnerService.setAdminUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchLogin":this.searchLogin,"userAdminSelected":this.adminUserSelected}});
+    this.spinnerService.setAdminUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchLogin":this.searchLogin,"userAdminSelected":this.appUserSelected}});
     this.router.navigateByUrl('/admin_users/audit');
   }
 
-  edit(obj){
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.lablelButton="Update";
-    this.bgColorTitle = "#007bff!important"; 
-    this.titleModal = "Edit Admin User";
-    let isSuperUser: string = obj['superUser']=='Y'?'Yes':'No';
-    this.adminUserForm.controls.superUser.setValue(isSuperUser);
-    this.adminUserForm.controls.name.setValue(obj['name']);
-    this.adminUserForm.controls.login.setValue(obj['login']);
-    this.showForm = true;
-    this.showModal(obj,"U");
-  }
 
 
   changeCollapseLabel(){
@@ -313,48 +278,14 @@ export class ListAppUsersComponent implements OnInit {
     this.carregaAppUser(page,this.searchFor,this.searchName,this.searchName);
   }
 
-  updateAdminUser(id,form){
-    
-    this.spinnerService.showSpinner();
-    this.userService.updateAdminUser(id,form).subscribe(
-      data => {
-        this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
-        this.spinnerService.hideSpinner();
-        this.showConfirmation("AdminUser ["+form.name.value+"] was updated with sucess.");
-      },
-      err => {
-        this.submittedRegister = true;
-        this.handleError(err);
-        this.showConfirmation(this.errorMessage);
-      }
-    );
-    
-  }
 
   confirmOperation(){
     if (this.operationType == "E"){
-        this.inactivatedAdminUser(this.selectedID['id']);
+        this.inactivatedAppUser(this.selectedID['id']);
     }else if (this.operationType == "B"){
-        this.unblockedAdminUser(this.selectedID['id']);
+        this.unblockedAppUser(this.selectedID['id']);
     }else if (this.operationType == "A"){
-        this.activatedAdminUser(this.selectedID['id']);
-    } else if ( this.operationType == "U"){
-        this.submittedRegister = true;
-        this.submitted = false;
-        this.errorMessage = null;
-        if (this.adminUserForm.invalid) {
-          return;
-        }
-        this.updateAdminUser(this.selectedID['id'],this.adminUserForm.controls);       
-        
-    }else if (this.operationType == "C"){
-      this.submittedRegister = true;
-      this.submitted = false;
-      this.errorMessage = null;
-      if (this.adminUserForm.invalid) {
-        return;
-      }
-      this.createAdminUser();  
+        this.activatedAppUser(this.selectedID['id']);
     }else if (this.operationType == "Z"){
       this.hideModal();
       this.hideBtn = "NO";
@@ -362,26 +293,6 @@ export class ListAppUsersComponent implements OnInit {
     
   }
 
-  createAdminUser(){
-    this.spinnerService.showSpinner();
-    let login = this.adminUserForm.controls.login.value;
-    let nameUser = this.adminUserForm.controls.name.value;
-    let isSuper = this.adminUserForm.controls.superUser.value;
-      this.userService.createAdminUser(nameUser,login,isSuper).subscribe(
-        data => {
-          this.currentPage =0;
-          this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
-          this.showConfirmation("AdminUser ["+nameUser+"] was added with sucess.");
-          this.spinnerService.hideSpinner();
-                },
-        err => {
-          this.submittedRegister = true;
-          this.handleError(err);
-          this.showConfirmation(this.errorMessage);
-        }
-      );
-    
-  }
 
   showConfirmation(text){
     this.hideBtn = "YES";

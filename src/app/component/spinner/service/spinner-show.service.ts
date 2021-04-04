@@ -9,6 +9,7 @@ export class SpinnerShowService {
   private categoryObject: any = null;
   private questionObject: any = null;
   private adminUserObject: any = null;
+  private appUserObject: any = null;
 
   constructor() {
   }
@@ -34,8 +35,15 @@ export class SpinnerShowService {
   getAdminUserObject(): any{
     return this.adminUserObject;
   }
+  getAppUserObject(): any{
+    return this.appUserObject;
+  }
+
   setAdminUserObject(obj:any){
     this.adminUserObject = obj;
+  }
+  setAppUserObject(obj:any){
+    this.appUserObject = obj;
   }
   showSpinner():void{
     $("#body").removeClass('mask');
@@ -72,5 +80,15 @@ export class SpinnerShowService {
       $("#menuContent").hide();
       $("#login-modal").show();
     }
+  }
+
+  showAddressData(){
+    $("#user_personalData").hide();
+    $("#user_address").show();
+  }
+
+  showPersonalData(){
+    $("#user_personalData").show();
+    $("#user_address").hide();
   }
 }
