@@ -74,10 +74,36 @@ export class ListAppUsersComponent implements OnInit {
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
+    this.spinnerService.showWelcomeCover();
     this.spinnerService.hideSpinner();
     this.setupFilters();
     //preenche lista
-    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+    this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+  }
+
+  getStatus(obj:any): string {
+    if (obj.registerPhase < 6){
+          return "Pending";
+    }
+    if (obj.blocked == 'Y'){
+          return "Blocked";
+    }
+    if (obj.active == 'N'){
+          return "Inactive";
+    }
+    return "Active";
+  }
+
+  getPercentual(obj:any):number{
+        let phase: number = obj.registerPhase;
+        if (phase == 0) phase = 1;
+        return Math.round((phase*100)/6);
+  }
+
+
+
+  goDetails(){
+    this.router.navigateByUrl('app_users/detail');
   }
 
   setupFilters(){
@@ -104,7 +130,7 @@ export class ListAppUsersComponent implements OnInit {
     }
     this.spinnerService.setAdminUserObject(null);
     this.loadFilterFields();
-    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin);
+    this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin);
   }
 
   loadFilterFields(){
@@ -125,9 +151,9 @@ export class ListAppUsersComponent implements OnInit {
     }
 
   }
-  carregaAdminUser(page,search,name,login){
+  carregaAppUser(page,search,name,login){
     this.spinnerService.showSpinner();
-      this.userService.getAllAdminUsers(page,search,name,login).subscribe(
+      this.userService.getAllAppUsers(page,search,name,login).subscribe(
         data => {
           this.spinnerService.hideSpinner();
           this.rows =   data.data.content;
@@ -139,6 +165,10 @@ export class ListAppUsersComponent implements OnInit {
         }
       );
     
+  }
+
+  fakeArray(): Array<any> {
+    return new Array(this.pageable.totalPages);
   }
 
   addNew(){
@@ -181,7 +211,7 @@ export class ListAppUsersComponent implements OnInit {
     this.userService.activatedAdminUser(id).subscribe(
       data => {
         this.currentPage =0;
-        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+        this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
         this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was activated with sucess.");
       },
@@ -200,7 +230,7 @@ export class ListAppUsersComponent implements OnInit {
     this.userService.inactivatedAdminUser(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+            this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
             this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was deleted with sucess.");
             this.confirmButton = false;
@@ -221,7 +251,7 @@ export class ListAppUsersComponent implements OnInit {
     this.userService.unblockedAdminUser(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+            this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
             this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was unblocked with sucess.");
             this.confirmButton = false;
@@ -280,7 +310,7 @@ export class ListAppUsersComponent implements OnInit {
 
   displayPage(page) {
     this.currentPage = page;
-    this.carregaAdminUser(page,this.searchFor,this.searchName,this.searchName);
+    this.carregaAppUser(page,this.searchFor,this.searchName,this.searchName);
   }
 
   updateAdminUser(id,form){
@@ -288,7 +318,7 @@ export class ListAppUsersComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.userService.updateAdminUser(id,form).subscribe(
       data => {
-        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+        this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
         this.showConfirmation("AdminUser ["+form.name.value+"] was updated with sucess.");
       },
@@ -340,7 +370,7 @@ export class ListAppUsersComponent implements OnInit {
       this.userService.createAdminUser(nameUser,login,isSuper).subscribe(
         data => {
           this.currentPage =0;
-          this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+          this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
           this.showConfirmation("AdminUser ["+nameUser+"] was added with sucess.");
           this.spinnerService.hideSpinner();
                 },

@@ -38,7 +38,9 @@ export class SpinnerShowService {
     this.adminUserObject = obj;
   }
   showSpinner():void{
-    $("#welcome-title").hide();
+    $("#body").removeClass('mask');
+    $("#body").removeClass('bg-gradient-default');
+    $("#body").removeClass('opacity-8');
       this.dataObsevable.next(true);
       $("#overlayLoading").show();
   }
@@ -47,11 +49,21 @@ export class SpinnerShowService {
     $("#dialogConfirm").modal('hide');
     $("#modal-backdrop").modal('hide');
   }  
+
+  showWelcomeCover(){
+    $("#main-content").css({backgroundImage : 'url(assets/imgs/background/welcome-cover.jpg)'});
+    $("#main-content").addClass('mask');
+    $("#main-content").addClass('bg-gradient-default');
+    $("#main-content").addClass('opacity-8');
+  }
+
   showLoginElements(show: boolean): void{
     if (show){
-      //$("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
-      $("#mainContent").css({backgroundImage : 'none'});
-      $("#body").addClass('welcome-cover');
+      //$("#mainContent").css({backgroundImage : 'none'});
+      $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
+      $("#body").addClass('mask');
+      $("#body").addClass('bg-gradient-default');
+      $("#body").addClass('opacity-8');
       $("#menuContent").show();    
       $("#welcome-title").show();
       $("#login-modal").hide();

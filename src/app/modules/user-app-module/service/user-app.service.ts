@@ -6,7 +6,7 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
-const AUTH_API =  "http://localhost:8080/v1/admin/users";
+const AUTH_API =  "http://localhost:8080/v1/admin/app/users";
 
 
 @Injectable({
@@ -16,7 +16,7 @@ export class UserAppService {
 
   constructor(private http: HttpClient) { }
 
-  getAllAdminUsers(page: number,filter:string,name:string,login:string): Observable<any>{
+  getAllAppUsers(page: number,filter:string,name:string,login:string): Observable<any>{
     
     let url : string = AUTH_API;
     if (!page){

@@ -1,164 +1,124 @@
 <div style="height: 100%;width: 100%;">
-    <div class="panelbackground-container">
-      <div class="row">  
-          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button type="button" (click)="addNew()" class="btn btn-info btn-rounded float-right mb-2">Add New</button></div>
-      </div>
-      <div id="accordion">
-       
-              
-              <button class="btn btn-link" style="color:#007bff!important" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
-                <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" > FILTERS</span>
-              </button>
-       
-          <div id="collapseQuestion" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-              <div class="border" style="padding: 2%;">
-                <form  [formGroup]="adminUserFilterForm" class="form-group" #f="ngForm" > 
-                  <div class="row">
-                    <div class="col">      
-                          <div class="form-check form-check-inline">
-                                  <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType1" value="all" >
-                                  <label class="form-check-label" for="filterType1">
-                                          All
-                                  </label>
-                          </div>        
-                          <div class="form-check form-check-inline">
-                                  <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType2" value="inactive">
-                                  <label class="form-check-label" for="filterType2">
-                                          Inactive
-                                  </label>
-                          </div>
-                  
-                          <div class="form-check form-check-inline">
-                                      <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType3" value="active">
-                                      <label class="form-check-label" for="filterType3">
-                                              Active
-                                      </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType4" value="blocked">
-                            <label class="form-check-label" for="filterType4">
-                                    Blocked
-                            </label>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col">
-                            <input formControlName="login" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for login (email)..."> 
-                            <div *ngIf="submitted && adminUserFilterForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                              <div *ngIf="submitted && adminUserFilterForm.controls.login.errors.minlength">Login must be at least 4 characters</div>
-                          </div>
 
-                          </div>
-                  </div>        
-                  <div class="row mt-2">
-                        <div class="col">
-                                <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for name..."> 
-                                <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                  <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
-                              </div>
-    
-                              </div>
-                  </div>  
-                  <div class="row mt-2">
-                          <div class="col">
-                            <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
-                          </div>
-                  </div>        
-            <div class="row">
+      <div style="height: 100%" class="row">
+
+        <div class="mt-1 col">
+          <div class="panelbackground-container card shadow">
+            <div class="card-header bg-white border-0">
+              <div class="row">
+
                 <div class="col">
-                    <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
-                        Search failed: {{ errorMessage }}
-                        </div>              
-                </div>
-            </div>
-            </form> 
-          </div>   
+                  <div class="card shadow">
+                    <div class="card-header border-0">
+                      <h3 class="mb-0">App users</h3>
                     </div>
+                    <div class="table-responsive">
+                      <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                          <tr>
+                            <th scope="col">User</th>
+                            <th scope="col">Login</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Photos</th>
+                            <th scope="col">Completion</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let obj of rows;let i=index;">
+                            <th scope="row">
+                              <div class="media align-items-center">
+                                <a href="#" class="avatar rounded-circle mr-3">
+                                  <img *ngIf="getStatus(obj) === 'Pending'" alt="Image placeholder" src="../../../../../assets/imgs/icons/pending.png">
+                                  <img *ngIf="getStatus(obj) === 'Blocked'" alt="Image placeholder" src="../../../../../assets/imgs/icons/blocked.png">
+                                  <img *ngIf="getStatus(obj) === 'Inactive'" alt="Image placeholder" src="../../../../../assets/imgs/icons/inactive.png">
+                                  <img *ngIf="getStatus(obj) === 'Active'" alt="Image placeholder" src="../../../../../assets/imgs/icons/diamond.png">
+                                </a>
+                                <div class="media-body">
+                                  <span class="mb-0 text-sm">{{obj.name | titlecase}}</span>
+                                </div>
+                              </div>
+                            </th>
+                            <td>
+                              {{obj.login}}
+                            </td>
+                            <td>
+                              <span class="badge badge-dot mr-4">
+                                <i *ngIf="getStatus(obj) === 'Pending'" class="bg-danger"></i> 
+                                <i *ngIf="getStatus(obj) === 'Blocked'" class="bg-warning"></i> 
+                                <i *ngIf="getStatus(obj) === 'Inactive'" class="bg-secondary"></i> 
+                                <i *ngIf="getStatus(obj) === 'Active'" class="bg-success"></i> 
+                                {{getStatus(obj)}}
+                              </span>
+                            </td>
+                            <td>
+                              <div *ngIf="obj.photos" class="avatar-group">
+                                <a *ngFor="let photo of obj.photos;let i=index;" (click)="goDetails(obj)" style="cursor: pointer;" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="{{photo.fileName}}">
+                                  <img alt="" src="{{'data:image/jpg;base64,' + photo.photo}}" class="rounded-circle">
+                                </a>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <span class="mr-2">{{getPercentual(obj)}}%</span>
+                                <div>
+                                  <div class="progress">
+                                    <div *ngIf="getStatus(obj) === 'Pending'" class="progress-bar bg-danger" role="progressbar" aria-valuenow="getPercentual(obj)" aria-valuemin="0" aria-valuemax="100" style="{{'width: '+getPercentual(obj)+'%'}}"></div>
+                                    <div *ngIf="getStatus(obj) === 'Blocked'" class="progress-bar bg-warning" role="progressbar" aria-valuenow="getPercentual(obj)" aria-valuemin="0" aria-valuemax="100" style="{{'width: '+getPercentual(obj)+'%'}}"></div>
+                                    <div *ngIf="getStatus(obj) === 'Inactive'" class="progress-bar bg-secondary" role="progressbar" aria-valuenow="getPercentual(obj)" aria-valuemin="0" aria-valuemax="100" style="{{'width: '+getPercentual(obj)+'%'}}"></div>
+                                    <div *ngIf="getStatus(obj) === 'Active'" class="progress-bar bg-success" role="progressbar" aria-valuenow="getPercentual(obj)" aria-valuemin="0" aria-valuemax="100" style="{{'width: '+getPercentual(obj)+'%'}}"></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </td>
+                            <td class="text-right">
+                              <div class="dropdown">
+                                <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-ellipsis-v"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                  <a class="dropdown-item" (click)="goDetails(obj)">Detail</a>
+                                  <a class="dropdown-item" href="#">Inactive</a>
+                                  <a class="dropdown-item" href="#">Audit</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div *ngIf="pageable" class="card-footer py-4">
+                      <nav aria-label="...">
+                        <ul class="pagination justify-content-end mb-0">
+                          <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
+                            <a class="page-link" (click)="displayPage(currentPage-1)" tabindex="-1">
+                              <i class="fa fa-angle-left"></i>
+                              <span class="sr-only">Previous</span>
+                            </a>
+                          </li>
+                          <ng-container *ngIf="pageable.totalPages > 1"> 
+                            <li *ngFor='let number of fakeArray() ;let i = index' class="page-item active">
+                              <a class="page-link" (click)="displayPage(i)">{{i}}
+                                <span *ngIf="i == pageable.page.pageNumber" class="sr-only">(current)</span>
+                              </a>
+                            </li>
+                          </ng-container>
+            
+                          <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.last}" class="page-item">
+                            <a class="page-link" (click)="displayPage(currentPage+1)">
+                              <i class="fa fa-angle-right"></i>
+                              <span class="sr-only">Next</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>  
 
-   
-  <br/>
-  
-<app-richtable 
-(emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' (unblockedID)='unblocked($event)'
-[title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' [adminModule]="'Y'"
-[tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
-</app-richtable>
-
-</div>
-</div> 
-
-<app-modal [modalID]="modalId" [adminModule]="'Y'" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
-[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
-
-    <div *ngIf="!showForm" [innerHtml]="content" ></div> 
-    <div *ngIf="showForm">    
-      <div class="card-body">
-        <div class="border" style="padding: 2%;">
-          <form  [formGroup]="adminUserForm" class="form-group" #f="ngForm" > 
-                 
-
-            <div class="row mt-2">
-                  <div class="col">
-                          <input formControlName="name" class="form-control text text-input"  oninput="this.value = this.value.toUpperCase()" type="text" id="name" placeholder="Name">    
-                 </div>
-            </div>          
-            <div class="row mt-2">
-              <div class="col">
-                      <input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)">    
-             </div>
-            </div>          
-            <div class="row mt-2">
-              <div class="col">   
-           
-                    <div class="form-controlform-check form-check-inline mt-2">
-                            <label class="form-check-label" >Is Super User ?</label>
-                    </div>        
-            
-                </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col">   
-           
-                    <div class="form-controlform-check form-check-inline">
-                            <input formControlName="superUser" class="form-check-input"  type="radio" name="superUser" id="superUser1" value="Yes" >
-                            <label class="form-check-label" for="superUser1">Yes</label>
-                            <input formControlName="superUser" class="form-check-input ml-2" type="radio" name="superUser" id="superUser2" value="No">
-                            <label class="form-check-label" for="superUser2">No</label>
-                    </div>        
-            
-                </div>
-            </div>
-          
-          <div class="row">
-              <div class="col">
-                  <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
-                  </div>	             
-                  <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">Login is required</div>
-                      <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail</div>
-                  </div>	           
-                  <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors.required">SuperUser is required</div>
-                  </div>	                                     
-              
-             </div> 
-          </div>   
-          <div class="row">
-          <div class="col">
-              <div class="alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
-                  Error: {{ errorMessage }}
-                  </div>              
-          </div>
-      </div>
-      </form> 
-    </div>
-  </div>
-
-  </div>               
-</app-modal>
+</div>      
