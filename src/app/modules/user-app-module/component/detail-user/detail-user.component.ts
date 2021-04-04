@@ -46,8 +46,78 @@ export class DetailUserComponent implements OnInit {
     
   }
 
+  backButton(){
+    this.router.navigateByUrl('/app_users/list');
+  }
+
+  getDate(someDateString){
+    var data = new Date(someDateString),
+        dia  = data.getDate().toString(),
+        diaF = (dia.length == 1) ? '0'+dia : dia,
+        mes  = (data.getMonth()+1).toString(), 
+        mesF = (mes.length == 1) ? '0'+mes : mes,
+        anoF = data.getFullYear();
+    return diaF+"/"+mesF+"/"+anoF;
+  }
+
   getSigno(){
-      return "Gemeos";
+    if (!this.appUser?.personalData?.birthDate){
+      return "";
+    } 
+
+    let signo: string;
+    let dia = new Date(this.appUser?.personalData?.birthDate).getDate();
+    let mes = new Date(this.appUser?.personalData?.birthDate).getMonth()+1;
+    
+       if ((dia >=21) && (mes=3) ||  (dia <=19) && (mes=4)) {
+          signo = "♈ Áries";
+       }else{
+          if ((dia >=20) && (mes=4) ||  (dia <=20) && (mes=5)) {
+             signo = "♉ Touro";
+          }else{
+             if ((dia >=21) && (mes=5) ||  (dia <=21) && (mes=6)) {
+                signo = "♊ Gêmeos";
+             }else{
+                if ((dia >=22) && (mes=6) ||  (dia <=22) && (mes=7)) {
+                   signo = "♋ Cancer";
+                }else{
+                   if ((dia >=23) && (mes=7) ||  (dia <=22) && (mes=8)) {
+                      signo = "♌ Leão";
+                   }else{
+                      if ((dia >=23) && (mes=8) ||  (dia <=22) && (mes=9)) {
+                         signo = "♍ Virgem";
+                      }else{
+                         if ((dia >=23) && (mes=9) ||  (dia <=22) && (mes=10)) {
+                            signo = "♎ Libra";
+                         }else{
+                            if ((dia >=23) && (mes=10) ||  (dia <=21) && (mes=11)) {
+                               signo = "♏ Escorpião";
+                            }else{
+                               if ((dia >=22) && (mes=11) ||  (dia <=21) && (mes=12)) {
+                                  signo = "♐ Sagitário";
+                               }else{
+                                  if ((dia >=22) && (mes=12) ||  (dia <=19) && (mes=1)) {
+                                     signo = "♑ Capricórnio";
+                                  }else{
+                                     if ((dia >=20) && (mes=1) ||  (dia <=18) && (mes=2)) {
+                                        signo = "♒ Aquário";
+                                     }else{
+                                        if ((dia >=19) && (mes=2) ||  (dia <=20) && (mes=3)) {
+                                           signo = "♓ Peixes";
+    
+                                        }
+                                     }
+                                  }
+                               }
+                            }
+                         }
+                      }
+                   }
+                }
+             }
+          }
+       }
+       return signo;
   }
 
   showData(kind:string,position:number){

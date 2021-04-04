@@ -43,12 +43,13 @@
                   <i class="ni location_pin mr-2"></i>{{appUser?.address?.city| titlecase}}, {{appUser?.address?.state| uppercase}}
                 </div>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>Gemeos - {{appUser?.personalData?.maritalStatus}}
+                  <i class="ni business_briefcase-24 mr-2"></i>{{getSigno()}} - {{appUser?.personalData?.maritalStatus}}
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>{{appUser?.personalData?.nationality}}
                 </div>
                 <hr class="my-4">
+                <a style="color:white" (click)="backButton()" class="btn btn-sm btn-default">Back</a>
               </div>
             </div>
           </div>
@@ -93,7 +94,7 @@
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">BirthDate</label>
-                        <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.birthDate}}">
+                        <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{getDate(appUser?.personalData?.birthDate)}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
