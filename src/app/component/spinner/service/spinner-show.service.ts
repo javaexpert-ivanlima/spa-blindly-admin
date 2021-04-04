@@ -83,12 +83,20 @@ export class SpinnerShowService {
   }
 
   showAddressData(){
-    $("#user_personalData").hide();
     $("#user_address").show();
+    $("#user_personalData").hide();
+    $("#user_photo").hide();
   }
 
   showPersonalData(){
     $("#user_personalData").show();
     $("#user_address").hide();
+    $("#user_photo").hide();
+  }
+
+  showPhotoData(){
+    $("#user_photo").show();
+    $("#user_address").hide();
+    $("#user_personalData").hide();
   }
 }

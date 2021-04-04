@@ -2,7 +2,7 @@
   <div class="main-content">
     <!-- Top navbar -->
     <!-- Header -->
-    <div id="welcome-title" class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; background-image: url(assets/imgs/background/pen-purple.png); background-size: cover; background-position: center top;">
+    <div id="welcome-title" class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; ">
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
@@ -15,7 +15,7 @@
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
                   <a href="#">
-                    <img *ngIf="appUser.photos.length > 0" src="{{'data:image/jpg;base64,' + appUser?.photos[0]?.photo}}" class="rounded-circle">
+                    <img *ngIf="appUser?.photos?.length > 0" src="{{'data:image/jpg;base64,' + appUser?.photos[0]?.photo}}" class="rounded-circle">
                   </a>
                 </div>
               </div>
@@ -58,17 +58,17 @@
             <div class="card-header bg-white border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">{{currentData}}</h3>
+                  <h3 class="mb-0">{{buttonSelected}}</h3>
                   
                 </div>
                 <div class="col">
-                  <a (click)="showData(currentButton)" class="btn btn-sm btn-primary">{{currentButton}}</a>
+                  <a style="color:white" (click)="showData(firstButton,1)" class="btn btn-sm btn-primary">{{firstButton}}</a>
                 </div>
                 <div class="col">
-                  <a href="#!" class="btn btn-sm btn-info">Photo</a>
+                  <a style="color:white" (click)="showData(secondButton,2)" class="btn btn-sm btn-info">{{secondButton}}</a>
                 </div>
                 <div class="col">
-                  <a href="#!" class="btn btn-sm btn-default">Preferences</a>
+                  <a style="color:white" (click)="showData(thridButton,3)" class="btn btn-sm btn-default">{{thridButton}}</a>
                 </div>
               </div>
             </div>
@@ -178,6 +178,19 @@
                     </div>
                   </div>
                 </div>
+                <!-- Photo -->
+                <div id="user_photo" style="display:none" class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="card">
+                        <a *ngFor="let photo of appUser?.photos;let i=index;" >
+                          <img *ngIf="appUser?.photos?.length > 0" src="{{'data:image/jpg;base64,' + photo.photo}}" class="card-img-top">
+                        </a>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>  
               </form>
             </div>
           </div>

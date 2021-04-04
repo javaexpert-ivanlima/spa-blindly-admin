@@ -11,8 +11,11 @@ import * as moment from 'moment';
 })
 export class DetailUserComponent implements OnInit {
   appUser: any;
-  currentData: string = "Personal Data";
-  currentButton: string = "Address";
+  buttonSelected: string = "Personal Data";
+  firstButton: string = "Address";
+  secondButton: string = "Photos";
+  thridButton: string = "Preferences";
+
   constructor(
     private router: Router,
     private spinnerService:SpinnerShowService,
@@ -47,15 +50,28 @@ export class DetailUserComponent implements OnInit {
       return "Gemeos";
   }
 
-  showData(kind:string){
-    if (kind == 'Personal'){
-      this.currentButton = "Address";
-      this.currentData = "Personal";
+  showData(kind:string,position:number){
+    let oldButtonSelected = this.buttonSelected;
+    let oldButtonLabel: string;
+    let currentButtonLabel: string;
+    if (position == 1){
+      oldButtonLabel = this.firstButton;
+      this.firstButton = oldButtonSelected;
+    } else if (position == 2){
+      oldButtonLabel = this.secondButton;
+      this.secondButton = oldButtonSelected;
+    } else if (position == 3){
+      oldButtonLabel = this.thridButton;  
+      this.thridButton = oldButtonSelected;
+    }
+    this.buttonSelected = oldButtonLabel;
+    
+    if (kind == 'Personal Data'){
       this.spinnerService.showPersonalData();
     } else if (kind == 'Address'){
-        this.currentButton = "Personal";
-        this.currentData = "Address";
         this.spinnerService.showAddressData();
+    } else if (kind == 'Photos'){
+      this.spinnerService.showPhotoData();
     }
   }
 
