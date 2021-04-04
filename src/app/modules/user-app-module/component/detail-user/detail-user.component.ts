@@ -35,6 +35,9 @@ export class DetailUserComponent implements OnInit {
   }
 
   getAge(){
+    if (!this.appUser?.personalData?.birthDate){
+          return 0;
+    }
     var timeDiff = Math.abs(Date.now() - new Date(this.appUser?.personalData?.birthDate).getTime());
     return Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
     
