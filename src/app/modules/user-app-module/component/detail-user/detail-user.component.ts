@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/modules/login-module';
@@ -12,10 +12,7 @@ import * as moment from 'moment';
 export class DetailUserComponent implements OnInit {
   appUser: any;
   buttonSelected: string = "Personal Data";
-  firstButton: string = "Address";
-  secondButton: string = "Photos";
-  thridButton: string = "Preferences";
-  mapAnswers: any;
+  mapAnswers = new Map();
   age: number;
   signo: string;
   iconSigno: string;
@@ -26,13 +23,13 @@ export class DetailUserComponent implements OnInit {
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService
     ) {}
-
+    
   ngOnInit(): void {
     if (!this.spinnerService.getAppUserObject()){
       this.router.navigateByUrl('/app_users/list');
     }
     this.appUser = this.spinnerService.getAppUserObject()?.row;
-    
+    this.initialValues();
     //verificacao de sessao expirada
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
@@ -42,8 +39,10 @@ export class DetailUserComponent implements OnInit {
     }    
     this.spinnerService.hideSpinner();
   }
-  ngAfterContentInit(){
-    this.mapAnswers = this.sortPreferences();
+
+
+  initialValues(){
+    this.sortPreferences();
     this.age = this.getAge();
     this.signo = this.getSigno();
     if (this.signo){
@@ -61,18 +60,22 @@ export class DetailUserComponent implements OnInit {
     answers.sort( function( a, b ) {
       return a.questionAnswerCode.questionName < b.questionAnswerCode.questionName ? -1 : a.questionAnswerCode.questionName > b.questionAnswerCode.questionName ? 1 : 0;
     });
-    let map = new Map();
+    
     answers.forEach(element => {
-        if (map.has(element.questionAnswerCode.questionName)){
-          let a = map.get(element.questionAnswerCode.questionName);
+        if (this.mapAnswers.has(element.questionAnswerCode.questionName)){
+          let a = this.mapAnswers.get(element.questionAnswerCode.questionName);
           a.push(element.questionAnswerCode.answer);
-          map.set(element.questionAnswerCode.questionName,a);
+          this.mapAnswers.set(element.questionAnswerCode.questionName,a);
         } else {
-          map.set(element.questionAnswerCode.questionName,[element.questionAnswerCode.answer]);
+          this.mapAnswers.set(element.questionAnswerCode.questionName,[element.questionAnswerCode.answer]);
         }
     });
-    return map;
+    return this.mapAnswers;
 
+  }
+
+  get getBindedAnswers(){
+    return Array.from(this.mapAnswers.keys());
   }
 
   getAge(){
@@ -158,21 +161,9 @@ export class DetailUserComponent implements OnInit {
        return signo;
   }
 
-  showData(kind:string,position:number){
-    let oldButtonSelected = this.buttonSelected;
-    let oldButtonLabel: string;
-    let currentButtonLabel: string;
-    if (position == 1){
-      oldButtonLabel = this.firstButton;
-      this.firstButton = oldButtonSelected;
-    } else if (position == 2){
-      oldButtonLabel = this.secondButton;
-      this.secondButton = oldButtonSelected;
-    } else if (position == 3){
-      oldButtonLabel = this.thridButton;  
-      this.thridButton = oldButtonSelected;
-    }
-    this.buttonSelected = oldButtonLabel;
+  showData(kind:string){
+
+    this.buttonSelected = kind;
     
     if (kind == 'Personal Data'){
       this.spinnerService.showPersonalData();

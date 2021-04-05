@@ -66,7 +66,6 @@ export class ListAppUsersComponent implements OnInit {
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
-    this.spinnerService.showWelcomeCover();
     this.spinnerService.hideSpinner();
     this.setupFilters();
     //preenche lista

@@ -10,7 +10,7 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="mt-4 col-xl-4 order-xl-2 mb-5 mb-xl-0">
-          <div style="height: 90%;" class="card card-profile shadow">
+          <div class="card card-profile shadow">
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
@@ -46,34 +46,33 @@
                 <h3>
                   {{iconSigno}}<span class="font-weight-light"> {{labelSigno}} {{appUser?.personalData?.maritalStatus}}</span>
                 </h3>
-                <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>{{appUser?.personalData?.maritalStatus}}
-                </div>
-                <div>
-                  <i class="ni education_hat mr-2"></i>{{appUser?.personalData?.nationality}}
-                </div>
                 <hr class="my-4"> 
+                Java Programmer a big fan of mathematics and algorithms. Looking for a person who like a deep match.
               </div>
             </div>
           </div>
         </div>
         <div class="mt-4 col-xl-8 order-xl-1">
-          <div style="height: 90%;overflow-y: auto;" class="card bg-secondary shadow">
-            <div class="card-header bg-white border-0">
+          <div style="overflow-y: auto;" class="card bg-secondary shadow">
+            <div class="card bg-white border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">{{buttonSelected}}</h3>
-                  
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item">
+                      <a [ngClass]="{'active': buttonSelected == 'Personal Data'}" class="nav-link" (click)="showData('Personal Data')">Personal Data</a>
+                    </li>
+                    <li class="nav-item">
+                      <a [ngClass]="{'active': buttonSelected == 'Address'}" class="nav-link" (click)="showData('Address')">Address</a>
+                    </li>
+                    <li class="nav-item">
+                      <a [ngClass]="{'active': buttonSelected == 'Photos'}" class="nav-link" (click)="showData('Photos')">Photo</a>
+                    </li>
+                     <li class="nav-item">
+                      <a [ngClass]="{'active': buttonSelected == 'Preferences'}" class="nav-link" (click)="showData('Preferences')">Preferences</a>
+                    </li> 
+                  </ul>
                 </div>
-                <div class="col">
-                  <a style="color:white" (click)="showData(firstButton,1)" class="btn btn-sm btn-primary">{{firstButton}}</a>
-                </div>
-                <div class="col">
-                  <a style="color:white" (click)="showData(secondButton,2)" class="btn btn-sm btn-info">{{secondButton}}</a>
-                </div>
-                <div class="col">
-                  <a style="color:white" (click)="showData(thridButton,3)" class="btn btn-sm btn-default">{{thridButton}}</a>
-                </div>
+
               </div>
             </div>
             <div class="card-body">
@@ -102,8 +101,8 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">Place of Birth</label>
-                        <input type="text" id="input-last-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.placeOfBirth}}">
+                        <label class="form-control-label" for="input-last-name">Gender</label>
+                        <input type="text" id="input-last-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.gender}}">
                       </div>
                     </div>
                   </div>
@@ -116,18 +115,12 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">Gender</label>
-                        <input type="text" id="input-last-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.gender}}">
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-lg-6">
-                      <div class="form-group focused">
                         <label class="form-control-label" for="input-first-name">Marital Status</label>
                         <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.maritalStatus}}">
                       </div>
                     </div>
+                  </div>
+                  <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">Mobile Number</label>
@@ -197,13 +190,13 @@
                 </div>  
                 <!-- Preferences -->
                 <div id="user_preferences" style="display:none" class="pl-lg-4">
-                  <ng-container *ngFor="let resp of mapAnswers.keys();let i=index;" >
+                  <ng-container *ngFor="let resp of getBindedAnswers ;let i=index;" >
                     <div class="row">
                       <div class="col">
-                        <label class="form-control-label">{{resp|titlecase}}</label>
+                        <label class="form-control-label">{{resp}}</label>
                       </div>
                     </div>
-                    <div class="row" *ngFor="let val of mapAnswers.get(resp);let i=index;">
+                    <div class="row" *ngFor="let val of mapAnswers?.get(resp);let i=index;">
                       <div class="col">
                         <span>{{val|titlecase}}</span>
                       </div>

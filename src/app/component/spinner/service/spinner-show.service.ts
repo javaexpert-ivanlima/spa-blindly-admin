@@ -58,13 +58,6 @@ export class SpinnerShowService {
     $("#modal-backdrop").modal('hide');
   }  
 
-  showWelcomeCover(){
-    $("#main-content").css({backgroundImage : 'url(assets/imgs/background/welcome-cover.jpg)'});
-    $("#main-content").addClass('mask');
-    $("#main-content").addClass('bg-gradient-default');
-    $("#main-content").addClass('opacity-8');
-  }
-
   showLoginElements(show: boolean): void{
     if (show){
       //$("#mainContent").css({backgroundImage : 'none'});
