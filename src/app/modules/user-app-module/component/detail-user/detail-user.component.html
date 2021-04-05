@@ -22,6 +22,7 @@
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
+                <a style="color:white" (click)="backButton()" class="btn btn-sm btn-default">Back</a>
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
@@ -37,19 +38,21 @@
               </div>
               <div class="text-center">
                 <h3>
-                  {{appUser?.name | titlecase}}<span class="font-weight-light">, {{getAge()}}</span>
+                  {{appUser?.name | titlecase}}<span class="font-weight-light">, {{age}}</span>
                 </h3>
                 <div class="h5 font-weight-300">
                   <i class="ni location_pin mr-2"></i>{{appUser?.address?.city| titlecase}}, {{appUser?.address?.state| uppercase}}
                 </div>
+                <h3>
+                  {{iconSigno}}<span class="font-weight-light"> {{labelSigno}} {{appUser?.personalData?.maritalStatus}}</span>
+                </h3>
                 <div class="h5 mt-4">
-                  <i class="ni business_briefcase-24 mr-2"></i>{{getSigno()}} - {{appUser?.personalData?.maritalStatus}}
+                  <i class="ni business_briefcase-24 mr-2"></i>{{appUser?.personalData?.maritalStatus}}
                 </div>
                 <div>
                   <i class="ni education_hat mr-2"></i>{{appUser?.personalData?.nationality}}
                 </div>
-                <hr class="my-4">
-                <a style="color:white" (click)="backButton()" class="btn btn-sm btn-default">Back</a>
+                <hr class="my-4"> 
               </div>
             </div>
           </div>
@@ -192,6 +195,22 @@
                     </div>
                   </div>
                 </div>  
+                <!-- Preferences -->
+                <div id="user_preferences" style="display:none" class="pl-lg-4">
+                  <ng-container *ngFor="let resp of mapAnswers.keys();let i=index;" >
+                    <div class="row">
+                      <div class="col">
+                        <label class="form-control-label">{{resp|titlecase}}</label>
+                      </div>
+                    </div>
+                    <div class="row" *ngFor="let val of mapAnswers.get(resp);let i=index;">
+                      <div class="col">
+                        <span>{{val|titlecase}}</span>
+                      </div>
+                    </div>
+    
+                  </ng-container>
+                </div>
               </form>
             </div>
           </div>

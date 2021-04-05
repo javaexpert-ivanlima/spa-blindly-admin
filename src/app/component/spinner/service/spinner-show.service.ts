@@ -86,17 +86,27 @@ export class SpinnerShowService {
     $("#user_address").show();
     $("#user_personalData").hide();
     $("#user_photo").hide();
+    $("#user_preferences").hide();
   }
 
   showPersonalData(){
     $("#user_personalData").show();
     $("#user_address").hide();
     $("#user_photo").hide();
+    $("#user_preferences").hide();
   }
-
+  
   showPhotoData(){
     $("#user_photo").show();
     $("#user_address").hide();
     $("#user_personalData").hide();
+    $("#user_preferences").hide();
   }
+  showPreferencesData(){
+    $("#user_preferences").show();
+    $("#user_address").hide();
+    $("#user_personalData").hide();
+    $("#user_photo").hide();
+  }
+
 }

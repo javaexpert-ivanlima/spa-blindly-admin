@@ -15,6 +15,11 @@ export class DetailUserComponent implements OnInit {
   firstButton: string = "Address";
   secondButton: string = "Photos";
   thridButton: string = "Preferences";
+  mapAnswers: any;
+  age: number;
+  signo: string;
+  iconSigno: string;
+  labelSigno: string;
 
   constructor(
     private router: Router,
@@ -27,6 +32,7 @@ export class DetailUserComponent implements OnInit {
       this.router.navigateByUrl('/app_users/list');
     }
     this.appUser = this.spinnerService.getAppUserObject()?.row;
+    
     //verificacao de sessao expirada
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
@@ -35,6 +41,38 @@ export class DetailUserComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
+  }
+  ngAfterContentInit(){
+    this.mapAnswers = this.sortPreferences();
+    this.age = this.getAge();
+    this.signo = this.getSigno();
+    if (this.signo){
+      let tempSigno = this.signo.split(" ");
+      this.iconSigno = tempSigno[0];
+      this.labelSigno = tempSigno[1];
+    }
+  }
+
+  sortPreferences(){
+    if (!this.appUser?.preferences){
+      return;
+    } 
+    let answers  = this.appUser.preferences;
+    answers.sort( function( a, b ) {
+      return a.questionAnswerCode.questionName < b.questionAnswerCode.questionName ? -1 : a.questionAnswerCode.questionName > b.questionAnswerCode.questionName ? 1 : 0;
+    });
+    let map = new Map();
+    answers.forEach(element => {
+        if (map.has(element.questionAnswerCode.questionName)){
+          let a = map.get(element.questionAnswerCode.questionName);
+          a.push(element.questionAnswerCode.answer);
+          map.set(element.questionAnswerCode.questionName,a);
+        } else {
+          map.set(element.questionAnswerCode.questionName,[element.questionAnswerCode.answer]);
+        }
+    });
+    return map;
+
   }
 
   getAge(){
@@ -142,6 +180,8 @@ export class DetailUserComponent implements OnInit {
         this.spinnerService.showAddressData();
     } else if (kind == 'Photos'){
       this.spinnerService.showPhotoData();
+    } else if (kind == 'Preferences'){
+      this.spinnerService.showPreferencesData();
     }
   }
 
