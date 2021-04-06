@@ -44,10 +44,10 @@
                   <i class="ni location_pin mr-2"></i>{{appUser?.address?.city| titlecase}}, {{appUser?.address?.state| uppercase}}
                 </div>
                 <h3>
-                  {{iconSigno}}<span class="font-weight-light"> {{labelSigno}} {{appUser?.personalData?.maritalStatus}}</span>
+                  {{iconSigno}}<span class="font-weight-light"> {{labelSigno}}</span>
                 </h3>
                 <hr class="my-4"> 
-                Java Programmer a big fan of mathematics and algorithms. Looking for a person who like a deep match.
+                {{appUser?.personalData?.aboutme}}
               </div>
             </div>
           </div>
@@ -109,14 +109,14 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">Nationality</label>
-                        <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.nationality}}">
+                        <label class="form-control-label" for="input-first-name">Occupation</label>
+                        <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.occupation}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">Marital Status</label>
-                        <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.maritalStatus}}">
+                        <label class="form-control-label" for="input-first-name">Education Level</label>
+                        <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.educationLevel}}">
                       </div>
                     </div>
                   </div>
