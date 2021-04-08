@@ -10,7 +10,7 @@
     <div class="container-fluid mt--7">
       <div class="row">
         <div class="mt-4 col-xl-4 order-xl-2 mb-5 mb-xl-0 d-flex">
-          <div style="height:95%" class="card card-profile shadow flex-fill">
+          <div style="height:29rem" class="card card-profile shadow flex-fill">
             <div class="row justify-content-center">
               <div class="col-lg-3 order-lg-2">
                 <div class="card-profile-image">
@@ -53,7 +53,7 @@
           </div>
         </div>
         <div class="mt-4 col-xl-8 order-xl-1 d-flex">
-          <div style="height:95%;overflow-y: visible;" class="card bg-secondary shadow flex-fill">
+          <div style="height:29rem;" class="card bg-secondary shadow flex-fill">
             <div class="card bg-white border-0">
               <div class="row align-items-center">
                 <div class="col">
@@ -75,7 +75,7 @@
 
               </div>
             </div>
-            <div class="card-body">
+            <div style="overflow-y: overlay;" class="card-body">
               <form>
                 <div id="user_personalData" class="pl-lg-4">
                   <div class="row">
@@ -121,6 +121,12 @@
                     </div>
                   </div>
                   <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group focused">
+                        <label class="form-control-label" for="input-last-name">Marital Status</label>
+                        <input type="text" id="input-last-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.maritalStatus}}">
+                      </div>
+                    </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
                         <label class="form-control-label" for="input-last-name">Mobile Number</label>
@@ -177,16 +183,20 @@
                 </div>
                 <!-- Photo -->
                 <div id="user_photo" style="display:none" class="pl-lg-4">
-                  <div class="row">
-                    <div class="col-lg-4">
-                      <div class="card">
-                        <a *ngFor="let photo of appUser?.photos;let i=index;" >
-                          <img *ngIf="appUser?.photos?.length > 0" src="{{'data:image/jpg;base64,' + photo.photo}}" class="card-img-top">
-                        </a>
-                      </div>
-                     
+                  <ng-container *ngFor="let x of appUser?.photos;let j= index;">
+                    <div class="row" *ngIf="j%3===0 && j<(appUser?.photos.length/3)+1">  
+                      <ng-container *ngFor="let photo of appUser?.photos;let i= index;">
+                          <div class="col-sm-4" ng-if="i>=3*j && i <= 3*(j+1)-1">
+                                <div class="card">
+                                  <a>
+                                    <img *ngIf="appUser?.photos?.length > 0" style="width: 15rem;height: 15rem;" src="{{'data:image/jpg;base64,' + photo.photo}}" class="card-img-top">
+                                  </a>
+                                </div>
+                          </div>
+                      </ng-container>
                     </div>
-                  </div>
+                  </ng-container>
+                   
                 </div>  
                 <!-- Preferences -->
                 <div id="user_preferences" style="display:none" class="pl-lg-4">

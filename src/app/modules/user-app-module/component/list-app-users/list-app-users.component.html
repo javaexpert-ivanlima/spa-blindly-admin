@@ -54,7 +54,7 @@
                             <td>
                               <div *ngIf="obj.photos" class="avatar-group">
                                 <a *ngFor="let photo of obj.photos;let i=index;" (click)="goDetails(obj)" style="cursor: pointer;" class="avatar avatar-sm" data-toggle="tooltip" data-original-title="{{photo.fileName}}">
-                                  <img alt="" src="{{'data:image/jpg;base64,' + photo.photo}}" class="rounded-circle">
+                                  <img alt="" style="width: 36px;height: 36px;" src="{{'data:image/jpg;base64,' + photo.photo}}" class="rounded-circle">
                                 </a>
                               </div>
                             </td>
