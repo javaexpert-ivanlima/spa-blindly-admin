@@ -56,6 +56,8 @@ export class TokenStorageService {
     return isExpired;
   }
 
+  
+
   private saveRoles(roles: any): void {
     window.sessionStorage.removeItem(ROLE_KEY);
     window.sessionStorage.setItem(ROLE_KEY, JSON.stringify(roles));
@@ -82,4 +84,15 @@ export class TokenStorageService {
 
     return null;
   }
+
+  public getExpireDate(): any {
+    const token = window.sessionStorage.getItem(TOKEN_KEY);
+    if (token) {
+      let json: any = this.getJsonFromToken(token);   
+      return json.exp;
+    }
+
+    return null;
+  }
+
 }
