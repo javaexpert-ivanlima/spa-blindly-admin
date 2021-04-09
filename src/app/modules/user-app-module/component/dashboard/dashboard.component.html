@@ -1,0 +1,80 @@
+
+  <div class="main-content">
+    <!-- Top navbar -->
+    <!-- Header -->
+    <div id="welcome-title" class="header align-items-center" style="min-height: 600px; ">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+    <div class="container-fluid">
+          <div class="row">
+                <div class="mt-4 col-xl-4 order-xl-2 mb-5 mb-xl-0 d-flex">
+                        <div style="height:29rem" class="card card-profile shadow flex-fill">
+                                <div class="card-header" style="text-align: center;"><h5>Chart user</h5></div>
+                                <div class="card-body pt-0 pt-md-4">
+                                    <div class="row mt-2 ml-2 mr-2">
+                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                            <google-chart [type]="myChart" [data]="myData" [options]="myOptions"></google-chart>
+                                        </div>
+                                    </div>        
+                                   
+                                </div>
+                        </div>
+                </div>
+                <div class="mt-4 col-xl-8 order-xl-1 d-flex">
+                        <div style="height:29rem;" class="card shadow flex-fill">
+                                 <div class="card bg-white border-0">
+                                    <div class="card-header"><h5>Dashboard</h5></div>
+                                        <div style="padding-top: 3em;" class="row mt-2 ml-2 mr-2">
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <div class="panel panel-dark panel-colorful">
+                                                            <div class="panel-body text-center">
+                                                                <p class="text-uppercase mar-btm text-sm">completed</p>
+                                                                <i class="fa fa-users fa-5x"></i>
+                                                                <hr>
+                                                                <p class="h2 text-thin">254</p>
+                                                                <small><span class="text-semibold"></span>Total users</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>  
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <div class="panel panel-danger panel-colorful">
+                                                            <div class="panel-body text-center">
+                                                                <p class="text-uppercase mar-btm text-sm">incompleted</p>
+                                                                <i class="fa fa-users fa-5x"></i>
+                                                                <hr>
+                                                                <p class="h2 text-thin">13</p>
+                                                                <small><span class="text-semibold"></span>Total users</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <div class="panel panel-primary panel-colorful">
+                                                            <div class="panel-body text-center">
+                                                                <p class="text-uppercase mar-btm text-sm">GeoLocalization</p>
+                                                                <i class="fa fa-compass fa-5x"></i>
+                                                                <hr>
+                                                                <p class="h2 text-thin">2</p>
+                                                                <small><span class="text-semibold"><i class="fa fa-compass fa-fw"></i></span>No Geo</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                                        <div class="panel panel-info panel-colorful">
+                                                            <div class="panel-body text-center">
+                                                                <p class="text-uppercase mar-btm text-sm">Users today</p>
+                                                                <i class="fa fa-dollar fa-5x"></i>
+                                                                <hr>
+                                                                <p class="h2 text-thin">7</p>
+                                                                <small><span class="text-semibold"><i class="fa fa-dollar fa-fw"></i></span>Today</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>        
+                
+                                        </div>                                                                        
+                                 </div>
+                        </div>
+                </div>                     
+          </div>
+    </div>
+</div>
+</div>

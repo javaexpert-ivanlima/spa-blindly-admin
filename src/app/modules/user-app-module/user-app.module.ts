@@ -7,15 +7,18 @@ import { LoginModule, TokenStorageService } from '../login-module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppUserAuditComponent } from './component';
 import { DetailUserComponent } from './component/detail-user/detail-user.component';
+import { DashboardComponent } from './component/dashboard/dashboard.component';
+import { GoogleChartsModule } from 'angular-google-charts';
 
 
 
 @NgModule({
   declarations: [
     ListAppUsersComponent, 
-    AppUserAuditComponent, DetailUserComponent
+    AppUserAuditComponent, DetailUserComponent, DashboardComponent
   ],
   imports: [
+    GoogleChartsModule,
     CommonModule,
     FormsModule,
     SharedModule,

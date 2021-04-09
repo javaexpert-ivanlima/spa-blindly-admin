@@ -109,7 +109,7 @@ export class SpinnerShowService {
     let right = $(".progress").find('.progress-right .progress-bar');
   
     if (value > 0) {
-      if (value > 50) {
+      if (value <= 50) {
         right.css('transform', 'rotate(' + this.percentageToDegrees(value) + 'deg)')
       } else {
         right.css('transform', 'rotate(180deg)')

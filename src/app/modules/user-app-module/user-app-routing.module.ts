@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import {
             AppUserAuditComponent,
+    DashboardComponent,
     DetailUserComponent,
             ListAppUsersComponent
        } from './component';
@@ -25,5 +26,9 @@ export const UserAppRoutes: Routes = [
     {
         path: 'app_users/detail',
         component: DetailUserComponent
+    },
+    {
+        path: 'app_users/dashboard',
+        component: DashboardComponent
     }
 ]

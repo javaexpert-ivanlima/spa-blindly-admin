@@ -59,7 +59,7 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
     
     getPercentual(){
-      let percentual = (this.minutesToDday*100)/20;
+      let percentual = ((20-this.minutesToDday)*100)/20;
       return percentual;
     }
 
