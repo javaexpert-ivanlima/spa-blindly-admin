@@ -33,14 +33,17 @@ export class TimerComponent implements OnInit, OnDestroy {
       private spinnerService:SpinnerShowService,
       private router: Router,
     ){
-        this.dDay = tokenStorage.getExpireDate();
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
-    
+
 
 
     private getTimeDifference () {
-        if (this.dDay){
+      if (!this.dDay){
+        this.dDay = this.tokenStorage.getExpireDate();
+      }
+      if (this.dDay){
           let currentDate: number = Date.now()/1000;
           let expiredDate: number = this.dDay;
           this.timeDifference =  moment.unix(expiredDate).diff(moment.unix(currentDate));;
@@ -51,7 +54,6 @@ export class TimerComponent implements OnInit, OnDestroy {
               this.tokenStorage.signOut();
               window.location.reload();
           }
-  
         }
     }
     
@@ -78,7 +80,7 @@ export class TimerComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-     this.subscription = interval(this.milliSecondsInASecond)
+    this.subscription = interval(this.milliSecondsInASecond)
          .subscribe(x => { this.getTimeDifference(); });
   }
 
