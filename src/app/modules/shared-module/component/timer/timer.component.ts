@@ -46,11 +46,8 @@ export class TimerComponent implements OnInit, OnDestroy {
           this.timeDifference =  moment.unix(expiredDate).diff(moment.unix(currentDate));;
           this.allocateTimeUnits(this.timeDifference);
           this.percentualTimer = this.getPercentual();
-          //if (this.secondsToDday%10==0){
-            this.spinnerService.atualizaGrafico();
-         
-          //}
-          if (this.minutesToDday <= 0){
+          this.spinnerService.atualizaGrafico();
+          if (this.minutesToDday <= 0 && this.secondsToDday <= 0){
               this.tokenStorage.signOut();
               window.location.reload();
           }
@@ -59,7 +56,8 @@ export class TimerComponent implements OnInit, OnDestroy {
     }
     
     getPercentual(){
-      let percentual = ((20-this.minutesToDday)*100)/20;
+      let minInSeconds:number = (this.minutesToDday*60)+this.secondsToDday;
+      let percentual:number = (minInSeconds*100)/1200;
       return percentual;
     }
 

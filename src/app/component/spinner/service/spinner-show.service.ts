@@ -104,22 +104,22 @@ export class SpinnerShowService {
     $("#user_photo").hide();
   }
   atualizaGrafico(){
-    let value:any = $(".progress").attr('data-value');
+    let percentage:any = $(".progress").attr('data-value');
     let left = $(".progress").find('.progress-left .progress-bar');
     let right = $(".progress").find('.progress-right .progress-bar');
-  
-    if (value > 0) {
-      if (value <= 50) {
-        right.css('transform', 'rotate(' + this.percentageToDegrees(value) + 'deg)')
+    let angulo:number = this.percentageToDegrees(percentage);
+    if (percentage > 0) {
+      if (percentage <= 50) {
+        left.css('transform', 'rotate(0deg)')
+        right.css('transform', 'rotate(' + angulo + 'deg)');
       } else {
-        right.css('transform', 'rotate(180deg)')
-        left.css('transform', 'rotate(' + this.percentageToDegrees(value - 50) + 'deg)')
+        right.css('transform', 'rotate(180deg)');
+        left.css('transform', 'rotate(' + (angulo-180) + 'deg)');
       }
     }
    }
    percentageToDegrees(percentage) {
-  
-    return percentage / 100 * 360
-  
+    let degrees = percentage / 100 * 360;
+    return degrees;  
   }
 }
