@@ -33,7 +33,6 @@ export class TimerComponent implements OnInit, OnDestroy {
       private spinnerService:SpinnerShowService,
       private router: Router,
     ){
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
 
