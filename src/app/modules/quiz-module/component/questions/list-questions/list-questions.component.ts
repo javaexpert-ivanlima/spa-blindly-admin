@@ -105,7 +105,7 @@ export class ListQuestionsComponent implements OnInit {
       },
       err => {
         this.countActiveCategories = 0;
-        this.handleError(err);
+        this.errorMessage =  this.spinnerService.handleError(err);
       }
     );
   }
@@ -128,7 +128,7 @@ export class ListQuestionsComponent implements OnInit {
         this.itemList = data.data;
       },
       err => {
-        this.handleError(err);
+        this.errorMessage =  this.spinnerService.handleError(err);
       }
     );
   }
@@ -166,7 +166,7 @@ export class ListQuestionsComponent implements OnInit {
         this.pageable = {"page": data.data.pageable,"last":data.data.last,"first":data.data.first,"totalPages":data.data.totalPages,"pageNumber":data.data.number};
       },
       err => {
-        this.handleError(err);
+        this.errorMessage =  this.spinnerService.handleError(err);
       }
     );
 
@@ -269,7 +269,7 @@ export class ListQuestionsComponent implements OnInit {
         this.showConfirmation("Question ["+this.selectedID['question']+"] was activated with sucess.");
       },
       err => {
-        this.handleError(err);
+        this.errorMessage =  this.spinnerService.handleError(err);
         this.hideModal();
       }
     );
@@ -314,7 +314,7 @@ export class ListQuestionsComponent implements OnInit {
             this.confirmButton = false;
           },
           err => {
-            this.handleError(err);
+            this.errorMessage =  this.spinnerService.handleError(err);
             this.confirmButton = false;
             this.hideModal();
           }
@@ -334,27 +334,6 @@ export class ListQuestionsComponent implements OnInit {
 
   get f() { return this.questionFilterForm.controls; }
 
-  
-  handleError(err){
-    
-    if (err.error && err.error.errors){
-      this.errorMessage = err.error.errors.message ;
-      if (err.error.errors.errors){
-        this.errorMessage = this.errorMessage  + " => ";
-        let array = err.error.errors.errors;
-        for (let i = 0; i < array.length; i++) {
-          this.errorMessage =  this.errorMessage + array[i] + "  "; 
-        }
-      }
-    }else{
-      if ( err.message.includes("Http failure response for")){
-        this.errorMessage = "Http service unavailable";
-      }else{
-        this.errorMessage = err.message;
-      }
-      
-    }
-    this.spinnerService.hideSpinner();
-  }
+
 
 }

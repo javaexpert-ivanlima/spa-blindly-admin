@@ -153,7 +153,7 @@ export class ListAppUsersComponent implements OnInit {
           },
         err => {
           this.submitted = true;
-          this.handleError(err);
+          this.errorMessage =  this.spinnerService.handleError(err);
         }
       );
     
@@ -195,7 +195,7 @@ export class ListAppUsersComponent implements OnInit {
       },
       err => {
         this.submittedRegister = true;
-        this.handleError(err);
+        this.errorMessage =  this.spinnerService.handleError(err);
         //this.hideModal();
         this.showConfirmation(this.errorMessage);
       }
@@ -215,7 +215,7 @@ export class ListAppUsersComponent implements OnInit {
           },
           err => {
             this.submittedRegister = true;
-            this.handleError(err);
+            this.errorMessage =  this.spinnerService.handleError(err);
             this.confirmButton = false;
             //this.hideModal();
             this.showConfirmation(this.errorMessage);
@@ -236,7 +236,7 @@ export class ListAppUsersComponent implements OnInit {
           },
           err => {
             this.submittedRegister = true;
-            this.handleError(err);
+            this.errorMessage =  this.spinnerService.handleError(err);
             this.confirmButton = false;
             //this.hideModal();
             this.showConfirmation(this.errorMessage);
@@ -314,25 +314,5 @@ export class ListAppUsersComponent implements OnInit {
     this.selectedID = obj;
     $("#"+this.modalId).modal('show');
 
-  }
-  handleError(err){
-    
-    if (err.error && err.error.errors){
-      this.errorMessage = err.error.errors.message ;
-      if (err.error.errors.errors){
-        this.errorMessage = this.errorMessage  + " => ";
-        let array = err.error.errors.errors;
-        for (let i = 0; i < array.length; i++) {
-          this.errorMessage =  this.errorMessage + array[i] + "  "; 
-        }
-      }
-    }else{
-      if ( err.message.includes("Http failure response for")){
-        this.errorMessage = "Http service unavailable";
-      }else{
-        this.errorMessage = err.message;
-      }
-      
-    }
   }
 }

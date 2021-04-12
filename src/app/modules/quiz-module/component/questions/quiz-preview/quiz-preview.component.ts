@@ -85,7 +85,9 @@ export class QuizPreviewComponent implements OnInit {
         this.rows =   data.data;
       },
       err => {
-        this.handleError(err);
+        this.errorMessage =  this.spinnerService.handleError(err);
+        if (this.errorMessage) this.showError(this.errorMessage);
+
       }
     );
 
@@ -113,29 +115,6 @@ export class QuizPreviewComponent implements OnInit {
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
     this.operationType ="Z";
 
-  }
-
-  handleError(err){
-    
-    if (err.error && err.error.errors){
-      this.errorMessage = err.error.errors.message ;
-      if (err.error.errors.errors){
-        this.errorMessage = this.errorMessage  + " => ";
-        let array = err.error.errors.errors;
-        for (let i = 0; i < array.length; i++) {
-          this.errorMessage =  this.errorMessage + array[i] + "  "; 
-        }
-      }
-    }else{
-      if ( err.message.includes("Http failure response for")){
-        this.errorMessage = "Http service unavailable";
-      }else{
-        this.errorMessage = err.message;
-      }
-      
-    }
-    this.spinnerService.hideSpinner();
-    if (this.errorMessage) this.showError(this.errorMessage);
   }
 
 

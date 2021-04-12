@@ -143,4 +143,27 @@ export class SpinnerShowService {
     let degrees = percentage / 100 * 360;
     return degrees;  
   }
+
+  handleError(err):string{
+    let errorDesc = '';
+    if (err.error && err.error.errors){
+      errorDesc = err.error.errors.message ;
+      if (err.error.errors.errors){
+        errorDesc = errorDesc  + " => ";
+        let array = err.error.errors.errors;
+        for (let i = 0; i < array.length; i++) {
+          errorDesc =  errorDesc + array[i] + "  "; 
+        }
+      }
+    }else{
+      if ( err.message.includes("Http failure response for")){
+        errorDesc = "Http service unavailable";
+      }else{
+        errorDesc = err.message;
+      }
+      this.hideSpinner();
+    }
+    return errorDesc;
+  }
+
 }
