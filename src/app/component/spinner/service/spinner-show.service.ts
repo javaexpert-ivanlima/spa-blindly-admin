@@ -58,6 +58,27 @@ export class SpinnerShowService {
     $("#modal-backdrop").modal('hide');
   }  
 
+  hideActivation(){
+    $("#body").removeClass('mask');
+    $("#body").removeClass('bg-gradient-default');
+    $("#body").removeClass('opacity-8');
+    $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/designers-purple.png)'});
+    $("#mainContent").css("background-repeat","none");
+
+  }
+  showActivation(){
+    $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/welcome-cover.jpg)'});
+    $("#mainContent").css("background-repeat","round");
+    $("#body").addClass('mask');
+    $("#body").addClass('bg-gradient-default');
+    $("#body").addClass('opacity-8');
+    $("#welcome-title").hide();
+    $("#menuContent").hide();
+    $("#timeExpired").hide();
+    $("#login-modal").hide();
+    this.hideSpinner();
+  }
+
   showLoginElements(show: boolean): void{
     if (show){
       //$("#mainContent").css({backgroundImage : 'none'});

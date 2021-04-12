@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthenticateComponent } from './component/authenticate';
+import { AuthenticateComponent } from './component';
 import { AuthenticateService} from './service';
 import { TokenStorageService } from './service';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms' 
 import { HttpClientModule } from '@angular/common/http';
+import { ActivationComponent } from './component';
 
 
 @NgModule({
-  declarations: [AuthenticateComponent],
+  declarations: [AuthenticateComponent, ActivationComponent],
   imports: [
     CommonModule,
     FormsModule,

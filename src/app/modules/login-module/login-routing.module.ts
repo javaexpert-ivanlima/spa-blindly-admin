@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { AuthenticateComponent } from './component/authenticate';
+import { ActivationComponent } from './component';
+import { AuthenticateComponent } from './component';
 
 export const LoginRoutes: Routes = [
 
@@ -10,5 +11,10 @@ export const LoginRoutes: Routes = [
     {
         path: 'login/authenticate',
         component: AuthenticateComponent
+    }
+    ,
+    {
+        path: 'login/activation',
+        component: ActivationComponent
     }
 ]

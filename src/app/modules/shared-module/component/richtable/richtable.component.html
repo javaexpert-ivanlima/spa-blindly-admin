@@ -112,8 +112,8 @@
             </div>
             
             <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
-              <a *ngIf="obj[col] > 0" class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
-              <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>
+              <a class="link" style="cursor: pointer;" (click)="accessChild(obj);">{{ obj[col] }}</a>
+              <!-- *ngIf="obj[col] > 0" <ng-container *ngIf="obj[col] <= 0" >{{ obj[col] }}</ng-container>-->
             </div>
 
           </div> 

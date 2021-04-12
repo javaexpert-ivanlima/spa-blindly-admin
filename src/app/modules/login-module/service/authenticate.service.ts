@@ -8,6 +8,7 @@ const httpOptions = {
 };
 
 const AUTH_API =  "http://localhost:8080/v1/authenticate/admin";
+const ACTIVATE_API = "http://localhost:8080/v1/register/activate?param=";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,10 @@ export class AuthenticateService {
   
   login(login: Login): Observable<any> {
     return this.http.post(AUTH_API , login, httpOptions);
+  }
+
+  activate(token:string): Observable<any> {
+    return this.http.post(ACTIVATE_API+token , {}, httpOptions);
   }
 
 }
