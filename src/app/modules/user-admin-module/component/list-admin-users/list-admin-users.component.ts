@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { faThinkPeaks } from '@fortawesome/free-brands-svg-icons';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/modules/login-module';
 import { UserAdminService } from '../../service';
@@ -45,7 +46,9 @@ export class ListAdminUsersComponent implements OnInit {
   searchName: string = null;
   searchLogin: number = null;
   adminUserSelected: string = '';
-
+  
+  permissions: any = null;
+  titleCheckAll = "Click for check all";
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -61,12 +64,79 @@ export class ListAdminUsersComponent implements OnInit {
       this.adminUserForm = this.formBuilder.group({
         name: [null, [Validators.required, Validators.minLength(3)]],
         login: [null, [Validators.required, Validators.email]],
-        superUser: ['No', [Validators.required]]
+        superUser: ['No', [Validators.required]],
+        permissions: new FormArray([])
       });
     }
 
+  private addCheckboxes() {
+      this.permissions.forEach((o) => {
+      const control = new FormControl(o.name); // if first item set to true, else false
+      (this.adminUserForm.controls.permissions as FormArray).push(control);
+      });
+  }
+
+  selectAll(event){
+    if (event.target.checked){
+      this.titleCheckAll = "Click for uncheck all";
+      this.checkAll();
+    } else {
+      this.titleCheckAll = "Click for check all";
+      this.uncheckAll();
+    }
+  }
+
+  checkAll(){
+       
+          this.removeAllFormControl();
+          this.addCheckboxes();
+          $("input[name=permissions]").each( function () {
+            $(this).prop('checked',true);
+          });
+  }
+  uncheckAll(){
+       
+      this.removeAllFormControl();
+      $("input[name=permissions]").each( function () {
+        $(this).prop('checked',false);
+      });
+}
+
+  removeAllFormControl(){
+    const formArray: FormArray = this.adminUserForm.get('permissions') as FormArray;
+    formArray.clear();
+  }
+
+  onCheckChange(event) {
+    if (event){
+      const formArray: FormArray = this.adminUserForm.get('permissions') as FormArray;
+      /* Selected */
+      if(event.target.checked){
+        // Add a new control in the arrayForm
+        formArray.push(new FormControl(event.target.value));
+      }
+      /* unselected */
+      else{
+        // find the unselected element
+        let i: number = 0;
+    
+        formArray.controls.forEach((ctrl: FormControl) => {
+          if(ctrl.value == event.target.value) {
+            // Remove the unselected element from the arrayForm
+            formArray.removeAt(i);
+            return;
+          }
+    
+          i++;
+        });
+      }
+  
+    }
+  }  
+
   ngOnInit(): void {
     this.hideBtn = "NO";
+    this.titleCheckAll = "Click for check all";
     //verificacao de sessao expirada
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
@@ -78,6 +148,7 @@ export class ListAdminUsersComponent implements OnInit {
     this.setupFilters();
     //preenche lista
     this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+    this.carregaPermissions();
   }
 
   setupFilters(){
@@ -135,6 +206,21 @@ export class ListAdminUsersComponent implements OnInit {
           },
         err => {
           this.submitted = true;
+          this.errorMessage =  this.spinnerService.handleError(err);
+        }
+      );
+    
+  }
+
+  carregaPermissions(){
+    this.spinnerService.showSpinner();
+      this.userService.getAllPermissions().subscribe(
+        data => {
+          this.spinnerService.hideSpinner();
+          this.permissions =   data.data;
+          //this.addCheckboxes();
+          },
+        err => {
           this.errorMessage =  this.spinnerService.handleError(err);
         }
       );
@@ -295,7 +381,7 @@ export class ListAdminUsersComponent implements OnInit {
       err => {
         this.submittedRegister = true;
         this.errorMessage =  this.spinnerService.handleError(err);
-        this.showConfirmation(this.errorMessage);
+        //this.showConfirmation(this.errorMessage);
       }
     );
     
@@ -332,22 +418,32 @@ export class ListAdminUsersComponent implements OnInit {
     
   }
 
+  getPermissionAsJson() :any{
+    const formArray: FormArray = this.adminUserForm.get('permissions') as FormArray;
+    let json : any = [];
+    formArray.controls.forEach((ctrl: FormControl) => {
+      json.push({"name":ctrl.value});
+    });
+    return json;
+  }
+
   createAdminUser(){
     this.spinnerService.showSpinner();
     let login = this.adminUserForm.controls.login.value;
     let nameUser = this.adminUserForm.controls.name.value;
     let isSuper = this.adminUserForm.controls.superUser.value;
-      this.userService.createAdminUser(nameUser,login,isSuper).subscribe(
+    let json = this.getPermissionAsJson();
+    this.userService.createAdminUser(nameUser,login,isSuper,json).subscribe(
         data => {
           this.currentPage =0;
           this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
           this.showConfirmation("AdminUser ["+nameUser+"] was added with sucess.");
           this.spinnerService.hideSpinner();
-                },
+      },
         err => {
           this.submittedRegister = true;
           this.errorMessage =  this.spinnerService.handleError(err);
-          this.showConfirmation(this.errorMessage);
+          //this.showConfirmation(this.errorMessage);
         }
       );
     

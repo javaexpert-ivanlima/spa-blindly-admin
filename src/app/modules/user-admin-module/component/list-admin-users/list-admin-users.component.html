@@ -1,88 +1,88 @@
 <div style="height: 100%;width: 100%;">
-    <div class="panelbackground-container">
-      <div class="row">  
-          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button type="button" (click)="addNew()" class="btn btn-info btn-rounded float-right mb-2">Add New</button></div>
-      </div>
-      <div id="accordion">
-       
-              
-              <button class="btn btn-link" style="color:#007bff!important" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
-                <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" > FILTERS</span>
-              </button>
-       
-          <div id="collapseQuestion" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-              <div class="border" style="padding: 2%;">
-                <form  [formGroup]="adminUserFilterForm" class="form-group" #f="ngForm" > 
-                  <div class="row">
-                    <div class="col">      
-                          <div class="form-check form-check-inline">
-                                  <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType1" value="all" >
-                                  <label class="form-check-label" for="filterType1">
-                                          All
-                                  </label>
-                          </div>        
-                          <div class="form-check form-check-inline">
-                                  <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType2" value="inactive">
-                                  <label class="form-check-label" for="filterType2">
-                                          Inactive
-                                  </label>
-                          </div>
-                  
-                          <div class="form-check form-check-inline">
-                                      <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType3" value="active">
-                                      <label class="form-check-label" for="filterType3">
-                                              Active
-                                      </label>
-                          </div>
-                          <div class="form-check form-check-inline">
-                            <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType4" value="blocked">
-                            <label class="form-check-label" for="filterType4">
-                                    Blocked
-                            </label>
+  <div class="panelbackground-container">
+    <div class="row">  
+        <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
+        <div class="col-sm-6"><button type="button" (click)="addNew()" class="btn btn-info btn-rounded float-right mb-2">Add New</button></div>
+    </div>
+    <div id="accordion">
+     
+            
+            <button class="btn btn-link" style="color:#007bff!important" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
+              <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" > FILTERS</span>
+            </button>
+     
+        <div id="collapseQuestion" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+          <div class="card-body">
+            <div class="border" style="padding: 2%;">
+              <form  [formGroup]="adminUserFilterForm" class="form-group" #f="ngForm" > 
+                <div class="row">
+                  <div class="col">      
+                        <div class="form-check form-check-inline">
+                                <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType1" value="all" >
+                                <label class="form-check-label" for="filterType1">
+                                        All
+                                </label>
+                        </div>        
+                        <div class="form-check form-check-inline">
+                                <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType2" value="inactive">
+                                <label class="form-check-label" for="filterType2">
+                                        Inactive
+                                </label>
                         </div>
+                
+                        <div class="form-check form-check-inline">
+                                    <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType3" value="active">
+                                    <label class="form-check-label" for="filterType3">
+                                            Active
+                                    </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType4" value="blocked">
+                          <label class="form-check-label" for="filterType4">
+                                  Blocked
+                          </label>
                       </div>
-                  </div>
-                  <div class="row mt-2">
-                    <div class="col">
-                            <input formControlName="login" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for login (email)..."> 
-                            <div *ngIf="submitted && adminUserFilterForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                              <div *ngIf="submitted && adminUserFilterForm.controls.login.errors.minlength">Login must be at least 4 characters</div>
-                          </div>
-
-                          </div>
-                  </div>        
-                  <div class="row mt-2">
-                        <div class="col">
-                                <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for name..."> 
-                                <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                  <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
-                              </div>
-    
-                              </div>
-                  </div>  
-                  <div class="row mt-2">
-                          <div class="col">
-                            <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
-                          </div>
-                  </div>        
-            <div class="row">
-                <div class="col">
-                    <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
-                        Search failed: {{ errorMessage }}
-                        </div>              
-                </div>
-            </div>
-            </form> 
-          </div>   
                     </div>
-          </div>
-        </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col">
+                          <input formControlName="login" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for login (email)..."> 
+                          <div *ngIf="submitted && adminUserFilterForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                            <div *ngIf="submitted && adminUserFilterForm.controls.login.errors.minlength">Login must be at least 4 characters</div>
+                        </div>
 
-   
-  <br/>
+                        </div>
+                </div>        
+                <div class="row mt-2">
+                      <div class="col">
+                              <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for name..."> 
+                              <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
+                            </div>
   
+                            </div>
+                </div>  
+                <div class="row mt-2">
+                        <div class="col">
+                          <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
+                        </div>
+                </div>        
+          <div class="row">
+              <div class="col">
+                  <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
+                      Search failed: {{ errorMessage }}
+                      </div>              
+              </div>
+          </div>
+          </form> 
+        </div>   
+                  </div>
+        </div>
+      </div>
+
+ 
+<br/>
+
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' (unblockedID)='unblocked($event)'
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' [adminModule]="'Y'"
@@ -93,72 +93,93 @@
 </div> 
 
 <app-modal [modalID]="modalId" [adminModule]="'Y'" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
-[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
+[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 862px!important'">
 
-    <div *ngIf="!showForm" [innerHtml]="content" ></div> 
-    <div *ngIf="showForm">    
-      <div class="card-body">
-        <div class="border" style="padding: 2%;">
-          <form  [formGroup]="adminUserForm" class="form-group" #f="ngForm" > 
-                 
+  <div *ngIf="!showForm" [innerHtml]="content" ></div> 
+  <div *ngIf="showForm">    
+    <div class="card-body">
+      <div class="border" style="padding: 2%;">
+        <form  [formGroup]="adminUserForm" class="form-group" #f="ngForm" > 
+               
 
-            <div class="row mt-2">
-                  <div class="col">
-                          <input formControlName="name" class="form-control text text-input"  oninput="this.value = this.value.toUpperCase()" type="text" id="name" placeholder="Name">    
-                 </div>
-            </div>          
-            <div class="row mt-2">
-              <div class="col">
-                      <input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)">    
-             </div>
-            </div>          
-            <div class="row mt-2">
-              <div class="col">   
-           
-                    <div class="form-controlform-check form-check-inline mt-2">
-                            <label class="form-check-label" >Is Super User ?</label>
-                    </div>        
-            
-                </div>
-            </div>
-            <div class="row mt-2">
-              <div class="col">   
-           
-                    <div class="form-controlform-check form-check-inline">
-                            <input formControlName="superUser" class="form-check-input"  type="radio" name="superUser" id="superUser1" value="Yes" >
-                            <label class="form-check-label" for="superUser1">Yes</label>
-                            <input formControlName="superUser" class="form-check-input ml-2" type="radio" name="superUser" id="superUser2" value="No">
-                            <label class="form-check-label" for="superUser2">No</label>
-                    </div>        
-            
-                </div>
-            </div>
+          <div class="row mt-2">
+                <div class="col">
+                        <input formControlName="name" class="form-control text text-input"  oninput="this.value = this.value.toUpperCase()" type="text" id="name" placeholder="Name">    
+               </div>
+          </div>          
+          <div class="row mt-2">
+            <div class="col">
+                    <input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)">    
+           </div>
+          </div>          
+          <div class="row mt-2">
+            <div class="col">   
+         
+                  <div class="form-controlform-check form-check-inline mt-2">
+                          <label class="form-check-label" >Is Super User ?</label>
+                  </div>        
           
-          <div class="row">
-              <div class="col">
-                  <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
-                  </div>	             
-                  <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">Login is required</div>
-                      <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail</div>
-                  </div>	           
-                  <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                      <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors.required">SuperUser is required</div>
-                  </div>	                                     
-              
-             </div> 
-          </div>   
-          <div class="row">
-          <div class="col">
-              <div class="alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
-                  Error: {{ errorMessage }}
-                  </div>              
+              </div>
           </div>
-      </div>
-      </form> 
-    </div>
-  </div>
+          <div class="row mt-2">
+            <div class="col">   
+         
+                  <div class="form-controlform-check form-check-inline">
+                          <input formControlName="superUser" class="form-check-input"  type="radio" name="superUser" id="superUser1" value="Yes" >
+                          <label class="form-check-label" for="superUser1">Yes</label>
+                          <input formControlName="superUser" class="form-check-input ml-2" type="radio" name="superUser" id="superUser2" value="No">
+                          <label class="form-check-label" for="superUser2">No</label>
+                  </div>        
+          
+              </div>
+          </div>
+          <ng-container *ngIf="adminUserForm.controls.superUser.value=='No'">
+                    <div class="row mt-2">
+                              <div class="col">
+                                    <div class="form-controlform-check form-check-inline mt-2">
+                                        <label class="form-check-label" >Permissions</label>
+                                        <input class="ml-4 form-check-input"  (click)="selectAll($event)" type="checkbox"  name="todos" id="checkall" value="all" >
+                                        <label style="font-size: x-small;" class="form-check-label" for="guard1 ">{{titleCheckAll}}</label>
+                                      </div>        
+                              </div>
+                    </div>
+                    <ng-container *ngFor="let x of permissions;let j= index;">
+                              <div class="mt-2 row" *ngIf="j%4===0 && j<permissions.length">  
+                                      <ng-container *ngFor="let item of permissions;let i= index;">
+                                              <div style="padding-left: 2rem;" class="col-sm-3" *ngIf="i>=j && i < j+4">
+                                                      <input [value]="item.name" name="permissions" class="form-check-input"  type="checkbox"  id="{{item.name}}" (click)="onCheckChange($event)" >
+                                                      <label class="form-check-label" for="permissions1 ">{{item.name.replace('_',' ')|titlecase}}</label>
+                                              </div>
+                                      </ng-container> 
+                              </div>
+                      </ng-container>
+        </ng-container>
 
-  </div>               
+          <div class="row">
+            <div class="col">
+                <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
+                </div>	             
+                <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">Login is required</div>
+                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail</div>
+                </div>	           
+                <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                    <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors.required">SuperUser is required</div>
+                </div>	                                     
+            
+           </div> 
+        </div>   
+        <div class="row">
+        <div class="col">
+            <div class="alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
+                Error: {{ errorMessage }}
+                </div>              
+        </div>
+    </div>
+    </form> 
+  </div>
+</div>
+
+</div>               
 </app-modal>

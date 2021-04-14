@@ -60,9 +60,9 @@ export class UserAdminService {
     return this.http.get( url , httpOptions);
   }
 
-  createAdminUser(name: string,login: string,superUser: string){
+  createAdminUser(name: string,login: string,superUser: string,json: any){
     let url = AUTH_API;
-    return this.http.post( url , {"email":login,"name":name,"isSuperUser":superUser},httpOptions);
+    return this.http.post( url , {"email":login,"name":name,"isSuperUser":superUser,"permissions":{"permission":json}},httpOptions);
   }
 
   updateAdminUser(id: number,form: any){
@@ -90,6 +90,13 @@ export class UserAdminService {
         page = 0;
     }
     url = url + '/audit?id=' + id + '&page=' + page;
+   
+    return this.http.get( url , httpOptions);
+  }
+
+  getAllPermissions(): Observable<any> {
+    let url : string = AUTH_API;
+    url = url + '/permissions';
    
     return this.http.get( url , httpOptions);
   }
