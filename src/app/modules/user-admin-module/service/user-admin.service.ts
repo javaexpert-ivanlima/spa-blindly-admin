@@ -65,9 +65,9 @@ export class UserAdminService {
     return this.http.post( url , {"email":login,"name":name,"isSuperUser":superUser,"permissions":{"permission":json}},httpOptions);
   }
 
-  updateAdminUser(id: number,form: any){
+  updateAdminUser(id: number,form: any,json: any){
     let url = AUTH_API;
-    return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"isSuperUser":form.superUser.value},httpOptions);
+    return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"isSuperUser":form.superUser.value,"permissions":{"permission":json}},httpOptions);
   }
 
   inactivatedAdminUser(id: number): Observable<any> {

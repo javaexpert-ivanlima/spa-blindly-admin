@@ -240,6 +240,12 @@ export class ListAdminUsersComponent implements OnInit {
     //this.weightAnswerSelected = "";
     this.adminUserForm.controls.name.setValue("");
     this.adminUserForm.controls.login.setValue("");
+    this.removeAllFormControl();
+    $("#"+this.modalId).on('shown.bs.modal', function (e) {
+      $("input[name=permissions]").each( function () {
+        $(this).prop('checked',false);
+      });
+    })
     this.showModal(null,"C");
   }
 
@@ -348,11 +354,29 @@ export class ListAdminUsersComponent implements OnInit {
     this.adminUserForm.controls.superUser.setValue(isSuperUser);
     this.adminUserForm.controls.name.setValue(obj['name']);
     this.adminUserForm.controls.login.setValue(obj['login']);
+    let permissions:any = JSON.parse(obj['permissions']);
+    let ctrlPermissions: FormArray = this.adminUserForm.controls.permissions;
     this.showForm = true;
     this.showModal(obj,"U");
-  }
+    let oper = this.operationType;
+    this.removeAllFormControl();
+    $("#"+this.modalId).on('shown.bs.modal', function (e) {
+      if (oper == 'U'){
+              if (permissions){
+                  if (permissions.permission){
+                    permissions.permission.forEach((o) => {
+                      const control = new FormControl(o.name); // if first item set to true, else false
+                      (ctrlPermissions as FormArray).push(control);
+                      let key: string = '#'+o.name;
+                      $(key).prop('checked',true);
+                    });
+                  }
+              }  
+      }
+    })
+}
 
-
+ 
   changeCollapseLabel(){
     
     if (this.stateCollapse){
@@ -372,7 +396,8 @@ export class ListAdminUsersComponent implements OnInit {
   updateAdminUser(id,form){
     
     this.spinnerService.showSpinner();
-    this.userService.updateAdminUser(id,form).subscribe(
+    let json = this.getPermissionAsJson();
+    this.userService.updateAdminUser(id,form,json).subscribe(
       data => {
         this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
@@ -469,6 +494,5 @@ export class ListAdminUsersComponent implements OnInit {
     this.operationType = operation;
     this.selectedID = obj;
     $("#"+this.modalId).modal('show');
-
   }
 }
