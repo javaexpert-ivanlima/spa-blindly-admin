@@ -4,6 +4,8 @@ import { SpinnerShowService } from 'src/app/component/spinner';
 import {  Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PermissionGuard } from 'src/app/helpers/permission.guard';
+import { Observable } from 'rxjs';
 declare var $: any 
 
 @Component({
@@ -56,6 +58,7 @@ export class ListCategoryComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private guardian: PermissionGuard,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
     private categoryService: CategoryService
@@ -154,25 +157,36 @@ export class ListCategoryComponent implements OnInit {
     
   }
   exclude(obj){
-    this.lablelButton="Delete";
-    this.bgColorTitle = "#007bff!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for exclusion";
-    this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be excluded.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"E");
+    (this.guardian.hasAccess('inactivate_category') as Observable<boolean>).subscribe(resp=>{
+      console.log(resp);
+      if (resp){
+        this.lablelButton="Delete";
+        this.bgColorTitle = "#007bff!important"; 
+        this.showForm = false;
+        this.titleModal = "Confirmation for exclusion";
+        this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be excluded.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"E");    
+      }
+    });
   }
 
   edit(obj){
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.lablelButton="Update";
-    this.bgColorTitle = "#007bff!important"; 
-    this.titleModal = "Edit category";
-    this.categoryForm.controls.name.setValue(obj['nameCategory']);
-    this.showForm = true;
-    this.showModal(obj,"U");
+    (this.guardian.hasAccess('update_category') as Observable<boolean>).subscribe(resp=>{
+        console.log(resp);
+        if (resp){
+          this.submittedRegister = false;
+          this.submitted = false;
+          this.errorMessage = null;
+          this.lablelButton="Update";
+          this.bgColorTitle = "#007bff!important"; 
+          this.titleModal = "Edit category";
+          this.categoryForm.controls.name.setValue(obj['nameCategory']);
+          this.showForm = true;
+          this.showModal(obj,"U");
+      
+        }
+    });    
   }
 
   audit(obj){
@@ -194,13 +208,19 @@ export class ListCategoryComponent implements OnInit {
     this.operationType ="Z";
   }
   activated(obj){
-    this.lablelButton="Activate";
-    this.bgColorTitle = "#007bff!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for activation";
-    this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be activated.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"A");
+    (this.guardian.hasAccess('activate_category') as Observable<boolean>).subscribe(resp=>{
+        console.log(resp);
+        if (resp){
+          this.lablelButton="Activate";
+          this.bgColorTitle = "#007bff!important"; 
+          this.showForm = false;
+          this.titleModal = "Confirmation for activation";
+          this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be activated.";
+          this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+          this.showModal(obj,"A");      
+        }
+    });    
+
   }
 
   hideModal(){
@@ -284,15 +304,20 @@ export class ListCategoryComponent implements OnInit {
 
 
   addNew() {
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.showForm = true;
-    this.bgColorTitle = "#8c54a1!important"
-    this.titleModal = "Create a new category";
-    this.lablelButton="Create";
-    this.categoryForm.controls.name.setValue(null);
-    this.showModal(null,"C");
+    (this.guardian.hasAccess('create_category') as Observable<boolean>).subscribe(resp=>{
+        console.log(resp);
+        if (resp){
+          this.submittedRegister = false;
+          this.submitted = false;
+          this.errorMessage = null;
+          this.showForm = true;
+          this.bgColorTitle = "#8c54a1!important"
+          this.titleModal = "Create a new category";
+          this.lablelButton="Create";
+          this.categoryForm.controls.name.setValue(null);
+          this.showModal(null,"C");      
+        }
+    });    
   };
   
 

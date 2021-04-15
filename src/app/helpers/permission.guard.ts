@@ -19,8 +19,13 @@ export class PermissionGuard implements CanActivate {
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):Observable<boolean>|boolean {
+    let permission:string = route.data.permission as string;
+    return this.hasAccess(permission);
+
+  }
+
+  hasAccess(permission:string):Observable<boolean>|boolean{
     if (this.tokenStorage.getToken()) {
-      let permission:string = route.data.permission as string;
       return this.userService.checkPermission(permission).pipe(map( (resp)=>{
           if (resp){
               if (resp.data){
@@ -36,7 +41,7 @@ export class PermissionGuard implements CanActivate {
       this.router.navigateByUrl('/login/authenticate');
       return false;
     }  
-    
+
   }
 
 }

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { PermissionGuard } from 'src/app/helpers/permission.guard';
 
 import {
             AdminUserAuditComponent,

@@ -5,6 +5,8 @@ import {  Router } from '@angular/router';
 import { CategoryService } from 'src/app/modules/quiz-module/service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { QuestionsService } from '../../../service/questions.service';
+import { PermissionGuard } from 'src/app/helpers/permission.guard';
+import { Observable } from 'rxjs';
 declare var $: any 
 
 @Component({
@@ -63,6 +65,7 @@ export class ListQuestionsComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private guardian: PermissionGuard,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
     private categoryService: CategoryService,
@@ -230,23 +233,33 @@ export class ListQuestionsComponent implements OnInit {
     this.operationType ="Z";
   }
   activated(obj){
-    this.lablelButton="Activate";
-    this.bgColorTitle = "#a6c!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for activation";
-    this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be activated.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"A");
+    (this.guardian.hasAccess('activate_question') as Observable<boolean>).subscribe(resp=>{
+      console.log(resp);
+      if (resp){
+        this.lablelButton="Activate";
+        this.bgColorTitle = "#a6c!important"; 
+        this.showForm = false;
+        this.titleModal = "Confirmation for activation";
+        this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be activated.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"A");
+      }
+  });
   }
 
   exclude(obj){
-    this.lablelButton="Delete";
-    this.bgColorTitle = "#a6c!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for exclusion";
-    this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be excluded.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"E");
+    (this.guardian.hasAccess('inactivate_question') as Observable<boolean>).subscribe(resp=>{
+        console.log(resp);
+        if (resp){
+          this.lablelButton="Delete";
+          this.bgColorTitle = "#a6c!important"; 
+          this.showForm = false;
+          this.titleModal = "Confirmation for exclusion";
+          this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be excluded.";
+          this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+          this.showModal(obj,"E");     
+        }
+    });
   }
 
   hideModal(){
