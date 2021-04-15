@@ -234,7 +234,6 @@ export class ListQuestionsComponent implements OnInit {
   }
   activated(obj){
     (this.guardian.hasAccess('activate_question') as Observable<boolean>).subscribe(resp=>{
-      console.log(resp);
       if (resp){
         this.lablelButton="Activate";
         this.bgColorTitle = "#a6c!important"; 
@@ -249,7 +248,6 @@ export class ListQuestionsComponent implements OnInit {
 
   exclude(obj){
     (this.guardian.hasAccess('inactivate_question') as Observable<boolean>).subscribe(resp=>{
-        console.log(resp);
         if (resp){
           this.lablelButton="Delete";
           this.bgColorTitle = "#a6c!important"; 

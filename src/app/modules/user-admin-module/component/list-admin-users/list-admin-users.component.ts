@@ -27,8 +27,8 @@ export class ListAdminUsersComponent implements OnInit {
   hideBtn:string;
   bgColorTitle:string; 
   titleModal:string;
-  textParagraph1:string;
-  textParagraph2:string;
+  textParagraph1="Are you totally sure about this operation?"
+  textParagraph2="If not please close this confirmation, else if you are sure click on confirm button.";
   content:string;
   operationType: string = null;
   showForm: boolean = false;
@@ -232,7 +232,6 @@ export class ListAdminUsersComponent implements OnInit {
 
   addNew(){
     (this.guardian.hasAccess('create_adminUser') as Observable<boolean>).subscribe(resp=>{
-          console.log(resp);
           if (resp){
                   //this.router.navigateByUrl('admin_users/create');
                   this.submittedRegister = false;
@@ -260,7 +259,6 @@ export class ListAdminUsersComponent implements OnInit {
 
   activated(obj){
     (this.guardian.hasAccess('activate_adminUser') as Observable<boolean>).subscribe(resp=>{
-          console.log(resp);
           if (resp){
             this.lablelButton="Activate";
             this.bgColorTitle = "#007bff!important"; 
@@ -275,7 +273,6 @@ export class ListAdminUsersComponent implements OnInit {
 
   unblocked(obj){
     (this.guardian.hasAccess('unblocked_adminUser') as Observable<boolean>).subscribe(resp=>{
-      console.log(resp);
       if (resp){
         this.lablelButton="Unblock";
         this.bgColorTitle = "#007bff!important"; 
@@ -349,7 +346,6 @@ export class ListAdminUsersComponent implements OnInit {
   }
   exclude(obj){
     (this.guardian.hasAccess('inactivate_adminUser') as Observable<boolean>).subscribe(resp=>{
-      console.log(resp);
       if (resp){
         this.lablelButton="Delete";
         this.bgColorTitle = "#007bff!important"; 
@@ -369,7 +365,6 @@ export class ListAdminUsersComponent implements OnInit {
 
   edit(obj){
     (this.guardian.hasAccess('update_adminUser') as Observable<boolean>).subscribe(resp=>{
-          console.log(resp);
           if (resp){
             this.submittedRegister = false;
             this.submitted = false;

@@ -158,7 +158,6 @@ export class ListCategoryComponent implements OnInit {
   }
   exclude(obj){
     (this.guardian.hasAccess('inactivate_category') as Observable<boolean>).subscribe(resp=>{
-      console.log(resp);
       if (resp){
         this.lablelButton="Delete";
         this.bgColorTitle = "#007bff!important"; 
@@ -173,7 +172,6 @@ export class ListCategoryComponent implements OnInit {
 
   edit(obj){
     (this.guardian.hasAccess('update_category') as Observable<boolean>).subscribe(resp=>{
-        console.log(resp);
         if (resp){
           this.submittedRegister = false;
           this.submitted = false;
@@ -209,7 +207,6 @@ export class ListCategoryComponent implements OnInit {
   }
   activated(obj){
     (this.guardian.hasAccess('activate_category') as Observable<boolean>).subscribe(resp=>{
-        console.log(resp);
         if (resp){
           this.lablelButton="Activate";
           this.bgColorTitle = "#007bff!important"; 
@@ -305,7 +302,6 @@ export class ListCategoryComponent implements OnInit {
 
   addNew() {
     (this.guardian.hasAccess('create_category') as Observable<boolean>).subscribe(resp=>{
-        console.log(resp);
         if (resp){
           this.submittedRegister = false;
           this.submitted = false;
