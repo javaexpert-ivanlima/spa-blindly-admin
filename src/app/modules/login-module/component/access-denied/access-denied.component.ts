@@ -22,6 +22,7 @@ export class AccessDeniedComponent implements OnInit {
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
     }else{
+      this.spinnerService.hideActivation();
       this.router.navigateByUrl('/login/authenticate');
     }  
   }
