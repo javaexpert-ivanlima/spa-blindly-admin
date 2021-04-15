@@ -1,18 +1,25 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivate } from '@angular/router';
 import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TokenStorageService } from '../modules/login-module';
-import { UserAdminService } from '../modules/user-admin-module';
+//import { TokenStorageService } from '../modules/login-module';
+//import { UserAdminService } from '../modules/user-admin-module';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
+const AUTH_API =  "http://localhost:8080/v1/admin/users";
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
   constructor(
     private router: Router,
-    private tokenStorage: TokenStorageService,
-    private userService: UserAdminService
+    private http: HttpClient,
+    private tokenStorage: TokenStorageService
+    //private userService: UserAdminService
 
     
   ) { }
@@ -26,7 +33,7 @@ export class PermissionGuard implements CanActivate {
 
   hasAccess(permission:string):Observable<boolean>|boolean{
     if (this.tokenStorage.getToken()) {
-      return this.userService.checkPermission(permission).pipe(map( (resp)=>{
+      return this.checkPermission(permission).pipe(map( (resp)=>{
           if (resp){
               if (resp.data){
                   //alert('you have permission');
@@ -42,6 +49,13 @@ export class PermissionGuard implements CanActivate {
       return false;
     }  
 
+  }
+
+  checkPermission(permission: string): Observable<any> {
+    let url : string = AUTH_API;
+    url = url + '/checkpermission';
+   
+    return this.http.post( url , {"name":permission},httpOptions);
   }
 
 }

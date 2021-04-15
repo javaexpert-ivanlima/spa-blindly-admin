@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faThinkPeaks } from '@fortawesome/free-brands-svg-icons';
+import { Observable } from 'rxjs';
 import { SpinnerShowService } from 'src/app/component/spinner';
+import { PermissionGuard } from 'src/app/helpers/permission.guard';
 import { TokenStorageService } from 'src/app/modules/login-module';
 import { UserAdminService } from '../../service';
 
@@ -52,6 +54,7 @@ export class ListAdminUsersComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
+    private guardian: PermissionGuard,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
     private userService: UserAdminService
@@ -228,45 +231,61 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   addNew(){
-    //this.router.navigateByUrl('admin_users/create');
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.showForm = true;
-    this.bgColorTitle = "#007bff!important";
-    this.fgColorTitle = "white";
-    this.titleModal = "Create AdminUser";
-    this.lablelButton="Save User";
-    //this.weightAnswerSelected = "";
-    this.adminUserForm.controls.name.setValue("");
-    this.adminUserForm.controls.login.setValue("");
-    this.removeAllFormControl();
-    $("#"+this.modalId).on('shown.bs.modal', function (e) {
-      $("input[name=permissions]").each( function () {
-        $(this).prop('checked',false);
-      });
-    })
-    this.showModal(null,"C");
+    (this.guardian.hasAccess('create_adminUser') as Observable<boolean>).subscribe(resp=>{
+          console.log(resp);
+          if (resp){
+                  //this.router.navigateByUrl('admin_users/create');
+                  this.submittedRegister = false;
+                  this.submitted = false;
+                  this.errorMessage = null;
+                  this.showForm = true;
+                  this.bgColorTitle = "#007bff!important";
+                  this.fgColorTitle = "white";
+                  this.titleModal = "Create AdminUser";
+                  this.lablelButton="Save User";
+                  //this.weightAnswerSelected = "";
+                  this.adminUserForm.controls.name.setValue("");
+                  this.adminUserForm.controls.login.setValue("");
+                  this.removeAllFormControl();
+                  $("#"+this.modalId).on('shown.bs.modal', function (e) {
+                    $("input[name=permissions]").each( function () {
+                      $(this).prop('checked',false);
+                    });
+                  })
+                  this.showModal(null,"C");
+
+          }
+    });    
   }
 
   activated(obj){
-    this.lablelButton="Activate";
-    this.bgColorTitle = "#007bff!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for activation";
-    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be activated.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"A");
+    (this.guardian.hasAccess('activate_adminUser') as Observable<boolean>).subscribe(resp=>{
+          console.log(resp);
+          if (resp){
+            this.lablelButton="Activate";
+            this.bgColorTitle = "#007bff!important"; 
+            this.showForm = false;
+            this.titleModal = "Confirmation for activation";
+            this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be activated.";
+            this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+            this.showModal(obj,"A");       
+          }
+    });      
   }
 
   unblocked(obj){
-    this.lablelButton="Unblock";
-    this.bgColorTitle = "#007bff!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for unblocking";
-    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be unblocked.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"B");
+    (this.guardian.hasAccess('unblocked_adminUser') as Observable<boolean>).subscribe(resp=>{
+      console.log(resp);
+      if (resp){
+        this.lablelButton="Unblock";
+        this.bgColorTitle = "#007bff!important"; 
+        this.showForm = false;
+        this.titleModal = "Confirmation for unblocking";
+        this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be unblocked.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"B");    
+      }
+    });      
   }
   activatedAdminUser(id){
     this.spinnerService.showSpinner();
@@ -329,13 +348,18 @@ export class ListAdminUsersComponent implements OnInit {
 
   }
   exclude(obj){
-    this.lablelButton="Delete";
-    this.bgColorTitle = "#007bff!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for exclusion";
-    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be excluded.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"E");
+    (this.guardian.hasAccess('inactivate_adminUser') as Observable<boolean>).subscribe(resp=>{
+      console.log(resp);
+      if (resp){
+        this.lablelButton="Delete";
+        this.bgColorTitle = "#007bff!important"; 
+        this.showForm = false;
+        this.titleModal = "Confirmation for exclusion";
+        this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be excluded.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"E");    
+      }
+    });      
   }
 
   audit(obj){
@@ -344,36 +368,42 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   edit(obj){
-    this.submittedRegister = false;
-    this.submitted = false;
-    this.errorMessage = null;
-    this.lablelButton="Update";
-    this.bgColorTitle = "#007bff!important"; 
-    this.titleModal = "Edit Admin User";
-    let isSuperUser: string = obj['superUser']=='Y'?'Yes':'No';
-    this.adminUserForm.controls.superUser.setValue(isSuperUser);
-    this.adminUserForm.controls.name.setValue(obj['name']);
-    this.adminUserForm.controls.login.setValue(obj['login']);
-    let permissions:any = JSON.parse(obj['permissions']);
-    let ctrlPermissions: FormArray = this.adminUserForm.controls.permissions;
-    this.showForm = true;
-    this.showModal(obj,"U");
-    let oper = this.operationType;
-    this.removeAllFormControl();
-    $("#"+this.modalId).on('shown.bs.modal', function (e) {
-      if (oper == 'U'){
-              if (permissions){
-                  if (permissions.permission){
-                    permissions.permission.forEach((o) => {
-                      const control = new FormControl(o.name); // if first item set to true, else false
-                      (ctrlPermissions as FormArray).push(control);
-                      let key: string = '#'+o.name;
-                      $(key).prop('checked',true);
-                    });
-                  }
-              }  
-      }
-    })
+    (this.guardian.hasAccess('update_adminUser') as Observable<boolean>).subscribe(resp=>{
+          console.log(resp);
+          if (resp){
+            this.submittedRegister = false;
+            this.submitted = false;
+            this.errorMessage = null;
+            this.lablelButton="Update";
+            this.bgColorTitle = "#007bff!important"; 
+            this.titleModal = "Edit Admin User";
+            let isSuperUser: string = obj['superUser']=='Y'?'Yes':'No';
+            this.adminUserForm.controls.superUser.setValue(isSuperUser);
+            this.adminUserForm.controls.name.setValue(obj['name']);
+            this.adminUserForm.controls.login.setValue(obj['login']);
+            let permissions:any = JSON.parse(obj['permissions']);
+            let ctrlPermissions: FormArray = this.adminUserForm.controls.permissions;
+            this.showForm = true;
+            this.showModal(obj,"U");
+            let oper = this.operationType;
+            this.removeAllFormControl();
+            $("#"+this.modalId).on('shown.bs.modal', function (e) {
+              if (oper == 'U'){
+                      if (permissions){
+                          if (permissions.permission){
+                            permissions.permission.forEach((o) => {
+                              const control = new FormControl(o.name); // if first item set to true, else false
+                              (ctrlPermissions as FormArray).push(control);
+                              let key: string = '#'+o.name;
+                              $(key).prop('checked',true);
+                            });
+                          }
+                      }  
+              }
+            })
+        
+          }
+    });      
 }
 
  
