@@ -264,6 +264,7 @@ export class ListAdminUsersComponent implements OnInit {
             this.bgColorTitle = "#007bff!important"; 
             this.showForm = false;
             this.titleModal = "Confirmation for activation";
+            this.textParagraph1="Are you totally sure about this operation?"
             this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be activated.";
             this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
             this.showModal(obj,"A");       
@@ -277,6 +278,7 @@ export class ListAdminUsersComponent implements OnInit {
         this.lablelButton="Unblock";
         this.bgColorTitle = "#007bff!important"; 
         this.showForm = false;
+        this.textParagraph1="Are you totally sure about this operation?"
         this.titleModal = "Confirmation for unblocking";
         this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be unblocked.";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
@@ -351,6 +353,7 @@ export class ListAdminUsersComponent implements OnInit {
         this.bgColorTitle = "#007bff!important"; 
         this.showForm = false;
         this.titleModal = "Confirmation for exclusion";
+        this.textParagraph1="Are you totally sure about this operation?"
         this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be excluded.";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"E");    

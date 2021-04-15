@@ -162,6 +162,7 @@ export class ListCategoryComponent implements OnInit {
         this.lablelButton="Delete";
         this.bgColorTitle = "#007bff!important"; 
         this.showForm = false;
+        this.textParagraph1="Are you totally sure about this operation?"
         this.titleModal = "Confirmation for exclusion";
         this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be excluded.";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
@@ -211,6 +212,7 @@ export class ListCategoryComponent implements OnInit {
           this.lablelButton="Activate";
           this.bgColorTitle = "#007bff!important"; 
           this.showForm = false;
+          this.textParagraph1="Are you totally sure about this operation?"
           this.titleModal = "Confirmation for activation";
           this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be activated.";
           this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";

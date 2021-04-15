@@ -238,6 +238,7 @@ export class ListQuestionsComponent implements OnInit {
         this.lablelButton="Activate";
         this.bgColorTitle = "#a6c!important"; 
         this.showForm = false;
+        this.textParagraph1="Are you totally sure about this operation?"
         this.titleModal = "Confirmation for activation";
         this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be activated.";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
@@ -252,6 +253,7 @@ export class ListQuestionsComponent implements OnInit {
           this.lablelButton="Delete";
           this.bgColorTitle = "#a6c!important"; 
           this.showForm = false;
+          this.textParagraph1="Are you totally sure about this operation?"
           this.titleModal = "Confirmation for exclusion";
           this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be excluded.";
           this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
