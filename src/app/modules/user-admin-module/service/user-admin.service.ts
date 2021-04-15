@@ -100,5 +100,11 @@ export class UserAdminService {
    
     return this.http.get( url , httpOptions);
   }
+  checkPermission(permission: string): Observable<any> {
+    let url : string = AUTH_API;
+    url = url + '/checkpermission';
+   
+    return this.http.post( url , {"name":permission},httpOptions);
+  }
 
 }

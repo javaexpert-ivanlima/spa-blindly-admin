@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { PermissionGuard } from 'src/app/helpers/permission.guard';
 import {
             AuditCategoryComponent,
             AuditQuestionsComponent,
@@ -19,12 +20,17 @@ export const QuizRoutes: Routes = [
     },
     {
         path: 'categories/list',
-        component: ListCategoryComponent
+        component: ListCategoryComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_category'}        
+
     },
     {
         //path: 'categories/audit/:id/:name',
         path: 'categories/audit',
-        component: AuditCategoryComponent
+        component: AuditCategoryComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_category'}
     },
     {
         path: 'questions',
@@ -32,27 +38,40 @@ export const QuizRoutes: Routes = [
     },
     {
         path: 'questions/list',
-        component: ListQuestionsComponent
+        component: ListQuestionsComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_question'}
     },
     {
         path: 'questions/audit',
-        component: AuditQuestionsComponent
+        component: AuditQuestionsComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_question'}
     },
     {
         path: 'questions/create',
-        component: CreateQuestionComponent
+        component: CreateQuestionComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'create_question'}
     },
     {
         path: 'questions/edit',
-        component: EditQuestionComponent
+        component: EditQuestionComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'update_question'}
+
     }
     ,
     {
         path: 'questions/quiz',
-        component: QuizOrderComponent
+        component: QuizOrderComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'order_quiz'}
     },
     {
         path: 'quiz/preview',
-        component: QuizPreviewComponent
+        component: QuizPreviewComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'preview_quiz'}
     }
 ]

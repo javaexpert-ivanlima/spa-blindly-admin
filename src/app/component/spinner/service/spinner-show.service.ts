@@ -79,6 +79,14 @@ export class SpinnerShowService {
     this.hideSpinner();
   }
 
+  showAccessDenied(){
+    $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/access-denied.png)'});
+    $("#mainContent").css("background-repeat","round");
+    $("#body").addClass('mask');
+    $("#body").addClass('bg-gradient-default');
+    $("#body").addClass('opacity-8');
+  }
+
   showLoginElements(show: boolean): void{
     if (show){
       //$("#mainContent").css({backgroundImage : 'none'});

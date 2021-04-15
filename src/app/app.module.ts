@@ -13,6 +13,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './helpers/auth.interceptor';
 import { UserAdminModule } from './modules/user-admin-module/user-admin.module';
 import { UserAppModule } from './modules/user-app-module/user-app.module';
+import { PermissionGuard } from './helpers/permission.guard';
 
 
 
@@ -37,7 +38,7 @@ import { UserAppModule } from './modules/user-app-module/user-app.module';
   ],
   providers: [
     { provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    SpinnerShowService
+    SpinnerShowService,PermissionGuard
   ],
   bootstrap: [AppComponent]
 })

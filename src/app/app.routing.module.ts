@@ -7,16 +7,17 @@ import { UserAppRoutes } from "./modules/user-app-module/";
 
 
 export const routes: Routes = [
+    
    {
     path: '',
     redirectTo: 'login/authenticate',
     pathMatch: 'full'
    },
-
     ...LoginRoutes,...QuizRoutes,...UserAdminRoutes,...UserAppRoutes
 ];
 
 @NgModule({
+    //imports: [RouterModule.forRoot(routes,{ enableTracing: true })],
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
 })

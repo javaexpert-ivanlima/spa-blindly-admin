@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ActivationComponent } from './component';
+import { AccessDeniedComponent, ActivationComponent } from './component';
 import { AuthenticateComponent } from './component';
 
 export const LoginRoutes: Routes = [
@@ -16,5 +16,10 @@ export const LoginRoutes: Routes = [
     {
         path: 'login/activation',
         component: ActivationComponent
+    }
+    ,
+    {
+        path: 'login/accessdenied',
+        component: AccessDeniedComponent
     }
 ]

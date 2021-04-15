@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { PermissionGuard } from 'src/app/helpers/permission.guard';
 import {
             AppUserAuditComponent,
     DashboardComponent,
@@ -16,19 +17,27 @@ export const UserAppRoutes: Routes = [
     ,
     {
         path: 'app_users/list',
-        component: ListAppUsersComponent
+        component: ListAppUsersComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_appUser'}
     }
     ,
     {
         path: 'app_users/audit',
-        component: AppUserAuditComponent
+        component: AppUserAuditComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_appUser'}
     },
     {
         path: 'app_users/detail',
-        component: DetailUserComponent
+        component: DetailUserComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'detail_appUser'}        
     },
     {
         path: 'app_users/dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'dashboard'}        
     }
 ]
