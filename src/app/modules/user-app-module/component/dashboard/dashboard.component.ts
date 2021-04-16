@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
 import { SpinnerShowService } from 'src/app/component/spinner';
@@ -12,19 +12,16 @@ import { UserAppService } from '../../service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
+  data: any;
+
   myData = [
-    ['RJ', 8136000],
-    ['MG', 8538000],
-    ['BA', 2244000],
-    ['TO', 3470000],
-    ['SP', 19500000]
   ];
 
-  chartColumns = ['City', 'Inhabitants'];
+  chartColumns = ['Status', 'Quantity'];
   myTitle="Users chart by state";
   myChart="PieChart";
 
-  myOptions = {'title':'','legend':'bottom','width':'300','height':'300'};
+  myOptions = {'title':'','legend':'none','width':'300','height':'300'};
 
 
 
@@ -32,11 +29,18 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
-    private userService: UserAppService
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.spinnerService.showSpinner();
+    this.data = this.route.snapshot.data.dashInfo.data[0];
+    this.myData.push(['Inactive',this.data.inactive]);
+    this.myData.push(['Blocked',this.data.blocked]);
+    this.myData.push(['Pending',this.data.pending]);
+    this.myData.push(['Completed',this.data.completed]);
+    this.myData.push(['GeoLocation',this.data.pending_Localization]);
+    this.myData.push(['TodayRegister',this.data.today_Registers]);
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
     }else{

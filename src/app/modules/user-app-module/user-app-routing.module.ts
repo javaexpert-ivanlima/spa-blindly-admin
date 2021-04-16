@@ -6,6 +6,7 @@ import {
     DetailUserComponent,
             ListAppUsersComponent
        } from './component';
+import { DashboardResolver } from './component/dashboard/dashboard.resolver';
 
 
 export const UserAppRoutes: Routes = [
@@ -38,6 +39,7 @@ export const UserAppRoutes: Routes = [
         path: 'app_users/dashboard',
         component: DashboardComponent,
         canActivate: [PermissionGuard],
-        data: {permission: 'dashboard'}        
+        data: {permission: 'dashboard'},
+        resolve: {dashInfo: DashboardResolver}        
     }
 ]
