@@ -52,7 +52,6 @@ export class ListAppUsersComponent implements OnInit {
     ) { 
       this.appUserFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],
-        name: [null,[Validators.minLength(4)]],
         login: [null, [Validators.minLength(4)]]
       });
     }
@@ -126,11 +125,6 @@ export class ListAppUsersComponent implements OnInit {
   }
 
   loadFilterFields(){
-    if (this.appUserFilterForm.controls.name.value){
-      this.searchName = this.appUserFilterForm.controls.name.value;
-    }else{
-      this.searchName = null;  
-    }
     if (this.appUserFilterForm.controls.filterType.value){
       this.searchFor = this.appUserFilterForm.controls.filterType.value;
     }else{
@@ -265,10 +259,10 @@ export class ListAppUsersComponent implements OnInit {
     
     if (this.stateCollapse){
         this.stateCollapse = false;
-        $("#collapseQuestion").collapse('show');
+        $("#collapseAppUser").collapse('show');
     }else{
       this.stateCollapse = true;
-      $("#collapseQuestion").collapse('hide');
+      $("#collapseAppUser").collapse('hide');
     }
   }
 

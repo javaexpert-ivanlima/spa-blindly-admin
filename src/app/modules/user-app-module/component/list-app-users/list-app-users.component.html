@@ -8,7 +8,95 @@
               <div class="row">
 
                 <div class="col">
+                  <div id="accordion">
+                    <button class="btn btn-link" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseAppUser">
+                      <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" > FILTERS</span>
+                    </button>
+         
+                    <div id="collapseAppUser" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
+                      <div class="card-body">
+        
+                                                  <div class="border" style="padding: 2%;">
+                                                    <form  [formGroup]="appUserFilterForm" class="form-group" #f="ngForm" > 
+                                                      <div class="row">
+                                                              <div class="col">      
+                                                                  <div class="form-check form-check-inline">
+                                                                      
+                                                                        <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType1" value="all" >
+                                                                        <label class="form-check-label" for="filterType1">
+                                                                                All
+                                                                            </label>
+                                                                  </div>        
+                                                                  <div class="form-check form-check-inline">
+                                                                            <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType2" value="inactive">
+                                                                            <label class="form-check-label" for="filterType2">
+                                                                                    Inactive
+                                                                                </label>
+                                                                  </div>
+                                                            
+                                                                    <div class="form-check form-check-inline">
+                                                                                <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType3" value="active">
+                                                                                <label class="form-check-label" for="filterType3">
+                                                                                        Active
+                                                                                    </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                      <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType4" value="blocked">
+                                                                      <label class="form-check-label" for="filterType4">
+                                                                              Blocked
+                                                                          </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                      <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType5" value="pending">
+                                                                      <label class="form-check-label" for="filterType5">
+                                                                              Pending
+                                                                          </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                      <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType6" value="completed">
+                                                                      <label class="form-check-label" for="filterType6">
+                                                                              Completed
+                                                                          </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                      <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType7" value="today">
+                                                                      <label class="form-check-label" for="filterType7">
+                                                                              Today registered
+                                                                          </label>
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">
+                                                                      <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType8" value="geocode">
+                                                                      <label class="form-check-label" for="filterType8">
+                                                                              Missing geolocalization
+                                                                          </label>
+                                                                    </div>
+
+
+                                                              </div>
+                                                      </div>     
+                                                      <div class="row">
+                                                            <div class="col">
+                                                                  <input formControlName="login" style="outline: none!important;" type="text" id="myInput" placeholder="Login(e-mail)"> 
+                                                            </div>
+                                                            <div class="col-sm-auto mt-2">
+                                                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
+                                                            </div>
+                                                      </div>  
+                                                      <div class="row">
+                                                          <div class="col">
+                                                              <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
+                                                                  Search failed: {{ errorMessage }}
+                                                              </div>              
+                                                          </div>
+                                                      </div>
+                                                    </form> 
+                                                  </div>   
+           
+                          </div>
+                      </div>
+              </div> 
                   <div class="card shadow">
+  
                     <div class="card-header border-0">
                       <h3 class="mb-0">App users</h3>
                     </div>
