@@ -201,7 +201,7 @@ export class ListAppUsersComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.userService.activatedAppUser(id).subscribe(
       data => {
-        this.currentPage =0;
+        //this.currentPage =0;
         this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
         this.showConfirmation("AppUser ["+this.selectedID['name']+"] was activated with sucess.");
@@ -220,7 +220,7 @@ export class ListAppUsersComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.userService.inactivatedAppUser(id).subscribe(
           data => {
-            this.currentPage =0;
+            //this.currentPage =0;
             this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
             this.showConfirmation("AppUser ["+this.selectedID['name']+"] was deleted with sucess.");
@@ -241,7 +241,7 @@ export class ListAppUsersComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.userService.unblockedAppUser(id).subscribe(
           data => {
-            this.currentPage =0;
+            //this.currentPage =0;
             this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
             this.showConfirmation("AppUser ["+this.selectedID['name']+"] was unblocked with sucess.");

@@ -90,6 +90,21 @@
                                                             </div>
                                                       </div>  
                                                       <div class="row">
+                                                        <div class="col">
+                                                          <div *ngIf="submitted && appUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                                            <div *ngIf="submitted && appUserFilterForm.controls.name.errors.minlength">Name must be at least 4 characters</div>
+                                                        </div>				
+                                                        </div>
+                                                      </div>
+                                                      <div class="row">
+                                                        <div class="col">
+                                                          <div *ngIf="submitted && appUserFilterForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                                            <div *ngIf="submitted && appUserFilterForm.controls.login.errors.email">Login must be a valid e-mail</div>
+                                                        </div>				
+                                                        </div>
+                                                      </div>
+
+                                                      <div class="row">
                                                           <div class="col">
                                                               <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
                                                                   Search failed: {{ errorMessage }}
