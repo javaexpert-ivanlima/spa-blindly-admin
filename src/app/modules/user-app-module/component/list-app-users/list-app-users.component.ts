@@ -52,7 +52,8 @@ export class ListAppUsersComponent implements OnInit {
     ) { 
       this.appUserFilterForm = this.formBuilder.group({
         filterType: [ 'all', [Validators.required]],
-        login: [null, [Validators.minLength(4)]]
+        login: [null, [Validators.email]],
+        name: [null, [Validators.minLength(4)]]
       });
     }
 
@@ -72,16 +73,19 @@ export class ListAppUsersComponent implements OnInit {
   }
 
   getStatus(obj:any): string {
-    if (obj.registerPhase < 6){
-          return "Pending";
-    }
     if (obj.blocked == 'Y'){
           return "Blocked";
+    }
+    if (obj.active == 'Y' && obj.registerPhase < 6){
+      return "Pending";
+    }
+    if (obj.active == 'Y' && obj.registerPhase >= 6){
+      return "Completed";
     }
     if (obj.active == 'N'){
           return "Inactive";
     }
-    return "Active";
+    return "Unknow";
   }
 
   getPercentual(obj:any):number{
@@ -96,6 +100,12 @@ export class ListAppUsersComponent implements OnInit {
     this.appUserSelected = obj;
     this.spinnerService.setAppUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchLogin":this.searchLogin,"userAppSelected":this.appUserSelected}});
     this.router.navigateByUrl('app_users/detail');
+  }
+
+  goAudit(obj){
+    this.appUserSelected = obj;
+    this.spinnerService.setAppUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchLogin":this.searchLogin,"userAppSelected":this.appUserSelected}});
+    this.router.navigateByUrl('app_users/audit');
   }
 
   setupFilters(){
@@ -135,6 +145,11 @@ export class ListAppUsersComponent implements OnInit {
     }else{
       this.searchLogin = null;
     }
+    if (this.appUserFilterForm.controls.name.value){
+      this.searchName = this.appUserFilterForm.controls.name.value;
+    }else{
+      this.searchName = null;
+    }
 
   }
   carregaAppUser(page,search,name,login){
@@ -159,33 +174,37 @@ export class ListAppUsersComponent implements OnInit {
 
 
 
-  activated(obj){
+  goActivate(obj){
     this.lablelButton="Activate";
-    this.bgColorTitle = "#007bff!important"; 
+    this.fgColorTitle = "white";
+    this.bgColorTitle = "#8898aa!important"; 
     this.showForm = false;
     this.titleModal = "Confirmation for activation";
-    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be activated.";
+    this.textParagraph1="Are you totally sure about this operation?"
+    this.textParagraph2 = "The AppUser ["+obj['name']+"] will be activated.";
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.showModal(obj,"A");
   }
 
-  unblocked(obj){
+  goUnblocked(obj){
     this.lablelButton="Unblock";
-    this.bgColorTitle = "#007bff!important"; 
+    this.fgColorTitle = "white";
+    this.bgColorTitle = "#8898aa!important"; 
     this.showForm = false;
     this.titleModal = "Confirmation for unblocking";
-    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be unblocked.";
+    this.textParagraph1="Are you totally sure about this operation?"
+    this.textParagraph2 = "The AppUser ["+obj['name']+"] will be unblocked.";
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.showModal(obj,"B");
   }
   activatedAppUser(id){
     this.spinnerService.showSpinner();
-    this.userService.activatedAdminUser(id).subscribe(
+    this.userService.activatedAppUser(id).subscribe(
       data => {
         this.currentPage =0;
         this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was activated with sucess.");
+        this.showConfirmation("AppUser ["+this.selectedID['name']+"] was activated with sucess.");
       },
       err => {
         this.submittedRegister = true;
@@ -199,12 +218,12 @@ export class ListAppUsersComponent implements OnInit {
 
   inactivatedAppUser(id){
     this.spinnerService.showSpinner();
-    this.userService.inactivatedAdminUser(id).subscribe(
+    this.userService.inactivatedAppUser(id).subscribe(
           data => {
             this.currentPage =0;
             this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was deleted with sucess.");
+            this.showConfirmation("AppUser ["+this.selectedID['name']+"] was deleted with sucess.");
             this.confirmButton = false;
           },
           err => {
@@ -220,12 +239,12 @@ export class ListAppUsersComponent implements OnInit {
 
   unblockedAppUser(id){
     this.spinnerService.showSpinner();
-    this.userService.unblockedAdminUser(id).subscribe(
+    this.userService.unblockedAppUser(id).subscribe(
           data => {
             this.currentPage =0;
             this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was unblocked with sucess.");
+            this.showConfirmation("AppUser ["+this.selectedID['name']+"] was unblocked with sucess.");
             this.confirmButton = false;
           },
           err => {
@@ -238,22 +257,17 @@ export class ListAppUsersComponent implements OnInit {
     );
 
   }
-  exclude(obj){
+  goInactivate(obj){
     this.lablelButton="Delete";
-    this.bgColorTitle = "#007bff!important"; 
+    this.fgColorTitle = "white";
+    this.bgColorTitle = "#8898aa!important"; 
     this.showForm = false;
+    this.textParagraph1="Are you totally sure about this operation?"
     this.titleModal = "Confirmation for exclusion";
-    this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be excluded.";
+    this.textParagraph2 = "The AppUser ["+obj['name']+"] will be excluded.";
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.showModal(obj,"E");
   }
-
-  audit(obj){
-    this.spinnerService.setAdminUserObject({"row":obj,"filter":{"page":this.currentPage,"searchFor":this.searchFor,"searchName":this.searchName,"searchLogin":this.searchLogin,"userAdminSelected":this.appUserSelected}});
-    this.router.navigateByUrl('/admin_users/audit');
-  }
-
-
 
   changeCollapseLabel(){
     

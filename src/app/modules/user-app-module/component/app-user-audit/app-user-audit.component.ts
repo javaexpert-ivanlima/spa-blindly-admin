@@ -34,11 +34,11 @@ export class AppUserAuditComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (!this.spinnerService.getAdminUserObject()){
-        this.router.navigateByUrl('admin_users/list');
+    if (!this.spinnerService.getAppUserObject()){
+        this.router.navigateByUrl('app_users/list');
     }
-    this.selectedID = this.spinnerService.getAdminUserObject()?.row?.id;
-    this.selectedName = this.spinnerService.getAdminUserObject().row.name;
+    this.selectedID = this.spinnerService.getAppUserObject()?.row?.id;
+    this.selectedName = this.spinnerService.getAppUserObject().row.name;
 
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
@@ -51,14 +51,14 @@ export class AppUserAuditComponent implements OnInit {
   }
 
   backButton(){
-    this.router.navigateByUrl('admin_users/list');
+    this.router.navigateByUrl('app_users/list');
   }
   carregaAdminUserAudit(page: number,id:number) {
     this.pageable = null;
     this.rows = null;
-    this.title = "audit admin user - " + this.selectedName;
+    this.title = "audit app user - " + this.selectedName;
     this.spinnerService.showSpinner();
-    this.userService.getAuditAdminUser(page,id).subscribe(
+    this.userService.getAuditAppUser(page,id).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;

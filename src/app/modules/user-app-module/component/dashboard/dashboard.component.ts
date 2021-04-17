@@ -39,7 +39,6 @@ export class DashboardComponent implements OnInit {
     this.myData.push(['Blocked',this.data.blocked]);
     this.myData.push(['Pending',this.data.pending]);
     this.myData.push(['Completed',this.data.completed]);
-    this.myData.push(['GeoLocation',this.data.pending_Localization]);
     this.myData.push(['TodayRegister',this.data.today_Registers]);
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
