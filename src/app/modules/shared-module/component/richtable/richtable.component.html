@@ -97,7 +97,7 @@
         <tr *ngFor="let obj of tableData;let i=index;" scope="row" >
 
           
-          <th *ngFor="let col of tableCols">
+          <th *ngFor="let col of tableCols;let i=index;">
             <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
             <div *ngIf="col.includes('date') === false">
  
@@ -106,9 +106,25 @@
                 <a *ngIf="obj[col]==='Y'" class="link" style="cursor: pointer;" (click)="accessUnblocked(obj);">{{ obj[col] }}</a>
                 <ng-container *ngIf="obj[col]==='N'" >{{ obj[col] }}</ng-container>
               </ng-container>
-              <ng-container *ngIf="col.includes('blocked') === false">
-                {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }} 
+              <ng-container *ngIf="i < 2">
+                <ng-container *ngIf="col.includes('blocked') === false">
+                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="right">{{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}</p>
+                  <ng-container *ngIf="obj[col]?.length<=26">
+                    {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}
+                  </ng-container> 
+                </ng-container>
+  
               </ng-container>
+              <ng-container *ngIf="i >= 2">
+                <ng-container *ngIf="col.includes('blocked') === false">
+                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="left">{{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}</p>
+                  <ng-container *ngIf="obj[col]?.length<=26">
+                    {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}
+                  </ng-container> 
+                </ng-container>
+  
+              </ng-container>
+
             </div>
             
             <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
