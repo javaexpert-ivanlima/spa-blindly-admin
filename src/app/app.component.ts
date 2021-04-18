@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
 //import * as $ from 'jquery';
-import { AuthenticateService, TokenStorageService } from './modules/login-module';
+import { AuthenticateService } from './modules/login-module';
 import { SpinnerShowService } from './component/spinner';
+import { TokenStorageService } from './component';
 //declare var $ : any;
 
 

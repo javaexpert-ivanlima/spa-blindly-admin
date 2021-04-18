@@ -2,24 +2,25 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AuthenticateComponent } from './component';
 import { AuthenticateService} from './service';
-import { TokenStorageService } from './service';
 import { FormsModule , ReactiveFormsModule } from '@angular/forms' 
 import { HttpClientModule } from '@angular/common/http';
 import { ActivationComponent } from './component';
-import { AccessDeniedComponent } from './component/access-denied/access-denied.component';
+import { AccessDeniedComponent } from './component';
+import { ForgotPasswordComponent } from './component';
+import { SharedModule } from '../shared-module/shared.module';
 
 
 @NgModule({
-  declarations: [AuthenticateComponent, ActivationComponent, AccessDeniedComponent],
+  declarations: [AuthenticateComponent, ActivationComponent, AccessDeniedComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
   ],
   providers: [
-    AuthenticateService,
-    TokenStorageService
+    AuthenticateService
   ]
 })
 export class LoginModule { }

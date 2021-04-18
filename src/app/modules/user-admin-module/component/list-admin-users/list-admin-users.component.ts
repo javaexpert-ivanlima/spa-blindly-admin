@@ -5,7 +5,7 @@ import { faThinkPeaks } from '@fortawesome/free-brands-svg-icons';
 import { Observable } from 'rxjs';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { PermissionGuard } from 'src/app/helpers/permission.guard';
-import { TokenStorageService } from 'src/app/modules/login-module';
+import { TokenStorageService } from 'src/app/component/';
 import { UserAdminService } from '../../service';
 
 @Component({

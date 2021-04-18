@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { interval } from 'rxjs';
 import * as moment from 'moment';
-import { TokenStorageService } from 'src/app/modules/login-module';
+import { TokenStorageService } from 'src/app/component/';
 import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
 

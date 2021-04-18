@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
-import { TokenStorageService } from 'src/app/modules/login-module';
+import { TokenStorageService } from 'src/app/component/';
 import { CategoryService, QuestionsService } from '../../../service';
 
 @Component({

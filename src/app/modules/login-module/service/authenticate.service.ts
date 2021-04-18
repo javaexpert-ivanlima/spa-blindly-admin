@@ -9,6 +9,7 @@ const httpOptions = {
 
 const AUTH_API =  "http://localhost:8080/v1/authenticate/admin";
 const ACTIVATE_API = "http://localhost:8080/v1/register/activate?param=";
+const FORGOT_PASSWORD_API = "http://localhost:8080/v1/register/admin/forgotPassword";
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,10 @@ export class AuthenticateService {
 
   activate(token:string): Observable<any> {
     return this.http.post(ACTIVATE_API+token , {}, httpOptions);
+  }
+
+  forgotPassword(email:string): Observable<any> {
+    return this.http.post(FORGOT_PASSWORD_API , {"email":email}, httpOptions);
   }
 
 }

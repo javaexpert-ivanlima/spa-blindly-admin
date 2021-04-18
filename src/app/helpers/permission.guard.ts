@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivate } from '@angular/router';
 import { Observable, pipe } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { TokenStorageService } from '../modules/login-module';
-//import { TokenStorageService } from '../modules/login-module';
-//import { UserAdminService } from '../modules/user-admin-module';
+import { TokenStorageService } from 'src/app/component/';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

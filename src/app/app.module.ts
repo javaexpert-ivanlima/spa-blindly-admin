@@ -14,6 +14,7 @@ import { AuthInterceptor } from './helpers/auth.interceptor';
 import { UserAdminModule } from './modules/user-admin-module/user-admin.module';
 import { UserAppModule } from './modules/user-app-module/user-app.module';
 import { PermissionGuard } from './helpers/permission.guard';
+import { TokenStorageService } from './component/';
 
 
 
@@ -38,7 +39,7 @@ import { PermissionGuard } from './helpers/permission.guard';
   ],
   providers: [
     { provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    SpinnerShowService,PermissionGuard
+    SpinnerShowService,PermissionGuard,TokenStorageService
   ],
   bootstrap: [AppComponent]
 })

@@ -2,11 +2,11 @@ import { HTTP_INTERCEPTORS, HttpEvent, HttpErrorResponse } from '@angular/common
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpHandler, HttpRequest } from '@angular/common/http';
 
-import { TokenStorageService } from '../modules/login-module';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
-import { SpinnerShowService } from '../component/spinner';
+import { SpinnerShowService } from '../component/';
+import { TokenStorageService } from '../component/';
 
  
 const TOKEN_HEADER_KEY = 'Authorization';       // for Spring Boot back-end

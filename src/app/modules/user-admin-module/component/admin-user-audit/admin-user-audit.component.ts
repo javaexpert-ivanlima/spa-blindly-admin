@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SpinnerShowService } from 'src/app/component/spinner';
-import { TokenStorageService } from 'src/app/modules/login-module';
+import { SpinnerShowService } from 'src/app/component/';
+import { TokenStorageService } from 'src/app/component/';
 import { UserAdminService } from '../../service';
 
 @Component({

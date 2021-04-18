@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/component';
 import { SpinnerShowService } from 'src/app/component/spinner';
-import { TokenStorageService } from '../../service';
+
 
 @Component({
   selector: 'app-access-denied',

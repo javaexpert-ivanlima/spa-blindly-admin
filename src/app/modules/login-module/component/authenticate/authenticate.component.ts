@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder , Validators, ReactiveFormsModule, FormsModule} from  '@angular/forms';
+import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
+import { TokenStorageService } from 'src/app/component';
 import { SpinnerShowService } from 'src/app/component/spinner';
 
 import { Login } from '../../model';
-import { AuthenticateService, TokenStorageService } from '../../service';
+import { AuthenticateService } from '../../service';
 
 
 @Component({
@@ -26,6 +28,7 @@ export class AuthenticateComponent implements OnInit {
   public dataObsevable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
   constructor(
+    private router: Router,
     private formBuilder: FormBuilder,
     private authService: AuthenticateService,
     private tokenStorage: TokenStorageService,
@@ -63,6 +66,9 @@ export class AuthenticateComponent implements OnInit {
 
   }
 
+  goForgot(){
+    this.router.navigateByUrl('/login/forgotpassword');
+  }
   get f() { return this.loginForm.controls; }
 
 
