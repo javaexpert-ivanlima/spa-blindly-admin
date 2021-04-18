@@ -95,19 +95,27 @@
       </thead>
       <tbody>
         <tr *ngFor="let obj of tableData;let i=index;" scope="row" >
-
+         
           
           <th *ngFor="let col of tableCols;let i=index;">
+            <!-- se o nome do campo tiver date faz tratamento para data-->
             <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
+            <!-- tratamento para campos que nao tem date no nome-->
             <div *ngIf="col.includes('date') === false">
  
+            <!-- se nao tiver number no nome do campo-->  
             <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
+              <!-- se nao tiver number e tiver blocked no nome do campo coloca link accessunblocked-->
               <ng-container *ngIf="col.includes('blocked') === true">
                 <a *ngIf="obj[col]==='Y'" class="link" style="cursor: pointer;" (click)="accessUnblocked(obj);">{{ obj[col] }}</a>
-                <ng-container *ngIf="obj[col]==='N'" >{{ obj[col] }}</ng-container>
+                <ng-container *ngIf="obj[col]==='N'" >{{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col] }}</ng-container>
               </ng-container>
+              <!-- coloca tooltip na direita para as 2 primeiras colunas-->
               <ng-container *ngIf="i < 2">
                 <ng-container *ngIf="col.includes('blocked') === false">
+                  <ng-container *ngIf="col.includes('id') === true || col.includes('tablePK') === true">
+                    {{obj[col]}}
+                  </ng-container>
                   <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="right">{{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}</p>
                   <ng-container *ngIf="obj[col]?.length<=26">
                     {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}
@@ -115,8 +123,10 @@
                 </ng-container>
   
               </ng-container>
+              <!-- coloca tooltip na esquerda para as outras colunas-->
               <ng-container *ngIf="i >= 2">
                 <ng-container *ngIf="col.includes('blocked') === false">
+                
                   <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="left">{{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}</p>
                   <ng-container *ngIf="obj[col]?.length<=26">
                     {{ obj[col]==='Y'?'YES':obj[col]==='N'?'NO' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}
