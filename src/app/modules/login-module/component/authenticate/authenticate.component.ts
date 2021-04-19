@@ -37,8 +37,8 @@ export class AuthenticateComponent implements OnInit {
     this.loginForm = this.formBuilder.group({
       password: [null, [
         Validators.required, 
-        Validators.minLength(4)// ,
-        //Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')
+        Validators.minLength(8),
+        Validators.pattern("(?=(.*[0-9]))(?=.*[\\!@#$%^&*()\\[\\]{}\\-_+=~`|:;\"\'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}")
       ]
     ],
       email: [null, [Validators.required, Validators.email]]

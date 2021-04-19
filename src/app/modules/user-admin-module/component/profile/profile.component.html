@@ -27,6 +27,7 @@
                                   <img class="img" src="../../../../../assets/imgs/img_avatar.png">
                                 </a>
                                 <div class="colored-shadow" style="background-image: url('http://www.ishootshows.com/wp-content/uploads/2008/07/todd-owyoung-portrait-145238_COB8628-square-600px.jpg'); opacity: 1;"></div></div>
+                                <div style="text-align: center;"><button class="mt-4 btn btn-secondary" (click)="onSubmit()">Update Profile</button></div>
                             </div>
                             <div class="col-md-7">
                               <div class="card-body">
@@ -37,8 +38,16 @@
                                     <input formControlName="password" class="form-control text text-input"   type="password" id="password" placeholder="new password">
                                     Only fill this field if you want to change your password...
                                 </p>
-                              </div>
-                              <button class="btn btn-secondary" (click)="onSubmit()">Update Profile</button>
+                                <ul class="card-description"> 
+                                    <li>at least one number</li>
+                                    <li>at least one special char</li>
+                                    <li>at least one upper case char</li>
+                                    <li>at least one lower case char</li>
+                                    <li>minimum 8 chars</li>
+                                </ul>
+
+                            </div>
+                              
                               <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
                                 <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
                                 <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.minlength">Name must be at least 4 characters</div>
@@ -46,6 +55,10 @@
                               <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
                                 <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">login is required</div>
                                 <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail address</div>
+                              </div>					  
+                              <div *ngIf="submittedRegister && adminUserForm.controls.password.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.minlength">Password must be at least 8 characters</div>
+                                <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.pattern">Weak password</div>
                               </div>					  
                         
                                 <div class="form-group">
@@ -101,3 +114,14 @@
     </div>
 </div> 
 </form>
+<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal" [adminModule]="'Y'"  (clickOK)="confirmOperation()"
+[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="labelButton">
+
+    <div *ngIf="!showForm" [innerHtml]="content" ></div> 
+    <div *ngIf="showForm">    
+        <div id="login-modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+            <div class="loginmodal-container ">       
+          </div>
+          </div>
+  </div>               
+</app-modal>

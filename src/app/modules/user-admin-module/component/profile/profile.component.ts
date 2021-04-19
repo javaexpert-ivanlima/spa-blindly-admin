@@ -17,6 +17,19 @@ export class ProfileComponent implements OnInit {
   rows:any;
   permissions: any = null;
   permissionsByUser: any = null;
+  selectedID:any;
+    //modal
+    modalId = "dialogConfirm";
+    fgColorTitle:string = "white";
+    labelButton:string = "Login page";
+    hideBtn:string;
+    bgColorTitle:string = "#8898aa!important"; 
+    titleModal:string = "update profile";
+    textParagraph1:string;
+    textParagraph2:string;
+    content:string = null;
+    operationType: string = null;
+    showForm: boolean = false;
 
   constructor(
     private spinner:SpinnerShowService,
@@ -29,9 +42,41 @@ export class ProfileComponent implements OnInit {
     this.adminUserForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.minLength(3)]],
       login: [null, [Validators.required, Validators.email]],
-      password: [null, []],
+      password: [null, [        Validators.minLength(8) ,
+        Validators.pattern("(?=(.*[0-9]))(?=.*[\\!@#$%^&*()\\[\\]{}\\-_+=~`|:;\"\'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}")
+]],
       permissions: new FormArray([])
     });
+  }
+
+  confirmOperation(){
+    
+    this.hideModal();
+    this.hideBtn = "NO";
+
+  }
+
+  showDialog(name){
+    this.labelButton="OK";
+    this.fgColorTitle = "white";
+    this.bgColorTitle = "#8898aa!important"; 
+    this.showForm = false;
+    this.textParagraph1=""
+    this.titleModal = "Update Profile";
+    this.textParagraph2 = "["+name+"] your profile was updated with sucess.";
+    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+    this.showModal(name,"Z");
+  }
+
+  hideModal(){
+    $("#"+this.modalId).modal('hide');
+  }
+
+  showModal(obj,operation){
+    this.operationType = operation;
+    this.selectedID = obj;
+    $("#"+this.modalId).modal('show');
+
   }
 
   ngOnInit(): void {
@@ -64,7 +109,7 @@ export class ProfileComponent implements OnInit {
     this.userService.updateAdminUserWithPassword(id,form,this.rows.permissions,this.rows.superUser).subscribe(
       data => {
         this.spinner.hideSpinner();
-        //mostra modal
+        this.showDialog(form.name.value);
         },
       err => {
         this.  submittedRegister = true;
