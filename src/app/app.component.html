@@ -2,8 +2,7 @@
   <div id="spinnerWrapper" class="spinner-wrapper">
     <app-spinner></app-spinner>
 
-  </div>
-</div>
+  </div></div>
 <div  id="header" style="top: 0px;left: 0px; width: 100%;height: 9%;">
       <nav id="navBarHorizontal" class="navbar navbar-expand-sm navbar-dark fixed-top bg-purple" >
         <a class="navbar-brand" href="#" style="border: solid 1px">
@@ -12,7 +11,7 @@
         <div id="timeExpired">
           <app-timer ></app-timer>
         </div>
-        <div *ngIf="!photo" id="showUserName" class="ml-2" style="font-size:small;color:thistle"></div>
+        <div id="showUserName" class="ml-2" style="font-size:small;color:thistle">{{login}}</div>
         <div id="menuContent" class="ml-auto mt-2 mt-lg-0">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

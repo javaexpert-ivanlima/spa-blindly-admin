@@ -22,6 +22,7 @@ export class AppComponent  implements OnInit{
   title = 'spa-blindly-admin';
   photo: any = null;
   userName: string = null;
+  login: string = null;
 
   constructor(
     private router: Router,
@@ -33,8 +34,9 @@ export class AppComponent  implements OnInit{
   }
 
   loadPhotoAndNameUser(){
-    this.userName = (JSON.parse(this.tokenStorageService.getUser()).name);
-    this.photo = (JSON.parse(this.tokenStorageService.getUser()).photo);
+    this.userName = (JSON.parse(this.tokenStorageService.getUser())?.name);
+    this.photo = (JSON.parse(this.tokenStorageService.getUser())?.photo);
+    this.login = (JSON.parse(this.tokenStorageService.getUser())?.login);
   }
 
   ngOnInit(){

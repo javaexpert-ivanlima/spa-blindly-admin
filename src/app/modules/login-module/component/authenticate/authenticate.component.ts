@@ -51,12 +51,10 @@ export class AuthenticateComponent implements OnInit {
     this.spinnerService.hideMainModal();
     if (this.tokenStorage.getToken()) {
       this.userName = this.tokenStorage.getSub();
-      $('#showUserName').text(this.userName);
       this.isLoggedIn = true;
       this.spinnerService.showLoginElements(true);
 
     }else{
-      $('#showUserName').text('');
       this.auth = new Login();
       this.isLoggedIn = false;
       this.spinnerService.showLoginElements(false);
@@ -84,7 +82,6 @@ export class AuthenticateComponent implements OnInit {
     this.authService.login(this.auth).subscribe(
       data => {
         this.userName = this.auth.email;
-        $('#showUserName').text(this.userName);
         this.tokenStorage.saveToken(data.data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
@@ -94,7 +91,6 @@ export class AuthenticateComponent implements OnInit {
       },
       err => {        
         this.errorMessage =  this.spinnerService.handleError(err);
-        $('#showUserName').text('');
         this.isLoggedIn = false;
         this.isLoginFailed = true;
         this.spinnerService.hideSpinner();
