@@ -85,9 +85,9 @@ export class AuthenticateComponent implements OnInit {
         this.tokenStorage.saveToken(data.data);
         this.isLoginFailed = false;
         this.isLoggedIn = true;
-        this.spinnerService.showLoginElements(true);
         this.spinnerService.hideSpinner();
         this.getAdminUser();
+        this.spinnerService.showLoginElements(true);
       },
       err => {        
         this.errorMessage =  this.spinnerService.handleError(err);
