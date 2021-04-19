@@ -1,1 +1,103 @@
-<p>profile works!</p>
+<form  [formGroup]="adminUserForm" class="form-group" #f="ngForm" > 
+<div style="height: 100%;width: 100%;">
+    <!-- img de fundo-->
+    <div class="panelbackground-container" style="overflow-y: hidden; background-image:url('../../../../../assets/imgs/background/city.jpg');">
+        <!-- card braco-->
+        <div style="margin-top: 2rem;" class="main main-raised">
+            <div class="profile-content">
+              <div class="container">
+                <div class="row">
+                  <div class="col mt-1 ml-auto mr-auto">
+                    <div class="profile">
+                        <h4 class="card-title">Profile page</h4>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                
+                <div style="overflow-x: hidden;overflow-y:auto;height: 27rem;" class="tab-content tab-space">
+                  <div class="tab-pane-active" id="studio">
+                    <div class="row">
+                      <div class="col-md-5 ml-auto mr-auto">
+                        <div class="card card-profile card-plain">
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="card-header card-header-image">
+                                <a style="cursor: pointer;" data-tooltip-location="bottom" data-tooltip="Click here to change your photo" (click)="uploadPhoto()">
+                                  <img class="img" src="http://www.ishootshows.com/wp-content/uploads/2008/07/todd-owyoung-portrait-145238_COB8628-square-600px.jpg">
+                                </a>
+                                <div class="colored-shadow" style="background-image: url('http://www.ishootshows.com/wp-content/uploads/2008/07/todd-owyoung-portrait-145238_COB8628-square-600px.jpg'); opacity: 1;"></div></div>
+                            </div>
+                            <div class="col-md-7">
+                              <div class="card-body">
+                                <h4 class="card-title"><input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)"></h4>
+                                <h6 class="card-category text-muted"><input formControlName="name" class="form-control text text-input"  oninput="this.value = this.value.toUpperCase()" type="text" id="name" placeholder="Name"></h6>
+        
+                                <p class="card-description">
+                                    <input formControlName="password" class="form-control text text-input"   type="password" id="password" placeholder="new password">
+                                    Only fill this field if you want to change your password...
+                                </p>
+                              </div>
+                              <button class="btn btn-secondary" (click)="onSubmit()">Update Profile</button>
+                              <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
+                                <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.minlength">Name must be at least 4 characters</div>
+                              </div>					  
+                              <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">login is required</div>
+                                <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail address</div>
+                              </div>					  
+                        
+                                <div class="form-group">
+                                        <div class="mt-1 alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
+                                                Update profile failed: {{ errorMessage }}
+                                        </div>
+                                </div> 
+                            </div>
+                            
+                          </div>
+                        </div>
+                      </div>
+        
+                      <div class="col-md-5 mr-auto ml-auto">
+                        <h4 class="card-title">
+                            Permissions
+                        </h4>
+                          <ng-container *ngIf="rows?.superUser =='Y'">
+                           
+                                    <ul *ngFor="let x of permissions;let j= index;">
+                                      <div class="mt-2 row" *ngIf="j%4===0 && j<permissions.length">  
+                                              <ng-container *ngFor="let item of permissions;let i= index;">
+                                                      <div style="padding-left: 2rem;" class="col-sm-3" *ngIf="i>=j && i < j+4">
+                                                              <li class="card-description">{{item.name.replace('_',' ')|titlecase}}</li>
+                                                      </div>
+                                              </ng-container> 
+                                      </div>
+                                    </ul>
+                           </ng-container>
+                           <ng-container *ngIf="rows?.superUser =='N'">
+                            <ul *ngFor="let x of permissionsByUser.permission;let j= index;">
+                               
+                                <div class="mt-2 row" *ngIf="j%4===0 && j<permissionsByUser.permission.length">  
+                                        <ng-container *ngFor="let item of permissionsByUser.permission;let i= index;">
+                                                <div style="padding-left: 2rem;" class="col-sm-3" *ngIf="i>=j && i < j+4">
+                                                        <li class="card-description">{{item.name.replace('_',' ')|titlecase}}</li>
+                                                </div>
+                                        </ng-container> 
+                                </div>
+                              </ul>
+                           </ng-container>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 ml-auto mr-auto">
+                            
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+</div> 
+</form>

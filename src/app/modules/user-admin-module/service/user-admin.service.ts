@@ -70,6 +70,12 @@ export class UserAdminService {
     return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"isSuperUser":form.superUser.value,"permissions":{"permission":json}},httpOptions);
   }
 
+  updateAdminUserWithPassword(id: number,form: any,json: any,superUser:string){
+    let url = AUTH_API;
+    return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"password":form.password.value,"isSuperUser":superUser=='Y'?'Yes':'No',"permissions":null},httpOptions);
+  }
+
+
   inactivatedAdminUser(id: number): Observable<any> {
     let url : string = AUTH_API + "/inactive";
     return this.http.put( url , {"id":id},httpOptions);

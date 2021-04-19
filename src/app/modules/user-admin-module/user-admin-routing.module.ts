@@ -5,6 +5,7 @@ import {
             AdminUserAuditComponent,
             ListAdminUsersComponent
        } from './component';
+import { ProfileComponent } from './component/profile/profile.component';
 
 
 export const UserAdminRoutes: Routes = [
@@ -16,11 +17,20 @@ export const UserAdminRoutes: Routes = [
     ,
     {
         path: 'admin_users/list',
-        component: ListAdminUsersComponent
+        component: ListAdminUsersComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_adminUser'}
     }
     ,
     {
         path: 'admin_users/audit',
-        component: AdminUserAuditComponent
+        component: AdminUserAuditComponent,
+        canActivate: [PermissionGuard],
+        data: {permission: 'list_adminUser'}
+    }
+    ,
+    {
+        path: 'admin_users/profile',
+        component: ProfileComponent
     }
 ]
