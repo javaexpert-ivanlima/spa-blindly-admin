@@ -31,6 +31,8 @@ export class ProfileComponent implements OnInit {
     operationType: string = null;
     showForm: boolean = false;
 
+   fileContent: any = null; 
+
   constructor(
     private spinner:SpinnerShowService,
     private formBuilder: FormBuilder,
@@ -41,12 +43,34 @@ export class ProfileComponent implements OnInit {
   ) {
     this.adminUserForm = this.formBuilder.group({
       name: [null, [Validators.required, Validators.minLength(3)]],
+      file: [null, []],
       login: [null, [Validators.required, Validators.email]],
       password: [null, [        Validators.minLength(8) ,
         Validators.pattern("(?=(.*[0-9]))(?=.*[\\!@#$%^&*()\\[\\]{}\\-_+=~`|:;\"\'<>,./?])(?=.*[a-z])(?=(.*[A-Z]))(?=(.*)).{8,}")
 ]],
       permissions: new FormArray([])
     });
+  }
+
+  onFileChange(event) {
+    const reader = new FileReader();
+    
+    if(event.target.files && event.target.files.length) {
+      console.log(event.target.files);
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+    
+      reader.onload = () => {
+   
+        this.fileContent = reader.result as string;
+ 
+      };
+   
+    }
+  }
+
+  get f(){
+    return this.adminUserForm.controls;
   }
 
   confirmOperation(){
@@ -106,7 +130,7 @@ export class ProfileComponent implements OnInit {
   
   updateAdminUser(id:number,form:any){
     this.spinner.showSpinner();
-    this.userService.updateAdminUserWithPassword(id,form,this.rows.permissions,this.rows.superUser).subscribe(
+    this.userService.updateAdminUserWithPassword(id,form,this.rows.permissions,this.rows.superUser,this.fileContent).subscribe(
       data => {
         this.spinner.hideSpinner();
         this.showDialog(form.name.value);
@@ -125,7 +149,7 @@ export class ProfileComponent implements OnInit {
         data => {
           this.spinner.hideSpinner();
           this.rows =   data.data.content[0];
-          console.log(this.rows);
+          this.tokenStorage.saveUser(this.rows);
           this.adminUserForm.controls.name.setValue(this.rows.name);
           this.adminUserForm.controls.login.setValue(this.rows.login);
           this.permissionsByUser = JSON.parse(this.rows.permissions);
@@ -148,10 +172,6 @@ export class ProfileComponent implements OnInit {
           this.errorMessage =  this.spinner.handleError(err);
         }
       ); 
-  }
-
-  uploadPhoto(){
-    alert('in construction');
   }
 
 }

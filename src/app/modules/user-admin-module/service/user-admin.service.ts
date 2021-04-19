@@ -70,9 +70,9 @@ export class UserAdminService {
     return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"isSuperUser":form.superUser.value,"permissions":{"permission":json}},httpOptions);
   }
 
-  updateAdminUserWithPassword(id: number,form: any,json: any,superUser:string){
+  updateAdminUserWithPassword(id: number,form: any,json: any,superUser:string,fileContent:any){
     let url = AUTH_API;
-    return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"password":form.password.value,"isSuperUser":superUser=='Y'?'Yes':'No',"permissions":null},httpOptions);
+    return this.http.put( url , {"id":id,"email":form.login.value,"name":form.name.value,"password":form.password.value,"isSuperUser":superUser=='Y'?'Yes':'No',"permissions":null,"file":fileContent},httpOptions);
   }
 
 

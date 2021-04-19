@@ -90,22 +90,10 @@ export class AuthenticateComponent implements OnInit {
         this.isLoggedIn = true;
         this.spinnerService.showLoginElements(true);
         this.spinnerService.hideSpinner();
+        this.getAdminUser();
       },
       err => {        
-        if (err.error && err.error.errors){
-          this.errorMessage = err.error.errors.message  + " => ";
-          let array = err.error.errors.errors;
-          for (let i = 0; i < array.length; i++) {
-            this.errorMessage =  this.errorMessage + array[i] + "  "; 
-          }
-        }else{
-          if ( err.message.includes("Http failure response for")){
-            this.errorMessage = "Http service unavailable";
-          }else{
-            this.errorMessage = err.message;
-          }
-          
-        }
+        this.errorMessage =  this.spinnerService.handleError(err);
         $('#showUserName').text('');
         this.isLoggedIn = false;
         this.isLoginFailed = true;
@@ -113,6 +101,20 @@ export class AuthenticateComponent implements OnInit {
       }
     );
   }
+
+  getAdminUser(){
+    this.spinnerService.showSpinner();
+      this.authService.getAdminUser(this.tokenStorage.getSub()).subscribe(
+        data => {
+          this.spinnerService.hideSpinner();
+          this.tokenStorage.saveUser(data.data.content[0]);
+          },
+        err => {
+          this.errorMessage =  this.spinnerService.handleError(err);
+        }
+      );
+  }
+
 
 }
 

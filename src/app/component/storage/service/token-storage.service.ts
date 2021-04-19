@@ -4,6 +4,7 @@ import * as moment from 'moment';
 const TOKEN_KEY = 'auth-token';
 const ROLE_KEY = 'auth-roles';
 const SUB_KEY = 'auth-sub';
+const USER_KEY = 'auth-user';
 
 @Injectable({
   providedIn: 'root'
@@ -56,7 +57,19 @@ export class TokenStorageService {
     return isExpired;
   }
 
-  
+  public saveUser(user: any): void {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
+  public getUser(): any {
+    const user = window.sessionStorage.getItem(USER_KEY);
+    if (user) {
+      return user;
+    }
+
+    return null;
+  }
 
   private saveRoles(roles: any): void {
     window.sessionStorage.removeItem(ROLE_KEY);

@@ -15,6 +15,8 @@ import { TokenStorageService } from './component';
 })
 export class AppComponent  implements OnInit{
   title = 'spa-blindly-admin';
+  photo: any = null;
+  userName: string = null;
   constructor(
     private router: Router,
     private authService: AuthenticateService,
@@ -26,6 +28,8 @@ export class AppComponent  implements OnInit{
 
   ngOnInit(){
     this.spinnerService.showSpinner();
+    this.userName = (JSON.parse(this.tokenStorageService.getUser()).name);
+    this.photo = (JSON.parse(this.tokenStorageService.getUser()).photo);
   }
 
   logout(): void {
