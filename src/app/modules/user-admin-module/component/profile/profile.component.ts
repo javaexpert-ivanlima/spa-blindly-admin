@@ -56,7 +56,6 @@ export class ProfileComponent implements OnInit {
     const reader = new FileReader();
     
     if(event.target.files && event.target.files.length) {
-      console.log(event.target.files);
       const [file] = event.target.files;
       reader.readAsDataURL(file);
     
@@ -133,6 +132,8 @@ export class ProfileComponent implements OnInit {
     this.userService.updateAdminUserWithPassword(id,form,this.rows.permissions,this.rows.superUser,this.fileContent).subscribe(
       data => {
         this.spinner.hideSpinner();
+        this.rows = (data as any).data;
+        this.tokenStorage.saveUser(this.rows);
         this.showDialog(form.name.value);
         },
       err => {
@@ -149,7 +150,6 @@ export class ProfileComponent implements OnInit {
         data => {
           this.spinner.hideSpinner();
           this.rows =   data.data.content[0];
-          this.tokenStorage.saveUser(this.rows);
           this.adminUserForm.controls.name.setValue(this.rows.name);
           this.adminUserForm.controls.login.setValue(this.rows.login);
           this.permissionsByUser = JSON.parse(this.rows.permissions);
