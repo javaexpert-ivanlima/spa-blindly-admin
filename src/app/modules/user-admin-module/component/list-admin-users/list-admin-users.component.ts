@@ -19,7 +19,7 @@ export class ListAdminUsersComponent implements OnInit {
   errorMessage = '';
   rows: any[] = [];
   columns : string[] = ['id','login','name','superUser','active','blocked','lastUpdateDate','modifiedBy'];
-  labels : string[] = ['id','login','name','super_user','active','blocked','last_update','modified_by'];
+  labels : string[] = ['id','login','name','super user','active','blocked','last update','modified by'];
 
   //modal fields
   fgColorTitle:string;

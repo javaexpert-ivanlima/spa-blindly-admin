@@ -1,5 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto);
-
+.table{
+    font-size: 13px!important;
+    font-family: 'Roboto'!important;
+}
 
 .table-image {
     td, th {
