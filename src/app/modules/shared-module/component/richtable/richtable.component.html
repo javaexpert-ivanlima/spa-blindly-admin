@@ -126,7 +126,10 @@
               <!-- coloca tooltip na esquerda para as outras colunas-->
               <ng-container *ngIf="i >= 2">
                 <ng-container *ngIf="col.includes('blocked') === false">
-                
+                   <ng-container *ngIf="col.includes('weight') === true">
+                    {{obj[col]}}
+                   </ng-container>
+                  
                   <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="left">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}</p>
                   <ng-container *ngIf="obj[col]?.length<=26">
                     {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col].includes('@') ==true?obj[col]:obj[col]|titlecase) }}
