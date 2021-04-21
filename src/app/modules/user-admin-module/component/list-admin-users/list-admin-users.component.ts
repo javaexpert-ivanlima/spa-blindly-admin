@@ -394,6 +394,7 @@ export class ListAdminUsersComponent implements OnInit {
                               (ctrlPermissions as FormArray).push(control);
                               let key: string = '#'+o.name;
                               $(key).prop('checked',true);
+                              $(this).off('shown.bs.modal');
                             });
                           }
                       }  
@@ -416,6 +417,7 @@ export class ListAdminUsersComponent implements OnInit {
     }
   }
 
+  
   displayPage(page) {
     this.currentPage = page;
     this.carregaAdminUser(page,this.searchFor,this.searchName,this.searchName);
