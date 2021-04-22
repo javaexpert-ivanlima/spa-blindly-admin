@@ -7,10 +7,9 @@
     <div id="accordion">
      
             
-            <button class="btn btn-link" style="color:#007bff!important" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
+            <button class="btn btn-secondary btn-rounded" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
                 <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
-                <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Clique aqui para filtrar</span>
-                <img class="ml-1" src="../../../../../../assets/imgs/filter.svg" width="25px" height="25px">
+                <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Filter</span>
             </button>
      
         <div id="collapseQuestion" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
@@ -66,7 +65,7 @@
                 </div>  
                 <div class="row mt-2">
                         <div class="col">
-                          <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
+                          <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button> 
                         </div>
                 </div>        
           <div class="row">

@@ -5,10 +5,9 @@
           <div class="col-sm-6"><button type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">Add New</button></div>
       </div>
       <div id="accordion">
-            <button class="btn btn-link" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseCategory">
+            <button class="btn btn-secondary btn-rounded" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseCategory">
               <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
-              <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Clique aqui para filtrar</span>
-              <img class="ml-1" src="../../../../../../assets/imgs/filter.svg" width="25px" height="25px">
+              <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Filter</span>
           </button>
  
             <div id="collapseCategory" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
@@ -45,7 +44,7 @@
                                                           <input formControlName="name" style="outline: none!important;" type="text" id="myInput" placeholder="Search for {{title}}..."> 
                                                     </div>
                                                     <div class="col-sm-auto mt-2">
-                                                          &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
+                                                          &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button> 
                                                     </div>
                                               </div>  
                                               <div class="row">
@@ -60,7 +59,8 @@
    
                   </div>
               </div>
-      </div>      
+      </div>   
+      <div class="mt-2"></div>   
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' 
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' (childID)='questions($event)'

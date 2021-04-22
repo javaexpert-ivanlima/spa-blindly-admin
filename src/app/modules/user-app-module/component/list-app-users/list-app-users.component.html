@@ -9,12 +9,11 @@
 
                 <div class="col">
                   <div id="accordion">
-                    <button class="btn btn-link" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseAppUser">
-                      <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
-                      <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Clique aqui para filtrar</span>
-                      <img class="ml-1" src="../../../../../../assets/imgs/filter.svg" width="25px" height="25px">
-                          </button>
-         
+                    <button class="btn btn-secondary btn-rounded" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseAppUser">
+                        <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
+                        <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Filter</span>
+                    </button>
+                 
                     <div id="collapseAppUser" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
                       <div class="card-body">
         
@@ -88,7 +87,7 @@
                                                      </div>
                                                      <div class="row">       
                                                             <div class="col-sm-auto mt-2">
-                                                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Filter&nbsp;&nbsp;&nbsp;</button> 
+                                                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button> 
                                                             </div>
                                                       </div>  
                                                       <div class="row">
@@ -118,6 +117,7 @@
            
                           </div>
                       </div>
+                      <div class="mt-2"></div>
               </div> 
                   <div class="card shadow">
   
