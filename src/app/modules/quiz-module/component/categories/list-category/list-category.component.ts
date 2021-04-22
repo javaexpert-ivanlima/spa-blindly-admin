@@ -6,6 +6,7 @@ import { CategoryService } from 'src/app/modules/quiz-module/service';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PermissionGuard } from 'src/app/helpers/permission.guard';
 import { Observable } from 'rxjs';
+import { TitleCasePipe } from '@angular/common';
 declare var $: any 
 
 @Component({
@@ -56,6 +57,7 @@ export class ListCategoryComponent implements OnInit {
 
 
   constructor(
+    private titlecasePipe:TitleCasePipe,
     private formBuilder: FormBuilder,
     private router: Router,
     private guardian: PermissionGuard,
@@ -180,7 +182,7 @@ export class ListCategoryComponent implements OnInit {
           this.lablelButton="Update";
           this.bgColorTitle = "#007bff!important"; 
           this.titleModal = "Edit category";
-          this.categoryForm.controls.name.setValue(obj['nameCategory']);
+          this.categoryForm.controls.name.setValue(this.titlecasePipe.transform(obj['nameCategory']));
           this.showForm = true;
           this.showModal(obj,"U");
       

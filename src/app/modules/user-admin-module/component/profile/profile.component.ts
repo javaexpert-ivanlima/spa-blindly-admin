@@ -144,6 +144,10 @@ export class ProfileComponent implements OnInit {
     
   }
 
+  close(){
+    this.router.navigateByUrl('/');
+  }
+
   getAdminUser(){
     this.spinner.showSpinner();
       this.userService.getAllAdminUsers(0,"active",null,this.tokenStorage.getSub()).subscribe(

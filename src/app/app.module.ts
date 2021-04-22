@@ -15,6 +15,7 @@ import { UserAdminModule } from './modules/user-admin-module/user-admin.module';
 import { UserAppModule } from './modules/user-app-module/user-app.module';
 import { PermissionGuard } from './helpers/permission.guard';
 import { TokenStorageService } from './component/';
+import { TitleCasePipe } from '@angular/common';
 
 
 
@@ -39,7 +40,7 @@ import { TokenStorageService } from './component/';
   ],
   providers: [
     { provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    SpinnerShowService,PermissionGuard,TokenStorageService
+    SpinnerShowService,PermissionGuard,TokenStorageService,TitleCasePipe
   ],
   bootstrap: [AppComponent]
 })
