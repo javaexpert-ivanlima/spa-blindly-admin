@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/component';
 import { SpinnerShowService } from 'src/app/component/spinner';
 
@@ -10,22 +10,24 @@ import { SpinnerShowService } from 'src/app/component/spinner';
   styleUrls: ['./access-denied.component.css']
 })
 export class AccessDeniedComponent implements OnInit {
-
+  permissions: string = null;
   constructor(
     private router: Router,
     private tokenStorage: TokenStorageService,
-    private spinnerService:SpinnerShowService
-  ) { }
+    private spinnerService:SpinnerShowService,
+    private activatedRoute: ActivatedRoute
+  ) { 
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.permissions = params['permission'];
+  });
+  }
 
   ngOnInit(): void {
     this.spinnerService.hideSpinner();
-    this.spinnerService.showAccessDenied();
-    if (this.tokenStorage.getToken()) {
-      //todo guardar url atual
-    }else{
-      this.spinnerService.hideActivation();
+    if (!this.tokenStorage.getToken()) {
       this.router.navigateByUrl('/login/authenticate');
     }  
+    this.spinnerService.showMenu();
   }
 
 }

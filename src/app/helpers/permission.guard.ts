@@ -41,7 +41,7 @@ export class PermissionGuard implements CanActivate {
               }
           }
           //alert('do not permission');
-          this.router.navigateByUrl('login/accessdenied');
+          this.router.navigateByUrl('login/accessdenied?permission='+permission);
           return false;
       }));
     }else{

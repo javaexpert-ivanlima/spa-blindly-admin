@@ -14,11 +14,6 @@ export class SpinnerShowService {
   constructor() {
   }
   
-  hideSpinner():void{
-    this.dataObsevable.next(false);
-    $("#overlayLoading").hide();
-  }
-
   getCategoryObject(): any{
     return this.categoryObject;
   }
@@ -45,72 +40,40 @@ export class SpinnerShowService {
   setAppUserObject(obj:any){
     this.appUserObject = obj;
   }
-  showSpinner():void{
-    $("#body").removeClass('mask');
-    $("#body").removeClass('bg-gradient-default');
-    $("#body").removeClass('opacity-8');
-      this.dataObsevable.next(true);
-      $("#overlayLoading").show();
+
+  hideMenu(){
+    $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/designers-purple.png)'});
+    $("#menuContent").hide();
+    $("#timeExpired").hide();
   }
+
+  showMenu(){
+    $("#mainContent").css({backgroundImage : 'none'});
+    $("#menuContent").show();
+    $("#timeExpired").show();
+  }
+
+  showSpinner():void{
+    this.dataObsevable.next(true);
+    $("#overlayLoading").show();
+  }
+
+  hideSpinner():void{
+    this.dataObsevable.next(false);
+    $("#overlayLoading").hide();
+  }
+
 
   hideMainModal(){
     $("#dialogConfirm").modal('hide');
     $("#modal-backdrop").modal('hide');
   }  
 
-  hideActivation(){
-    $("#body").removeClass('mask');
-    $("#body").removeClass('bg-gradient-default');
-    $("#body").removeClass('opacity-8');
-    $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/designers-purple.png)'});
-    $("#mainContent").css("background-repeat","none");
-
-  }
-  showActivation(){
-    $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/welcome-cover.jpg)'});
-    $("#mainContent").css("background-repeat","round");
-    $("#body").addClass('mask');
-    $("#body").addClass('bg-gradient-default');
-    $("#body").addClass('opacity-8');
-    $("#welcome-title").hide();
-    $("#menuContent").hide();
-    $("#timeExpired").hide();
-    $("#login-modal").hide();
-    this.hideSpinner();
-  }
-
-  showAccessDenied(){
-    $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/access-denied.png)'});
-    $("#mainContent").css("background-repeat","round");
-    $("#body").addClass('mask');
-    $("#body").addClass('bg-gradient-default');
-    $("#body").addClass('opacity-8');
-  }
-
-  showLoginElements(show: boolean): void{
-    if (show){
-      //$("#mainContent").css({backgroundImage : 'none'});
-      $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/pen-purple.png)'});
-      $("#body").addClass('mask');
-      $("#body").addClass('bg-gradient-default');
-      $("#body").addClass('opacity-8');
-      $("#menuContent").show();    
-      $("#welcome-title").show();
-      $("#timeExpired").show();
-      $("#login-modal").hide();
-    }else{
-      $("#welcome-title").hide();
-      $("#menuContent").hide();
-      $("#timeExpired").hide();
-      $("#login-modal").show();
-    }
-  }
-
   showAddressData(){
-    $("#user_address").show();
-    $("#user_personalData").hide();
-    $("#user_photo").hide();
-    $("#user_preferences").hide();
+      $("#user_address").show();
+      $("#user_personalData").hide();
+      $("#user_photo").hide();
+      $("#user_preferences").hide();
   }
 
   showPersonalData(){
@@ -126,6 +89,7 @@ export class SpinnerShowService {
     $("#user_personalData").hide();
     $("#user_preferences").hide();
   }
+
   showPreferencesData(){
     $("#user_preferences").show();
     $("#user_address").hide();
@@ -147,7 +111,8 @@ export class SpinnerShowService {
       }
     }
    }
-   percentageToDegrees(percentage) {
+
+  percentageToDegrees(percentage) {
     let degrees = percentage / 100 * 360;
     return degrees;  
   }

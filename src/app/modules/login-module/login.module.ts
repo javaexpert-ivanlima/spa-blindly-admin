@@ -8,10 +8,11 @@ import { ActivationComponent } from './component';
 import { AccessDeniedComponent } from './component';
 import { ForgotPasswordComponent } from './component';
 import { SharedModule } from '../shared-module/shared.module';
+import { WelcomeComponent } from './component/';
 
 
 @NgModule({
-  declarations: [AuthenticateComponent, ActivationComponent, AccessDeniedComponent, ForgotPasswordComponent],
+  declarations: [AuthenticateComponent, ActivationComponent, AccessDeniedComponent, ForgotPasswordComponent, WelcomeComponent],
   imports: [
     CommonModule,
     FormsModule,

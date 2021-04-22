@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/component/';
 import { UserAppService } from '../../service';
+import { PermissionGuard } from 'src/app/helpers/permission.guard';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-app-users',
@@ -48,6 +50,7 @@ export class ListAppUsersComponent implements OnInit {
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,
+    private guardian: PermissionGuard,
     private userService: UserAppService
     ) { 
       this.appUserFilterForm = this.formBuilder.group({
@@ -175,27 +178,36 @@ export class ListAppUsersComponent implements OnInit {
 
 
   goActivate(obj){
-    this.lablelButton="Activate";
-    this.fgColorTitle = "white";
-    this.bgColorTitle = "#8898aa!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for activation";
-    this.textParagraph1="Are you totally sure about this operation?"
-    this.textParagraph2 = "The AppUser ["+obj['name']+"] will be activated.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"A");
+    (this.guardian.hasAccess('activate_appUser') as Observable<boolean>).subscribe(resp=>{
+      if (resp){
+        this.lablelButton="Activate";
+        this.fgColorTitle = "white";
+        this.bgColorTitle = "#8898aa!important"; 
+        this.showForm = false;
+        this.titleModal = "Confirmation for activation";
+        this.textParagraph1="Are you totally sure about this operation?"
+        this.textParagraph2 = "The AppUser ["+obj['name']+"] will be activated.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"A");    
+      }
+    });
   }
 
   goUnblocked(obj){
-    this.lablelButton="Unblock";
-    this.fgColorTitle = "white";
-    this.bgColorTitle = "#8898aa!important"; 
-    this.showForm = false;
-    this.titleModal = "Confirmation for unblocking";
-    this.textParagraph1="Are you totally sure about this operation?"
-    this.textParagraph2 = "The AppUser ["+obj['name']+"] will be unblocked.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"B");
+    (this.guardian.hasAccess('unblocked_appUser') as Observable<boolean>).subscribe(resp=>{
+      if (resp){
+        this.lablelButton="Unblock";
+        this.fgColorTitle = "white";
+        this.bgColorTitle = "#8898aa!important"; 
+        this.showForm = false;
+        this.titleModal = "Confirmation for unblocking";
+        this.textParagraph1="Are you totally sure about this operation?"
+        this.textParagraph2 = "The AppUser ["+obj['name']+"] will be unblocked.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"B");
+    
+      }
+    });    
   }
   activatedAppUser(id){
     this.spinnerService.showSpinner();
@@ -258,15 +270,21 @@ export class ListAppUsersComponent implements OnInit {
 
   }
   goInactivate(obj){
-    this.lablelButton="Delete";
-    this.fgColorTitle = "white";
-    this.bgColorTitle = "#8898aa!important"; 
-    this.showForm = false;
-    this.textParagraph1="Are you totally sure about this operation?"
-    this.titleModal = "Confirmation for exclusion";
-    this.textParagraph2 = "The AppUser ["+obj['name']+"] will be excluded.";
-    this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
-    this.showModal(obj,"E");
+    (this.guardian.hasAccess('inactivate_appUser') as Observable<boolean>).subscribe(resp=>{
+      if (resp){
+        this.lablelButton="Delete";
+        this.fgColorTitle = "white";
+        this.bgColorTitle = "#8898aa!important"; 
+        this.showForm = false;
+        this.textParagraph1="Are you totally sure about this operation?"
+        this.titleModal = "Confirmation for exclusion";
+        this.textParagraph2 = "The AppUser ["+obj['name']+"] will be excluded.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"E");    
+      }
+    });
+
+
   }
 
   changeCollapseLabel(){

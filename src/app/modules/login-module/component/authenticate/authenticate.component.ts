@@ -49,18 +49,17 @@ export class AuthenticateComponent implements OnInit {
   ngOnInit(): void {
     this.spinnerService.hideSpinner();
     this.spinnerService.hideMainModal();
-    if (this.tokenStorage.getToken()) {
-      this.userName = this.tokenStorage.getSub();
+    this.spinnerService.hideMenu();
+    if (this.tokenStorage.getToken()) {     
       this.isLoggedIn = true;
-      this.spinnerService.showLoginElements(true);
-
+      this.router.navigateByUrl('/login/welcome');
     }else{
       this.auth = new Login();
       this.isLoggedIn = false;
-      this.spinnerService.showLoginElements(false);
     }    
     this.spinnerService.hideSpinner();
     this.spinnerService.hideMainModal();
+    this.spinnerService.hideMenu();
 
   }
 
@@ -87,7 +86,7 @@ export class AuthenticateComponent implements OnInit {
         this.isLoggedIn = true;
         this.spinnerService.hideSpinner();
         this.getAdminUser();
-        this.spinnerService.showLoginElements(true);
+        this.router.navigateByUrl('/login/welcome');
       },
       err => {        
         this.errorMessage =  this.spinnerService.handleError(err);

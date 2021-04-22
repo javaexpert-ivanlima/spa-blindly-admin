@@ -32,9 +32,7 @@ export class ActivationComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.spinnerService.showActivation();
     if (!this.tokenActivation) {
-      this.spinnerService.hideActivation();
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.service.activate(this.tokenActivation).subscribe(
