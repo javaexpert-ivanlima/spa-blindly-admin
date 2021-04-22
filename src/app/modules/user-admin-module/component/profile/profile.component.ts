@@ -1,7 +1,9 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SpinnerShowService, TokenStorageService } from 'src/app/component';
+import { CapitalizeFirstPipe } from 'src/app/helpers/CapitalizeFirstPipe';
 import { UserAdminService } from '../../service';
 
 @Component({
@@ -34,6 +36,7 @@ export class ProfileComponent implements OnInit {
    fileContent: any = null; 
 
   constructor(
+    private titlecasePipe:CapitalizeFirstPipe,
     private spinner:SpinnerShowService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -154,7 +157,7 @@ export class ProfileComponent implements OnInit {
         data => {
           this.spinner.hideSpinner();
           this.rows =   data.data.content[0];
-          this.adminUserForm.controls.name.setValue(this.rows.name);
+          this.adminUserForm.controls.name.setValue(this.titlecasePipe.transform(this.rows.name,null));
           this.adminUserForm.controls.login.setValue(this.rows.login);
           this.permissionsByUser = JSON.parse(this.rows.permissions);
           },

@@ -41,7 +41,7 @@
                                 <div class="col-md-7">
                                   <div class="card-body">
                                     <h4 class="card-title"><input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)"></h4>
-                                    <h6 class="card-category text-muted"><input formControlName="name" class="form-control text text-input"  oninput="this.value = this.value.toUpperCase()" type="text" id="name" placeholder="Name"></h6>
+                                    <h6 class="card-category text-muted"><input formControlName="name" class="form-control text text-input"  type="text" id="name" placeholder="Name"></h6>
             
                                     <p class="card-description">
                                         <input formControlName="password" class="form-control text text-input"   type="password" id="password" placeholder="new password">
@@ -91,7 +91,7 @@
                                           <div class="mt-2 row" *ngIf="j%3===0 && j<permissions.length">  
                                                   <ng-container *ngFor="let item of permissions;let i= index;">
                                                           <div style="padding-left: 2rem;" class="col-md-4" *ngIf="i>=j && i < j+3">
-                                                                  <li class="card-description">{{item.name.replace('_',' ')|titlecase}}</li>
+                                                                  <li class="card-description">{{item.name.replace('_',' ')|capitalizeFirst}}</li>
                                                           </div>
                                                   </ng-container> 
                                           </div>
@@ -103,7 +103,7 @@
                                     <div class="mt-2 row" *ngIf="j%3===0 && j<permissionsByUser.permission.length">  
                                             <ng-container *ngFor="let item of permissionsByUser.permission;let i= index;">
                                                     <div style="padding-left: 2rem;" class="col-md-4" *ngIf="i>=j && i < j+3">
-                                                            <li class="card-description">{{item.name.replace('_',' ')|titlecase}}</li>
+                                                            <li class="card-description">{{item.name.replace('_',' ')|capitalizeFirst}}</li>
                                                     </div>
                                             </ng-container> 
                                     </div>

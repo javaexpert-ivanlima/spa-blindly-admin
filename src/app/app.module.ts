@@ -18,7 +18,6 @@ import { TokenStorageService } from './component/';
 import { TitleCasePipe } from '@angular/common';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,

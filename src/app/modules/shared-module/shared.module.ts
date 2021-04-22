@@ -7,13 +7,14 @@ import { ModalComponent } from './component';
 import { ComboboxComponent } from './component';
 import { DigitOnlyDirective } from 'src/app/helpers';
 import { TimerComponent } from './component/';
+import { CapitalizeFirstPipe } from 'src/app/helpers/CapitalizeFirstPipe';
 
 
 
 
 @NgModule({
-  declarations: [RichtableComponent, ModalComponent, ComboboxComponent,DigitOnlyDirective, TimerComponent],
-  exports:[RichtableComponent,ModalComponent,ComboboxComponent,DigitOnlyDirective,TimerComponent],
+  declarations: [RichtableComponent, ModalComponent, ComboboxComponent,DigitOnlyDirective, TimerComponent,CapitalizeFirstPipe],
+  exports:[RichtableComponent,ModalComponent,ComboboxComponent,DigitOnlyDirective,TimerComponent,CapitalizeFirstPipe],
   imports: [
     CommonModule,
     FormsModule,

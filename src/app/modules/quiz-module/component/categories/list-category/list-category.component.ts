@@ -7,6 +7,7 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
 import { PermissionGuard } from 'src/app/helpers/permission.guard';
 import { Observable } from 'rxjs';
 import { TitleCasePipe } from '@angular/common';
+import { CapitalizeFirstPipe } from 'src/app/helpers/CapitalizeFirstPipe';
 declare var $: any 
 
 @Component({
@@ -57,7 +58,7 @@ export class ListCategoryComponent implements OnInit {
 
 
   constructor(
-    private titlecasePipe:TitleCasePipe,
+    private titlecasePipe:CapitalizeFirstPipe,
     private formBuilder: FormBuilder,
     private router: Router,
     private guardian: PermissionGuard,
@@ -182,7 +183,7 @@ export class ListCategoryComponent implements OnInit {
           this.lablelButton="Update";
           this.bgColorTitle = "#007bff!important"; 
           this.titleModal = "Edit category";
-          this.categoryForm.controls.name.setValue(this.titlecasePipe.transform(obj['nameCategory']));
+          this.categoryForm.controls.name.setValue(this.titlecasePipe.transform(obj['nameCategory'],null));
           this.showForm = true;
           this.showModal(obj,"U");
       

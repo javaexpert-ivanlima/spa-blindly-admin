@@ -27,7 +27,7 @@
               </div> 
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === false">
                 <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
-                  {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col] >= 0 ? obj[col] : (obj[col].includes('@') ==true?obj[col]:obj[col]|titlecase)}}
+                  {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col] >= 0 ? obj[col] : (obj[col].includes('@') ==true?obj[col]:obj[col]|capitalizeFirst)}}
                 </div>
                 
                 <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
@@ -116,9 +116,9 @@
                   <ng-container *ngIf="col.includes('id') === true || col.includes('tablePK') === true">
                     {{obj[col]}}
                   </ng-container>
-                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="right">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}</p>
+                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="right">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col]) }}</p>
                   <ng-container *ngIf="obj[col]?.length<=26">
-                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col].includes('@') ==true?obj[col]:obj[col]|titlecase) }}
+                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col].includes('@') ==true?obj[col]:obj[col]|capitalizeFirst) }}
                   </ng-container> 
                 </ng-container>
   
@@ -130,9 +130,9 @@
                     {{obj[col]}}
                    </ng-container>
                   
-                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="left">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col]) }}</p>
+                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="left">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col]) }}</p>
                   <ng-container *ngIf="obj[col]?.length<=26">
-                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? (obj[col] | slice:0:26)+'...':(obj[col].includes('@') ==true?obj[col]:obj[col]|titlecase) }}
+                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col].includes('@') ==true?obj[col]:obj[col]|capitalizeFirst) }}
                   </ng-container> 
                 </ng-container>
   

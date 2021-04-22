@@ -13,6 +13,7 @@ import { CreateQuestionComponent } from './component';
 import { EditQuestionComponent } from './component';
 import { QuizOrderComponent } from './component';
 import { QuizPreviewComponent } from './component/questions/quiz-preview/quiz-preview.component';
+import { CapitalizeFirstPipe } from 'src/app/helpers/CapitalizeFirstPipe';
 
 
 
@@ -49,7 +50,7 @@ import { QuizPreviewComponent } from './component/questions/quiz-preview/quiz-pr
     HttpClientModule
   ],
   providers: [
-    TokenStorageService
+    TokenStorageService,CapitalizeFirstPipe
   ]
 })
 export class QuizModule { }
