@@ -74,7 +74,37 @@ export class ListAppUsersComponent implements OnInit {
     //preenche lista
     this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
   }
+  goResendMail(obj:any){
+        this.lablelButton="Send";
+        this.fgColorTitle = "white";
+        this.bgColorTitle = "#8898aa!important"; 
+        this.showForm = false;
+        this.titleModal = "Confirmation for sending e-mail";
+        this.textParagraph1="Are you totally sure about this operation?"
+        this.textParagraph2 = "The AppUser ["+obj['name']+"] will receive an activation e-mail.";
+        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.showModal(obj,"S");
 
+  }
+
+  resendeactivaionmail(login){
+    this.spinnerService.showSpinner();
+    this.userService.resendActivationMail(login).subscribe(
+      data => {
+        this.spinnerService.hideSpinner();
+        this.spinnerService.hideSpinner();
+        this.showConfirmation("Activation e-mail was sent to AppUser ["+this.selectedID['name']+"] with sucess.");
+
+        },
+      err => {
+        this.submitted = true;
+        this.errorMessage =  this.spinnerService.handleError(err);
+        this.showConfirmation(this.errorMessage);
+
+      }
+    );
+
+  }
   getStatus(obj:any): string {
     if (obj.blocked == 'Y'){
           return "Blocked";
@@ -311,6 +341,8 @@ export class ListAppUsersComponent implements OnInit {
         this.unblockedAppUser(this.selectedID['id']);
     }else if (this.operationType == "A"){
         this.activatedAppUser(this.selectedID['id']);
+    }else if (this.operationType == "S"){
+      this.resendeactivaionmail(this.selectedID['login']);
     }else if (this.operationType == "Z"){
       this.hideModal();
       this.hideBtn = "NO";

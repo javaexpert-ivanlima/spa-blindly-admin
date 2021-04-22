@@ -38,10 +38,10 @@
               </div>
               <div class="text-center">
                 <h3>
-                  {{appUser?.name | capitalizeFirst}}<span class="font-weight-light">, {{age}}</span>
+                  {{appUser?.name }}<span class="font-weight-light">, {{age}}</span>
                 </h3>
                 <div class="h5 font-weight-300">
-                  <i class="ni location_pin mr-2"></i>{{appUser?.address?.city| capitalizeFirst}}, {{appUser?.address?.state| uppercase}}
+                  <i class="ni location_pin mr-2"></i>{{appUser?.address?.city}}, {{appUser?.address?.state| uppercase}}
                 </div>
                 <h3>
                   {{iconSigno}}<span class="font-weight-light"> {{labelSigno}}</span>
@@ -206,7 +206,7 @@
                         <label class="form-control-label">{{resp}}</label>
                         <ul *ngFor="let val of mapAnswers?.get(resp);let i=index;">
                           <li>
-                            <span>{{val|capitalizeFirst}}</span>
+                            <span>{{val}}</span>
                           </li>
                         </ul>
                       </div>

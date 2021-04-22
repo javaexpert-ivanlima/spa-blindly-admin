@@ -36,7 +36,7 @@ export class UserAppService {
     } 
     url = url + '?page=' + page;
     if (name){
-      url = url + '&name=' + name.toUpperCase();
+      url = url + '&name=' + name;
     } 
     if (login){
       url = url + '&login=' + login;
@@ -78,4 +78,7 @@ export class UserAppService {
     return this.http.get( url , httpOptions);
   }
 
+  resendActivationMail(email:string): Observable<any> {
+    return this.http.post(AUTH_API + '/resendActivationMail', {"email":email}, httpOptions);
+  }
 }

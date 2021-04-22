@@ -26,7 +26,7 @@ export class UserAdminService {
     if (filter && filter == "all"){
       url = url + '?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
       if (login){
         url = url + '&login=' + login;
@@ -34,7 +34,7 @@ export class UserAdminService {
     }else if (filter && filter == "inactive"){
       url = url + '/inactive?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
       if (login){
         url = url + '&login=' + login;
@@ -42,7 +42,7 @@ export class UserAdminService {
     }else if (filter && filter == "blocked"){
       url = url + '/blocked?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
       if (login){
         url = url + '&login=' + login;
@@ -50,7 +50,7 @@ export class UserAdminService {
     } else if (filter && filter == "active"){
       url = url + '/active?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
       if (login){
         url = url + '&login=' + login;

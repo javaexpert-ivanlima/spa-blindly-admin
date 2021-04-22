@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/component/';
 import { QuestionsService } from '../../../service';
-import { CapitalizeFirstPipe } from 'src/app/helpers/CapitalizeFirstPipe';
 
 @Component({
   selector: 'app-quiz-preview',
@@ -32,7 +31,6 @@ export class QuizPreviewComponent implements OnInit {
   currentIndex:number = 0;
 
   constructor(
-    private firstPipe: CapitalizeFirstPipe,
     private router: Router,
     private spinnerService:SpinnerShowService,
     private tokenStorage: TokenStorageService,

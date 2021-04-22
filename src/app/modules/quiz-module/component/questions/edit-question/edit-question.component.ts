@@ -189,7 +189,7 @@ export class EditQuestionComponent implements OnInit {
     this.spinnerService.showSpinner();
     let name = this.answerForm.controls.name.value;
     let weight = this.answerForm.controls.weight.value;
-    this.rows.push({"answer":name.toUpperCase(),"weight":weight});
+    this.rows.push({"answer":name,"weight":weight});
     this.answersQty = this.answersQty + 1;
     this.questionForm.controls.answers.setValue(this.answersQty);
     this.showConfirmation("Answer ["+name+"] was added with sucess.");

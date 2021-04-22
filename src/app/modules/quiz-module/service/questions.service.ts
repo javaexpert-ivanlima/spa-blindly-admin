@@ -25,7 +25,7 @@ export class QuestionsService {
     if (filter && filter == "all"){
       url = url + '?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
       if (category){
         url = url + '&categoryId=' + category;
@@ -33,7 +33,7 @@ export class QuestionsService {
     }else if (filter && filter == "inactive"){
       url = url + '/inactive?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
       if (category){
         url = url + '&categoryId=' + category;
@@ -41,7 +41,7 @@ export class QuestionsService {
     }else if (filter && filter == "active"){
       url = url + '/active?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
       if (category){
         url = url + '&categoryId=' + category;

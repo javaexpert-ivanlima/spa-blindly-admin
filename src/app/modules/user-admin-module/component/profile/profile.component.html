@@ -91,7 +91,7 @@
                                           <div class="mt-2 row" *ngIf="j%3===0 && j<permissions.length">  
                                                   <ng-container *ngFor="let item of permissions;let i= index;">
                                                           <div style="padding-left: 2rem;" class="col-md-4" *ngIf="i>=j && i < j+3">
-                                                                  <li class="card-description">{{item.name.replace('_',' ')|capitalizeFirst}}</li>
+                                                                  <li class="card-description">{{item.name.replace('_',' ')}}</li>
                                                           </div>
                                                   </ng-container> 
                                           </div>
@@ -103,7 +103,7 @@
                                     <div class="mt-2 row" *ngIf="j%3===0 && j<permissionsByUser.permission.length">  
                                             <ng-container *ngFor="let item of permissionsByUser.permission;let i= index;">
                                                     <div style="padding-left: 2rem;" class="col-md-4" *ngIf="i>=j && i < j+3">
-                                                            <li class="card-description">{{item.name.replace('_',' ')|capitalizeFirst}}</li>
+                                                            <li class="card-description">{{item.name.replace('_',' ')}}</li>
                                                     </div>
                                             </ng-container> 
                                     </div>

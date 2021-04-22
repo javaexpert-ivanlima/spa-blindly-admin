@@ -38,9 +38,9 @@ export class ComboboxComponent implements OnInit,AfterViewInit {
         this.listHidden = false;
         if (!this.listHidden && this.inputItem !== undefined) {
             if (this.isNumber == 'S'){
-                this.filteredList = this.list.filter((item) =>  item.nameCategory.startsWith(this.inputItem));
+                this.filteredList = this.list.filter((item) =>  item.nameCategory.toLowerCase().startsWith(this.inputItem.toLowerCase()));
             }else{
-                this.filteredList = this.list.filter((item) =>  item.nameCategory.toUpperCase().startsWith(this.inputItem.toUpperCase()));
+                this.filteredList = this.list.filter((item) =>  item.nameCategory.toLowerCase().startsWith(this.inputItem.toLowerCase()));
             }
     }
 }

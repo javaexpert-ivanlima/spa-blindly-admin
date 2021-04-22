@@ -14,15 +14,15 @@
         </div>
       </div>
       <br>
-      <h1 class="question">{{rows[currentIndex]?.question|capitalizeFirst}}</h1>
+      <h1 class="question">{{rows[currentIndex]?.question}}</h1>
         <div data-toggle="buttons" style="text-align: center;">
             <div *ngFor="let answer of rows[currentIndex]?.answers;let i=index;" class="row">
             <div class="col">
               <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'Y'" class="btn btn-purple">
-                <input type="checkbox" name="options" id="option1"> {{answer?.answer|capitalizeFirst}}
+                <input type="checkbox" name="options" id="option1"> {{answer?.answer}}
               </label>
               <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'N'" class="btn btn-purple">
-                <input type="radio" name="options" id="option1"> {{answer?.answer|capitalizeFirst}}
+                <input type="radio" name="options" id="option1"> {{answer?.answer}}
               </label>
 
             </div>

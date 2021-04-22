@@ -6,8 +6,10 @@
       </div>
       <div id="accordion">
             <button class="btn btn-link" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseCategory">
-              <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" > FILTERS</span>
-            </button>
+              <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
+              <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Clique aqui para filtrar</span>
+              <img class="ml-1" src="../../../../../../assets/imgs/filter.svg" width="25px" height="25px">
+          </button>
  
             <div id="collapseCategory" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">

@@ -7,8 +7,6 @@ import { SpinnerShowService } from 'src/app/component/spinner';
 import { PermissionGuard } from 'src/app/helpers/permission.guard';
 import { TokenStorageService } from 'src/app/component/';
 import { UserAdminService } from '../../service';
-import { TitleCasePipe } from '@angular/common';
-import { CapitalizeFirstPipe } from 'src/app/helpers/CapitalizeFirstPipe';
 
 @Component({
   selector: 'app-list-admin-users',
@@ -54,7 +52,6 @@ export class ListAdminUsersComponent implements OnInit {
   permissions: any = null;
   titleCheckAll = "Click for check all";
   constructor(
-    private titlecasePipe:CapitalizeFirstPipe,
     private formBuilder: FormBuilder,
     private router: Router,
     private guardian: PermissionGuard,
@@ -380,7 +377,7 @@ export class ListAdminUsersComponent implements OnInit {
             this.titleModal = "Edit Admin User";
             let isSuperUser: string = obj['superUser']=='Y'?'Yes':'No';
             this.adminUserForm.controls.superUser.setValue(isSuperUser);
-            this.adminUserForm.controls.name.setValue(this.titlecasePipe.transform(obj['name'],null));
+            this.adminUserForm.controls.name.setValue(obj['name']);
             this.adminUserForm.controls.login.setValue(obj['login']);
             let permissions:any = JSON.parse(obj['permissions']);
             let ctrlPermissions: FormArray = this.adminUserForm.controls.permissions;

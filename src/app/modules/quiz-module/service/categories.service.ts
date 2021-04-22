@@ -26,17 +26,17 @@ export class CategoryService {
     if (filter && filter == "all"){
       url = url + '?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
     }else if (filter && filter == "inactive"){
       url = url + '/inactive?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
     }else if (filter && filter == "active"){
       url = url + '/active?page=' + page;
       if (name){
-        url = url + '&name=' + name.toUpperCase();
+        url = url + '&name=' + name;
       } 
     }else{
       url = url + '?page=' + page;

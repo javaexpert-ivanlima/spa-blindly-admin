@@ -27,7 +27,7 @@
               </div> 
               <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('quizOrder') === false">
                 <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === false">
-                  {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col] >= 0 ? obj[col] : (obj[col].includes('@') ==true?obj[col]:obj[col]|capitalizeFirst)}}
+                  {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col] >= 0 ? obj[col] : (obj[col].includes('@') ==true?obj[col]:obj[col])}}
                 </div>
                 
                 <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('number') === true">
@@ -97,7 +97,7 @@
         <tr *ngFor="let obj of tableData;let i=index;" scope="row" >
          
           
-          <th *ngFor="let col of tableCols;let i=index;">
+          <td *ngFor="let col of tableCols;let i=index;">
             <!-- se o nome do campo tiver date faz tratamento para data-->
             <div [ngClass]="{'inactive': obj['active']==='N'}" *ngIf="col.includes('date') === true">{{ obj[col] *1 | date:'dd/MM/yyyy hh:mm:ss' }}</div>  
             <!-- tratamento para campos que nao tem date no nome-->
@@ -111,28 +111,32 @@
                 <ng-container *ngIf="obj[col]==='N'" >{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col] }}</ng-container>
               </ng-container>
               <!-- coloca tooltip na direita para as 2 primeiras colunas-->
-              <ng-container *ngIf="i < 2">
+              <ng-container *ngIf="i < 3">
                 <ng-container *ngIf="col.includes('blocked') === false">
                   <ng-container *ngIf="col.includes('id') === true || col.includes('tablePK') === true">
                     {{obj[col]}}
                   </ng-container>
-                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="right">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col]) }}</p>
+                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="right">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'):(obj[col]) }}</p>
                   <ng-container *ngIf="obj[col]?.length<=26">
-                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col].includes('@') ==true?obj[col]:obj[col]|capitalizeFirst) }}
+                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'):(obj[col].includes('@') ==true?obj[col]:obj[col]) }}
                   </ng-container> 
+                  <ng-container *ngIf="col.includes('weight') === true">
+                    {{obj[col]}}
+                   </ng-container>
+
                 </ng-container>
   
               </ng-container>
               <!-- coloca tooltip na esquerda para as outras colunas-->
-              <ng-container *ngIf="i >= 2">
+              <ng-container *ngIf="i >= 3">
                 <ng-container *ngIf="col.includes('blocked') === false">
                    <ng-container *ngIf="col.includes('weight') === true">
                     {{obj[col]}}
                    </ng-container>
                   
-                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="left">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col]) }}</p>
+                  <p *ngIf="obj[col]?.length>26" attr.data-tooltip="{{obj[col]}}" data-tooltip-location="left">{{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'):(obj[col]) }}</p>
                   <ng-container *ngIf="obj[col]?.length<=26">
-                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'|capitalizeFirst):(obj[col].includes('@') ==true?obj[col]:obj[col]|capitalizeFirst) }}
+                    {{ obj[col]==='Y'?'Yes':obj[col]==='N'?'No' : obj[col]?.length>26? ((obj[col] | slice:0:26)+'...'):(obj[col].includes('@') ==true?obj[col]:obj[col]) }}
                   </ng-container> 
                 </ng-container>
   
@@ -146,7 +150,7 @@
             </div>
 
           </div> 
-          </th>
+          </td>
           <td *ngIf="hideActionColumn == 'true' ">
             <ng-container *ngIf="obj['active']==='N'">
               <ng-container *ngIf="adminModule == 'Y' && obj['login'] != sub">
