@@ -9,6 +9,7 @@ import { SpinnerShowService, TokenStorageService } from 'src/app/component';
 })
 export class WelcomeComponent implements OnInit {
   userName= "";
+  locale: any;
   constructor(
     private spinner:SpinnerShowService,
     private router: Router,
@@ -19,6 +20,7 @@ export class WelcomeComponent implements OnInit {
     if (!this.tokenStorage.getToken()) {
       this.router.navigateByUrl('/login/authenticate');
     }    
+    this.locale = this.tokenStorage.getLocale();
     this.userName = this.tokenStorage.getSub();
     this.spinner.showMenu();
     this.spinner.hideSpinner();

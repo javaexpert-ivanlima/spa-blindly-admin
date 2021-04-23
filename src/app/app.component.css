@@ -80,8 +80,8 @@ font-size: 1.2rem;
 }
 
 img.avatar {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   float: left;
   animation-name: none !important;
   padding: 2px;
@@ -90,5 +90,4 @@ img.avatar {
   border-color: rgb(189, 184, 184);
   border-image: initial;
   border-radius: 60px;
-  margin: 0px 14px 0px 0px !important;
 }
