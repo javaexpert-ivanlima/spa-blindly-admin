@@ -24,7 +24,7 @@ export class AuditCategoryComponent implements OnInit {
   errorMessage = '';
   selectedID: number =0;
   selectedName: string;
-  
+  locale: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +46,9 @@ export class AuditCategoryComponent implements OnInit {
 
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.title = this.locale.commons_audit;
+      this.labels = this.locale.audit_labels;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -61,8 +64,8 @@ export class AuditCategoryComponent implements OnInit {
   carregaCategoriesAudit(page: number,id:number) {
     this.pageable = null;
     this.rows = null;
-    this.title = "audit category - " + this.selectedName;
-    this.spinnerService.showSpinner();
+    this.title = this.locale.category_name + " " + this.selectedName + " - " + this.locale.commons_audit;
+    this.spinnerService.showSpinner(); +
     this.categoryService.getAuditCategory(page,id).subscribe(
       data => {
         this.spinnerService.hideSpinner();

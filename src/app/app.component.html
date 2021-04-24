@@ -22,12 +22,12 @@
            
             <li class="nav-item">
               <div class="btn-group">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user"></i> {{locale.menu_users}}</a>
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user"></i> {{locale?.menu_users}}</a>
                     <div class="dropdown-menu dropdown-menu-right bg-purple" aria-labelledby="navbarDropdownUsers">
-                      <a class="nav-link bg-dark-dropdownitem" routerLink="app_users/list"><i class="fa fa-users"></i> {{locale.menu_users_app}}</a>
-                      <a class="nav-link bg-dark-dropdownitem" routerLink="admin_users/list"><i class="fa fa-id-card"></i> {{locale.menu_users_admin}}</a>
+                      <a class="nav-link bg-dark-dropdownitem" routerLink="app_users/list"><i class="fa fa-users"></i> {{locale?.menu_users_app}}</a>
+                      <a class="nav-link bg-dark-dropdownitem" routerLink="admin_users/list"><i class="fa fa-id-card"></i> {{locale?.menu_users_admin}}</a>
                       <div class="dropdown-divider"></div>
-                      <a class="nav-link bg-dark-dropdownitem" routerLink="app_users/dashboard"><i class="fa fa-desktop"></i> {{locale.menu_users_dash}}</a>
+                      <a class="nav-link bg-dark-dropdownitem" routerLink="app_users/dashboard"><i class="fa fa-desktop"></i> {{locale?.menu_users_dash}}</a>
                     </div>
               </div>
       
@@ -35,24 +35,24 @@
             <li class="nav-item" >
               <div class="btn-group">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownQuiz" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-edit"></i> {{locale.menu_qa}}</a>
+                  <i class="fa fa-edit"></i> {{locale?.menu_qa}}</a>
                   <div class="dropdown-menu dropdown-menu-right bg-purple" aria-labelledby="navbarDropdownquiz">
-                    <a class="nav-link bg-dark-dropdownitem" routerLink="categories/list"><i class="fa fa-tags"></i> {{locale.menu_qa_categories}}</a>
-                    <a class="nav-link bg-dark-dropdownitem" routerLink="questions/list"><i class="fa fa-question"></i> {{locale.menu_qa_questions}}</a>
+                    <a class="nav-link bg-dark-dropdownitem" routerLink="categories/list"><i class="fa fa-tags"></i> {{locale?.menu_qa_categories}}</a>
+                    <a class="nav-link bg-dark-dropdownitem" routerLink="questions/list"><i class="fa fa-question"></i> {{locale?.menu_qa_questions}}</a>
                     <div class="dropdown-divider"></div>
-                    <a class="nav-link bg-dark-dropdownitem" routerLink="questions/quiz"><i class="fa fa-clipboard"></i> {{locale.menu_qa_quiz}}</a>
+                    <a class="nav-link bg-dark-dropdownitem" routerLink="questions/quiz"><i class="fa fa-clipboard"></i> {{locale?.menu_qa_quiz}}</a>
                   </div>
             </div>
             </li>    
             <li class="nav-item" >
               <div class="btn-group">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownIdioma" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-flag"></i> {{locale.menu_language}}</a>
+                  <i class="fa fa-flag"></i> {{locale?.menu_language}}</a>
                   <div class="dropdown-menu dropdown-menu-right bg-purple" aria-labelledby="navbarDropdownIdioma">
-                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('en')"><i [ngClass]="{'fa-check': currentLanguage ==='en', 'fa-flag': currentLanguage != 'en'}" class="fa "></i> {{locale.menu_language_en}}</a>
-                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('pt')"><i [ngClass]="{'fa-check': currentLanguage ==='pt', 'fa-flag': currentLanguage != 'pt'}" class="fa "></i> {{locale.menu_language_pt}}</a>
-                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('fr')"><i [ngClass]="{'fa-check': currentLanguage ==='fr', 'fa-flag': currentLanguage != 'fr'}" class="fa "></i> {{locale.menu_language_fr}}</a>
-                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('sp')"><i [ngClass]="{'fa-check': currentLanguage ==='sp', 'fa-flag': currentLanguage != 'sp'}" class="fa "></i> {{locale.menu_language_sp}}</a>
+                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('en')"><i [ngClass]="{'fa-check': currentLanguage ==='en', 'fa-flag': currentLanguage != 'en'}" class="fa "></i> {{locale?.menu_language_en}}</a>
+                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('pt')"><i [ngClass]="{'fa-check': currentLanguage ==='pt', 'fa-flag': currentLanguage != 'pt'}" class="fa "></i> {{locale?.menu_language_pt}}</a>
+                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('fr')"><i [ngClass]="{'fa-check': currentLanguage ==='fr', 'fa-flag': currentLanguage != 'fr'}" class="fa "></i> {{locale?.menu_language_fr}}</a>
+                    <a class="nav-link bg-dark-dropdownitem" (click)="setLanguage('sp')"><i [ngClass]="{'fa-check': currentLanguage ==='sp', 'fa-flag': currentLanguage != 'sp'}" class="fa "></i> {{locale?.menu_language_sp}}</a>
 
                   </div>
             </div>
@@ -63,9 +63,9 @@
                       <img class="avatar" src="{{photo}}">
                       </a>
                     <div class="dropdown-menu dropdown-menu-right bg-purple" aria-labelledby="navbarDropdownMe">
-                      <a class="nav-link bg-dark-dropdownitem" routerLink="admin_users/profile"><i class="fa fa-user-circle"></i> {{locale.menu_profile}}</a>
+                      <a class="nav-link bg-dark-dropdownitem" routerLink="admin_users/profile"><i class="fa fa-user-circle"></i> {{locale?.menu_profile}}</a>
                       <div class="dropdown-divider"></div>
-                      <a class="nav-link bg-dark-dropdownitem" (click)="logout()" href="#"><i class="fa fa-sign-out"></i> {{locale.menu_logout}}</a>
+                      <a class="nav-link bg-dark-dropdownitem" (click)="logout()" href="#"><i class="fa fa-sign-out"></i> {{locale?.menu_logout}}</a>
                     </div>
               </div>
       

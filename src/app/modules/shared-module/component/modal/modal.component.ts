@@ -1,4 +1,5 @@
 import { AfterContentInit, Component, ContentChild, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { TokenStorageService } from 'src/app/component';
 
 @Component({
   selector: 'app-modal',
@@ -20,8 +21,11 @@ export class ModalComponent implements OnInit {
   @ViewChild('contentWrapper') content;
 
   buttonColor: string;
+  locale: any;
 
-  constructor() { }
+  constructor(
+    private tokenStorage: TokenStorageService
+  ) { }
 
   ngOnInit(): void {
     if (!this.adminModule || this.adminModule != 'Y'){
@@ -29,6 +33,7 @@ export class ModalComponent implements OnInit {
     } else {
           this.buttonColor = 'btn-info';
     }
+    this.locale = this.tokenStorage.getLocale();
   }
 
   ngAfterViewInit() {

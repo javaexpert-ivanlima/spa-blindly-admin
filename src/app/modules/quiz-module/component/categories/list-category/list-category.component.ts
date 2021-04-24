@@ -366,5 +366,7 @@ export class ListCategoryComponent implements OnInit {
     }
   }
 
-
+  close(){
+    this.router.navigateByUrl('/');
+  }
 }

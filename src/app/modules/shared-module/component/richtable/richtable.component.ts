@@ -55,6 +55,8 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   sub: any;
   @Input() basicInfoForm: any;
 
+  locale: any;
+
   constructor(
     private router: Router,
     private spinnerService:SpinnerShowService,
@@ -80,6 +82,7 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
        this.sub = this.tokenStorage.getSub(); 
+       this.locale = this.tokenStorage.getLocale();
       //todo guardar url atual
     }else{
       this.router.navigateByUrl('/login/authenticate');

@@ -36,8 +36,10 @@ export const languagePT = {
   commons_searchfor: 'Pesquisar por',
   commons_transactionfailed: 'Transação falhou',
   commons_delete: 'Excluir',
+  commons_edit: 'Editar',
   commons_activate: 'Ativar',
   commons_update: 'Atualizar',
+  commons_audit: 'Auditoria',
   commons_areyousure: "Você esta certo sobre esta execução?",
   commons_confirmexclusion: "Confirmação para exclusão",
   commons_confirmactivation: "Confirmação para ativar",
@@ -49,6 +51,10 @@ export const languagePT = {
   commons_updatedsuccess: "foi atualizada com sucesso",
   commons_deletedsuccess: "foi deletada com sucesso",
   commons_create: "Criar",
+  commons_listof: "Lista de",
+  commons_actions: "AÇÕES",  
+  commons_back: 'Voltar',
+  commons_close: 'Fechar',
   category_createcategory:'Criar uma nova categoria',
   category_msgdel1: "A categoria",
   category_msgdel2: "tem",
@@ -58,8 +64,8 @@ export const languagePT = {
   category_minlength: 'Nome da categorida deve ter no minimo 4 characteres',
   category_name: 'Nome da categoria',
   category_title: 'categorias',
-  category_labels :  ['id','categoria','ativo','perguntas','criador','data atualizacao'],
+  category_labels :  ['id','categoria','ativo','perguntas','criador','atualizado em'],
   category_editcategory: "Editar categoria",
-  
+  audit_labels: ['PK','atualizado em','modificado por','coluna','valor antigo','novo valor'],  
 
 };
