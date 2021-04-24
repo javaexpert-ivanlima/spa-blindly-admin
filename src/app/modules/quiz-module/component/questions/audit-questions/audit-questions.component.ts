@@ -24,6 +24,7 @@ export class AuditQuestionsComponent implements OnInit {
   errorMessage = '';
   selectedID: number =0;
   selectedName: string;
+  locale: any;
   
 
   constructor(
@@ -46,6 +47,9 @@ export class AuditQuestionsComponent implements OnInit {
 
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.title = this.locale.commons_audit;
+      this.labels = this.locale.audit_labels;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -61,7 +65,7 @@ export class AuditQuestionsComponent implements OnInit {
   carregaQuestionAudit(page: number,id:number) {
     this.pageable = null;
     this.rows = null;
-    this.title = "audit question - " + this.selectedName;
+    this.title = this.selectedName + " - " + this.locale.commons_audit;
     this.spinnerService.showSpinner();
     this.questionService.getAuditQuestion(page,id).subscribe(
       data => {

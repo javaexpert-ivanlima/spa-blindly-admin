@@ -59,8 +59,11 @@ export class ListQuestionsComponent implements OnInit {
   stateCollapse: boolean = true;
   answersData: any[];
   answersCols: string[] = ['id','answer','weight','lastUpdateDate']; 
+  answersLabels: string[] = ['id','answer','weight','lastUpdateDate']; 
 
   hideBtn: string = "NO";
+  hideAction: string = "NO";
+  locale: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -85,6 +88,10 @@ export class ListQuestionsComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.title = this.locale.menu_qa_questions;
+      this.labels = this.locale.question_labels;
+      this.answersLabels = this.locale.answers_labels;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -217,16 +224,18 @@ export class ListQuestionsComponent implements OnInit {
     } else if (this.operationType == "Z"){
       this.hideModal();
       this.hideBtn = "NO";
+      this.hideAction = "NO";
     }
     
   }
 
   showConfirmation(text){
-    this.hideBtn = "YES";
+    this.hideBtn = "NO";
+    this.hideAction = "YES";
     this.lablelButton="OK";
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
-    this.titleModal = "Sucess";
+    this.titleModal = this.locale.commons_sucess;
     this.textParagraph1 = "";
     this.textParagraph2 = text;
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
@@ -235,13 +244,14 @@ export class ListQuestionsComponent implements OnInit {
   activated(obj){
     (this.guardian.hasAccess('activate_question') as Observable<boolean>).subscribe(resp=>{
       if (resp){
-        this.lablelButton="Activate";
-        this.bgColorTitle = "#a6c!important"; 
+        this.hideAction = "NO";
+        this.lablelButton=this.locale.commons_activate;
+        this.bgColorTitle = "#8c54a1!important";
         this.showForm = false;
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.titleModal = "Confirmation for activation";
-        this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be activated.";
-        this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmactivation;
+        this.textParagraph2 = this.locale.question_msgdel1+" ["+obj['question']+"] "+this.locale.question_msgdel2+" "+obj['numberOfAnswers']+" "+ this.locale.question_msgact3;
+      this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"A");
       }
   });
@@ -250,12 +260,13 @@ export class ListQuestionsComponent implements OnInit {
   exclude(obj){
     (this.guardian.hasAccess('inactivate_question') as Observable<boolean>).subscribe(resp=>{
         if (resp){
-          this.lablelButton="Delete";
-          this.bgColorTitle = "#a6c!important"; 
+          this.hideAction = "NO";
+          this.lablelButton=this.locale.commons_delete;
+          this.bgColorTitle = "#dc3545"; 
           this.showForm = false;
-          this.textParagraph1="Are you totally sure about this operation?"
-          this.titleModal = "Confirmation for exclusion";
-          this.textParagraph2 = "The question ["+obj['question']+"] has "+ obj['numberOfAnswers']+" answers and all of them will be excluded.";
+          this.textParagraph1=this.locale.commons_areyousure;
+          this.titleModal = this.locale.commons_confirmexclusion;
+          this.textParagraph2 = this.locale.question_msgdel1+" ["+obj['question']+"] "+this.locale.question_msgdel2+" "+obj['numberOfAnswers']+" "+ this.locale.question_msgdel3;
           this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
           this.showModal(obj,"E");     
         }
@@ -279,7 +290,7 @@ export class ListQuestionsComponent implements OnInit {
         this.currentPage =0;
         this.carregaQuestions(this.currentPage);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("Question ["+this.selectedID['question']+"] was activated with sucess.");
+        this.showConfirmation(this.locale.question_msgdel1+" ["+this.selectedID['question']+"] "+ this.locale.commons_activatedsuccess + ".");
       },
       err => {
         this.errorMessage =  this.spinnerService.handleError(err);
@@ -323,7 +334,7 @@ export class ListQuestionsComponent implements OnInit {
             this.currentPage =0;
             this.carregaQuestions(this.currentPage);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("Question ["+this.selectedID['question']+"] was deleted with sucess.");
+            this.showConfirmation(this.locale.question_msgdel1+" ["+this.selectedID['question']+"] "+ this.locale.commons_deletedsuccess + ".");
             this.confirmButton = false;
           },
           err => {

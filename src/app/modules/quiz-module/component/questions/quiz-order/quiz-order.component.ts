@@ -42,7 +42,7 @@ export class QuizOrderComponent implements OnInit {
   answersCols: string[] = ['id','answer','weight','lastUpdateDate']; 
 
   hideBtn: string = "NO";
-
+  locale: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -101,6 +101,9 @@ export class QuizOrderComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.labels = this.locale.quiz_labels;
+      this.title = this.locale.quiz_title;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    

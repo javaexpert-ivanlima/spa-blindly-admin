@@ -67,5 +67,18 @@ export const languageEN = {
     category_labels :  ['id','category','active','questions','owner','update date'],
     category_editcategory: "Edit category",
     audit_labels: ['PK','update date','changed by','column','old value','new value'],
+    quiz_labels: ['order','category','name of question','weigth','n answers','answers'],
+    quiz_title: 'Quiz Order',
+    quiz_save: 'Save Quiz',
+    quiz_preview: 'Preview',
+    question_msg1: 'There is no active category registered, please register one first',
+    question_minlength: 'Question name must be at least 4 characters',
+    question_selectonecategory: 'Select one category',
+    question_labels: ['id','category','name of question','act','wt','multiple','ans','owner','update date'],
+    question_msgdel1: "The question",
+    question_msgdel2: "has ",
+    question_msgdel3: " answer(s) and all of them will be excluded.", 
+    question_msgact3: " answer(s) and all of them will be activated.",   
+    answers_labels: ['id','answer','weight','lastUpdateDate'],
 
   };

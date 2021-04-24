@@ -2,20 +2,20 @@
     <div class="panelbackground-container">
       <div class="row">  
           <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button *ngIf="countActiveCategories > 0" type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">Add New</button></div>
+          <div class="col-sm-6"><button *ngIf="countActiveCategories > 0" type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">{{locale.commons_addnew}}</button></div>
       </div>
       <div *ngIf="countActiveCategories <= 0" >
             <br/><br/>
       </div>
       <div *ngIf="countActiveCategories <= 0" class="alert alert-danger" style="text-align: center;" role="alert">
-            There is no active category registered, please register one first.
+            {{locale.question_msg1}}.
       </div>
       <div *ngIf="countActiveCategories > 0" id="accordion">
        
               
               <button class="btn btn-secondary btn-rounded" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
                   <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
-                  <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Filter</span>
+                  <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">{{locale.commons_filter}}</span>
               </button>
          
           <div id="collapseQuestion" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
@@ -27,20 +27,20 @@
                           <div class="form-check form-check-inline">
                                   <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType1" value="all" >
                                   <label class="form-check-label" for="filterType1">
-                                          All
+                                          {{locale.commons_all}}
                                   </label>
                           </div>        
                           <div class="form-check form-check-inline">
                                   <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType2" value="inactive">
                                   <label class="form-check-label" for="filterType2">
-                                          Inactive
+                                          {{locale.commons_inactive}}
                                   </label>
                           </div>
                   
                           <div class="form-check form-check-inline">
                                       <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType3" value="active">
                                       <label class="form-check-label" for="filterType3">
-                                              Active
+                                              {{locale.commons_active}}
                                       </label>
                           </div>
                       </div>
@@ -50,7 +50,7 @@
                     
                       <div class="col">
                             <input formControlName="filterCategory" class="form-check-input" type="hidden" name="filterCategory" id="filterCategory" >
-                            <app-combobox (category)="setupCategory($event)" [inputItem]="categorySelected" [placeholder]="'Select one category'" [list]="itemList"></app-combobox>
+                            <app-combobox (category)="setupCategory($event)" [inputItem]="categorySelected" [placeholder]="locale.question_selectonecategory" [list]="itemList"></app-combobox>
                             <!--<div *ngIf="submitted && questionFilterForm.controls.filterCategory.errors" class="mt-1 form-group alert alert-danger" role="alert">
                               <div *ngIf="submitted && questionFilterForm.controls.filterCategory.errors.required">Category NAME is required</div>
                           </div>-->
@@ -59,20 +59,20 @@
                   </div>
                   <div class="row mt-2">
                         <div class="col">
-                                <input formControlName="name" style="outline: none!important;"  type="text" id="myInput" placeholder="Search for {{title}}..."> 
+                                <input formControlName="name" style="outline: none!important;"  type="text" id="myInput" placeholder="{{locale.commons_searchfor}} {{title}}..."> 
                                 <div *ngIf="submitted && questionFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                  <div *ngIf="submitted && questionFilterForm.controls.name.errors.minlength">Question name must be at least 4 characters</div>
+                                  <div *ngIf="submitted && questionFilterForm.controls.name.errors.minlength">{{locale.question_minlength}}</div>
                               </div>
     
                               </div>
                         <div class="col-sm-auto mt-2">
-                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button> 
+                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;{{locale.commons_search}}&nbsp;&nbsp;&nbsp;</button> 
                         </div>
                   </div>          
             <div class="row">
                 <div class="col">
                     <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
-                        Search failed: {{ errorMessage }}
+                      {{locale.commons_searchfailed}}: {{ errorMessage }}
                         </div>              
                 </div>
             </div>
@@ -86,7 +86,7 @@
   <br/>
 
 <app-richtable 
-(emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' 
+(emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)'
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' (childID)='answers($event)'
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
 </app-richtable>
@@ -94,7 +94,7 @@
 </div>
 </div> 
 
-<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
+<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()" [hideAction]="hideAction"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 
@@ -102,7 +102,7 @@
       <table class="table caption-top table-bordered table-hover table-info">
         <thead class="thead-dark">
           <tr>            
-            <th *ngFor="let label of answersCols" scope="col">{{label | uppercase}}</th>
+            <th *ngFor="let label of answersLabels" scope="col">{{label | uppercase}}</th>
           </tr>
         </thead>
         <tbody>
