@@ -76,7 +76,7 @@
 </div> 
 
 <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
-[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton">
+[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [hideAction]="hideAction">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 
     <div *ngIf="showForm">    

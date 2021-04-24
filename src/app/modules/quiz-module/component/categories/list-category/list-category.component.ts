@@ -54,6 +54,7 @@ export class ListCategoryComponent implements OnInit {
   
   stateCollapse: boolean = true;
   hideBtn: string = "NO";
+  hideAction: string = "NO";
 
   
 
@@ -162,14 +163,16 @@ export class ListCategoryComponent implements OnInit {
     } else if (this.operationType == "Z"){
       this.hideModal();
       this.hideBtn = "NO";
+      this.hideAction = "NO";
     }
     
   }
   exclude(obj){
     (this.guardian.hasAccess('inactivate_category') as Observable<boolean>).subscribe(resp=>{
       if (resp){
+        this.hideAction = "NO";
         this.lablelButton=this.locale.commons_delete;
-        this.bgColorTitle = "#007bff!important"; 
+        this.bgColorTitle = "#dc3545"; 
         this.showForm = false;
         this.textParagraph1=this.locale.commons_areyousure;
         this.titleModal = this.locale.commons_confirmexclusion;
@@ -183,11 +186,12 @@ export class ListCategoryComponent implements OnInit {
   edit(obj){
     (this.guardian.hasAccess('update_category') as Observable<boolean>).subscribe(resp=>{
         if (resp){
+          this.hideAction = "NO";
           this.submittedRegister = false;
           this.submitted = false;
           this.errorMessage = null;
           this.lablelButton= this.locale.commons_update;
-          this.bgColorTitle = "#007bff!important"; 
+          this.bgColorTitle = "#8c54a1!important";
           this.titleModal = this.locale.category_editcategory;
           this.categoryForm.controls.name.setValue(obj['nameCategory']);
           this.showForm = true;
@@ -205,6 +209,7 @@ export class ListCategoryComponent implements OnInit {
 
 
   showConfirmation(text){
+    this.hideAction = "YES";
     this.hideBtn = this.locale.commons_yes;
     this.lablelButton=this.locale.commons_ok;
     this.bgColorTitle = "#6c757d!important"; 
@@ -218,8 +223,9 @@ export class ListCategoryComponent implements OnInit {
   activated(obj){
     (this.guardian.hasAccess('activate_category') as Observable<boolean>).subscribe(resp=>{
         if (resp){
+          this.hideAction = "NO";
           this.lablelButton=this.locale.commons_activate;
-          this.bgColorTitle = "#007bff!important"; 
+          this.bgColorTitle = "#8c54a1!important";
           this.showForm = false;
           this.textParagraph1=this.locale.commons_areyousure;
           this.titleModal = this.locale.commons_confirmactivation;
@@ -233,6 +239,7 @@ export class ListCategoryComponent implements OnInit {
 
   hideModal(){
     $("#"+this.modalId).modal('hide');
+    this.hideAction = "NO";
   }
 
   showModal(obj,operation){
@@ -314,11 +321,12 @@ export class ListCategoryComponent implements OnInit {
   addNew() {
     (this.guardian.hasAccess('create_category') as Observable<boolean>).subscribe(resp=>{
         if (resp){
+          this.hideAction = "NO";
           this.submittedRegister = false;
           this.submitted = false;
           this.errorMessage = null;
           this.showForm = true;
-          this.bgColorTitle = "#8c54a1!important"
+          this.bgColorTitle = "#8c54a1!important";
           this.titleModal = this.locale.category_createcategory;
           this.lablelButton=this.locale.commons_create;
           this.categoryForm.controls.name.setValue(null);

@@ -14,6 +14,7 @@ export class ModalComponent implements OnInit {
   @Input() modalID: string;
   @Input() lblBtnOK: string;
   @Input() hideCloseBtn: string;
+  @Input() hideAction: string;
   @Input() style: string;
   @Input() adminModule: string;
   
