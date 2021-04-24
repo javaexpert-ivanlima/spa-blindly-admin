@@ -60,7 +60,8 @@
             <li class="nav-item">
               <div class="btn-group">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMe" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
-                      <img class="avatar" src="{{photo}}">
+                      <img *ngIf="photo" class="avatar" src="{{photo}}">
+                      <img *ngIf="!photo" class="avatar" src="../assets/imgs/img_avatar.png">
                       </a>
                     <div class="dropdown-menu dropdown-menu-right bg-purple" aria-labelledby="navbarDropdownMe">
                       <a class="nav-link bg-dark-dropdownitem" routerLink="admin_users/profile"><i class="fa fa-user-circle"></i> {{locale?.menu_profile}}</a>
