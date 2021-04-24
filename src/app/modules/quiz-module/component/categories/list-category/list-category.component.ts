@@ -14,6 +14,7 @@ declare var $: any
   styleUrls: ['./list-category.component.css']
 })
 export class ListCategoryComponent implements OnInit {
+  locale: any;
 
   bgColorTitle="#ffc107!important"; 
   fgColorTitle="white";
@@ -54,6 +55,7 @@ export class ListCategoryComponent implements OnInit {
   stateCollapse: boolean = true;
   hideBtn: string = "NO";
 
+  
 
   constructor(
     private formBuilder: FormBuilder,
@@ -102,6 +104,8 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.loadLabels();
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -111,6 +115,11 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.hideSpinner();
   }
 
+  loadLabels(){
+    this.title = this.locale.category_title;
+    this.labels = this.locale.category_labels;
+
+  }
   carregaCategories(page: number) {
     this.spinnerService.showSpinner();
     this.categoryService.getAllCategories(page,this.searchFor,this.searchName).subscribe(
@@ -159,12 +168,12 @@ export class ListCategoryComponent implements OnInit {
   exclude(obj){
     (this.guardian.hasAccess('inactivate_category') as Observable<boolean>).subscribe(resp=>{
       if (resp){
-        this.lablelButton="Delete";
+        this.lablelButton=this.locale.commons_delete;
         this.bgColorTitle = "#007bff!important"; 
         this.showForm = false;
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.titleModal = "Confirmation for exclusion";
-        this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be excluded.";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmexclusion;
+        this.textParagraph2 = this.locale.category_msgdel1+" ["+obj['nameCategory']+"] "+this.locale.category_msgdel2+" "+obj['numberOfQuestions']+" "+ this.locale.category_msgdel3;
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"E");    
       }
@@ -177,9 +186,9 @@ export class ListCategoryComponent implements OnInit {
           this.submittedRegister = false;
           this.submitted = false;
           this.errorMessage = null;
-          this.lablelButton="Update";
+          this.lablelButton= this.locale.commons_update;
           this.bgColorTitle = "#007bff!important"; 
-          this.titleModal = "Edit category";
+          this.titleModal = this.locale.category_editcategory;
           this.categoryForm.controls.name.setValue(obj['nameCategory']);
           this.showForm = true;
           this.showModal(obj,"U");
@@ -196,11 +205,11 @@ export class ListCategoryComponent implements OnInit {
 
 
   showConfirmation(text){
-    this.hideBtn = "YES";
-    this.lablelButton="OK";
+    this.hideBtn = this.locale.commons_yes;
+    this.lablelButton=this.locale.commons_ok;
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
-    this.titleModal = "Sucess";
+    this.titleModal = this.locale.commons_sucess;
     this.textParagraph1 = "";
     this.textParagraph2 = text;
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
@@ -209,12 +218,12 @@ export class ListCategoryComponent implements OnInit {
   activated(obj){
     (this.guardian.hasAccess('activate_category') as Observable<boolean>).subscribe(resp=>{
         if (resp){
-          this.lablelButton="Activate";
+          this.lablelButton=this.locale.commons_activate;
           this.bgColorTitle = "#007bff!important"; 
           this.showForm = false;
-          this.textParagraph1="Are you totally sure about this operation?"
-          this.titleModal = "Confirmation for activation";
-          this.textParagraph2 = "The category ["+obj['nameCategory']+"] has "+ obj['numberOfQuestions']+" questions and all of them will be activated.";
+          this.textParagraph1=this.locale.commons_areyousure;
+          this.titleModal = this.locale.commons_confirmactivation;
+          this.textParagraph2 = this.locale.category_msgdel1 + " ["+obj['nameCategory']+"] "+ this.locale.category_msgdel2 +" "+ obj['numberOfQuestions']+this.locale.category_msgact3;
           this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
           this.showModal(obj,"A");      
         }
@@ -239,7 +248,7 @@ export class ListCategoryComponent implements OnInit {
         this.currentPage =0;
         this.carregaCategories(this.currentPage);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was activated with sucess.");
+        this.showConfirmation(this.locale.category_msgdel1+" ["+this.selectedID['nameCategory']+"] "+ this.locale.commons_activatedsuccess + ".");
       },
       err => {
         this.errorMessage =  this.spinnerService.handleError(err);
@@ -256,7 +265,7 @@ export class ListCategoryComponent implements OnInit {
       data => {
         this.carregaCategories(this.currentPage);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("Category ["+category+"] was created with sucess.");
+        this.showConfirmation(this.locale.category_msgdel1+" ["+category+"] "+ this.locale.commons_createdsuccess + ".");
       },
       err => {
         this.errorMessage =  this.spinnerService.handleError(err);
@@ -272,7 +281,7 @@ export class ListCategoryComponent implements OnInit {
       data => {
         this.carregaCategories(this.currentPage);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("Category ["+category+"] was updated with sucess.");
+        this.showConfirmation(this.locale.category_msgdel1+" ["+category+"] "+ this.locale.commons_updatedsuccess + ".");
       },
       err => {
         this.errorMessage =  this.spinnerService.handleError(err);
@@ -288,7 +297,7 @@ export class ListCategoryComponent implements OnInit {
             this.currentPage =0;
             this.carregaCategories(this.currentPage);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("Category ["+this.selectedID['nameCategory']+"] was deleted with sucess.");
+            this.showConfirmation(this.locale.category_msgdel1+" ["+this.selectedID['nameCategory']+"] "+ this.locale.commons_deletedsuccess + ".");
             this.confirmButton = false;
           },
           err => {
@@ -310,8 +319,8 @@ export class ListCategoryComponent implements OnInit {
           this.errorMessage = null;
           this.showForm = true;
           this.bgColorTitle = "#8c54a1!important"
-          this.titleModal = "Create a new category";
-          this.lablelButton="Create";
+          this.titleModal = this.locale.category_createcategory;
+          this.lablelButton=this.locale.commons_create;
           this.categoryForm.controls.name.setValue(null);
           this.showModal(null,"C");      
         }
