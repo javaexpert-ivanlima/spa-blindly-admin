@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   myChart="PieChart";
 
   myOptions = {'title':'','legend':'none','width':'300','height':'300'};
-
+  locale: any;
 
 
   constructor(
@@ -42,6 +42,7 @@ export class DashboardComponent implements OnInit {
     this.myData.push(['TodayRegister',this.data.today_Registers]);
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    

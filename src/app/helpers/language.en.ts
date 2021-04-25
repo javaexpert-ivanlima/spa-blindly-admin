@@ -114,4 +114,10 @@ export const languageEN = {
     answer_required: 'Answer is required',
     answer_willbeexcluded: 'will be excluded',
     editcreate_question_answersLabels: ['answer','weight'],
+    dash_chartname: 'Users Chart',
+    dash_completed: 'Completed',
+    dash_pending: 'Pending',
+    dash_geolocation: 'Geolocation',
+    dash_userstoday: 'Users today',
+    dash_totalusers: 'total users',
   };
