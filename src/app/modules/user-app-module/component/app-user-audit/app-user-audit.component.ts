@@ -23,6 +23,7 @@ export class AppUserAuditComponent implements OnInit {
   errorMessage = '';
   selectedID: number =0;
   selectedName: string;
+  locale: any;
   
 
   constructor(
@@ -42,6 +43,8 @@ export class AppUserAuditComponent implements OnInit {
 
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.labels = this.locale.audit_labels;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -56,7 +59,7 @@ export class AppUserAuditComponent implements OnInit {
   carregaAdminUserAudit(page: number,id:number) {
     this.pageable = null;
     this.rows = null;
-    this.title = "audit app user - " + this.selectedName;
+    this.title = this.locale.appuser_auditluser + " - " + this.selectedName;
     this.spinnerService.showSpinner();
     this.userService.getAuditAppUser(page,id).subscribe(
       data => {
