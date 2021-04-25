@@ -303,11 +303,12 @@ export class ListQuestionsComponent implements OnInit {
   answers(obj){
     let answs: any[] = this.rows.filter((item) =>  item.id == obj.id)[0].answers;
     $("#"+this.modalId).modal('show');
-    this.lablelButton="OK";
+    this.lablelButton=this.locale.commons_ok;
+    this.hideAction="NO";
     this.hideBtn = "YES";
     this.bgColorTitle = "#a6c!important"; 
     this.showForm = true;
-    this.titleModal = "Answers";
+    this.titleModal = this.locale.question_answers;
     this.textParagraph1 = "";
     this.textParagraph2 = "";
     this.content = "";
