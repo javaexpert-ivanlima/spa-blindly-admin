@@ -97,6 +97,7 @@ export const languagePT = {
   question_answeresrequired: 'Respostas é obrigatório',
   question_answeresminimum: 'Pergunta deve ter pelo menos 2 repostas',
   question_create: 'Criar Pergunta',
+  question_update: 'Atualizar Pergunta',
   question_edit: 'Editar Pergunta',
   question_addanswer: 'Adicionar resposta',
   answer_name: 'Resposta',
@@ -104,4 +105,5 @@ export const languagePT = {
   answers_minlength: 'Resposta deve ter no minimo 3 caracteres',
   answer_required: 'Resposta é obrigatório',
   answer_willbeexcluded: 'será excluida',
+  editcreate_question_answersLabels: ['resposta','peso'],
 };

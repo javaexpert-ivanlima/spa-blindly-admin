@@ -28,6 +28,7 @@ export class CreateQuestionComponent implements OnInit {
   answersData: any[];
   rows: any[] = [];
   answersCols: string[] = ['answer','weight']; 
+  answersLabels: string[] = ['answer','weight']; 
   answerToBeDeleted: any;
 
   bgColorTitle="#ffc107!important"; 
@@ -74,6 +75,7 @@ export class CreateQuestionComponent implements OnInit {
       //todo guardar url atual
       this.locale = this.tokenStorage.getLocale();
       this.title = this.locale.question_create;
+      this.answersLabels = this.locale.editcreate_question_answersLabels;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    

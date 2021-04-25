@@ -97,6 +97,7 @@ export const languageEN = {
     question_answeresrequired: 'Answers is required',
     question_answeresminimum: 'Question must have at least 2 answers',
     question_create: 'Create Question',
+    question_update: 'Update Question',
     question_edit: 'Edit Question',
     question_addanswer: 'Add a answer',
     answer_name: 'Answer',
@@ -104,5 +105,5 @@ export const languageEN = {
     answers_minlength: 'Answer must be at least 3 characters',
     answer_required: 'Answer is required',
     answer_willbeexcluded: 'will be excluded',
-
+    editcreate_question_answersLabels: ['answer','weight'],
   };

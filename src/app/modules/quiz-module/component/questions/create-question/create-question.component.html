@@ -76,7 +76,7 @@
                                 <div *ngIf="submitted && questionForm.controls.answers.errors.min">{{locale.question_answeresminimum}}</div>
                             </div>	             
                             <app-richtable *ngIf="answersQty > 0" (deleteID)='exclude($event)' [title]="locale.question_answers" [pageable]='pageable' 
-                                [tableCols]='answersCols' [onlyDeleteAction]="'true'" [tableLabels]='answersCols' [tableData]='rows' [hideActionColumn]="'false'">
+                                [tableCols]='answersCols' [onlyDeleteAction]="'true'" [tableLabels]='answersLabels' [tableData]='rows' [hideActionColumn]="'false'">
                                 </app-richtable>        
                     </div>
                 </div>
