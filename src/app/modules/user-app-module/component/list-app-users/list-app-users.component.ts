@@ -44,6 +44,8 @@ export class ListAppUsersComponent implements OnInit {
   searchName: string = null;
   searchLogin: number = null;
   appUserSelected: string = '';
+  locale: any;
+  hideAction: string = 'NO';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -66,6 +68,7 @@ export class ListAppUsersComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -75,13 +78,15 @@ export class ListAppUsersComponent implements OnInit {
     this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
   }
   goResendMail(obj:any){
-        this.lablelButton="Send";
+        this.hideAction = "NO";
+        this.hideBtn = "NO";
+        this.lablelButton=this.locale.commons_send;
         this.fgColorTitle = "white";
         this.bgColorTitle = "#8898aa!important"; 
         this.showForm = false;
-        this.titleModal = "Confirmation for sending e-mail";
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.textParagraph2 = "The AppUser ["+obj['name']+"] will receive an activation e-mail.";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmasendemail;
+        this.textParagraph2 = this.locale.appuser_theappuser + " ["+obj['name']+"] "+ this.locale.commons_willreceiveactivationmail +".";        
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"S");
 
@@ -93,7 +98,7 @@ export class ListAppUsersComponent implements OnInit {
       data => {
         this.spinnerService.hideSpinner();
         this.spinnerService.hideSpinner();
-        this.showConfirmation("Activation e-mail was sent to AppUser ["+this.selectedID['name']+"] with sucess.");
+        this.showConfirmation(this.locale.appuser_activationmailsend + " "+this.locale.appuser_theappuser+" ["+this.selectedID['name']+"] " + this.locale.commons_withsuccess + ".");
 
         },
       err => {
@@ -105,6 +110,21 @@ export class ListAppUsersComponent implements OnInit {
     );
 
   }
+
+  getStatusLocale(status:string){
+    if (status === 'Blocked'){
+      return this.locale.status_blocked;
+    } else if (status === 'Pending'){
+      return this.locale.status_pending;
+    } else if (status === 'Completed'){
+      return this.locale.status_completed;
+    } else if (status === 'Inactive'){
+          return this.locale.status_inactive;
+    }else{
+      return this.locale.status_unknown;
+    }
+  }
+
   getStatus(obj:any): string {
     if (obj.blocked == 'Y'){
           return "Blocked";
@@ -210,13 +230,15 @@ export class ListAppUsersComponent implements OnInit {
   goActivate(obj){
     (this.guardian.hasAccess('activate_appUser') as Observable<boolean>).subscribe(resp=>{
       if (resp){
-        this.lablelButton="Activate";
+        this.hideAction = "NO";
+        this.hideBtn = "NO";
+        this.lablelButton=this.locale.commons_activate;
         this.fgColorTitle = "white";
-        this.bgColorTitle = "#8898aa!important"; 
+        this.bgColorTitle = "#007bff!important"; 
         this.showForm = false;
-        this.titleModal = "Confirmation for activation";
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.textParagraph2 = "The AppUser ["+obj['name']+"] will be activated.";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmactivation;
+        this.textParagraph2 = this.locale.appuser_theappuser + " ["+obj['name']+"] "+ this.locale.commons_willbeactivated +".";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"A");    
       }
@@ -226,13 +248,15 @@ export class ListAppUsersComponent implements OnInit {
   goUnblocked(obj){
     (this.guardian.hasAccess('unblocked_appUser') as Observable<boolean>).subscribe(resp=>{
       if (resp){
-        this.lablelButton="Unblock";
+        this.hideAction = "NO";
+        this.hideBtn = "NO";
+        this.lablelButton=this.locale.commons_unblock;
         this.fgColorTitle = "white";
         this.bgColorTitle = "#8898aa!important"; 
         this.showForm = false;
-        this.titleModal = "Confirmation for unblocking";
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.textParagraph2 = "The AppUser ["+obj['name']+"] will be unblocked.";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmactivation;
+        this.textParagraph2 = this.locale.appuser_theappuser + " ["+obj['name']+"] "+ this.locale.commons_willbeunblocked +".";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"B");
     
@@ -246,7 +270,7 @@ export class ListAppUsersComponent implements OnInit {
         //this.currentPage =0;
         this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("AppUser ["+this.selectedID['name']+"] was activated with sucess.");
+        this.showConfirmation(this.locale.appuser_theappuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_activatedsuccess +".");
       },
       err => {
         this.submittedRegister = true;
@@ -265,7 +289,7 @@ export class ListAppUsersComponent implements OnInit {
             //this.currentPage =0;
             this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("AppUser ["+this.selectedID['name']+"] was deleted with sucess.");
+            this.showConfirmation(this.locale.appuser_theappuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_deletedsuccess +".");
             this.confirmButton = false;
           },
           err => {
@@ -286,7 +310,7 @@ export class ListAppUsersComponent implements OnInit {
             //this.currentPage =0;
             this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("AppUser ["+this.selectedID['name']+"] was unblocked with sucess.");
+            this.showConfirmation(this.locale.appuser_theappuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_unblockedsuccess +".");
             this.confirmButton = false;
           },
           err => {
@@ -302,13 +326,16 @@ export class ListAppUsersComponent implements OnInit {
   goInactivate(obj){
     (this.guardian.hasAccess('inactivate_appUser') as Observable<boolean>).subscribe(resp=>{
       if (resp){
-        this.lablelButton="Delete";
+        this.hideAction = "NO";
+        this.hideBtn = "NO";
+        this.lablelButton=this.locale.commons_delete;
+        this.bgColorTitle = "#dc3545"; 
         this.fgColorTitle = "white";
-        this.bgColorTitle = "#8898aa!important"; 
         this.showForm = false;
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.titleModal = "Confirmation for exclusion";
-        this.textParagraph2 = "The AppUser ["+obj['name']+"] will be excluded.";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmexclusion;
+        this.textParagraph2 = this.locale.category_msgdel1+" ["+obj['nameCategory']+"] "+this.locale.category_msgdel2+" "+obj['numberOfQuestions']+" "+ this.locale.category_msgdel3;
+        this.textParagraph2 = this.locale.appuser_theappuser + " ["+obj['name']+"] "+ this.locale.answer_willbeexcluded +".";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"E");    
       }
@@ -352,11 +379,12 @@ export class ListAppUsersComponent implements OnInit {
 
 
   showConfirmation(text){
-    this.hideBtn = "YES";
-    this.lablelButton="OK";
+    this.hideBtn = "NOK";
+    this.hideAction = "YES";
+    this.lablelButton=this.locale.commons_ok;
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
-    this.titleModal = "Sucess";
+    this.titleModal = this.locale.commons_sucess;
     this.textParagraph1 = "";
     this.textParagraph2 = text;
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";

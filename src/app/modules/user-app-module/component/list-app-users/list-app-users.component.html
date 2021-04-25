@@ -1,4 +1,4 @@
-<div style="height: 100%;width: 100%;overflow-y: auto;">
+<div style="height: 100%;width: 100%;overflow-y: auto;overflow-x: hidden;">
 
       <div style="height: 100%" class="row">
 
@@ -11,7 +11,7 @@
                   <div id="accordion">
                     <button class="btn btn-secondary btn-rounded" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseAppUser">
                         <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
-                        <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Filter</span>
+                        <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">{{locale.commons_filter}}</span>
                     </button>
                  
                     <div id="collapseAppUser" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
@@ -25,50 +25,50 @@
                                                                       
                                                                         <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType1" value="all" >
                                                                         <label class="form-check-label" for="filterType1">
-                                                                                All
+                                                                          {{locale.commons_all}}
                                                                             </label>
                                                                   </div>        
                                                                   <div class="form-check form-check-inline">
                                                                             <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType2" value="inactive">
                                                                             <label class="form-check-label" for="filterType2">
-                                                                                    Inactive
+                                                                              {{locale.commons_inactive}}
                                                                                 </label>
                                                                   </div>
                                                             
                                                                     <div class="form-check form-check-inline">
                                                                                 <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType3" value="active">
                                                                                 <label class="form-check-label" for="filterType3">
-                                                                                        Active
+                                                                                  {{locale.commons_active}}
                                                                                     </label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                       <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType4" value="blocked">
                                                                       <label class="form-check-label" for="filterType4">
-                                                                              Blocked
+                                                                        {{locale.dash_blocked}}
                                                                           </label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                       <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType5" value="pending">
                                                                       <label class="form-check-label" for="filterType5">
-                                                                              Pending
+                                                                        {{locale.dash_pending}}
                                                                           </label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                       <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType6" value="completed">
                                                                       <label class="form-check-label" for="filterType6">
-                                                                              Completed
+                                                                        {{locale.dash_completed}}
                                                                           </label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                       <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType7" value="today">
                                                                       <label class="form-check-label" for="filterType7">
-                                                                              Today registered
+                                                                        {{locale.dash_userstoday}}
                                                                           </label>
                                                                     </div>
                                                                     <div class="form-check form-check-inline">
                                                                       <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType8" value="geolocation">
                                                                       <label class="form-check-label" for="filterType8">
-                                                                              Geolocation
+                                                                        {{locale.dash_geolocation}}
                                                                           </label>
                                                                     </div>
 
@@ -77,7 +77,7 @@
                                                       </div>     
                                                       <div class="row">
                                                         <div class="col">
-                                                          <input formControlName="name" style="outline: none!important;" type="text" id="myInput" placeholder="Name"> 
+                                                          <input formControlName="name" style="outline: none!important;" type="text" id="myInput" placeholder="{{locale.appusers_namefield}}"> 
                                                        </div>
                                                      </div>
                                                      <div class="row">  
@@ -87,20 +87,20 @@
                                                      </div>
                                                      <div class="row">       
                                                             <div class="col-sm-auto mt-2">
-                                                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="Search" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button> 
+                                                                  &nbsp;&nbsp;<button type="button" (click)="onSubmit();" title="{{locale.commons_search}}" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;{{locale.commons_search}}&nbsp;&nbsp;&nbsp;</button> 
                                                             </div>
                                                       </div>  
                                                       <div class="row">
                                                         <div class="col">
                                                           <div *ngIf="submitted && appUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                                            <div *ngIf="submitted && appUserFilterForm.controls.name.errors.minlength">Name must be at least 4 characters</div>
+                                                            <div *ngIf="submitted && appUserFilterForm.controls.name.errors.minlength">{{locale.appusers_namefieldminlength}}</div>
                                                         </div>				
                                                         </div>
                                                       </div>
                                                       <div class="row">
                                                         <div class="col">
                                                           <div *ngIf="submitted && appUserFilterForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                                            <div *ngIf="submitted && appUserFilterForm.controls.login.errors.email">Login must be a valid e-mail</div>
+                                                            <div *ngIf="submitted && appUserFilterForm.controls.login.errors.email">{{locale.appusers_loginvalidemail}}</div>
                                                         </div>				
                                                         </div>
                                                       </div>
@@ -108,7 +108,7 @@
                                                       <div class="row">
                                                           <div class="col">
                                                               <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
-                                                                  Search failed: {{ errorMessage }}
+                                                                {{locale.commons_searchfailed}}: {{ errorMessage }}
                                                               </div>              
                                                           </div>
                                                       </div>
@@ -122,18 +122,18 @@
                   <div class="card shadow">
   
                     <div class="card-header border-0">
-                      <h3 class="mb-0">App users</h3>
+                      <h3 class="mb-0">{{locale.menu_users_app}}</h3>
                     </div>
                     <div class="table-responsive">
                       <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                           <tr>
-                            <th scope="col">User</th>
-                            <th scope="col">Login</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Photos</th>
-                            <th scope="col">Completion</th>
-                            <th scope="col">Action</th>
+                            <th scope="col">{{locale.appusers_coluser}}</th>
+                            <th scope="col">{{locale.appusers_collogin}}</th>
+                            <th scope="col">{{locale.appusers_colstatus}}</th>
+                            <th scope="col">{{locale.appusers_colphotos}}</th>
+                            <th scope="col">{{locale.appusers_colcompletion}}</th>
+                            <th scope="col">{{locale.appusers_colaction}}</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -159,8 +159,8 @@
                                 <i *ngIf="getStatus(obj) === 'Pending'" class="bg-danger"></i> 
                                 <i *ngIf="getStatus(obj) === 'Blocked'" class="bg-warning"></i> 
                                 <i *ngIf="getStatus(obj) === 'Inactive'" class="bg-secondary"></i> 
-                                <i *ngIf="getStatus(obj) === 'Active'" class="bg-success"></i> 
-                                {{getStatus(obj)}}
+                                <i *ngIf="getStatus(obj) === 'Active' || getStatus(obj) === 'Completed'" class="bg-success"></i> 
+                                {{getStatusLocale(getStatus(obj))}}
                               </span>
                             </td>
                             <td>
@@ -189,12 +189,12 @@
                                   <i class="fa fa-ellipsis-v"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                  <a class="dropdown-item" (click)="goDetails(obj)">Detail user</a>
-                                  <a *ngIf="obj.registerPhase === '0'" class="dropdown-item" (click)="goResendMail(obj)">Send activation email</a>
-                                  <a *ngIf="getStatus(obj) === 'Completed' || getStatus(obj) === 'Pending'" class="dropdown-item" (click)="goInactivate(obj)">Inactive user</a>
-                                  <a *ngIf="getStatus(obj) === 'Inactive'" class="dropdown-item" (click)="goActivate(obj)">Active user</a>
-                                  <a *ngIf="getStatus(obj) === 'Blocked'" class="dropdown-item" (click)="goUnblocked(obj)">Unblocked user</a>
-                                  <a class="dropdown-item" (click)="goAudit(obj)">Audit user</a>
+                                  <a class="dropdown-item" (click)="goDetails(obj)">{{locale.appuser_detailuser}}</a>
+                                  <a *ngIf="obj.registerPhase === '0' && getStatus(obj) != 'Inactive' && getStatus(obj) != 'Blocked'" class="dropdown-item" (click)="goResendMail(obj)">{{locale.appuser_sendactivationemail}}</a>
+                                  <a *ngIf="getStatus(obj) === 'Completed' || getStatus(obj) === 'Pending'" class="dropdown-item" (click)="goInactivate(obj)">{{locale.appuser_inactiveuser}}</a>
+                                  <a *ngIf="getStatus(obj) === 'Inactive'" class="dropdown-item" (click)="goActivate(obj)">{{locale.appuser_activeuser}}</a>
+                                  <a *ngIf="getStatus(obj) === 'Blocked'" class="dropdown-item" (click)="goUnblocked(obj)">{{locale.appuser_unblockeduser}}</a>
+                                  <a class="dropdown-item" (click)="goAudit(obj)">{{locale.appuser_auditluser}}</a>
                                 </div>
                               </div>
                             </td>
@@ -219,7 +219,7 @@
                           <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
                             <a class="page-link" (click)="displayPage(currentPage-1)" tabindex="-1">
                               <i class="fa fa-angle-left"></i>
-                              <span class="sr-only">Previous</span>
+                              <span class="sr-only">{{locale.commons_previous}}</span>
                             </a>
                           </li>
                           <ng-container *ngIf="pageable.totalPages > 1"> 
@@ -236,7 +236,7 @@
                           <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.last}" class="page-item">
                             <a class="page-link" (click)="displayPage(currentPage+1)">
                               <i class="fa fa-angle-right"></i>
-                              <span class="sr-only">Next</span>
+                              <span class="sr-only">{{locale.commons_next}}</span>
                             </a>
                           </li>
                         </ul>
@@ -252,7 +252,7 @@
 
 </div>      
 <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal" [adminModule]="'Y'"  (clickOK)="confirmOperation()"
-[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton">
+[bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [hideAction]="hideAction">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 
     <div *ngIf="showForm">    
