@@ -43,6 +43,8 @@ export class CreateQuestionComponent implements OnInit {
   showForm: boolean = false;
   hideBtn: string = "NO";
   selectedID: any = null;
+  hideAction: string = "NO";
+  locale: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,7 +55,7 @@ export class CreateQuestionComponent implements OnInit {
     private questionService: QuestionsService
   ) { 
     this.answerForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.minLength(2)]],
+      name: [null, [Validators.required, Validators.minLength(3)]],
       weight: [null, [Validators.required]]
     });
     this.questionForm = this.formBuilder.group({
@@ -70,6 +72,8 @@ export class CreateQuestionComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.title = this.locale.question_create;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -150,7 +154,8 @@ export class CreateQuestionComponent implements OnInit {
 
     this.questionService.createQuestion(catId,name,weight,multiple,this.rows).subscribe(
       data => {
-        this.showConfirmation("Question ["+name+"] was created with sucess.");
+        this.spinnerService.hideSpinner();
+        this.showConfirmationWithAction(this.locale.question_name + " ["+name+"] "+ this.locale.commons_createdsuccess+".");
         this.showModal(null,"W");
       },
       err => {
@@ -170,7 +175,7 @@ export class CreateQuestionComponent implements OnInit {
     this.rows.push({"answer":name,"weight":weight});
     this.answersQty = this.answersQty + 1;
     this.questionForm.controls.answers.setValue(this.answersQty);
-    this.showConfirmation("Answer ["+name+"] was added with sucess.");
+    this.showConfirmation(this.locale.answer_name + " ["+name+"] " + this.locale.commons_addedsuccess + ".");
     this.spinnerService.hideSpinner();
     
   }
@@ -186,7 +191,7 @@ export class CreateQuestionComponent implements OnInit {
       this.answersQty = 0;
     }
     this.questionForm.controls.answers.setValue(this.answersQty);
-    this.showConfirmation("Answer ["+name+"] was deleted with sucess.");
+    this.showConfirmation(this.locale.answer_name + " ["+name+"] "+ this.locale.commons_deletedsuccess+".");
     this.spinnerService.hideSpinner();
   }
 
@@ -214,23 +219,38 @@ export class CreateQuestionComponent implements OnInit {
   }
 
   showConfirmation(text){
-    this.hideBtn = "YES";
-    this.lablelButton="OK";
+    this.hideAction = "YES";
+    this.hideBtn = "NO";
+    this.lablelButton=this.locale.commons_ok;
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
-    this.titleModal = "Sucess";
+    this.titleModal = this.locale.commons_sucess;
     this.textParagraph1 = "";
     this.textParagraph2 = text;
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
     this.operationType ="Z";
   }
 
-  exclude(obj){
-    this.lablelButton="Delete";
-    this.bgColorTitle = "#a6c!important"; 
+  showConfirmationWithAction(text){
+    this.hideAction = "YES";
+    this.hideBtn = "NOK";
+    this.lablelButton=this.locale.commons_ok;
+    this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
-    this.titleModal = "Confirmation for exclusion";
-    this.textParagraph2 = "The answer ["+obj['answer']+"] will be excluded.";
+    this.titleModal = this.locale.commons_sucess;
+    this.textParagraph1 = "";
+    this.textParagraph2 = text;
+    this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
+    this.operationType ="Z";
+  }
+  exclude(obj){
+    this.hideAction = "NO";
+    this.lablelButton=this.locale.commons_delete;
+    this.bgColorTitle = "#dc3545"; 
+    this.showForm = false;
+    this.textParagraph1=this.locale.commons_areyousure;
+    this.titleModal = this.locale.commons_confirmexclusion;
+    this.textParagraph2 = this.locale.answer_name + " ["+obj['answer']+"] " + this.locale.answer_willbeexcluded + ".";
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.answerToBeDeleted = obj;
     this.showModal(obj,"E");
@@ -248,13 +268,14 @@ export class CreateQuestionComponent implements OnInit {
   }  
 
   addNew() {
+    this.hideAction = "NO";
     this.submittedRegister = false;
     this.submitted = false;
     this.errorMessage = null;
     this.showForm = true;
     this.bgColorTitle = "#8c54a1!important"
-    this.titleModal = "Add a answer";
-    this.lablelButton="Create";
+    this.titleModal = this.locale.question_addanswer;
+    this.lablelButton=this.locale.commons_create;
     this.weightAnswerSelected = "";
     this.answerForm.controls.name.setValue("");
     this.answerForm.controls.weight.setValue("");

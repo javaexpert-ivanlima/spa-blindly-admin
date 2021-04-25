@@ -14,7 +14,11 @@
             </div>      
         </div>
         <div class="modal-footer">
-          <button *ngIf="hideCloseBtn != 'YES'" type="button" class="btn btn-secondary" data-dismiss="modal">{{locale.commons_close}}</button>
+          <ng-container *ngIf="hideCloseBtn != 'YES'">
+            <button *ngIf="hideCloseBtn != 'YES' && hideCloseBtn != 'NOK'" type="button" class="btn btn-secondary" data-dismiss="modal">{{locale.commons_close}}</button>
+            <button *ngIf="hideCloseBtn === 'NOK'"type="button" (click)="buttonOK()" class="btn btn-secondary">{{lblBtnOK}}</button>
+
+          </ng-container>
           <ng-container *ngIf="hideAction!='YES'">
             <button *ngIf="lblBtnOK === locale.commons_delete"type="button" (click)="buttonOK()" class="btn btn-danger">{{lblBtnOK}}</button>
             <button *ngIf="lblBtnOK != locale.commons_delete"type="button" (click)="buttonOK()" class="btn {{buttonColor}}">{{lblBtnOK}}</button>

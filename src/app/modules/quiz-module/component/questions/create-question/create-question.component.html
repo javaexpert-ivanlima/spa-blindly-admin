@@ -2,7 +2,7 @@
     <div class="panelbackground-container">
       <div class="row">  
           <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button type="button" (click)='backButton()' class="btn btn-secondary btn-rounded float-right mb-2">Back</button></div>
+          <div class="col-sm-6"><button type="button" (click)='backButton()' class="btn btn-secondary btn-rounded float-right mb-2">{{locale.commons_back}}</button></div>
 
       </div>
             <div class="card-body">
@@ -12,25 +12,35 @@
                   <div class="row">
                     
                       <div class="col">
+                            <div *ngIf="submitted && questionForm.controls.category.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submitted && questionForm.controls.category.errors.required">{{locale.category_namerequired}}</div>
+                            </div>	                
                             <input formControlName="category" class="form-check-input " type="hidden" name="category" id="category">
-                            <app-combobox [warningMsg]="'Category is a mandatory field'" (category)="setupCategory($event)" [inputItem]="categorySelected" [placeholder]="'Select one category'" [list]="itemList"></app-combobox>
+                            <app-combobox [warningMsg]="locale.question_categorymandatory" (category)="setupCategory($event)" [inputItem]="categorySelected" [placeholder]="locale.question_selectonecategory" [list]="itemList"></app-combobox>
                       </div>
         
                   </div>
                   <div class="row mt-2">
                         <div class="col">
-                                <input formControlName="question" class="text text-input"  type="text" id="question" placeholder="Question">    
+                            <div *ngIf="submitted && questionForm.controls.question.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submitted && questionForm.controls.question.errors.required">{{locale.question_required}}</div>
+                                <div *ngIf="submitted && questionForm.controls.question.errors.minlength">{{locale.question_minlength}}</div>
+                            </div>	           
+                            <input formControlName="question" class="text text-input"  type="text" id="question" placeholder="{{locale.question_name}}">    
                        </div>
                   </div>          
                   <div class="row mt-2">
                     <div class="col">   
                  
                           <div class="form-check form-check-inline">
-                                  <label class="form-check-label" >Is Multiple Choice:</label>
+                            <div *ngIf="submitted && questionForm.controls.multipleChoice.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submitted && questionForm.controls.multipleChoice.errors.required">{{locale.question_multiplechoicerequired}}</div>
+                            </div>	                                     
+                                  <label class="form-check-label" >{{locale.question_multiplechoice}}</label>
                                   <input formControlName="multipleChoice" class="form-check-input ml-2" type="radio" name="multipleChoice" id="multipleChoice1" value="Yes" >
-                                  <label class="form-check-label" for="multipleChoice1">Yes</label>
+                                  <label class="form-check-label" for="multipleChoice1">{{locale.question_yes}}</label>
                                   <input formControlName="multipleChoice" class="form-check-input ml-2" type="radio" name="multipleChoice" id="multipleChoice2" value="No">
-                                  <label class="form-check-label" for="multipleChoice2">No</label>
+                                  <label class="form-check-label" for="multipleChoice2">{{locale.question_no}}</label>
                           </div>        
                   
                       </div>
@@ -38,8 +48,11 @@
                   <div class="row mt-2">
                     
                     <div class="col">
+                        <div *ngIf="submitted && questionForm.controls.weight.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                            <div *ngIf="submitted && questionForm.controls.weight.errors.required">{{locale.question_weightrequired}}</div>
+                        </div>	             
                           <input formControlName="weight" class="form-check-input " type="hidden" name="weight" id="weight">
-                          <app-combobox [isNumber]="'S'" [warningMsg]="'Weight is a mandatory field'" (category)="setupWeight($event)" [inputItem]="weightSelected" [placeholder]="'Select a weight'" [list]="weightList"></app-combobox>
+                          <app-combobox [isNumber]="'S'" [warningMsg]="'Weight is a mandatory field'" (category)="setupWeight($event)" [inputItem]="weightSelected" [placeholder]="locale.question_selectweight" [list]="weightList"></app-combobox>
                     </div>
       
                 </div>
@@ -48,9 +61,9 @@
                     <div class="col">
                         <div class="form-check form-check-inline">
                             <input formControlName="answers" class="form-check-input " type="hidden" name="answers" id="answers">
-                            <label class="form-check-label">Answers: {{answersQty}}</label>
+                            <label class="form-check-label">{{locale.question_answers}}: {{answersQty}}</label>
                             <button class="btn btn-link" (click)="addNew()">
-                                <span class="fa fa-plus"> Add Answer</span>
+                                <span class="fa fa-plus"> {{locale.question_addanswers}}</span>
                               </button>
                         </div>    
                     </div>
@@ -58,43 +71,25 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-sm-6">
-                        <app-richtable *ngIf="answersQty > 0" (deleteID)='exclude($event)' [title]="'answers'" [pageable]='pageable' 
-                            [tableCols]='answersCols' [onlyDeleteAction]="'true'" [tableLabels]='answersCols' [tableData]='rows' [hideActionColumn]="'false'">
-                            </app-richtable>
+                            <div *ngIf="submitted && questionForm.controls.answers.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submitted && questionForm.controls.answers.errors.required">{{locale.question_answeresrequired}}</div>
+                                <div *ngIf="submitted && questionForm.controls.answers.errors.min">{{locale.question_answeresminimum}}</div>
+                            </div>	             
+                            <app-richtable *ngIf="answersQty > 0" (deleteID)='exclude($event)' [title]="locale.question_answers" [pageable]='pageable' 
+                                [tableCols]='answersCols' [onlyDeleteAction]="'true'" [tableLabels]='answersCols' [tableData]='rows' [hideActionColumn]="'false'">
+                                </app-richtable>        
                     </div>
                 </div>
                 <div class="row mt-2">
                     <div class="col">
-                        <button type="button" (click)="onSubmit();" title="Create Question" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;Save Question&nbsp;&nbsp;&nbsp;</button>
+                        <button type="button" (click)="onSubmit();" title="Create Question" class="btn btn-purple-secondary">&nbsp;&nbsp;&nbsp;{{locale.question_savequestion}}&nbsp;&nbsp;&nbsp;</button>
                     </div>
 
                 </div>
                 <div class="row">
-                    <div class="col">
-                        <div *ngIf="submitted && questionForm.controls.category.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                            <div *ngIf="submitted && questionForm.controls.category.errors.required">Category is required</div>
-                        </div>	             
-                        <div *ngIf="submitted && questionForm.controls.question.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                            <div *ngIf="submitted && questionForm.controls.question.errors.required">Question is required</div>
-                            <div *ngIf="submitted && questionForm.controls.question.errors.minlength">Question must be at least 4 characters</div>
-                        </div>	           
-                        <div *ngIf="submitted && questionForm.controls.multipleChoice.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                            <div *ngIf="submitted && questionForm.controls.multipleChoice.errors.required">MultipleChoice is required</div>
-                        </div>	                                     
-                        <div *ngIf="submitted && questionForm.controls.weight.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                            <div *ngIf="submitted && questionForm.controls.weight.errors.required">weight is required</div>
-                        </div>	             
-                        <div *ngIf="submitted && questionForm.controls.answers.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                            <div *ngIf="submitted && questionForm.controls.answers.errors.required">Answers is required</div>
-                            <div *ngIf="submitted && questionForm.controls.answers.errors.min">Question must have at least 2 answers</div>
-                        </div>	             
-                    </div>
-
-                </div>   
-                <div class="row">
                 <div class="col">
                     <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
-                        Search failed: {{ errorMessage }}
+                        {{locale.commons_searchfailed}}: {{ errorMessage }}
                         </div>              
                 </div>
             </div>
@@ -105,28 +100,28 @@
    
   <br/>
   <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
-  [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton">
+  [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [hideAction]="hideAction">
   
       <div *ngIf="!showForm" [innerHtml]="content" ></div> 
       <div *ngIf="showForm">    
           <div id="login-modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
               <div class="loginmodal-container ">       
           <form  [formGroup]="answerForm" (ngSubmit)="confirmOperation()" class="form-group" #f2="ngForm">
+            <div *ngIf="submittedRegister && answerForm.controls.weight.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                <div *ngIf="submittedRegister && answerForm.controls.weight.errors.required">{{locale.question_weightrequired}}</div>
+            </div>					  
             <input formControlName="weight" class="form-check-input " type="hidden" name="weight" id="weight">
-            <app-combobox [isNumber]="'S'" [warningMsg]="'Weight is a mandatory field'" (category)="setupWeightAnswer($event)" [inputItem]="weightAnswerSelected" [placeholder]="'Weight'" [list]="weightList"></app-combobox>
+            <app-combobox [isNumber]="'S'" [warningMsg]="locale.question_weightrequired" (category)="setupWeightAnswer($event)" [inputItem]="weightAnswerSelected" [placeholder]="locale.commons_weight" [list]="weightList"></app-combobox>
                       <br/>        
-                      <input id="name" formControlName="name" type="text" name="name" class="form-control" placeholder="Answer" >
+                      <input id="name" formControlName="name" type="text" name="name" class="form-control" placeholder="{{locale.commons_answer}}" >
                       <div *ngIf="submittedRegister && answerForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                <div *ngIf="submittedRegister && answerForm.controls.name.errors.required">Answer is required</div>
-                                <div *ngIf="submittedRegister && answerForm.controls.name.errors.minlength">Answer must be at least 4 characters</div>
+                                <div *ngIf="submittedRegister && answerForm.controls.name.errors.required">{{locale.answer_required}}</div>
+                                <div *ngIf="submittedRegister && answerForm.controls.name.errors.minlength">{{locale.answers_minlength}}</div>
                        </div>					  
-                       <div *ngIf="submittedRegister && answerForm.controls.weight.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                            <div *ngIf="submittedRegister && answerForm.controls.weight.errors.required">weight is required</div>
-                        </div>					  
 
                       <div class="form-group">
                             <div class="mt-1 alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
-                                    Answer failed: {{ errorMessage }}
+                                    {{locale.commons_transactionfailed}}: {{ errorMessage }}
                             </div>
                       </div> 
             </form>
