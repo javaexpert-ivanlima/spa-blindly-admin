@@ -23,7 +23,7 @@ export class AdminUserAuditComponent implements OnInit {
   errorMessage = '';
   selectedID: number =0;
   selectedName: string;
-  
+  locale: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,6 +42,8 @@ export class AdminUserAuditComponent implements OnInit {
 
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.labels = this.locale.audit_labels;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -56,7 +58,7 @@ export class AdminUserAuditComponent implements OnInit {
   carregaAdminUserAudit(page: number,id:number) {
     this.pageable = null;
     this.rows = null;
-    this.title = "audit admin user - " + this.selectedName;
+    this.title = this.locale.adminuser_audit + " - " + this.selectedName;
     this.spinnerService.showSpinner();
     this.userService.getAuditAdminUser(page,id).subscribe(
       data => {

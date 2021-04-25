@@ -158,4 +158,5 @@ export const languagePT = {
   adminuser_searchforname: 'Pesquisar nome...',  
   adminuser_loginminlength: 'Login deve ter no minimo 4 caracteres',
   adminuser_nameminlength: 'Nome do usuário deve ter no minimo 4 caracteres',
+  adminuser_audit: 'Auditoria usuario admin ',
 };
