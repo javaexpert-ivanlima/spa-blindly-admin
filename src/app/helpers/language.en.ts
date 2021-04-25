@@ -97,6 +97,7 @@ export const languageEN = {
     question_answeresrequired: 'Answers is required',
     question_answeresminimum: 'Question must have at least 2 answers',
     question_create: 'Create Question',
+    question_edit: 'Edit Question',
     question_addanswer: 'Add a answer',
     answer_name: 'Answer',
     answers_labels: ['id','answer','weight','lastUpdateDate'],

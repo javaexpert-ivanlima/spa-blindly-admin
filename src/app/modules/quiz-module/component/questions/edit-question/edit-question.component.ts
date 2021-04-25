@@ -44,6 +44,8 @@ export class EditQuestionComponent implements OnInit {
   showForm: boolean = false;
   hideBtn: string = "NO";
   selectedID: any = null;
+  hideAction: string = "NO";
+  locale: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -72,6 +74,8 @@ export class EditQuestionComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.title = this.locale.question_edit;      
     }else{
       this.spinnerService.hideSpinner();
       this.router.navigateByUrl('/login/authenticate');

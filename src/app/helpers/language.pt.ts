@@ -97,6 +97,7 @@ export const languagePT = {
   question_answeresrequired: 'Respostas é obrigatório',
   question_answeresminimum: 'Pergunta deve ter pelo menos 2 repostas',
   question_create: 'Criar Pergunta',
+  question_edit: 'Editar Pergunta',
   question_addanswer: 'Adicionar resposta',
   answer_name: 'Resposta',
   answers_labels: ['id','resposta','peso','atualizado em'],   
