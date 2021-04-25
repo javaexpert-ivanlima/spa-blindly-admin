@@ -40,8 +40,11 @@ export class QuizOrderComponent implements OnInit {
   itemList : any[];
   answersData: any[];
   answersCols: string[] = ['id','answer','weight','lastUpdateDate']; 
+  answersLabels: string[] = ['id','answer','weight','lastUpdateDate']; 
+
 
   hideBtn: string = "NO";
+  hideAction: string = "NO";
   locale: any;
 
   constructor(
@@ -81,7 +84,7 @@ export class QuizOrderComponent implements OnInit {
     this.questionService.setQuizOrder(obj).subscribe(
       data => {
         let result =   data.data;
-        this.showConfirmation("Update "+ result + " records with sucess.");
+        this.showConfirmation(this.locale.commons_updated + " "+ result + " " + this.locale.commons_recordswithsuccess);
         this.showModal("Z");
         this.carregaQuiz();
         this.spinnerService.hideSpinner();
@@ -104,6 +107,7 @@ export class QuizOrderComponent implements OnInit {
       this.locale = this.tokenStorage.getLocale();
       this.labels = this.locale.quiz_labels;
       this.title = this.locale.quiz_title;
+      this.answersLabels = this.locale.answers_labels;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -156,11 +160,12 @@ export class QuizOrderComponent implements OnInit {
   }
 
   showConfirmation(text){
-    this.hideBtn = "YES";
-    this.lablelButton="OK";
+    this.hideAction = "YES";
+    this.hideBtn = "NOK";
+    this.lablelButton=this.locale.commons_ok;
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
-    this.titleModal = "Sucess";
+    this.titleModal = this.locale.commons_sucess;
     this.textParagraph1 = "";
     this.textParagraph2 = text;
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
@@ -181,11 +186,12 @@ export class QuizOrderComponent implements OnInit {
   answers(obj){
     let answs: any[] = this.rows.filter((item) =>  item.id == obj.id)[0].answers;
     $("#"+this.modalId).modal('show');
-    this.lablelButton="OK";
+    this.lablelButton=this.locale.commons_ok;
+    this.hideAction="NO";
     this.hideBtn = "YES";
     this.bgColorTitle = "#a6c!important"; 
     this.showForm = true;
-    this.titleModal = "Answers";
+    this.titleModal = this.locale.question_answers;
     this.textParagraph1 = "";
     this.textParagraph2 = "";
     this.content = "";
@@ -197,12 +203,13 @@ export class QuizOrderComponent implements OnInit {
   validation(){
     $("#"+this.modalId).modal('show');
     this.lablelButton="OK";
-    this.hideBtn = "YES";
-    this.bgColorTitle = "red!important"; 
+    this.hideBtn = "NOK";
+    this.hideAction = "YES";
+    this.bgColorTitle = "#dc3545!important"; 
     this.showForm = false;
-    this.titleModal = "Validation error";
+    this.titleModal = this.locale.commons_validationerror;
     this.textParagraph1 = "";
-    this.textParagraph2 = "Please fill out all order fields.";
+    this.textParagraph2 = this.locale.commons_filloutallfields;
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";
     this.operationType ="Z";
 
@@ -211,10 +218,11 @@ export class QuizOrderComponent implements OnInit {
   showError(descerro){
     $("#"+this.modalId).modal('show');
     this.lablelButton="OK";
-    this.hideBtn = "YES";
-    this.bgColorTitle = "red!important"; 
+    this.hideBtn = "NOK";
+    this.hideAction = "YES";
+    this.bgColorTitle = "#dc3545!important"; 
     this.showForm = false;
-    this.titleModal = "Validation error";
+    this.titleModal = this.locale.commons_validationerror;
     this.textParagraph1 = "";
     this.textParagraph2 = descerro;
     this.content = "<strong>"+this.textParagraph1+""+this.textParagraph2+"</strong>";

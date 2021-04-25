@@ -29,6 +29,7 @@ export class QuizPreviewComponent implements OnInit {
   showForm: boolean = false;
 
   currentIndex:number = 0;
+  locale: any;
 
   constructor(
     private router: Router,
@@ -65,6 +66,7 @@ export class QuizPreviewComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    

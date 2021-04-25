@@ -1,9 +1,9 @@
 <div style="height: 100%;width: 100%;">
     <div class="panelbackground-container">
       <div class="row">  
-          <div class="col-sm-6"><h4>{{title | titlecase}} - {{this.currentIndex+1}} of {{this.rows.length}} questions</h4></div>
+          <div class="col-sm-6"><h4>{{locale.quiz_preview_title}} - {{this.currentIndex+1}} {{locale.commons_of}} {{this.rows.length}} {{locale.menu_qa_questions}}</h4></div>
           <div class="col-sm-6">
-                  <button type="button" (click)="back()" class="btn btn-secondary btn-rounded float-right mb-2">Back</button>
+                  <button type="button" (click)="back()" class="btn btn-secondary btn-rounded float-right mb-2">{{locale.commons_back}}</button>
           </div>
       </div>
       <br/>
@@ -36,8 +36,8 @@
         <div class="col-sm-6">
         </div>
         <div class="col-sm-6">
-            <button type="button" (click)="nextQuestion()" class="ml-3 btn btn-secondary btn-rounded float-right mb-2">Next</button>
-            <button type="button" (click)="previousQuestion()" class="btn btn-secondary btn-rounded float-right mb-2">Previous</button>
+            <button type="button" (click)="nextQuestion()" class="ml-3 btn btn-secondary btn-rounded float-right mb-2">{{locale.commons_next}}</button>
+            <button type="button" (click)="previousQuestion()" class="btn btn-secondary btn-rounded float-right mb-2">{{locale.commons_previous}}</button>
         </div>
 
     </div>

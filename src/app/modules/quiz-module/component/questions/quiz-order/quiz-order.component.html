@@ -22,7 +22,7 @@
 </div>
 </div> 
 
-<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
+<app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()" [hideAction]="hideAction"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 
@@ -30,7 +30,7 @@
       <table class="table caption-top table-bordered table-hover table-info">
         <thead class="thead-dark">
           <tr>            
-            <th *ngFor="let label of answersCols" scope="col">{{label | uppercase}}</th>
+            <th *ngFor="let label of answersLabels" scope="col">{{label | uppercase}}</th>
           </tr>
         </thead>
         <tbody>
