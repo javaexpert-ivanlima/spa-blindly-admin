@@ -153,4 +153,9 @@ export const languageEN = {
     status_blocked: 'Blocked',
     status_inactive: 'Inactive',
     status_unknown: 'Unknown',
+    adminuser_label: ['id','login','name','super user','active','blocked','last update','modified by'],
+    adminuser_searchforlogin: 'Search for login (email)...',
+    adminuser_searchforname: 'Search for name...',
+    adminuser_loginminlength: 'Login must be at least 4 characters',
+    adminuser_nameminlength: 'User name must be at least 4 characters',
   };

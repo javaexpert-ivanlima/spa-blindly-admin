@@ -1,15 +1,15 @@
 <div style="height: 100%;width: 100%;">
   <div class="panelbackground-container">
     <div class="row">  
-        <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-        <div class="col-sm-6"><button type="button" (click)="addNew()" class="btn btn-info btn-rounded float-right mb-2">Add New</button></div>
+        <div class="col-sm-6"><h4>{{locale.menu_users_admin | titlecase}}</h4></div>
+        <div class="col-sm-6"><button type="button" (click)="addNew()" class="btn btn-info btn-rounded float-right mb-2">{{locale.commons_addnew}}</button></div>
     </div>
     <div id="accordion">
      
             
             <button class="btn btn-secondary btn-rounded" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseQuestion">
                 <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
-                <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">Filter</span>
+                <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">{{locale.commons_filter}}</span>
             </button>
      
         <div id="collapseQuestion" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
@@ -21,57 +21,57 @@
                         <div class="form-check form-check-inline">
                                 <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType1" value="all" >
                                 <label class="form-check-label" for="filterType1">
-                                        All
+                                        {{locale.commons_all}}
                                 </label>
                         </div>        
                         <div class="form-check form-check-inline">
                                 <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType2" value="inactive">
                                 <label class="form-check-label" for="filterType2">
-                                        Inactive
+                                        {{locale.commons_inactive}}
                                 </label>
                         </div>
                 
                         <div class="form-check form-check-inline">
                                     <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType3" value="active">
                                     <label class="form-check-label" for="filterType3">
-                                            Active
+                                        {{locale.commons_active}}
                                     </label>
                         </div>
                         <div class="form-check form-check-inline">
                           <input formControlName="filterType" class="form-check-input" type="radio" name="filterType" id="filterType4" value="blocked">
                           <label class="form-check-label" for="filterType4">
-                                  Blocked
+                                {{locale.dash_blocked}}
                           </label>
                       </div>
                     </div>
                 </div>
                 <div class="row mt-2">
                   <div class="col">
-                          <input formControlName="login" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for login (email)..."> 
+                          <input formControlName="login" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="{{locale.adminuser_searchforlogin}}"> 
                           <div *ngIf="submitted && adminUserFilterForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                            <div *ngIf="submitted && adminUserFilterForm.controls.login.errors.minlength">Login must be at least 4 characters</div>
+                            <div *ngIf="submitted && adminUserFilterForm.controls.login.errors.minlength">{{locale.adminuser_loginminlength}}</div>
                         </div>
 
                         </div>
                 </div>        
                 <div class="row mt-2">
                       <div class="col">
-                              <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="Search for name..."> 
+                              <input formControlName="name" style="outline: none!important;width:50%"  type="text" id="myInput" placeholder="{{locale.adminuser_searchforname}}"> 
                               <div *ngIf="submitted && adminUserFilterForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">User name must be at least 4 characters</div>
+                                <div *ngIf="submitted && adminUserFilterForm.controls.name.errors.minlength">{{locale.adminuser_nameminlength}}</div>
                             </div>
   
                             </div>
                 </div>  
                 <div class="row mt-2">
                         <div class="col">
-                          <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;Search&nbsp;&nbsp;&nbsp;</button> 
+                          <button type="button" (click)="onSubmit();" title="Search" class="btn btn-info">&nbsp;&nbsp;&nbsp;{{locale.commons_search}}&nbsp;&nbsp;&nbsp;</button> 
                         </div>
                 </div>        
           <div class="row">
               <div class="col">
                   <div class="alert alert-danger" role="alert" *ngIf="submitted && errorMessage">
-                      Search failed: {{ errorMessage }}
+                        {{locale.commons_searchfailed}}: {{ errorMessage }}
                       </div>              
               </div>
           </div>

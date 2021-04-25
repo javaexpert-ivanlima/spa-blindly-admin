@@ -51,6 +51,9 @@ export class ListAdminUsersComponent implements OnInit {
   
   permissions: any = null;
   titleCheckAll = "Click for check all";
+
+  locale: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -144,6 +147,8 @@ export class ListAdminUsersComponent implements OnInit {
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
+      this.locale = this.tokenStorage.getLocale();
+      this.labels = this.locale.adminuser_label;
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
