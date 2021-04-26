@@ -305,9 +305,9 @@ export class ListAdminUsersComponent implements OnInit {
     this.userService.activatedAdminUser(id).subscribe(
       data => {
         this.currentPage =0;
-        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_activatedsuccess +".");
+        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
       },
       err => {
         this.submittedRegister = true;
@@ -324,10 +324,10 @@ export class ListAdminUsersComponent implements OnInit {
     this.userService.inactivatedAdminUser(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_deletedsuccess +".");
             this.confirmButton = false;
+            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
           },
           err => {
             this.submittedRegister = true;
@@ -345,10 +345,10 @@ export class ListAdminUsersComponent implements OnInit {
     this.userService.unblockedAdminUser(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_unblockedsuccess +".");
             this.confirmButton = false;
+            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
           },
           err => {
             this.submittedRegister = true;
