@@ -85,10 +85,10 @@ export class ListAdminUsersComponent implements OnInit {
 
   selectAll(event){
     if (event.target.checked){
-      this.titleCheckAll = this.locale.adminuser_checkforall;
+      this.titleCheckAll = this.locale.adminuser_uncheckforall;
       this.checkAll();
     } else {
-      this.titleCheckAll = this.locale.adminuser_uncheckforall;
+      this.titleCheckAll = this.locale.adminuser_checkforall;
       this.uncheckAll();
     }
   }
@@ -255,6 +255,8 @@ export class ListAdminUsersComponent implements OnInit {
                   this.adminUserForm.controls.name.setValue("");
                   this.adminUserForm.controls.login.setValue("");
                   this.removeAllFormControl();
+                  this.titleCheckAll = this.locale.adminuser_checkforall;
+                  $('#checkall').prop('checked',false);
                   $("#"+this.modalId).on('shown.bs.modal', function (e) {
                     $("input[name=permissions]").each( function () {
                       $(this).prop('checked',false);
@@ -402,8 +404,14 @@ export class ListAdminUsersComponent implements OnInit {
             this.showModal(obj,"U");
             let oper = this.operationType;
             this.removeAllFormControl();
+            this.removeAllFormControl();
+            this.titleCheckAll = this.locale.adminuser_checkforall;
+            $('#checkall').prop('checked',false);
             $("#"+this.modalId).on('shown.bs.modal', function (e) {
               if (oper == 'U'){
+                $("input[name=permissions]").each( function () {
+                  $(this).prop('checked',false);
+                });
                       if (permissions){
                           if (permissions.permission){
                             permissions.permission.forEach((o) => {
