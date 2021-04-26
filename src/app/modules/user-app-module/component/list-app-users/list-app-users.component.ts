@@ -334,7 +334,6 @@ export class ListAppUsersComponent implements OnInit {
         this.showForm = false;
         this.textParagraph1=this.locale.commons_areyousure;
         this.titleModal = this.locale.commons_confirmexclusion;
-        this.textParagraph2 = this.locale.category_msgdel1+" ["+obj['nameCategory']+"] "+this.locale.category_msgdel2+" "+obj['numberOfQuestions']+" "+ this.locale.category_msgdel3;
         this.textParagraph2 = this.locale.appuser_theappuser + " ["+obj['name']+"] "+ this.locale.answer_willbeexcluded +".";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"E");    

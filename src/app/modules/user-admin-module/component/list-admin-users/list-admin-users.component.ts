@@ -53,6 +53,7 @@ export class ListAdminUsersComponent implements OnInit {
   titleCheckAll = "Click for check all";
 
   locale: any;
+  hideAction: string = "NO";
 
   constructor(
     private formBuilder: FormBuilder,
@@ -84,10 +85,10 @@ export class ListAdminUsersComponent implements OnInit {
 
   selectAll(event){
     if (event.target.checked){
-      this.titleCheckAll = "Click for uncheck all";
+      this.titleCheckAll = this.locale.adminuser_checkforall;
       this.checkAll();
     } else {
-      this.titleCheckAll = "Click for check all";
+      this.titleCheckAll = this.locale.adminuser_uncheckforall;
       this.uncheckAll();
     }
   }
@@ -142,13 +143,14 @@ export class ListAdminUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.hideBtn = "NO";
-    this.titleCheckAll = "Click for check all";
     //verificacao de sessao expirada
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
       //todo guardar url atual
       this.locale = this.tokenStorage.getLocale();
       this.labels = this.locale.adminuser_label;
+      this.titleCheckAll = this.locale.adminuser_checkforall;
+      
     }else{
       this.router.navigateByUrl('/login/authenticate');
     }    
@@ -239,14 +241,16 @@ export class ListAdminUsersComponent implements OnInit {
     (this.guardian.hasAccess('create_adminUser') as Observable<boolean>).subscribe(resp=>{
           if (resp){
                   //this.router.navigateByUrl('admin_users/create');
+                  this.hideAction = "NO";
+                  this.hideBtn = "NO";          
                   this.submittedRegister = false;
                   this.submitted = false;
                   this.errorMessage = null;
                   this.showForm = true;
                   this.bgColorTitle = "#007bff!important";
                   this.fgColorTitle = "white";
-                  this.titleModal = "Create AdminUser";
-                  this.lablelButton="Save User";
+                  this.titleModal = this.locale.adminuser_createadminuser;
+                  this.lablelButton= this.locale.adminuser_saveuser;
                   //this.weightAnswerSelected = "";
                   this.adminUserForm.controls.name.setValue("");
                   this.adminUserForm.controls.login.setValue("");
@@ -265,12 +269,15 @@ export class ListAdminUsersComponent implements OnInit {
   activated(obj){
     (this.guardian.hasAccess('activate_adminUser') as Observable<boolean>).subscribe(resp=>{
           if (resp){
-            this.lablelButton="Activate";
+            this.hideAction = "NO";
+            this.hideBtn = "NO";
+            this.lablelButton=this.locale.commons_activate;
             this.bgColorTitle = "#007bff!important"; 
+            this.fgColorTitle = "white";
             this.showForm = false;
-            this.titleModal = "Confirmation for activation";
-            this.textParagraph1="Are you totally sure about this operation?"
-            this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be activated.";
+            this.textParagraph1=this.locale.commons_areyousure;
+            this.titleModal = this.locale.commons_confirmactivation;
+            this.textParagraph2 = this.locale.adminuser_theadminuser + " ["+obj['name']+"] "+ this.locale.commons_willbeactivated +".";
             this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
             this.showModal(obj,"A");       
           }
@@ -280,12 +287,14 @@ export class ListAdminUsersComponent implements OnInit {
   unblocked(obj){
     (this.guardian.hasAccess('unblocked_adminUser') as Observable<boolean>).subscribe(resp=>{
       if (resp){
-        this.lablelButton="Unblock";
-        this.bgColorTitle = "#007bff!important"; 
+        this.hideAction = "NO";
+        this.hideBtn = "NO";
+        this.lablelButton=this.locale.commons_unblock;
+        this.fgColorTitle = "white";
         this.showForm = false;
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.titleModal = "Confirmation for unblocking";
-        this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be unblocked.";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmactivation;
+        this.textParagraph2 = this.locale.adminuser_theadminuser + " ["+obj['name']+"] "+ this.locale.commons_willbeunblocked +".";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"B");    
       }
@@ -298,7 +307,7 @@ export class ListAdminUsersComponent implements OnInit {
         this.currentPage =0;
         this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was activated with sucess.");
+        this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_activatedsuccess +".");
       },
       err => {
         this.submittedRegister = true;
@@ -317,7 +326,7 @@ export class ListAdminUsersComponent implements OnInit {
             this.currentPage =0;
             this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was deleted with sucess.");
+            this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_deletedsuccess +".");
             this.confirmButton = false;
           },
           err => {
@@ -338,7 +347,7 @@ export class ListAdminUsersComponent implements OnInit {
             this.currentPage =0;
             this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
             this.spinnerService.hideSpinner();
-            this.showConfirmation("AdminUser ["+this.selectedID['name']+"] was unblocked with sucess.");
+            this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_unblockedsuccess +".");
             this.confirmButton = false;
           },
           err => {
@@ -354,12 +363,15 @@ export class ListAdminUsersComponent implements OnInit {
   exclude(obj){
     (this.guardian.hasAccess('inactivate_adminUser') as Observable<boolean>).subscribe(resp=>{
       if (resp){
-        this.lablelButton="Delete";
-        this.bgColorTitle = "#007bff!important"; 
+        this.hideAction = "NO";
+        this.hideBtn = "NO";
+        this.lablelButton=this.locale.commons_delete;
+        this.bgColorTitle = "#dc3545"; 
+        this.fgColorTitle = "white";
         this.showForm = false;
-        this.titleModal = "Confirmation for exclusion";
-        this.textParagraph1="Are you totally sure about this operation?"
-        this.textParagraph2 = "The AdminUser ["+obj['name']+"] will be excluded.";
+        this.textParagraph1=this.locale.commons_areyousure;
+        this.titleModal = this.locale.commons_confirmexclusion;
+        this.textParagraph2 = this.locale.adminuser_theadminuser + " ["+obj['name']+"] "+ this.locale.answer_willbeexcluded +".";
         this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
         this.showModal(obj,"E");    
       }
@@ -377,9 +389,9 @@ export class ListAdminUsersComponent implements OnInit {
             this.submittedRegister = false;
             this.submitted = false;
             this.errorMessage = null;
-            this.lablelButton="Update";
+            this.lablelButton= this.locale.commons_update;
             this.bgColorTitle = "#007bff!important"; 
-            this.titleModal = "Edit Admin User";
+            this.titleModal = this.locale.adminuser_edituser;
             let isSuperUser: string = obj['superUser']=='Y'?'Yes':'No';
             this.adminUserForm.controls.superUser.setValue(isSuperUser);
             this.adminUserForm.controls.name.setValue(obj['name']);
@@ -436,7 +448,7 @@ export class ListAdminUsersComponent implements OnInit {
       data => {
         this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
         this.spinnerService.hideSpinner();
-        this.showConfirmation("AdminUser ["+form.name.value+"] was updated with sucess.");
+        this.showConfirmation(this.locale.adminuser_theadminuser + " ["+form.name.value+"] "+ this.locale.commons_updatedsuccess + ".");
       },
       err => {
         this.submittedRegister = true;
@@ -497,7 +509,7 @@ export class ListAdminUsersComponent implements OnInit {
         data => {
           this.currentPage =0;
           this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
-          this.showConfirmation("AdminUser ["+nameUser+"] was added with sucess.");
+          this.showConfirmation(this.locale.adminuser_theadminuser + " ["+nameUser+"] "+ this.locale.commons_createdsuccess + ".");
           this.spinnerService.hideSpinner();
       },
         err => {
@@ -510,8 +522,9 @@ export class ListAdminUsersComponent implements OnInit {
   }
 
   showConfirmation(text){
-    this.hideBtn = "YES";
-    this.lablelButton="OK";
+    this.hideBtn = "NOK";
+    this.hideAction = "YES";
+    this.lablelButton=this.locale.commons_ok;
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;
     this.titleModal = "Sucess";

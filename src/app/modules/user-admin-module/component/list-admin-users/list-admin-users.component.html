@@ -93,7 +93,7 @@
 </div>
 </div> 
 
-<app-modal [modalID]="modalId" [adminModule]="'Y'" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
+<app-modal [modalID]="modalId" [adminModule]="'Y'" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()" [hideAction]="hideAction"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 862px!important'">
 
   <div *ngIf="!showForm" [innerHtml]="content" ></div> 
@@ -105,31 +105,39 @@
 
           <div class="row mt-2">
                 <div class="col">
-                        <input formControlName="name" class="form-control text text-input" type="text" id="name" placeholder="Name">    
+                        <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">{{locale.adminuser_namerequired}}</div>
+                        </div>	                         
+                        <input formControlName="name" class="form-control text text-input" type="text" id="name" placeholder="{{locale.adminuser_namefield}}">    
                </div>
           </div>          
           <div class="row mt-2">
             <div class="col">
-                    <input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)">    
+                <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                        <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">Login is required</div>
+                        <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">{{locale.appusers_loginvalidemail}}</div>
+                    </div>	           
+                        <input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="{{locale.adminuser_loginfield}}">    
            </div>
           </div>          
           <div class="row mt-2">
-            <div class="col">   
-         
-                  <div class="form-controlform-check form-check-inline mt-2">
-                          <label class="form-check-label" >Is Super User ?</label>
-                  </div>        
-          
-              </div>
-          </div>
-          <div class="row mt-2">
+                <div class="col">   
+                        <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors" class="mt-1 form-group alert alert-danger" role="alert">
+                                <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors.required">{{locale.adminuser_superuserrequired}}</div>
+                            </div>	                                     
+                     
+                          <div class="form-controlform-check form-check-inline mt-2">
+                                  <label class="form-check-label" >{{locale.adminuser_issuperuser}}</label>
+                          </div>        
+                  
+                </div>                  
             <div class="col">   
          
                   <div class="form-controlform-check form-check-inline">
                           <input formControlName="superUser" class="form-check-input"  type="radio" name="superUser" id="superUser1" value="Yes" >
-                          <label class="form-check-label" for="superUser1">Yes</label>
+                          <label class="form-check-label" for="superUser1">{{locale.question_yes}}</label>
                           <input formControlName="superUser" class="form-check-input ml-2" type="radio" name="superUser" id="superUser2" value="No">
-                          <label class="form-check-label" for="superUser2">No</label>
+                          <label class="form-check-label" for="superUser2">{{locale.question_no}}</label>
                   </div>        
           
               </div>
@@ -138,7 +146,7 @@
                     <div class="row mt-2">
                               <div class="col">
                                     <div class="form-controlform-check form-check-inline mt-2">
-                                        <label class="form-check-label" >Permissions</label>
+                                        <label class="form-check-label" >{{locale.adminuser_permissions}}</label>
                                         <input class="ml-4 form-check-input"  (click)="selectAll($event)" type="checkbox"  name="todos" id="checkall" value="all" >
                                         <label style="font-size: x-small;" class="form-check-label" for="guard1 ">{{titleCheckAll}}</label>
                                       </div>        
@@ -156,25 +164,10 @@
                       </ng-container>
         </ng-container>
 
-          <div class="row">
-            <div class="col">
-                <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
-                </div>	             
-                <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">Login is required</div>
-                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail</div>
-                </div>	           
-                <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                    <div *ngIf="submittedRegister && adminUserForm.controls.superUser.errors.required">SuperUser is required</div>
-                </div>	                                     
-            
-           </div> 
-        </div>   
         <div class="row">
         <div class="col">
             <div class="alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
-                Error: {{ errorMessage }}
+                {{locale.commons_transactionfailed}}: {{ errorMessage }}
                 </div>              
         </div>
     </div>
