@@ -82,5 +82,7 @@ export class AuditCategoryComponent implements OnInit {
     this.carregaCategoriesAudit(page,this.selectedID);
   }
 
-
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }

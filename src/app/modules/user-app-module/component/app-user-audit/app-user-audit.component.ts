@@ -77,5 +77,7 @@ export class AppUserAuditComponent implements OnInit {
     this.carregaAdminUserAudit(page,this.selectedID);
   }
 
-
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }

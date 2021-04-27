@@ -83,5 +83,7 @@ export class AuditQuestionsComponent implements OnInit {
     this.carregaQuestionAudit(page,this.selectedID);
   }
 
-
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }
