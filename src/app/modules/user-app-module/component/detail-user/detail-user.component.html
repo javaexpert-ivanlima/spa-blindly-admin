@@ -22,7 +22,7 @@
             </div>
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
-                <a style="color:white" (click)="backButton()" class="btn btn-sm btn-default">Back</a>
+                <a style="color:white" (click)="backButton()" class="btn btn-sm btn-default">{{locale.commons_back}}</a>
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">
@@ -31,14 +31,14 @@
                   <div class="card-profile-stats d-flex justify-content-center mt-md-5">
                     <div>
                       <span class="heading">{{appUser?.photos?.length}}</span>
-                      <span class="description">Photos</span>
+                      <span class="description">{{locale.detailuser_photo}}</span>
                     </div>
                   </div>
                 </div>
               </div>
               <div class="text-center">
                 <h3>
-                  {{appUser?.name }}<span class="font-weight-light">, {{age}}</span>
+                  {{appUser?.name }}<span class="font-weight-light">{{age<=0?'':', '+age}}</span>
                 </h3>
                 <div class="h5 font-weight-300">
                   <i class="ni location_pin mr-2"></i>{{appUser?.address?.city}}, {{appUser?.address?.state| uppercase}}
@@ -59,16 +59,16 @@
                 <div class="col">
                   <ul class="nav nav-tabs">
                     <li class="nav-item">
-                      <a [ngClass]="{'active': buttonSelected == 'Personal Data'}" class="nav-link" (click)="showData('Personal Data')">Personal Data</a>
+                      <a [ngClass]="{'active': buttonSelected == 'Personal Data'}" class="nav-link" (click)="showData('Personal Data')">{{locale.detailuser_personaldata}}</a>
                     </li>
                     <li class="nav-item">
-                      <a [ngClass]="{'active': buttonSelected == 'Address'}" class="nav-link" (click)="showData('Address')">Address</a>
+                      <a [ngClass]="{'active': buttonSelected == 'Address'}" class="nav-link" (click)="showData('Address')">{{locale.detailuser_address}}</a>
                     </li>
                     <li class="nav-item">
-                      <a [ngClass]="{'active': buttonSelected == 'Photos'}" class="nav-link" (click)="showData('Photos')">Photo</a>
+                      <a [ngClass]="{'active': buttonSelected == 'Photos'}" class="nav-link" (click)="showData('Photos')">{{locale.detailuser_photo}}</a>
                     </li>
                      <li class="nav-item">
-                      <a [ngClass]="{'active': buttonSelected == 'Preferences'}" class="nav-link" (click)="showData('Preferences')">Preferences</a>
+                      <a [ngClass]="{'active': buttonSelected == 'Preferences'}" class="nav-link" (click)="showData('Preferences')">{{locale.detailuser_preferences}}</a>
                     </li> 
                   </ul>
                 </div>
@@ -81,13 +81,13 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-username">Name</label>
+                        <label class="form-control-label" for="input-username">{{locale.detailuser_personaldata_name}}</label>
                         <input type="text" id="input-username" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.name}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-email">Login (e-mail)</label>
+                        <label class="form-control-label" for="input-email">{{locale.detailuser_personaldata_login}}</label>
                         <input type="email" id="input-email" readonly class="form-control form-control-alternative" value="{{appUser?.login}}">
                       </div>
                     </div>
@@ -95,13 +95,13 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">BirthDate</label>
+                        <label class="form-control-label" for="input-first-name">{{locale.detailuser_personaldata_birthdate}}</label>
                         <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.birthDate | date:'dd/MM/yyyy'}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">Gender</label>
+                        <label class="form-control-label" for="input-last-name">{{locale.detailuser_personaldata_gender}}</label>
                         <input type="text" id="input-last-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.gender}}">
                       </div>
                     </div>
@@ -109,13 +109,13 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">Occupation</label>
+                        <label class="form-control-label" for="input-first-name">{{locale.detailuser_personaldata_occupation}}</label>
                         <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.occupation}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-first-name">Education Level</label>
+                        <label class="form-control-label" for="input-first-name">{{locale.detailuser_personaldata_educationlevel}}</label>
                         <input type="text" id="input-first-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.educationLevel}}">
                       </div>
                     </div>
@@ -123,13 +123,13 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">Marital Status</label>
+                        <label class="form-control-label" for="input-last-name">{{locale.detailuser_personaldata_maritalstatus}}</label>
                         <input type="text" id="input-last-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.maritalStatus}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-last-name">Mobile Number</label>
+                        <label class="form-control-label" for="input-last-name">{{locale.detailuser_personaldata_mobilenumber}}</label>
                         <input type="text" id="input-last-name" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.personalData?.mobileNumber}}">
                       </div>
                     </div>
@@ -141,7 +141,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-address">Address</label>
+                        <label class="form-control-label" for="input-address">{{locale.detailuser_address_address}}</label>
                         <input id="input-address" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.address?.streetAddress }}" type="text">
                       </div>
                     </div>
@@ -149,7 +149,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-address">Address Line2</label>
+                        <label class="form-control-label" for="input-address">{{locale.detailuser_address_addressline2}}</label>
                         <input id="input-address" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.address?.streetAddressLine2}}" type="text">
                       </div>
                     </div>
@@ -157,25 +157,25 @@
                   <div class="row">
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-city">District</label>
+                        <label class="form-control-label" for="input-city">{{locale.detailuser_address_district}}</label>
                         <input type="text" id="input-city" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.address?.district}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group focused">
-                        <label class="form-control-label" for="input-city">City</label>
+                        <label class="form-control-label" for="input-city">{{locale.detailuser_address_city}}</label>
                         <input type="text" id="input-city" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.address?.city}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-state">State</label>
+                        <label class="form-control-label" for="input-state">{{locale.detailuser_address_state}}</label>
                         <input type="number" id="input-state" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.address?.state}}">
                       </div>
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group">
-                        <label class="form-control-label" for="input-country">Postal code</label>
+                        <label class="form-control-label" for="input-country">{{locale.detailuser_address_postalcode}}</label>
                         <input type="number" id="input-postal-code" readonly class="form-control form-control-alternative" placeholder="" value="{{appUser?.address?.zipCode}}">
                       </div>
                     </div>
