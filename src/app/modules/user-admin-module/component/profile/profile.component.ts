@@ -22,10 +22,10 @@ export class ProfileComponent implements OnInit {
     //modal
     modalId = "dialogConfirm";
     fgColorTitle:string = "white";
-    labelButton:string = "Login page";
+    labelButton:string = '';
     hideBtn:string;
     bgColorTitle:string = "#8898aa!important"; 
-    titleModal:string = "update profile";
+    titleModal:string = "";
     textParagraph1:string;
     textParagraph2:string;
     content:string = null;
@@ -33,6 +33,8 @@ export class ProfileComponent implements OnInit {
     showForm: boolean = false;
 
    fileContent: any = null; 
+   locale: any;
+   hideAction: string = "NO";
 
   constructor(
     private spinner:SpinnerShowService,
@@ -81,13 +83,14 @@ export class ProfileComponent implements OnInit {
   }
 
   showDialog(name){
+    this.hideAction = "YES";
     this.labelButton="OK";
     this.fgColorTitle = "white";
     this.bgColorTitle = "#8898aa!important"; 
     this.showForm = false;
     this.textParagraph1=""
-    this.titleModal = "Update Profile";
-    this.textParagraph2 = "["+name+"] your profile was updated with sucess.";
+    this.titleModal = this.locale.profile_update;
+    this.textParagraph2 = "["+name+"] "+this.locale.profile_updatedsucess+".";
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.showModal(name,"Z");
   }
@@ -103,11 +106,16 @@ export class ProfileComponent implements OnInit {
 
   }
 
+  close(){
+    this.router.navigateByUrl('/');
+  }
+  
   ngOnInit(): void {
       //verificacao de sessao expirada
       this.spinner.showSpinner();
       if (this.tokenStorage.getToken()) {
         //todo guardar url atual
+        this.locale = this.tokenStorage.getLocale();
         this.getAdminUser();
         this.carregaPermissions();
       }else{
@@ -134,8 +142,8 @@ export class ProfileComponent implements OnInit {
       data => {
         this.spinner.hideSpinner();
         this.rows = (data as any).data;
-        this.tokenStorage.saveUser(this.rows);
         this.showDialog(form.name.value);
+        this.tokenStorage.saveUser(this.rows);
         },
       err => {
         this.  submittedRegister = true;
@@ -143,10 +151,6 @@ export class ProfileComponent implements OnInit {
       }
     );
     
-  }
-
-  close(){
-    this.router.navigateByUrl('/');
   }
 
   getAdminUser(){

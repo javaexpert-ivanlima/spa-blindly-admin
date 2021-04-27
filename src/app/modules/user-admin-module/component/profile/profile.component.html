@@ -11,7 +11,7 @@
                     <div class="row">
                       <div class="col mt-1 ml-auto mr-auto">
                         <div class="profile">
-                            <h4 class="card-title">Profile page</h4>
+                            <h4 class="card-title">{{locale.profile_page}}</h4>
                         </div>
                       </div>
                       <div class="col">
@@ -32,10 +32,10 @@
                                       <img *ngIf="rows?.photo?.length <=0" class="img" src="../../../../../assets/imgs/img_avatar.png">
                                       <img *ngIf="rows?.photo?.length > 0" class="img" src="{{rows.photo}}">
                                     </a>
-                                    <div class="colored-shadow" style="background-image: url('http://www.ishootshows.com/wp-content/uploads/2008/07/todd-owyoung-portrait-145238_COB8628-square-600px.jpg'); opacity: 1;"></div></div>
+                                    <div class="colored-shadow" style="background-image: url(''); opacity: 1;"></div></div>
                                     <div style="text-align: center;">
                                         <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
-                                        <button class="mt-4 btn btn-secondary" (click)="onSubmit()">Update Profile</button>
+                                        <button class="mt-4 btn btn-secondary" (click)="onSubmit()">{{locale.profile_update}}</button>
                                     </div>
                                 </div>
                                 <div class="col-md-7">
@@ -45,34 +45,34 @@
             
                                     <p class="card-description">
                                         <input formControlName="password" class="form-control text text-input"   type="password" id="password" placeholder="new password">
-                                        Only fill this field if you want to change your password...
+                                        {{locale.profile_passwordinfo0}}
                                     </p>
                                     <ul class="card-description"> 
-                                        <li>at least one number</li>
-                                        <li>at least one special char</li>
-                                        <li>at least one upper case char</li>
-                                        <li>at least one lower case char</li>
-                                        <li>minimum 8 chars</li>
+                                        <li>{{locale.profile_passwordinfo1}}</li>
+                                        <li>{{locale.profile_passwordinfo2}}</li>
+                                        <li>{{locale.profile_passwordinfo3}}</li>
+                                        <li>{{locale.profile_passwordinfo4}}</li>
+                                        <li>{{locale.profile_passwordinfo5}}</li>
                                     </ul>
     
                                 </div>
                                   
                                   <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">Name is required</div>
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.minlength">Name must be at least 4 characters</div>
+                                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">{{locale.adminuser_namerequired}}</div>
+                                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.minlength">{{locale.appusers_namefieldminlength}}</div>
                                   </div>					  
                                   <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">login is required</div>
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">Login must be a valid e-mail address</div>
+                                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">{{locale.profile_loginrequired}}</div>
+                                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">{{appusers_loginvalidemail}}s</div>
                                   </div>					  
                                   <div *ngIf="submittedRegister && adminUserForm.controls.password.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.minlength">Password must be at least 8 characters</div>
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.pattern">Weak password</div>
+                                    <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.minlength">{{locale.profile_passwordminlength}}</div>
+                                    <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.pattern">{{locale.profile_weakpassword}}</div>
                                   </div>					  
                             
                                     <div class="form-group">
                                             <div class="mt-1 alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
-                                                    Update profile failed: {{ errorMessage }}
+                                              {{locale.commons_transactionfailed}}: {{ errorMessage }}
                                             </div>
                                     </div> 
                                 </div>
@@ -83,7 +83,7 @@
             
                           <div class="col-md-5 mr-auto ml-auto">
                             <h4 class="card-title">
-                                Permissions
+                                {{locale.profile_permissions}}
                             </h4>
                               <ng-container *ngIf="rows?.superUser =='Y'">
                                
@@ -124,7 +124,7 @@
     </div> 
     </form>
     <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal" [adminModule]="'Y'"  (clickOK)="confirmOperation()"
-    [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="labelButton">
+    [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="labelButton" [hideAction]="hideAction">
     
         <div *ngIf="!showForm" [innerHtml]="content" ></div> 
         <div *ngIf="showForm">    

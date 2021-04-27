@@ -201,8 +201,17 @@ export const languageEN = {
     sign_capricorn: 'Capricorn',
     sign_aquarius: 'Aquarius',
     sign_pisces: 'Pisces',
-    
-    
-    
-
+    profile_page: 'Profile page',
+    profile_update: 'Update Profile',
+    profile_permissions: 'Permissions',
+    profile_loginrequired: 'Login is required',
+    profile_weakpassword: 'Weak password',
+    profile_passwordminlength: 'Password must be at least 8 characters',
+    profile_passwordinfo0: 'Password field should has...',
+    profile_passwordinfo1: 'at least one number',
+    profile_passwordinfo2: 'at least one special char',
+    profile_passwordinfo3: 'at least one upper case char',
+    profile_passwordinfo4: 'at least one lower case char',
+    profile_passwordinfo5: 'minimum 8 chars',
+    profile_updatedsucess: 'your profile was updated with sucess',
   };
