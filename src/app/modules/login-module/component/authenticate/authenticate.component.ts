@@ -25,6 +25,7 @@ export class AuthenticateComponent implements OnInit {
   errorMessage = '';
   userName: string = null;
   locale: any;
+  fieldTextType: boolean;
 
   public dataObsevable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
@@ -110,6 +111,9 @@ export class AuthenticateComponent implements OnInit {
       );
   }
 
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
+  }
 
 }
 
