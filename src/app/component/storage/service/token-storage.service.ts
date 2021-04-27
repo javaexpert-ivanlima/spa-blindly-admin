@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import * as moment from 'moment';
 import { languageEN } from 'src/app/helpers/language.en';
 import { languagePT } from 'src/app/helpers/language.pt';
+import { languageFR } from 'src/app/helpers/language.fr';
+import { languageES } from 'src/app/helpers/language.es';
+
 
 const TOKEN_KEY = 'auth-token';
 const ROLE_KEY = 'auth-roles';
@@ -85,9 +88,9 @@ export class TokenStorageService {
     } else if (lang == 'en'){
       return languageEN;
     } else if (lang == 'fr'){
-
+      return languageFR;
     } else if (lang == 'sp'){
-
+      return languageES;
     }else{
       return languagePT;
     }
