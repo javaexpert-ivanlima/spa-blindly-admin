@@ -229,5 +229,7 @@ export class QuizOrderComponent implements OnInit {
     this.operationType ="Z";
 
   }
-
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }

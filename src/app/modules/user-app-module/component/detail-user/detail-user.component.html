@@ -3,6 +3,7 @@
     <!-- Top navbar -->
     <!-- Header -->
     <div id="welcome-title" class="header pb-8 pt-5 pt-lg-8 d-flex align-items-center" style="min-height: 600px; ">
+      
       <!-- Mask -->
       <span class="mask bg-gradient-default opacity-8"></span>
       <!-- Header container -->
@@ -23,6 +24,7 @@
             <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
               <div class="d-flex justify-content-between">
                 <a style="color:white" (click)="backButton()" class="btn btn-sm btn-default">{{locale.commons_back}}</a>
+                <a style="color:white" (click)="goWelcome()" class="btn btn-sm btn-default">{{locale.commons_close}}</a>
               </div>
             </div>
             <div class="card-body pt-0 pt-md-4">

@@ -359,6 +359,8 @@ export class ListQuestionsComponent implements OnInit {
 
   get f() { return this.questionFilterForm.controls; }
 
-
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 
 }

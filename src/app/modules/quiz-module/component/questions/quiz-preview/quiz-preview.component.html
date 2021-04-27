@@ -1,5 +1,10 @@
 <div style="height: 100%;width: 100%;">
     <div class="panelbackground-container">
+      <span class="close mr-3 mt-1" style="text-align: right;cursor:pointer" (click)="goWelcome()">×</span>
+      <div class="card-header bg-white border-0">
+        <div class="row">
+          <div class="col">
+            <div class="card-body">  
       <div class="row">  
           <div class="col-sm-6"><h4>{{locale.quiz_preview_title}} - {{this.currentIndex+1}} {{locale.commons_of}} {{this.rows.length}} {{locale.menu_qa_questions}}</h4></div>
           <div class="col-sm-6">
@@ -40,6 +45,9 @@
             <button type="button" (click)="previousQuestion()" class="btn btn-secondary btn-rounded float-right mb-2">{{locale.commons_previous}}</button>
         </div>
 
+    </div>
+    </div>
+    </div>
     </div>
     </div>
 </div>

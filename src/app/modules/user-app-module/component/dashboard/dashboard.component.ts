@@ -54,5 +54,7 @@ export class DashboardComponent implements OnInit {
       this.spinnerService.setAppUserObject({"row":null,"filter":{"page":0,"searchFor":filter,"searchName":null,"searchLogin":null,"userAppSelected":null}});
       this.router.navigateByUrl('app_users/list');
   }
-
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }

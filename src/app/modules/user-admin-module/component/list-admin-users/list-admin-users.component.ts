@@ -551,4 +551,8 @@ export class ListAdminUsersComponent implements OnInit {
     this.selectedID = obj;
     $("#"+this.modalId).modal('show');
   }
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
+
 }

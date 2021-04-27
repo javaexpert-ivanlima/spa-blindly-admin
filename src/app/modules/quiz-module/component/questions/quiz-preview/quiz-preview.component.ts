@@ -119,5 +119,7 @@ export class QuizPreviewComponent implements OnInit {
 
   }
 
-
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }

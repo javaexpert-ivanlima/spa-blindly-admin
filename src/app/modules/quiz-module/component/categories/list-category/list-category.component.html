@@ -1,5 +1,10 @@
 <div style="height: 100%;width: 100%;">
   <div class="panelbackground-container">
+    <span class="close mr-3 mt-1" style="text-align: right;cursor:pointer" (click)="close()">×</span>
+    <div class="card-header bg-white border-0">
+      <div class="row">
+        <div class="col">
+          <div class="card-body">
       <div class="row">  
         <div class="col-sm-6">
             <h4>{{title | titlecase}}</h4>
@@ -74,7 +79,9 @@
 
 </div>
 </div> 
-
+</div>
+</div>
+</div>
 <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [hideAction]="hideAction">
 

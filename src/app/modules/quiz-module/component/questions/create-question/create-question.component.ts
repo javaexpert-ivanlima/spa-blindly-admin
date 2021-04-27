@@ -287,4 +287,7 @@ export class CreateQuestionComponent implements OnInit {
 
   get f() { return this.questionForm.controls; }
 
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }

@@ -177,4 +177,8 @@ export class DetailUserComponent implements OnInit {
     }
   }
 
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
+
 }

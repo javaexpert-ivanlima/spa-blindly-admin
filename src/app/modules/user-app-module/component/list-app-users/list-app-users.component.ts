@@ -400,4 +400,8 @@ export class ListAppUsersComponent implements OnInit {
     $("#"+this.modalId).modal('show');
 
   }
+
+  goWelcome(){
+    this.router.navigateByUrl('/');
+  }
 }

@@ -1,25 +1,33 @@
 <div style="height: 100%;width: 100%;">
     <div class="panelbackground-container">
-      <div class="row">  
-          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6">
-                  <button *ngIf="rows?.length > 0" type="button" (click)="onSubmit()" class="ml-3 btn btn-purple btn-rounded float-right mb-2">{{locale.quiz_save}}</button>
-                  <button *ngIf="rows?.length > 0" type="button" (click)="preview()" class="btn btn-secondary btn-rounded float-right mb-2">{{locale.quiz_preview}}</button>
-          </div>
+      <span class="close mr-3 mt-1" style="text-align: right;cursor:pointer" (click)="goWelcome()">×</span>
+      <div class="card-header bg-white border-0">
+        <div class="row">
+          <div class="col">
+            <div class="card-body">   
+                      <div class="row">  
+                          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
+                          <div class="col-sm-6">
+                                  <button *ngIf="rows?.length > 0" type="button" (click)="onSubmit()" class="ml-3 btn btn-purple btn-rounded float-right mb-2">{{locale.quiz_save}}</button>
+                                  <button *ngIf="rows?.length > 0" type="button" (click)="preview()" class="btn btn-secondary btn-rounded float-right mb-2">{{locale.quiz_preview}}</button>
+                          </div>
+                        </div>
+                      <div *ngIf="rows?.length <= 0" >
+                            <br/><br/>
+                      </div>
+                      <div *ngIf="rows?.length <= 0" class="alert alert-danger" style="text-align: center;" role="alert">
+                            There is no active question registered, please register one first.
+                      </div>
+                      <br/>
+                      <form  [formGroup]="quizOrderForm" class="form-group" #f="ngForm" >
+                        <app-richtable [basicInfoForm]="quizOrderForm.controls.basicInfoForm" *ngIf="rows?.length > 0" [title]="title"  (childID)='answers($event)'
+                        [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'false'">
+                        </app-richtable>
+                      </form>
+            </div>
         </div>
-      <div *ngIf="rows?.length <= 0" >
-            <br/><br/>
       </div>
-      <div *ngIf="rows?.length <= 0" class="alert alert-danger" style="text-align: center;" role="alert">
-            There is no active question registered, please register one first.
-      </div>
-  <br/>
-  <form  [formGroup]="quizOrderForm" class="form-group" #f="ngForm" >
-    <app-richtable [basicInfoForm]="quizOrderForm.controls.basicInfoForm" *ngIf="rows?.length > 0" [title]="title"  (childID)='answers($event)'
-    [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'false'">
-    </app-richtable>
-</form>
-</div>
+    </div>
 </div> 
 
 <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()" [hideAction]="hideAction"
