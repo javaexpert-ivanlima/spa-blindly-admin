@@ -214,4 +214,16 @@ export const languagePT = {
   profile_passwordinfo4: 'pelo menos 1 letra minuscula',
   profile_passwordinfo5: 'minimo 8 caracteres',  
   profile_updatedsucess: 'seu perfil foi atualizado com sucesso',
+  login_2youraccount: 'Faça login na sua conta',
+  login_forgotpassword: 'Esqueceu sua senha',
+  login_passwordrequired: 'Senha é obrigatória',
+  login_emailrequired: 'Email é obrigatório',
+  login_emailvalid: 'Email deve ser um e-mail valido',
+  login_password: 'Senha',
+  login_login: 'Logar',
+  forgotpassword_submit: 'Enviar',
+  forgotpassword_loginpage: 'Página de login',
+  forgotpassword_accountreset: 'conta foi redefinida',
+  forgotpassword_instructionssend: 'Foi enviado um e-mail com instruções para o novo acesso',
+
 };

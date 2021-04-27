@@ -24,6 +24,7 @@ export class AuthenticateComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   userName: string = null;
+  locale: any;
 
   public dataObsevable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(null);
 
@@ -55,6 +56,7 @@ export class AuthenticateComponent implements OnInit {
       this.auth = new Login();
       this.isLoggedIn = false;
     }    
+    this.locale = this.tokenStorage.getLocale();
     this.spinnerService.hideSpinner();
     this.spinnerService.hideMainModal();
     this.spinnerService.hideMenu();

@@ -43,13 +43,13 @@ export class SpinnerShowService {
 
   hideMenu(){
     $("#mainContent").css({backgroundImage : 'url(assets/imgs/background/designers-purple.png)'});
-    $("#menuContent").hide();
+    //$("#menuContent").hide();
     $("#timeExpired").hide();
   }
 
   showMenu(){
     $("#mainContent").css({backgroundImage : 'none'});
-    $("#menuContent").show();
+    //$("#menuContent").show();
     $("#timeExpired").show();
   }
 

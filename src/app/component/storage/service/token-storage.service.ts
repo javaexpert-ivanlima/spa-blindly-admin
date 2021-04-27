@@ -20,7 +20,9 @@ export class TokenStorageService {
   constructor() { }
 
   signOut(): void {
+    let oldLang =  this.getLanguage();
     window.sessionStorage.clear();
+    this.saveLanguage(oldLang);
   }
 
   public saveToken(token: string): void {

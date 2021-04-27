@@ -20,7 +20,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
            
-            <li class="nav-item">
+            <li *ngIf="userName" class="nav-item">
               <div class="btn-group">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownUsers" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-user"></i> {{locale?.menu_users}}</a>
                     <div class="dropdown-menu dropdown-menu-right bg-purple" aria-labelledby="navbarDropdownUsers">
@@ -32,7 +32,7 @@
               </div>
       
             </li> 
-            <li class="nav-item" >
+            <li *ngIf="userName" class="nav-item" >
               <div class="btn-group">
                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownQuiz" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="fa fa-edit"></i> {{locale?.menu_qa}}</a>
@@ -57,7 +57,7 @@
                   </div>
             </div>
             </li>            
-            <li class="nav-item">
+            <li *ngIf="userName" class="nav-item">
               <div class="btn-group">
                     <a class="nav-link dropdown-toggle" id="navbarDropdownMe" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#">
                       <img *ngIf="photo" class="avatar" src="{{photo}}">

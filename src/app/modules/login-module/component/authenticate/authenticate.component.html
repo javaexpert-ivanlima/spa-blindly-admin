@@ -1,26 +1,26 @@
 <div class="d-flex justify-content-center align-items-center" style="height:100%;">
   <div id="login-modal"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
     <div class="loginmodal-container ">
-            <h1>Login to Your Account</h1><br>
+            <h1>{{locale.login_2youraccount}}</h1><br>
             <form  [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-group" #f="ngForm" > 
 					  <input id="email" formControlName="email" type="email" name="email" class="form-control" placeholder="Email" >
             <div *ngIf="submitted && loginForm.controls.email.errors" class="form-group alert alert-danger" role="alert">
-              <div *ngIf="submitted && loginForm.controls.email.errors.required">Email is required</div>
-              <div *ngIf="submitted && loginForm.controls.email.errors.email">Email must be a valid email address</div>
+              <div *ngIf="submitted && loginForm.controls.email.errors.required">{{locale.login_emailrequired}}</div>
+              <div *ngIf="submitted && loginForm.controls.email.errors.email">{{locale.login_emailvalid}}</div>
           </div>					  
-            <input id="password" formControlName="password" type="password" name="password" class="form-control mt-2" placeholder="Password">
+            <input id="password" formControlName="password" type="password" name="password" class="form-control mt-2" placeholder="{{locale.login_password}}">
             <div *ngIf="submitted && loginForm.controls.password.errors" class="form-group alert alert-danger" role="alert">
-              <div *ngIf="submitted && loginForm.controls.password.errors.required">Password is required</div>
+              <div *ngIf="submitted && loginForm.controls.password.errors.required">{{locale.login_passwordrequired}}</div>
           </div>
-					  <input type="submit" name="login" class="login loginmodal-submit" value="Login">
+					  <input type="submit" name="login" class="login loginmodal-submit" value="{{locale.login_login}}">
 					  <div class="form-group">
 							<div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">
-									Login failed: {{ errorMessage }}
+                {{locale.commons_transactionfailed}}: {{ errorMessage }}
 							</div>
 					  </div> 
             </form>
             <div class="login-help">
-					      <a style="cursor: pointer;" (click)="goForgot()">Forgot Password</a>
+					      <a style="cursor: pointer;" (click)="goForgot()">{{locale.login_forgotpassword}}</a>
             </div>
     </div>
 </div>    

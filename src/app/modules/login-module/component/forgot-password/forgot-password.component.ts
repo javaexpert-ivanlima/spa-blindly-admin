@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/component';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { AuthenticateService } from '../../service';
 
@@ -28,12 +29,14 @@ export class ForgotPasswordComponent implements OnInit {
   content:string = null;
   operationType: string = null;
   showForm: boolean = false;
+  locale: any;
 
   constructor(
     private spinnerService:SpinnerShowService,
     private service:AuthenticateService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private tokenStorage: TokenStorageService
   ) {
     this.loginForm = this.formBuilder.group({
       email: [null, [Validators.required, Validators.email]]
@@ -41,10 +44,13 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    let oldLang =  this.tokenStorage.getLanguage();
     window.sessionStorage.clear();
+    this.tokenStorage.saveLanguage(oldLang);
     this.spinnerService.hideSpinner();
-    $("#menuContent").hide();
+    //$("#menuContent").hide();
     $("#timeExpired").hide();
+    this.locale = this.tokenStorage.getLocale();
   }
 
   goLogin(){
@@ -63,13 +69,13 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   showDialog(email){
-    this.labelButton="Login Page";
+    this.labelButton= this.locale.forgotpassword_loginpage;
     this.fgColorTitle = "white";
-    this.bgColorTitle = "#8898aa!important"; 
+    this.bgColorTitle = "#17a2b8!important"; 
     this.showForm = false;
-    this.textParagraph1="It was sent to you an e-mail with instructions to log in"
-    this.titleModal = "Forgot you password";
-    this.textParagraph2 = "The ["+email+"] account was reset.";
+    this.textParagraph1= this.locale.forgotpassword_instructionssend;
+    this.titleModal = this.locale.login_forgotpassword;
+    this.textParagraph2 = "["+email+"] "+ this.locale.forgotpassword_accountreset +".";
     this.content = "<p>"+this.textParagraph1+"</p><strong>"+this.textParagraph2+"</strong>";
     this.showModal(email,"L");
   }
