@@ -225,5 +225,5 @@ export const languagePT = {
   forgotpassword_loginpage: 'Página de login',
   forgotpassword_accountreset: 'conta foi redefinida',
   forgotpassword_instructionssend: 'Foi enviado um e-mail com instruções para o novo acesso',
-
+  httpserviceunavailable: "API indisponivel",
 };

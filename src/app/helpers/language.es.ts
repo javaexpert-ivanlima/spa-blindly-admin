@@ -225,4 +225,5 @@ export const languageES = {
   forgotpassword_loginpage: 'Página de inicio de sesión',  
   forgotpassword_accountreset: 'la cuenta ha sido restablecida',
   forgotpassword_instructionssend: 'Se envió un correo electrónico con instrucciones para un nuevo acceso',
+  httpserviceunavailable: "API no disponible",
 };

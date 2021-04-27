@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { languageEN } from 'src/app/helpers/language.en';
+import { languageES } from 'src/app/helpers/language.es';
+import { languageFR } from 'src/app/helpers/language.fr';
+import { languagePT } from 'src/app/helpers/language.pt';
 //import * as $ from 'jquery';
 
 @Injectable()
@@ -11,9 +15,32 @@ export class SpinnerShowService {
   private adminUserObject: any = null;
   private appUserObject: any = null;
 
+
   constructor() {
   }
   
+  public getLocale(){
+    let lang = this.getLanguage();
+    if (lang == 'pt'){
+      return languagePT;
+    } else if (lang == 'en'){
+      return languageEN;
+    } else if (lang == 'fr'){
+      return languageFR;
+    } else if (lang == 'sp'){
+      return languageES;
+    }else{
+      return languagePT;
+    }
+  }
+
+  public getLanguage(): string {
+    const lang = window.sessionStorage.getItem('auth-lang');
+    if (lang) {
+      return lang;
+    }
+    return "pt";
+  }
   getCategoryObject(): any{
     return this.categoryObject;
   }
@@ -130,7 +157,8 @@ export class SpinnerShowService {
       }
     }else{
       if ( err.message.includes("Http failure response for")){
-        errorDesc = "Http service unavailable";
+        let locale: any = this.getLocale();
+        errorDesc = locale.httpserviceunavailable;
       }else{
         errorDesc = err.message;
       }

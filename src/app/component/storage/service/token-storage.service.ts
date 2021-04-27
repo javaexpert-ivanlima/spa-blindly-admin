@@ -98,6 +98,19 @@ export class TokenStorageService {
     }
   }
 
+  public getAcceptLanguage(): string{
+    let lang = this.getLanguage();
+    if (lang == 'pt' || lang == 'fr'){
+      return lang;
+    } else if (lang == 'en'){
+      return 'us';
+    } else if (lang == 'sp'){
+      return 'es';
+    } else{
+      return 'pt';
+    }
+
+  }
   public getUser(): any {
     const user = window.sessionStorage.getItem(USER_KEY);
     if (user) {

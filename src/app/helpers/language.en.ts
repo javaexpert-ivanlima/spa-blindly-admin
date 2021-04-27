@@ -225,4 +225,5 @@ export const languageEN = {
     forgotpassword_loginpage: 'Login page',
     forgotpassword_accountreset: 'account was reset',
     forgotpassword_instructionssend: 'It was sent to you an e-mail with instructions to log in',
+    httpserviceunavailable: "Http service unavailable",
   };

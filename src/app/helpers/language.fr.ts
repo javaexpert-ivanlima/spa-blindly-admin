@@ -225,4 +225,5 @@ export const languageFR = {
     forgotpassword_loginpage: 'Page de connexion',
     forgotpassword_accountreset: 'le compte a été réinitialisé',
     forgotpassword_instructionssend: 'Un e-mail a été envoyé avec des instructions pour un nouvel accès',
+    httpserviceunavailable: "API  indisponible",
   };
