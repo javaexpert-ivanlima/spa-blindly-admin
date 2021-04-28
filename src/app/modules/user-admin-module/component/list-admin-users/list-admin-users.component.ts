@@ -388,6 +388,8 @@ export class ListAdminUsersComponent implements OnInit {
   edit(obj){
     (this.guardian.hasAccess('update_adminUser') as Observable<boolean>).subscribe(resp=>{
           if (resp){
+            this.hideAction = "NO";
+            this.hideBtn = "NO";
             this.submittedRegister = false;
             this.submitted = false;
             this.errorMessage = null;
