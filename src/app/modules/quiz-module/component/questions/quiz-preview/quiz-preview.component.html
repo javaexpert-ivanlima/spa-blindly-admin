@@ -19,15 +19,15 @@
         </div>
       </div>
       <br>
-      <h1 class="question">{{rows[currentIndex]?.question}}</h1>
-        <div data-toggle="buttons" style="text-align: center;">
+      <h5 class="question">{{rows[currentIndex]?.question}}</h5>
+        <div data-toggle="buttons" style="text-align: left;margin-left:5rem">
             <div *ngFor="let answer of rows[currentIndex]?.answers;let i=index;" class="row">
-            <div class="col">
-              <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'Y'" class="btn btn-purple">
-                <input type="checkbox" name="options" id="option1"> {{answer?.answer}}
+            <div class="col" st>
+              <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'Y'" class="form-check-label">
+                <input type="checkbox" name="options" class="form-check-input" id="option1"> {{answer?.answer}}
               </label>
-              <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'N'" class="btn btn-purple">
-                <input type="radio" name="options" id="option1"> {{answer?.answer}}
+              <label *ngIf="rows[currentIndex]?.isMultipleChoice == 'N'" class="form-check-label">
+                <input type="radio" name="options" class="form-check-input" id="option1"> {{answer?.answer}}
               </label>
 
             </div>
