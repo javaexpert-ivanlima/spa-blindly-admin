@@ -227,7 +227,7 @@ export class ListAdminUsersComponent implements OnInit {
       this.userService.getAllPermissions().subscribe(
         data => {
           this.spinnerService.hideSpinner();
-          this.permissions =   data.data;
+          this.permissions =   data.data.permissions;
           //this.addCheckboxes();
           },
         err => {
