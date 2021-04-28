@@ -87,27 +87,38 @@
                             </h4>
                               <ng-container *ngIf="rows?.superUser =='Y'">
                                
-                                        <ul *ngFor="let x of permissions;let j= index;">
-                                          <div class="mt-2 row" *ngIf="j%3===0 && j<permissions.length">  
-                                                  <ng-container *ngFor="let item of permissions;let i= index;">
-                                                          <div style="padding-left: 2rem;" class="col-md-4" *ngIf="i>=j && i < j+3">
-                                                                  <li class="card-description">{{item.name.replace('_',' ')}}</li>
-                                                          </div>
-                                                  </ng-container> 
-                                          </div>
-                                        </ul>
-                               </ng-container>
+                                <ng-container *ngFor="let module of permissions;let j= index;">
+                                  <div class="mt-2 row">
+                                          <div class="col"><h6>{{getLocaleFromPermission(module.moduleName)|titlecase}}</h6></div> 
+                                  </div>
+                                  <ul>
+                                        <ng-container *ngFor="let x of module.features;let j= index;">
+                                                  <div class="row" *ngIf="j%3===0 && j<module.features.length">  
+                                                          <ng-container *ngFor="let item of module.features;let i= index;">
+                                                                  <div style="padding-left: 2rem;" class="col-sm-4" *ngIf="i>=j && i < j+3">
+                                                                    <li class="card-description">{{getLocaleFromPermission(item.name)|titlecase}}</li>                                                            </div>
+                                                          </ng-container> 
+                                                  </div>
+                                        </ng-container>
+                                    </ul>
+                                </ng-container>    
+                         </ng-container>
                                <ng-container *ngIf="rows?.superUser =='N'">
-                                <ul *ngFor="let x of permissionsByUser.permission;let j= index;">
-                                   
-                                    <div class="mt-2 row" *ngIf="j%3===0 && j<permissionsByUser.permission.length">  
-                                            <ng-container *ngFor="let item of permissionsByUser.permission;let i= index;">
-                                                    <div style="padding-left: 2rem;" class="col-md-4" *ngIf="i>=j && i < j+3">
-                                                            <li class="card-description">{{item.name.replace('_',' ')}}</li>
-                                                    </div>
-                                            </ng-container> 
-                                    </div>
-                                  </ul>
+                                      <ng-container *ngFor="let module of permissions;let j= index;">
+                                        <div class="mt-2 row">
+                                                <div class="col"><h6>{{getLocaleFromPermission(module.moduleName)|titlecase}}</h6></div> 
+                                        </div>
+                                        <ul>
+                                              <ng-container *ngFor="let x of module.features;let j= index;">
+                                                        <div class="row" *ngIf="j%3===0 && j<module.features.length">  
+                                                                <ng-container *ngFor="let item of module.features;let i= index;">
+                                                                        <div style="padding-left: 2rem;" class="col-sm-4" *ngIf="i>=j && i < j+3">
+                                                                          <li class="card-description">{{getLocaleFromPermission(item.name)|titlecase}}</li>                                                            </div>
+                                                                </ng-container> 
+                                                        </div>
+                                              </ng-container>
+                                          </ul>
+                                      </ng-container>    
                                </ng-container>
                           </div>
                         </div>
