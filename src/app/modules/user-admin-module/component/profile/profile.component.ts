@@ -161,7 +161,6 @@ export class ProfileComponent implements OnInit {
           this.rows =   data.data.content[0];
           this.adminUserForm.controls.name.setValue(this.rows.name);
           this.adminUserForm.controls.login.setValue(this.rows.login);
-          console.log(this.rows);
           this.permissionsByUser = JSON.parse(this.rows.permissions);
           },
         err => {
