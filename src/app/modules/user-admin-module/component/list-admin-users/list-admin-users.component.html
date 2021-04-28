@@ -161,14 +161,14 @@
                     </div>
                     <ng-container *ngFor="let module of permissions;">
                                 <div class="mt-2 row">
-                                        <div class="col"><h6>{{module.moduleName|titlecase}}</h6></div> 
+                                        <div class="col"><h6>{{getLocaleFromPermission(module.moduleName)|titlecase}}</h6></div> 
                                 </div>
                                 <ng-container *ngFor="let x of module.features;let j= index;">
                                         <div class="row" *ngIf="j%3===0 && j<module.features.length">  
                                                 <ng-container *ngFor="let item of module.features;let i= index;">
                                                         <div style="padding-left: 2rem;" class="col-sm-4" *ngIf="i>=j && i < j+3">
                                                                 <input [value]="item.name" name="permissions" class="form-check-input"  type="checkbox"  id="{{item.name}}" (click)="onCheckChange($event)" >
-                                                                <label class="form-check-label" for="permissions1 ">{{item.name.replace('_',' ')|titlecase}}</label>
+                                                                <label class="form-check-label" for="permissions1 ">{{getLocaleFromPermission(item.name)|titlecase}}</label>
                                                         </div>
                                                 </ng-container> 
                                         </div>

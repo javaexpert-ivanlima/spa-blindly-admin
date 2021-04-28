@@ -555,4 +555,66 @@ export class ListAdminUsersComponent implements OnInit {
     this.router.navigateByUrl('/');
   }
 
+  getLocaleFromPermission(permission: string): string{
+          if (permission === 'category'){
+              return this.locale.menu_qa_categories;
+          } else if (permission === 'question'){
+              return this.locale.menu_qa_questions;
+          } else if (permission === 'quiz'){
+              return this.locale.menu_qa_quiz;
+          } else if (permission === 'admin_user'){
+              return this.locale.menu_users_admin;
+          } else if (permission === 'app_user'){
+              return this.locale.menu_users_app;
+          } else if (permission === 'list_category'){
+              return this.locale.permission_list_category;
+          } else if (permission === 'create_category'){
+              return this.locale.permission_create_category;
+          } else if (permission === 'activate_category'){
+              return this.locale.permission_activate_category;
+          } else if (permission === 'inactivate_category'){
+              return this.locale.permission_inactivate_category;
+          } else if (permission === 'update_category'){
+              return this.locale.permission_update_category;
+          } else if (permission === 'list_question'){
+              return this.locale.permission_list_question;
+          } else if (permission === 'create_question'){
+              return this.locale.permission_create_question;
+          } else if (permission === 'activate_question'){
+              return this.locale.permission_activate_question;
+          } else if (permission === 'inactivate_question'){
+              return this.locale.permission_inactivate_question;
+          } else if (permission === 'update_question'){
+              return this.locale.permission_update_question;
+          } else if (permission === 'order_quiz'){
+              return this.locale.permission_order_quiz;
+          } else if (permission === 'preview_quiz'){
+              return this.locale.permission_preview_quiz;
+          } else if (permission === 'list_adminUser'){
+              return this.locale.permission_list_adminUser;
+          } else if (permission === 'create_adminUser'){
+              return this.locale.permission_create_adminUser;
+          } else if (permission === 'update_adminUser'){
+              return this.locale.permission_update_adminUser;
+          } else if (permission === 'inactivate_adminUser'){
+              return this.locale.permission_inactivate_adminUser;
+          } else if (permission === 'activate_adminUser'){
+              return this.locale.permission_activate_adminUser;
+          } else if (permission === 'unblocked_adminUser'){
+              return this.locale.permission_unblocked_adminUser;
+          } else if (permission === 'list_appUser'){
+              return this.locale.permission_list_appUser;
+          } else if (permission === 'detail_appUser'){
+              return this.locale.permission_detail_appUser;
+          } else if (permission === 'inactivate_appUser'){
+              return this.locale.permission_inactivate_appUser;
+          } else if (permission === 'activate_appUser'){
+              return this.locale.permission_activate_appUser;
+          } else if (permission === 'unblocked_appUser'){
+              return this.locale.permission_unblocked_appUser;
+          } else if (permission === 'dashboard'){
+              return this.locale.permission_dashboard;
+          }
+  }
+
 }
