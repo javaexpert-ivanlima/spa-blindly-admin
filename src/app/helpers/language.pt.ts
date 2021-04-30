@@ -237,7 +237,7 @@ export const languagePT = {
   permission_activate_question: 'Ativar Pergunta',
   permission_inactivate_question: 'Inativar Pergunta',
   permission_update_question: 'Editar Pergunta',
-  permission_order_quiz: 'rdem das Perguntas',
+  permission_order_quiz: 'Ordem das Perguntas',
   permission_preview_quiz: 'Previsualizar Questionário',
   permission_list_adminUser: 'Listar usuários admin',
   permission_create_adminUser: 'Criar usuários admin',
