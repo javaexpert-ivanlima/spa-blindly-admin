@@ -206,6 +206,7 @@ export const languageES = {
   profile_permissions: 'Permisos',
   profile_loginrequired: 'Se requiere iniciar sesión',
   profile_weakpassword: 'Contraseña débil',
+  profile_newpassword: 'nueva contraseña',
   profile_passwordminlength: 'La contraseña debe tener al menos 8 caracteres',
   profile_passwordinfo0: 'La contraseña debe tener ...',
   profile_passwordinfo1: 'al menos 1 número',

@@ -206,6 +206,7 @@ export const languageFR = {
     profile_permissions: 'Autorisations',
     profile_loginrequired: 'Une connexion est requise',
     profile_weakpassword: 'Mot de passe faible',
+    profile_newpassword: 'nouveau mot de passe',
     profile_passwordminlength: 'Le mot de passe doit contenir au moins 8 caractères',
     profile_passwordinfo0: 'Le mot de passe doit avoir ...',
     profile_passwordinfo1: 'au moins 1 chiffre',

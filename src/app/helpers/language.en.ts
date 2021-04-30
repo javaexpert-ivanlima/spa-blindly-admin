@@ -206,6 +206,7 @@ export const languageEN = {
     profile_permissions: 'Permissions',
     profile_loginrequired: 'Login is required',
     profile_weakpassword: 'Weak password',
+    profile_newpassword: 'new password',
     profile_passwordminlength: 'Password must be at least 8 characters',
     profile_passwordinfo0: 'Password field should has...',
     profile_passwordinfo1: 'at least one number',

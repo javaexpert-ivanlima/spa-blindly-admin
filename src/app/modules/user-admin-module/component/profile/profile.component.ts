@@ -35,6 +35,7 @@ export class ProfileComponent implements OnInit {
    fileContent: any = null; 
    locale: any;
    hideAction: string = "NO";
+   fieldTextType: boolean;
 
   constructor(
     private spinner:SpinnerShowService,
@@ -244,6 +245,10 @@ export class ProfileComponent implements OnInit {
     } else if (permission === 'dashboard'){
         return this.locale.permission_dashboard;
     }
+}
+
+toggleFieldTextType() {
+  this.fieldTextType = !this.fieldTextType;
 }
 
 }

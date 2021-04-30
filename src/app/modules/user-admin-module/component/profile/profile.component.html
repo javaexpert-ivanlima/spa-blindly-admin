@@ -43,8 +43,12 @@
                                     <h4 class="card-title"><input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)"></h4>
                                     <h6 class="card-category text-muted"><input formControlName="name" class="form-control text text-input"  type="text" id="name" placeholder="Name"></h6>
             
+                                    
+                                      <div id="wrapper-eye" style="position: relative;"> 
+                                        <input formControlName="password" class="form-control text text-input"   [type]="fieldTextType ? 'text' : 'password'" id="password" placeholder="{{locale.profile_newpassword}}">
+                                        <i style="position: absolute; top: 10px; left: 86%;" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()" class="fa"></i>
+                                      </div>    
                                     <p class="card-description">
-                                        <input formControlName="password" class="form-control text text-input"   type="password" id="password" placeholder="new password">
                                         {{locale.profile_passwordinfo0}}
                                     </p>
                                     <ul class="card-description"> 

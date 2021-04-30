@@ -206,6 +206,7 @@ export const languagePT = {
   profile_permissions: 'Permissões',  
   profile_loginrequired: 'Login é obrigatório',
   profile_weakpassword: 'Senha fraca',
+  profile_newpassword: 'nova senha',
   profile_passwordminlength: 'Senha deve ter no minimo 8 caracteres',
   profile_passwordinfo0: 'Senha deve ter...',
   profile_passwordinfo1: 'pelo menos 1 número',
