@@ -2,24 +2,11 @@
 
     <div style="height: 100%" class="row">
 
-      <div class="mt-1 col">
+      <div class="mt-5 col">
         <div class="panelbackground-container card shadow">
             <span class="close mr-3" style="text-align: right;cursor:pointer" (click)="goWelcome()">×</span>
           <div class="card-header bg-white border-0">
           <div class="row">
-                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0 d-flex">
-                        <div style="height:29rem" class="card card-profile shadow flex-fill">
-                                <div class="card-header" style="text-align: center;"><h5>{{locale.dash_chartname}}</h5></div>
-                                <div class="card-body pt-0 pt-md-4">
-                                    <div class="row mt-2 ml-2 mr-2">
-                                        <div class="col-md-3 col-sm-6 col-xs-12">
-                                            <google-chart [type]="myChart" [data]="myData" [options]="myOptions"></google-chart>
-                                        </div>
-                                    </div>        
-                                   
-                                </div>
-                        </div>
-                </div>
                 <div class="col-xl-8 order-xl-1 d-flex">
                         <div style="height:29rem;" class="card shadow flex-fill">
                                  <div class="card bg-white border-0">
@@ -123,11 +110,25 @@
                                                             </div>    
                                                         </ng-container>
                                                     </div>        
-                
+                                                    
                                         </div>                                                                        
                                  </div>
                         </div>
-                </div>                     
+                </div>     
+                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0 d-flex">
+                    <div style="height:29rem" class="card card-profile shadow flex-fill">
+                            <div class="card-header" style="text-align: center;"><h5>{{locale.dash_chartname}}</h5></div>
+                            <div class="card-body pt-0 pt-md-4">
+                                <div class="row mt-2 ml-2 mr-2">
+                                    <div class="col-md-3 col-sm-6 col-xs-12">
+                                        <google-chart [type]="myChart" [data]="myData" [options]="myOptions"></google-chart>
+                                    </div>
+                                </div>        
+                               
+                            </div>
+                    </div>
+            </div>
+            
           </div>
     </div>
 </div>

@@ -91,3 +91,68 @@ img.avatar {
   border-image: initial;
   border-radius: 60px;
 }
+
+.body-container{
+  height: 100%;
+  width:100%;
+  margin-top:3%;
+}
+
+@media (width:360px) {
+  .body-container{
+    margin-top: 16%!important;
+  }
+}
+
+@media (width:414px) {
+  .body-container{
+    margin-top: 13%!important;
+  }
+}
+
+@media (width:411px) {
+  .body-container{
+    margin-top: 13%!important;
+  }
+}
+
+@media (width:360px) {
+  .body-container{
+    margin-top: 16%!important;
+  }
+}
+@media (width:320px) {
+  .body-container{
+    margin-top: 19%!important;
+  }
+}
+@media (width:375px) {
+  .body-container{
+    margin-top: 14%!important;
+  }
+}
+
+@media (width:475px) {
+  .body-container{
+    margin-top: 13%!important;
+  }
+}
+
+
+@media (width:540px) {
+  .body-container{
+    margin-top: 10%!important;
+  }
+}
+
+@media (width:280px) {
+  .body-container{
+    margin-top: 22%!important;
+  }
+}
+
+@media (max-width:768px) {
+  .body-container{
+    margin-top: 8%;
+  }
+}
