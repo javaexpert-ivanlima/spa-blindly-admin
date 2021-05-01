@@ -1,0 +1,24 @@
+.h1-welcome{
+    margin-bottom: .5rem;
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.5rem;
+    color: #fff!important;
+}
+
+@media (max-width: 768px) {
+    .mobile-overflow{
+        overflow-y: auto!important;
+    }
+}
+
+.mobile-overflow{
+    overflow-y: hidden;
+}
+
+@media (max-width: 280px) {
+    .h1-welcome{
+        font-size: 1.3rem!important;
+    }
+    
+  }

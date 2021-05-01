@@ -10,7 +10,7 @@
           </div>					 
           <div id="wrapper-eye" style="position: relative;"> 
             <input id="password" formControlName="password" [type]="fieldTextType ? 'text' : 'password'" name="password" class="form-control mt-2" placeholder="{{locale.login_password}}">
-                <i style="position: absolute; top: 10px; left: 16.5rem;" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()" class="fa"></i>
+                <i [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()" class="olhinho fa"></i>
           </div>
             <div *ngIf="submitted && loginForm.controls.password.errors" class="form-group alert alert-danger" role="alert">
               <div *ngIf="submitted && loginForm.controls.password.errors.required">{{locale.login_passwordrequired}}</div>
