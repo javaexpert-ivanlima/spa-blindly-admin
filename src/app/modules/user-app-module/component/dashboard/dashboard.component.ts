@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
   myTitle="Users chart by state";
   myChart="PieChart";
 
-  myOptions = {'title':'','legend':'none','width':'300','height':'300'};
+  myOptions = {'title':'','legend':'top','width':'300','height':'300'};
   locale: any;
 
 

@@ -1,14 +1,9 @@
 <div style="height: 100%;width: 100%;">
     <div class="panelbackground-container">
       <span class="close mr-3 mt-1" style="text-align: right;cursor:pointer" (click)="goWelcome()">×</span>
-      <div class="card-header bg-white border-0">
-        <div class="row">
-          <div class="col"> 
-            <div class="card-body">  
 
       <div class="row">  
           <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button *ngIf="countActiveCategories > 0" type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">{{locale.commons_addnew}}</button></div>
       </div>
       <div *ngIf="countActiveCategories <= 0" >
             <br/><br/>
@@ -23,7 +18,8 @@
                   <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
                   <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">{{locale.commons_filter}}</span>
               </button>
-         
+              <button *ngIf="countActiveCategories > 0" type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">{{locale.commons_addnew}}</button>
+
           <div id="collapseQuestion" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
             <div class="card-body">
               <div class="border" style="padding: 2%;">
@@ -97,17 +93,15 @@
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
 </app-richtable>
 
-</div>
-</div> 
-</div>
-</div>
-</div>
 
+</div>
+</div>
 <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()" [hideAction]="hideAction"
 [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="lablelButton" [style]="'max-width: 562px!important'">
 
     <div *ngIf="!showForm" [innerHtml]="content" ></div> 
     <div *ngIf="showForm">    
+      <div  class="table-responsive-xl">
       <table class="table caption-top table-bordered table-hover table-info">
         <thead class="thead-dark">
           <tr>            
@@ -136,5 +130,6 @@
          
         </tbody>
       </table>
+    </div>
   </div>               
 </app-modal>

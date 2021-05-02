@@ -405,7 +405,49 @@
     font-size: 14px;
     margin: 0 0 10px;
   }
+
+  .img-profile{
+    width: 15rem!important;
+    height: 15rem!important;
+    border-radius: 15px;
+    box-shadow: inset 0 0 1em black, 0 0 1em black;
+  }
+
+ .myrow{
+  display: flex;
+  justify-content: space-between;
+ } 
+
+.mycard{
+  padding: 1.25rem
+}
+
+.card-container-flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ @media (max-width:768px){
+  .myrow{
+    display: flex;
+    flex-direction: column;
+   } 
+    
+ }
+
+ .altura95comoverflow{
+  margin-top: 1rem!important;
+  height:95%;
+  overflow-y:auto;
+ }
   
+.profile-city{
+  overflow-y: hidden; 
+  background-image:url('../../../../../assets/imgs/background/city.jpg');
+  height: 100%;
+}
+
   .profile-page .page-header {
       height: 380px;
       background-size: cover;

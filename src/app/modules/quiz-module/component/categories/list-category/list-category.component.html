@@ -1,16 +1,9 @@
 <div style="height: 100%;width: 100%;">
   <div class="panelbackground-container">
     <span class="close mr-3 mt-1" style="text-align: right;cursor:pointer" (click)="close()">×</span>
-    <div class="card-header bg-white border-0">
       <div class="row">
-        <div class="col">
-          <div class="card-body">
-      <div class="row">  
         <div class="col-sm-6">
             <h4>{{title | titlecase}}</h4>
-        </div>
-        <div class="col-sm-6">
-          <button type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">{{locale.commons_addnew}}</button>
         </div>
 
       </div>
@@ -19,7 +12,8 @@
               <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
               <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">{{locale.commons_filter}}</span>
           </button>
- 
+            <button type="button" (click)="addNew()" class="btn btn-purple btn-rounded float-right mb-2">{{locale.commons_addnew}}</button>
+  
             <div id="collapseCategory" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordion">
               <div class="card-body">
 
@@ -70,16 +64,13 @@
                   </div>
               </div>
       </div>   
-      <div class="mt-2"></div>   
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)' 
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' (childID)='questions($event)'
 [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
 </app-richtable>
 
-</div>
-</div> 
-</div>
+
 </div>
 </div>
 <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()"

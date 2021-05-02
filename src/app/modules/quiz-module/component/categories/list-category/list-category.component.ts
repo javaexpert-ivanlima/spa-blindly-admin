@@ -210,7 +210,7 @@ export class ListCategoryComponent implements OnInit {
 
   showConfirmation(text){
     this.hideAction = "YES";
-    this.hideBtn = "YES";
+    this.hideBtn = "NO";
     this.lablelButton=this.locale.commons_ok;
     this.bgColorTitle = "#6c757d!important"; 
     this.showForm = false;

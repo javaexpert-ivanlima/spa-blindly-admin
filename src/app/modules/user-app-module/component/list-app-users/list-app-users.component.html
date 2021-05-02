@@ -1,15 +1,14 @@
-<div style="height: 100%;width: 100%;overflow-y: auto;overflow-x: hidden;">
-
-      <div style="height: 100%" class="row">
-
-        <div class="mt-1 col">
-          <div class="panelbackground-container card shadow" style="overflow-y: hidden;">
+<div style="height: 100%;width: 100%;">
+    <div class="panelbackground-container card shadow" style="overflow-y: hidden;">
             <span class="close mr-3 mt-1" style="text-align: right;cursor:pointer" (click)="goWelcome()">×</span>
-            <div class="card-header bg-white border-0">
-              <div class="row">
-
-                <div class="col">
-                  <div id="accordion">
+            <div class="row">
+              <div class="col-sm-6">
+                  <h4>{{locale.menu_users_app | titlecase}}</h4>
+              </div>
+      
+            </div>
+            
+            <div id="accordion">
                     <button class="btn btn-secondary btn-rounded" (click)='changeCollapseLabel()' aria-expanded="true" aria-controls="collapseAppUser">
                         <span class="fa " [ngClass]="{'fa-plus' :stateCollapse , 'fa-minus' : !stateCollapse}" ></span>
                         <span style="font-family: 'roboto';font-size: 1rem;" class="fa ml-2">{{locale.commons_filter}}</span>
@@ -243,11 +242,6 @@
                         </ul>
                       </nav>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>  
 

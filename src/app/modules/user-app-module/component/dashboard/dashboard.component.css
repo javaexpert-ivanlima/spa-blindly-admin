@@ -65,3 +65,9 @@ h2, .h2 {
 .text-semibold {
   font-weight: 600;
 }
+
+@media (max-width:768px){
+  .chart-mobile{
+    margin-top: 2rem;
+  }
+}

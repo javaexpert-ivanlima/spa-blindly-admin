@@ -1,18 +1,16 @@
 <div style="height: 100%;width: 100%;">
     <div class="panelbackground-container">
         <span class="close mr-3 mt-1" style="text-align: right;cursor:pointer" (click)="goWelcome()">×</span>
-        <div class="card-header bg-white border-0">
-          <div class="row">
-            <div class="col"> 
-              <div class="card-body"> 
 
 
       <div class="row">  
-          <div class="col-sm-6"><h4>{{title | titlecase}}</h4></div>
-          <div class="col-sm-6"><button type="button" (click)='backButton()' class="btn btn-secondary btn-rounded float-right mb-2">{{locale.commons_back}}</button></div>
-
+          <div class="col"><h4>{{title | titlecase}}</h4></div>
       </div>
-            <div class="card-body">
+      <div class="row">  
+        <div class="col"><button type="button" (click)='backButton()' class="btn btn-secondary btn-rounded float-right mb-2">{{locale.commons_back}}</button></div>
+      </div>
+
+      <div class="card-body">
               <div class="border" style="padding: 2%;">
                 <form  [formGroup]="questionForm" class="form-group" #f="ngForm" > 
                        
@@ -137,6 +135,3 @@
             </div>
     </div>         
 </app-modal>
-</div>
-</div>
-</div>

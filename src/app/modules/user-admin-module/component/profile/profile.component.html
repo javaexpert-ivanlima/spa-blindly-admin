@@ -1,143 +1,89 @@
-<form  [formGroup]="adminUserForm" class="form-group" #f="ngForm" > 
-    <div style="height: 100%;width: 100%;">
-        <!-- img de fundo-->
-        <div class="panelbackground-container" style="overflow-y: hidden; background-image:url('../../../../../assets/imgs/background/city.jpg');">
-            <!-- card braco-->
-            <div style="margin-top: 1rem;max-height: 30rem;overflow-y:auto;" class="main main-raised">
-                <div class="profile-content">
-                  <button (click)='close()' type="button" class="mt-2 mr-4 close"><span>×</span></button>
-                  <div class="container">
-                    
-                    <div class="row">
-                      <div class="col mt-1 ml-auto mr-auto">
-                        <div class="profile">
-                            <h4 class="card-title">{{locale.profile_page}}</h4>
-                        </div>
+<form  [formGroup]="adminUserForm" style="height: 100%;" class="form-group" #f="ngForm" >
+<div class="profile-city" >
+            <div class="altura95comoverflow main main-raised">
+              <button (click)='close()' type="button" class="mr-1 close"><span>×</span></button>  
+              <div class="myrow">
+                  <div class="titulo mt-4 ml-4"><h4 class="card-title">{{locale.profile_page}}</h4></div>
+              </div>
+              <div style="height: 100%;" class="myrow">
+                <!-- box 1-->
+                <div class="mycard" >
+                  <ng-container *ngIf="rows?.superUser =='Y'">
+                   
+                    <ng-container *ngFor="let module of permissions;let j= index;">
+                      <div class="mt-2 row">
+                              <div class="col"><h6>{{getLocaleFromPermission(module.moduleName)|titlecase}}</h6></div> 
                       </div>
-                      <div class="col">
-                        
-                      </div>
-                      </div>
-                    </div>
-                    
-                    <div style="overflow-x: hidden;" class="tab-content tab-space">
-                      <div class="tab-pane-active" id="studio">
-                        <div class="row">
-                          <div class="col-md-5 ml-auto mr-auto">
-                            <div class="card card-profile card-plain">
-                              <div class="row">
-                                <div class="col-md-5">
-                                  <div class="card-header card-header-image">
-                                    <a >
-                                      <img *ngIf="rows?.photo?.length <=0" class="img" src="../../../../../assets/imgs/img_avatar.png">
-                                      <img *ngIf="rows?.photo?.length > 0" class="img" src="{{rows.photo}}">
-                                    </a>
-                                    <div class="colored-shadow" style="background-image: url(''); opacity: 1;"></div></div>
-                                    <div style="text-align: center;">
-                                        <input formControlName="file" id="file" type="file" class="form-control" (change)="onFileChange($event)">
-                                        <button class="mt-4 btn btn-secondary" (click)="onSubmit()">{{locale.profile_update}}</button>
-                                    </div>
-                                </div>
-                                <div class="col-md-7">
-                                  <div class="card-body">
-                                    <h4 class="card-title"><input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)"></h4>
-                                    <h6 class="card-category text-muted"><input formControlName="name" class="form-control text text-input"  type="text" id="name" placeholder="Name"></h6>
-            
-                                    
-                                      <div id="wrapper-eye" style="position: relative;"> 
-                                        <input formControlName="password" class="form-control text text-input"   [type]="fieldTextType ? 'text' : 'password'" id="password" placeholder="{{locale.profile_newpassword}}">
-                                        <i style="position: absolute; top: 10px; left: 86%;" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()" class="fa"></i>
-                                      </div>    
-                                    <p class="card-description">
-                                        {{locale.profile_passwordinfo0}}
-                                    </p>
-                                    <ul class="card-description"> 
-                                        <li>{{locale.profile_passwordinfo1}}</li>
-                                        <li>{{locale.profile_passwordinfo2}}</li>
-                                        <li>{{locale.profile_passwordinfo3}}</li>
-                                        <li>{{locale.profile_passwordinfo4}}</li>
-                                        <li>{{locale.profile_passwordinfo5}}</li>
-                                    </ul>
-    
-                                </div>
-                                  
-                                  <div *ngIf="submittedRegister && adminUserForm.controls.name.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.required">{{locale.adminuser_namerequired}}</div>
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.name.errors.minlength">{{locale.appusers_namefieldminlength}}</div>
-                                  </div>					  
-                                  <div *ngIf="submittedRegister && adminUserForm.controls.login.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.required">{{locale.profile_loginrequired}}</div>
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.login.errors.email">{{appusers_loginvalidemail}}s</div>
-                                  </div>					  
-                                  <div *ngIf="submittedRegister && adminUserForm.controls.password.errors" class="mt-1 form-group alert alert-danger" role="alert">
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.minlength">{{locale.profile_passwordminlength}}</div>
-                                    <div *ngIf="submittedRegister && adminUserForm.controls.password.errors.pattern">{{locale.profile_weakpassword}}</div>
-                                  </div>					  
-                            
-                                    <div class="form-group">
-                                            <div class="mt-1 alert alert-danger" role="alert" *ngIf="submittedRegister && errorMessage">
-                                              {{locale.commons_transactionfailed}}: {{ errorMessage }}
+                      <ul>
+                            <ng-container *ngFor="let x of module.features;let j= index;">
+                                      <div class="row" *ngIf="j%3===0 && j<module.features.length">  
+                                              <ng-container *ngFor="let item of module.features;let i= index;">
+                                                      <div style="padding-left: 2rem;" class="col-sm-4" *ngIf="i>=j && i < j+3">
+                                                        <li class="card-description">{{getLocaleFromPermission(item.name)|titlecase}}</li>                                                            </div>
+                                              </ng-container> 
+                                      </div>
+                            </ng-container>
+                        </ul>
+                    </ng-container>    
+             </ng-container>
+                   <ng-container *ngIf="rows?.superUser =='N'">
+                          <ng-container *ngFor="let module of permissions;let j= index;">
+                            <div class="mt-2 row">
+                                    <div class="col"><h6>{{getLocaleFromPermission(module.moduleName)|titlecase}}</h6></div> 
+                            </div>
+                            <ul>
+                                  <ng-container *ngFor="let x of module.features;let j= index;">
+                                            <div class="row" *ngIf="j%3===0 && j<module.features.length">  
+                                                    <ng-container *ngFor="let item of module.features;let i= index;">
+                                                            <div style="padding-left: 2rem;" class="col-sm-4" *ngIf="i>=j && i < j+3">
+                                                              <li class="card-description">{{getLocaleFromPermission(item.name)|titlecase}}</li>                                                            </div>
+                                                    </ng-container> 
                                             </div>
-                                    </div> 
-                                </div>
-                                
-                              </div>
-                            </div>
-                          </div>
-            
-                          <div class="col-md-5 mr-auto ml-auto">
-                            <h4 class="card-title">
-                                {{locale.profile_permissions}}
-                            </h4>
-                              <ng-container *ngIf="rows?.superUser =='Y'">
-                               
-                                <ng-container *ngFor="let module of permissions;let j= index;">
-                                  <div class="mt-2 row">
-                                          <div class="col"><h6>{{getLocaleFromPermission(module.moduleName)|titlecase}}</h6></div> 
-                                  </div>
-                                  <ul>
-                                        <ng-container *ngFor="let x of module.features;let j= index;">
-                                                  <div class="row" *ngIf="j%3===0 && j<module.features.length">  
-                                                          <ng-container *ngFor="let item of module.features;let i= index;">
-                                                                  <div style="padding-left: 2rem;" class="col-sm-4" *ngIf="i>=j && i < j+3">
-                                                                    <li class="card-description">{{getLocaleFromPermission(item.name)|titlecase}}</li>                                                            </div>
-                                                          </ng-container> 
-                                                  </div>
-                                        </ng-container>
-                                    </ul>
-                                </ng-container>    
-                         </ng-container>
-                               <ng-container *ngIf="rows?.superUser =='N'">
-                                      <ng-container *ngFor="let module of permissions;let j= index;">
-                                        <div class="mt-2 row">
-                                                <div class="col"><h6>{{getLocaleFromPermission(module.moduleName)|titlecase}}</h6></div> 
-                                        </div>
-                                        <ul>
-                                              <ng-container *ngFor="let x of module.features;let j= index;">
-                                                        <div class="row" *ngIf="j%3===0 && j<module.features.length">  
-                                                                <ng-container *ngFor="let item of module.features;let i= index;">
-                                                                        <div style="padding-left: 2rem;" class="col-sm-4" *ngIf="i>=j && i < j+3">
-                                                                          <li class="card-description">{{getLocaleFromPermission(item.name)|titlecase}}</li>                                                            </div>
-                                                                </ng-container> 
-                                                        </div>
-                                              </ng-container>
-                                          </ul>
-                                      </ng-container>    
-                               </ng-container>
-                          </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5 ml-auto mr-auto">
-                                
-                            </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                                  </ng-container>
+                              </ul>
+                          </ng-container>    
+                   </ng-container>
+              </div>
+              <!--box 2-->
+                <div >
+                  <div class="mycard">
+                    <h4 class="card-title"><input formControlName="login" class="form-control text text-input"  oninput="this.value = this.value.toLowerCase()" type="text" id="login" placeholder="Login(e-mail)"></h4>
+                    <h6 class="card-category text-muted"><input formControlName="name" class="form-control text text-input"  type="text" id="name" placeholder="Name"></h6>
+
+                    
+                      <div id="wrapper-eye" style="position: relative;"> 
+                        <input formControlName="password" class="form-control text text-input"   [type]="fieldTextType ? 'text' : 'password'" id="password" placeholder="{{locale.profile_newpassword}}">
+                        <i style="position: absolute; top: 10px; left: 86%;" [ngClass]="{'fa-eye-slash': !fieldTextType,'fa-eye': fieldTextType}" (click)="toggleFieldTextType()" class="fa"></i>
+                      </div>    
+                    <p class="card-description">
+                        {{locale.profile_passwordinfo0}}
+                    </p>
+                    <ul class="card-description"> 
+                        <li>{{locale.profile_passwordinfo1}}</li>
+                        <li>{{locale.profile_passwordinfo2}}</li>
+                        <li>{{locale.profile_passwordinfo3}}</li>
+                        <li>{{locale.profile_passwordinfo4}}</li>
+                        <li>{{locale.profile_passwordinfo5}}</li>
+                    </ul>
+
                 </div>
-        </div>
-    </div> 
-    </form>
+  
+              </div>
+              <!-- box 3-->
+              <div >
+                  <div class="mycard card-container-flex">
+                      <img *ngIf="rows?.photo?.length <=0" class="img-profile" src="../../../../../assets/imgs/img_avatar.png">
+                      <img *ngIf="rows?.photo?.length > 0"  class="img-profile" src="{{rows.photo}}">
+
+                    <input formControlName="file" id="file" type="file" class="mt-2 form-control" (change)="onFileChange($event)">
+                    <button class="mt-4 btn btn-secondary" (click)="onSubmit()">{{locale.profile_update}}</button>
+                  </div>
+                
+              </div>
+  </div></div>
+
+</div>   
+</form> 
     <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal" [adminModule]="'Y'"  (clickOK)="confirmOperation()"
     [bgColorTitle]="bgColorTitle" [fgColorTitle]="fgColorTitle" [lblBtnOK]="labelButton" [hideAction]="hideAction">
     
