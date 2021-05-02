@@ -88,3 +88,8 @@
 .error {
     border: 1px solid red;
 }
+
+.td-flex-container{
+    display: flex;
+    flex-direction: row;
+}

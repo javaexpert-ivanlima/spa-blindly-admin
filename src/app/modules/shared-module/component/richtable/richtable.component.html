@@ -151,7 +151,7 @@
 
           </div> 
           </td>
-          <td *ngIf="hideActionColumn == 'true' ">
+          <td *ngIf="hideActionColumn == 'true' " class="td-flex-container">
             <ng-container *ngIf="obj['active']==='N'">
               <ng-container *ngIf="adminModule == 'Y' && obj['login'] != sub">
                 <button type="button" (click)="activatedClick(obj);" title="{{locale.commons_activate}}"  class="btn btn-info"><i class="fa fa-eye"></i></button>
