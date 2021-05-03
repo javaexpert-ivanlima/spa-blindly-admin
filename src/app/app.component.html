@@ -15,9 +15,9 @@
         </div>
         <!--<div id="showUserName" class="ml-2" style="font-size:small;color:thistle">{{login}}</div>-->
         <div id="menuContent" class="ml-auto mt-2 mt-lg-0">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+          <button class="menu-mobile-container bg-purple btn" type="button" (click)="toogleMenu()">
+            <span class="navbar-toggler-icon"></span>
+          </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
@@ -93,5 +93,44 @@
         </div>
         <!-- Copyright -->
       </footer>
+  </div>
+</div>
+
+<div class="modal" data-keyboard="false" data-backdrop="static" id="menumobilecontent" role="dialog"  aria-hidden="true">
+  <div  class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color: #8c54a1!important; color: white!important">
+        <h5 class="modal-title" id="exampleModalLongTitle">Menu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5 *ngIf="userName">{{locale?.menu_users}}</h5>
+        <div *ngIf="userName" class="menu-flex-container">
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" routerLink="app_users/list"><i class="fa fa-users"></i> {{locale?.menu_users_app}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" routerLink="admin_users/list"><i class="fa fa-id-card"></i> {{locale?.menu_users_admin}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" routerLink="app_users/dashboard"><i class="fa fa-desktop"></i> {{locale?.menu_users_dash}}</a>
+          </div>  
+          <h5 *ngIf="userName" >{{locale?.menu_qa}}</h5>
+          <div *ngIf="userName" class="menu-flex-container">
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" routerLink="categories/list"><i class="fa fa-tags"></i> {{locale?.menu_qa_categories}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" routerLink="questions/list"><i class="fa fa-question"></i> {{locale?.menu_qa_questions}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" routerLink="questions/quiz"><i class="fa fa-clipboard"></i> {{locale?.menu_qa_quiz}}</a>
+          </div>
+          <h5>{{locale?.menu_language}}</h5>
+          <div class="menu-flex-container">  
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" (click)="setLanguage('en')"><i [ngClass]="{'fa-check': currentLanguage ==='en', 'fa-flag': currentLanguage != 'en'}" class="fa "></i> {{locale?.menu_language_en}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" (click)="setLanguage('pt')"><i [ngClass]="{'fa-check': currentLanguage ==='pt', 'fa-flag': currentLanguage != 'pt'}" class="fa "></i> {{locale?.menu_language_pt}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" (click)="setLanguage('fr')"><i [ngClass]="{'fa-check': currentLanguage ==='fr', 'fa-flag': currentLanguage != 'fr'}" class="fa "></i> {{locale?.menu_language_fr}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" (click)="setLanguage('sp')"><i [ngClass]="{'fa-check': currentLanguage ==='sp', 'fa-flag': currentLanguage != 'sp'}" class="fa "></i> {{locale?.menu_language_sp}}</a>
+          </div>
+          <h5 *ngIf="userName">Menu</h5>
+          <div *ngIf="userName" class="menu-flex-container">  
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" routerLink="admin_users/profile"><i class="fa fa-user-circle"></i> {{locale?.menu_profile}}</a>
+            <a data-dismiss="modal" class="color-purple nav-link bg-dark-dropdownitem" (click)="logout()" href="#"><i class="fa fa-sign-out"></i> {{locale?.menu_logout}}</a>      
+          </div>      
+      </div>
+    </div>
   </div>
 </div>

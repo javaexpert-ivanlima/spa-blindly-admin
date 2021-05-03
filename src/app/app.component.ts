@@ -64,4 +64,8 @@ export class AppComponent  implements OnInit{
     this.subscription.unsubscribe();
  }
 
+ toogleMenu(){
+  $('#menumobilecontent').modal('toggle');
+ }
+
 }

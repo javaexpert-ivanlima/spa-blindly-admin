@@ -92,9 +92,17 @@ img.avatar {
   border-radius: 60px;
 }
 
+.menu-flex-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 .main-header{
   height: 10%;
 }
+
+
 
 .main-footer{
   height:5%;
@@ -121,6 +129,10 @@ img.avatar {
   height: 100%;
   width:100%;
   margin-top:3%;
+}
+
+.color-purple{
+  color: #8e24aa!important;
 }
 
 @media (width:360px) {
@@ -180,4 +192,11 @@ img.avatar {
   .body-container{
     margin-top: 8%;
   }
+  .menu-mobile-container{
+    display: block!important;
+  }
+}
+
+.menu-mobile-container{
+  display: none;
 }
