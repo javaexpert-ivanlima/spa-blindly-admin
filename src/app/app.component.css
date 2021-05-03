@@ -195,8 +195,15 @@ img.avatar {
   .menu-mobile-container{
     display: block!important;
   }
+  .menu-mobile-container-inverse{
+    display: none!important;
+  }
 }
 
 .menu-mobile-container{
   display: none;
+}
+
+.menu-mobile-container-inverse{
+  display: block;
 }

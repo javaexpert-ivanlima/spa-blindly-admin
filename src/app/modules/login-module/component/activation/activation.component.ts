@@ -39,6 +39,7 @@ export class ActivationComponent implements OnInit {
       data => {
           this.userName = data.data.name;
           this.errorMessage = "Ativação realizada com sucesso.";
+          this.spinnerService.hideSpinner();
           this.subscription = interval(10000)
           .subscribe(x => { this.closeWindow(); });
          
@@ -61,6 +62,8 @@ export class ActivationComponent implements OnInit {
         this.errorMessage = "Ocorreu um erro, tente novamente mais tarde. Caso o erro perista, por favor entre em contato. Detalhe do erro: " + this.errorMessage;
         this.spinnerService.hideSpinner();
       }
+      
+
     );
   }
 
