@@ -251,5 +251,6 @@ export const languagePT = {
   permission_activate_appUser: 'Ativar usuários do app',
   permission_unblocked_appUser: 'Desbloquear usuários do app',
   permission_dashboard: 'Painel administrativo',
-
+  preview_info1: 'Nesta página você pode vertificar as perguntas que serão exibidas ao usuário no momento do registro do aplicativo.',
+  preview_info2: 'Basta clicar nos botões proximo e anterior para ver as questões as mesmas não serão respondidas pois servem apenas de visualização.',
 };

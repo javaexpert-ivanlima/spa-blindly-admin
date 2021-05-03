@@ -251,4 +251,7 @@ export const languageES = {
   permission_activate_appUser: 'Habilitar usuarios de la aplicación',
   permission_unblocked_appUser: 'Desbloquear usuarios de la aplicación',
   permission_dashboard: 'Panel administrativo',  
+  preview_info1: 'En esta página puede especificar las preguntas que se le mostrarán al usuario al registrar la aplicación.',
+  preview_info2: 'Simplemente haga clic en los botones siguiente y anterior para ver las preguntas, no serán respondidas ya que son solo para ver.',
+
 };

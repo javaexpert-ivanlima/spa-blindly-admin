@@ -251,4 +251,6 @@ export const languageFR = {
     permission_activate_appUser: "Activer les utilisateurs de l'application",
     permission_unblocked_appUser: "Débloquer les utilisateurs de l'application",
     permission_dashboard: "Panneau d'administration",    
+    preview_info1: "Sur cette page, vous pouvez spécifier les questions qui seront affichées à l'utilisateur lors de l'enregistrement de l'application.",
+    preview_info2: 'Cliquez simplement sur les boutons suivant et précédent pour voir les questions, elles ne recevront pas de réponse car elles sont uniquement destinées à la visualisation.',
   };

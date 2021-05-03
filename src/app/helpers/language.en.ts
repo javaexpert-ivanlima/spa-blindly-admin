@@ -251,5 +251,6 @@ export const languageEN = {
     permission_activate_appUser: 'Activate App User',
     permission_unblocked_appUser: 'Unblocked App User',
     permission_dashboard: 'Dashboard',
-
+    preview_info1:'On this page you can specify the questions that will be displayed to the user when registering the application.',
+    preview_info2:'Just click on the next and previous buttons to see the questions, they will not be answered as they are only for viewing.',
   };
