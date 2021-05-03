@@ -16,6 +16,8 @@ import { UserAppModule } from './modules/user-app-module/user-app.module';
 import { PermissionGuard } from './helpers/permission.guard';
 import { TokenStorageService } from './component/';
 import { TitleCasePipe } from '@angular/common';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -35,7 +37,13 @@ import { TitleCasePipe } from '@angular/common';
     UserAdminModule,
     UserAppModule,
     SharedModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     { provide:HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
