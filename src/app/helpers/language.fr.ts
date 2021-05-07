@@ -90,6 +90,7 @@ export const languageFR = {
     quiz_save: 'Enregistrer la commande',
     quiz_preview: 'Aperçu',
     quiz_preview_title: "Utilisateurs de l'application Préférences - aperçu",
+    quiz_nocategory: "Il n'y a pas de question active enregistrée, veuillez d'abord en enregistrer une.",
     question_name: 'Question',
     question_msg1: 'Aucune catégorie enregistrée, veuillez en enregistrer une pour continuer',
     question_minlength: 'La question doit comporter au moins 4 caractères',

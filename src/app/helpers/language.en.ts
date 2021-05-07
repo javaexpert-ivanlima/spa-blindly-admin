@@ -90,6 +90,7 @@ export const languageEN = {
     quiz_save: 'Save Quiz',
     quiz_preview: 'Preview',
     quiz_preview_title: 'Quiz Preview',
+    quiz_nocategory: 'There is no active question registered, please register one first.',
     question_name: 'Question',
     question_msg1: 'There is no active category registered, please register one first',
     question_minlength: 'Question name must be at least 4 characters',

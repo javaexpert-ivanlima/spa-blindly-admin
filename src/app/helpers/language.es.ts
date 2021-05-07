@@ -90,6 +90,7 @@ export const languageES = {
   quiz_save: 'Guardar pedido',
   quiz_preview: 'Vista previa',
   quiz_preview_title: 'Usuarios de la aplicación de preferencias: vista previa',
+  quiz_nocategory: 'No hay ninguna pregunta activa registrada, por favor registre una primero.',
   question_name: 'Pregunta',
   question_msg1: 'Ninguna categoría registrada, por favor registre una para continuar',
   question_minlength: 'La pregunta debe tener al menos 4 caracteres',

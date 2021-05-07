@@ -90,6 +90,7 @@ export const languagePT = {
   quiz_save: 'Salvar Ordem',
   quiz_preview: 'PreVisualizar',
   quiz_preview_title: 'Preferências app users - previsualizar',
+  quiz_nocategory: 'Não há nenhuma pergunta ativa registrada, por favor, registre uma primeiro.',
   question_name: 'Pergunta',
   question_msg1: 'Sem categoria registrada, por favor cadastre uma para continuar',
   question_minlength: 'A pergunta deve ter no minimo 4 caracteres',

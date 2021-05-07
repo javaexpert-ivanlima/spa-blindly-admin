@@ -14,7 +14,7 @@
                             <br/><br/>
                       </div>
                       <div *ngIf="rows?.length <= 0" class="alert alert-danger" style="text-align: center;" role="alert">
-                            There is no active question registered, please register one first.
+                            {{locale.quiz_nocategory}}
                       </div>
                       <br/>
                       <form  [formGroup]="quizOrderForm" class="form-group" #f="ngForm" >
