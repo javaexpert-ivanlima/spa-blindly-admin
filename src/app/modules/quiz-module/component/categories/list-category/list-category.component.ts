@@ -37,7 +37,7 @@ export class ListCategoryComponent implements OnInit {
   currentPage: number = 0;
   filterForm: FormGroup;
 
-  searchFor: string = null;
+  searchFor: string = "active";
   searchName: string = null;
 
   confirmButton: boolean = false;  
@@ -78,7 +78,7 @@ export class ListCategoryComponent implements OnInit {
         filterType: new FormControl(),
         name: new FormControl()
       });
-      this.filterForm.controls.filterType.setValue("all");
+      this.filterForm.controls.filterType.setValue("active");
     }
     changeCollapseLabel(){
     
@@ -98,7 +98,7 @@ export class ListCategoryComponent implements OnInit {
       this.currentPage = this.spinnerService.getCategoryObject().filter.page;
       this.searchFor = this.spinnerService.getCategoryObject().filter.searchFor;
       this.searchName = this.spinnerService.getCategoryObject().filter.searchName;
-      this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"all");
+      this.filterForm.controls.filterType.setValue(this.spinnerService.getCategoryObject().filter.searchFor?this.spinnerService.getCategoryObject().filter.searchFor:"active");
       this.filterForm.controls.name.setValue(this.spinnerService.getCategoryObject().filter.searchName);
     }
     //verificacao de sessao expirada
@@ -355,7 +355,7 @@ export class ListCategoryComponent implements OnInit {
     if (this.filterForm.controls.filterType.value){
       this.searchFor = this.filterForm.controls.filterType.value;
     }else{
-      this.searchFor = null;
+      this.searchFor = "active";
     }
     this.carregaCategories(this.currentPage);
   }

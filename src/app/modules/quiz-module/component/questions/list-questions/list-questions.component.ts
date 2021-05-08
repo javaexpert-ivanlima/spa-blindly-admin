@@ -37,7 +37,7 @@ export class ListQuestionsComponent implements OnInit {
   currentPage: number = 0;
   questionFilterForm: FormGroup;
 
-  searchFor: string = null;
+  searchFor: string = "active";
   searchName: string = null;
   searchCategory: number = null;
   categorySelected: string = '';
@@ -75,11 +75,11 @@ export class ListQuestionsComponent implements OnInit {
     private questionService: QuestionsService
     ) { 
         this.questionFilterForm = this.formBuilder.group({
-        filterType: [ 'all', [Validators.required]],
+        filterType: [ 'active', [Validators.required]],
         filterCategory: [null, []],
         name: [null,[Validators.minLength(4)]]
       });
-      this.questionFilterForm.controls.filterType.setValue("all");
+      this.questionFilterForm.controls.filterType.setValue("active");
     }
 
   ngOnInit(): void {
@@ -160,7 +160,7 @@ export class ListQuestionsComponent implements OnInit {
         this.searchFor = this.spinnerService.getQuestionObject().filter.searchFor;
         this.searchName = this.spinnerService.getQuestionObject().filter.searchName;
         this.searchCategory = this.spinnerService.getQuestionObject().filter.searchCategory;
-        this.questionFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
+        this.questionFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"active");
         this.questionFilterForm.controls.name.setValue(this.searchName);
         this.questionFilterForm.controls.filterCategory.setValue(this.searchCategory);
         this.categorySelected = this.spinnerService.getQuestionObject().filter.categorySelected;
@@ -200,7 +200,7 @@ export class ListQuestionsComponent implements OnInit {
     if (this.questionFilterForm.controls.filterType.value){
       this.searchFor = this.questionFilterForm.controls.filterType.value;
     }else{
-      this.searchFor = null;
+      this.searchFor = "active";
     }
     if (this.questionFilterForm.controls.filterCategory.value){
       this.searchCategory = this.questionFilterForm.controls.filterCategory.value;

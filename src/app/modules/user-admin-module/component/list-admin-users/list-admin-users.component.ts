@@ -44,7 +44,7 @@ export class ListAdminUsersComponent implements OnInit {
   confirmButton: boolean = false;  
   
   //filter files
-  searchFor: string = null;
+  searchFor: string = "active";
   searchName: string = null;
   searchLogin: number = null;
   adminUserSelected: string = '';
@@ -64,7 +64,7 @@ export class ListAdminUsersComponent implements OnInit {
     private userService: UserAdminService
     ) { 
       this.adminUserFilterForm = this.formBuilder.group({
-        filterType: [ 'all', [Validators.required]],
+        filterType: [ 'active', [Validators.required]],
         name: [null,[Validators.minLength(4)]],
         login: [null, [Validators.minLength(4)]]
       });
@@ -168,7 +168,7 @@ export class ListAdminUsersComponent implements OnInit {
      this.searchFor = this.spinnerService.getAdminUserObject().filter.searchFor;
      this.searchName = this.spinnerService.getAdminUserObject().filter.searchName;
      this.searchLogin = this.spinnerService.getAdminUserObject().filter.searchLogin;
-     this.adminUserFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
+     this.adminUserFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"active");
      this.adminUserFilterForm.controls.name.setValue(this.searchName);
      this.adminUserFilterForm.controls.login.setValue(this.searchLogin);
      this.adminUserSelected = this.spinnerService.getAdminUserObject().filter.adminUserSelected;
@@ -197,7 +197,7 @@ export class ListAdminUsersComponent implements OnInit {
     if (this.adminUserFilterForm.controls.filterType.value){
       this.searchFor = this.adminUserFilterForm.controls.filterType.value;
     }else{
-      this.searchFor = null;
+      this.searchFor = "active";
     }
     if (this.adminUserFilterForm.controls.login.value){
       this.searchLogin = this.adminUserFilterForm.controls.login.value;

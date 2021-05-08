@@ -40,7 +40,7 @@ export class ListAppUsersComponent implements OnInit {
   confirmButton: boolean = false;  
   
   //filter files
-  searchFor: string = null;
+  searchFor: string = "active";
   searchName: string = null;
   searchLogin: number = null;
   appUserSelected: string = '';
@@ -56,7 +56,7 @@ export class ListAppUsersComponent implements OnInit {
     private userService: UserAppService
     ) { 
       this.appUserFilterForm = this.formBuilder.group({
-        filterType: [ 'all', [Validators.required]],
+        filterType: [ 'active', [Validators.required]],
         login: [null, [Validators.email]],
         name: [null, [Validators.minLength(4)]]
       });
@@ -168,7 +168,7 @@ export class ListAppUsersComponent implements OnInit {
      this.searchFor = this.spinnerService.getAppUserObject().filter.searchFor;
      this.searchName = this.spinnerService.getAppUserObject().filter.searchName;
      this.searchLogin = this.spinnerService.getAppUserObject().filter.searchLogin;
-     this.appUserFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"all");
+     this.appUserFilterForm.controls.filterType.setValue(this.searchFor?this.searchFor:"active");
      this.appUserFilterForm.controls.name.setValue(this.searchName);
      this.appUserFilterForm.controls.login.setValue(this.searchLogin);
      this.appUserSelected = this.spinnerService.getAppUserObject().filter.appUserSelected;
@@ -191,7 +191,7 @@ export class ListAppUsersComponent implements OnInit {
     if (this.appUserFilterForm.controls.filterType.value){
       this.searchFor = this.appUserFilterForm.controls.filterType.value;
     }else{
-      this.searchFor = null;
+      this.searchFor = "active";
     }
     if (this.appUserFilterForm.controls.login.value){
       this.searchLogin = this.appUserFilterForm.controls.login.value;
