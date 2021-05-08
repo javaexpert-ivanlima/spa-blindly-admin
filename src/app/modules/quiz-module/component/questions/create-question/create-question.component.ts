@@ -56,7 +56,7 @@ export class CreateQuestionComponent implements OnInit {
     private questionService: QuestionsService
   ) { 
     this.answerForm = this.formBuilder.group({
-      name: [null, [Validators.required, Validators.minLength(3)]],
+      name: [null, [Validators.required, Validators.minLength(3),Validators.maxLength(200)]],
       weight: [null, [Validators.required]]
     });
     this.questionForm = this.formBuilder.group({

@@ -120,6 +120,7 @@ export const languageFR = {
     answer_name: 'Answer',
     answers_labels: ['id', 'answer', 'weight', 'updated at'],
     answers_minlength: 'La réponse doit contenir au moins 3 caractères',
+    answers_maxlength: 'Réponse de 200 caractères maximum',
     answer_required: 'Une réponse est requise',
     answer_willbeexcluded: 'sera exclu / exclu',
     editcreate_question_answersLabels: ['answer', 'weight'],
