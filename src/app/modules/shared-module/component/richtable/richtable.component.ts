@@ -33,7 +33,10 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   @Input() pageable: any;
   @Input() onlyDeleteAction: string;
   @Input() adminModule: String;
-
+  @Input() sortDirection: string;
+  @Input() sortPosition: number;
+  @Input() sortExclusion: number;
+  @Input() basicInfoForm: any;
 
   @Output() emitterPage = new EventEmitter();
   @Output() deleteID = new EventEmitter();
@@ -42,8 +45,10 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   @Output() activateID = new EventEmitter();
   @Output() childID = new EventEmitter();
   @Output() unblockedID = new EventEmitter();
+  @Output() emitterSort = new EventEmitter();
+  @Output() emitterItensPerPage = new EventEmitter();
 
-  
+  tableLabelsDirections: string[]  = [];
   submitted = false;
   errorMessage = '';
   currentPage : number = 0;
@@ -53,9 +58,10 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
   
   isLoggedIn = false;
   sub: any;
-  @Input() basicInfoForm: any;
-
   locale: any;
+  sortName: string = "name";
+  sort: any;
+  itensPerPage: number = 6;
 
   constructor(
     private router: Router,
@@ -77,8 +83,24 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
       this.colorTableHeader = 'thead-dark'
     }
     if (!this.tableLabels){
-        this.tableLabels = this.tableCols;
+        this.tableLabels = this.tableCols;      
     }
+    if (!this.sortDirection){
+      this.sortDirection = "ASC";
+    }
+    if (!this.sortPosition){
+      this.sortPosition = 0;
+    }
+    if (this.tableLabels){
+      for(let cont = 0; cont < this.tableLabels.length;cont++){
+            if (cont == this.sortPosition){
+              this.tableLabelsDirections.push(this.sortDirection);
+            }else{
+              this.tableLabelsDirections.push("NONE");
+            }
+      }
+    }
+
     this.spinnerService.showSpinner();
     if (this.tokenStorage.getToken()) {
        this.sub = this.tokenStorage.getSub(); 
@@ -134,5 +156,26 @@ export class RichtableComponent implements OnInit, ControlValueAccessor, Validat
 
   validate(c: AbstractControl): ValidationErrors | null{
     return this.basicInfoForm.valid ? null : { invalidForm: {valid: false, message: "basicInfoForm fields are invalid"}};
+  }
+  onChange(deviceValue) {
+    this.itensPerPage = deviceValue;
+    this.emitterItensPerPage.emit(deviceValue);
+  }
+  onClickColumn(column,value){
+        if (this.tableLabelsDirections[value] == "ASC"){
+          this.sortDirection = "DESC";
+        }else{
+          this.sortDirection = "ASC";
+        }
+        this.tableLabelsDirections[value]=this.sortDirection;
+        this.sortName = value;
+        for(let cont = 0; cont < this.tableLabels.length;cont++){
+          if (value == cont){
+            this.tableLabelsDirections[cont] = this.sortDirection
+          }else{
+            this.tableLabelsDirections[cont] = "NONE";
+          }
+    }
+        this.emitterSort.emit({"sortName":this.sortName,"sortDirection":this.sortDirection,"sortColumn":column,"itensPerPage":this.itensPerPage});
   }
 }

@@ -55,6 +55,7 @@ export class ListCategoryComponent implements OnInit {
   stateCollapse: boolean = true;
   hideBtn: string = "NO";
   hideAction: string = "NO";
+  sortObject: any = {"sortName":"name","sortDirection":"ASC","sortColumn":1,"itensPerPage":6};
 
   
 
@@ -112,7 +113,7 @@ export class ListCategoryComponent implements OnInit {
     }    
     
     //preenche lista
-    this.carregaCategories(this.currentPage);
+    this.carregaCategories(this.currentPage,this.sortObject);
     this.spinnerService.hideSpinner();
   }
 
@@ -121,9 +122,9 @@ export class ListCategoryComponent implements OnInit {
     this.labels = this.locale.category_labels;
 
   }
-  carregaCategories(page: number) {
+  carregaCategories(page: number,sort: any) {
     this.spinnerService.showSpinner();
-    this.categoryService.getAllCategories(page,this.searchFor,this.searchName).subscribe(
+    this.categoryService.getAllCategories(page,this.searchFor,this.searchName,sort).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -136,7 +137,7 @@ export class ListCategoryComponent implements OnInit {
   }
   displayPage(page) {
     this.currentPage = page;
-    this.carregaCategories(page);
+    this.carregaCategories(page,this.sortObject);
   }
 
   confirmOperation(){
@@ -253,7 +254,7 @@ export class ListCategoryComponent implements OnInit {
     this.categoryService.activatedCategory(id).subscribe(
       data => {
         this.currentPage =0;
-        this.carregaCategories(this.currentPage);
+        this.carregaCategories(this.currentPage,this.sortObject);
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.category_msgdel1+" ["+this.selectedID['nameCategory']+"] "+ this.locale.commons_activatedsuccess + ".");
       },
@@ -270,7 +271,7 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.categoryService.createCategory(category).subscribe(
       data => {
-        this.carregaCategories(this.currentPage);
+        this.carregaCategories(this.currentPage,this.sortObject);
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.category_msgdel1+" ["+category+"] "+ this.locale.commons_createdsuccess + ".");
       },
@@ -286,7 +287,7 @@ export class ListCategoryComponent implements OnInit {
     this.spinnerService.showSpinner();
     this.categoryService.updateCategory(id,category).subscribe(
       data => {
-        this.carregaCategories(this.currentPage);
+        this.carregaCategories(this.currentPage,this.sortObject);
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.category_msgdel1+" ["+category+"] "+ this.locale.commons_updatedsuccess + ".");
       },
@@ -302,7 +303,7 @@ export class ListCategoryComponent implements OnInit {
     this.categoryService.inactivatedCategory(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaCategories(this.currentPage);
+            this.carregaCategories(this.currentPage,this.sortObject);
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.category_msgdel1+" ["+this.selectedID['nameCategory']+"] "+ this.locale.commons_deletedsuccess + ".");
             this.confirmButton = false;
@@ -357,7 +358,7 @@ export class ListCategoryComponent implements OnInit {
     }else{
       this.searchFor = "active";
     }
-    this.carregaCategories(this.currentPage);
+    this.carregaCategories(this.currentPage,this.sortObject);
   }
 
   get f() { return this.filterForm.controls; }
@@ -377,4 +378,16 @@ export class ListCategoryComponent implements OnInit {
   close(){
     this.router.navigateByUrl('/');
   }
+
+  changeItensPerPage(itens){
+    this.sortObject.itensPerPage = itens;
+    this.carregaCategories(this.currentPage,this.sortObject);
+  }
+
+  changeSort(obj){
+    this.sortObject = obj;
+    this.carregaCategories(this.currentPage,this.sortObject);
+  }
+
+
 }

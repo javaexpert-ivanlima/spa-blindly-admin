@@ -89,7 +89,16 @@
           </caption>
       <thead class="{{colorTableHeader}}">
         <tr>            
-          <th *ngFor="let label of tableLabels" scope="col">{{label |   uppercase}}</th>
+          <th *ngFor="let label of tableLabels;let z=index;" scope="col">
+            <ng-container *ngIf="sortExclusion == z">
+                    {{label |   uppercase}}
+            </ng-container>
+            <ng-container *ngIf="sortExclusion != z">
+                  <a (click)="onClickColumn(label,z)" [ngClass]="{'sort-by-up': tableLabelsDirections[z] ==='DESC','sort-by-down': tableLabelsDirections[z] ==='ASC'}"  class="sort-by">
+                    {{label |   uppercase}}
+                  </a>  
+            </ng-container>
+          </th>
           <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">{{locale.commons_actions}}</th>
         </tr>
       </thead>
@@ -182,6 +191,14 @@
     </table>
     <nav class="pagination-outer" aria-label="Page navigation">
         <ul *ngIf="pageable" class="pagination">
+          <li *ngIf="pageable.totalPages > 1">
+              <select (change)="onChange($event.target.value)" name="itensPerPage" id="itensPerPage">
+                  <option value="06">06</option>
+                  <option value="10">10</option>
+                  <option value="20">20</option>
+                  <option value="30">30</option>
+              </select>
+          </li>
             <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
                 <a (click)="pageClick(0)" class="page-link" aria-label="Previous">
                     <span aria-hidden="true">«</span>

@@ -18,7 +18,7 @@ export class CategoryService {
 
   constructor(private http: HttpClient) { }
 
-  getAllCategories(page: number,filter: string, name: string ): Observable<any> {
+  getAllCategories(page: number,filter: string, name: string, sort: any ): Observable<any> {
     let url : string = AUTH_API;
     if (!page){
         page = 0;
@@ -41,8 +41,28 @@ export class CategoryService {
     }else{
       url = url + '?page=' + page;
     }
+    if (sort){
+      url = url+'&itensPerpage='+sort.itensPerPage+'&sortName='+this.getColumnName(sort.sortName)+'&sortDirection='+sort.sortDirection;
+    }
     return this.http.get( url , httpOptions);
   }
+
+  getColumnName(position){
+      if (position == 0){
+          return "id";
+      } else if (position == 1){
+          return "name";
+      } else if (position == 2){
+          return "active";
+      } else if (position == 4){
+          return "modifiedBy";
+      } else if (position == 5){
+        return "lastUpdateDate";
+      } else {
+        return "name";
+      }
+  }
+
   getAllCategoriesNoPagination(): Observable<any>{
       let url = AUTH_API + '/all' ;
       return this.http.get( url , httpOptions);

@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(http://fonts.googleapis.com/css?family=Roboto);
 .table{
     font-size: 13px!important;
     font-family: 'Roboto'!important;
@@ -92,4 +92,31 @@
 .td-flex-container{
     display: flex;
     flex-direction: row;
+}
+
+th a.sort-by { 
+	padding-right: 18px;
+	position: relative;
+    color: #495057;
+    text-decoration: none;
+    cursor: pointer;
+}
+a.sort-by:before,
+a.sort-by:after {
+	border: 4px solid transparent;
+	content: "";
+	display: block;
+	height: 0;
+	right: 5px;
+	top: 50%;
+	position: absolute;
+	width: 0;
+}
+a.sort-by-up:before {
+	border-bottom-color: #666;
+	margin-top: -9px;
+}
+a.sort-by-down:after {
+	border-top-color: #666;
+	margin-top: 1px;
 }
