@@ -90,7 +90,9 @@
 <app-richtable 
 (emitterPage)='displayPage($event)' (deleteID)='exclude($event)' (activateID)='activated($event)'
 [title]="title" [pageable]='pageable' (editID)='edit($event)' (auditID)='audit($event)' (childID)='answers($event)'
-[tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'">
+[tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'true'"
+[sortDirection]="'ASC'" [sortPosition]="'1'" [sortExclusion]="'6'" 
+(emitterSort)="changeSort($event)" (emitterItensPerPage)="changeItensPerPage($event)">
 </app-richtable>
 
 

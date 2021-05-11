@@ -64,7 +64,8 @@ export class ListQuestionsComponent implements OnInit {
   hideBtn: string = "NO";
   hideAction: string = "NO";
   locale: any;
-
+  sortObject: any = {"sortName":"name","sortDirection":"ASC","sortColumn":1,"itensPerPage":6};
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -99,7 +100,7 @@ export class ListQuestionsComponent implements OnInit {
     //preenche lista
     this.setupFilters();
     this.carregaCombobox();
-    this.carregaQuestions(this.currentPage);
+    this.carregaQuestions(this.currentPage,this.sortObject);
     this.countActCategories();
   }
 
@@ -167,9 +168,9 @@ export class ListQuestionsComponent implements OnInit {
       }
   }
  
-  carregaQuestions(page:number){
+  carregaQuestions(page:number,sort:any){
     this.spinnerService.showSpinner();
-    this.questionService.getAllQuestionByCategory(page,this.searchFor,this.searchCategory,this.searchName).subscribe(
+    this.questionService.getAllQuestionByCategory(page,this.searchFor,this.searchCategory,this.searchName,this.sortObject).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -207,13 +208,13 @@ export class ListQuestionsComponent implements OnInit {
     }else{
       this.searchCategory = null;
     }
-    this.carregaQuestions(this.currentPage);
+    this.carregaQuestions(this.currentPage,this.sortObject);
   }
 
 
   displayPage(page) {
     this.currentPage = page;
-    this.carregaQuestions(page);
+    this.carregaQuestions(page,this.sortObject);
   }
 
   confirmOperation(){
@@ -288,7 +289,7 @@ export class ListQuestionsComponent implements OnInit {
     this.questionService.activatedQuestion(id).subscribe(
       data => {
         this.currentPage =0;
-        this.carregaQuestions(this.currentPage);
+        this.carregaQuestions(this.currentPage,this.sortObject);
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.question_msgdel1+" ["+this.selectedID['question']+"] "+ this.locale.commons_activatedsuccess + ".");
       },
@@ -333,7 +334,7 @@ export class ListQuestionsComponent implements OnInit {
     this.questionService.inactivatedQuestion(id).subscribe(
           data => {
             this.currentPage =0;
-            this.carregaQuestions(this.currentPage);
+            this.carregaQuestions(this.currentPage,this.sortObject);
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.question_msgdel1+" ["+this.selectedID['question']+"] "+ this.locale.commons_deletedsuccess + ".");
             this.confirmButton = false;
@@ -361,6 +362,16 @@ export class ListQuestionsComponent implements OnInit {
 
   goWelcome(){
     this.router.navigateByUrl('/');
+  }
+
+  changeItensPerPage(itens){
+    this.sortObject.itensPerPage = itens;
+    this.carregaQuestions(this.currentPage,this.sortObject);
+  }
+
+  changeSort(obj){
+    this.sortObject = obj;
+    this.carregaQuestions(this.currentPage,this.sortObject);
   }
 
 }

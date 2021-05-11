@@ -17,7 +17,7 @@ export class QuestionsService {
 
   constructor(private http: HttpClient) { }
  
-  getAllQuestionByCategory(page: number,filter:string,category:number,name:string): Observable<any>{
+  getAllQuestionByCategory(page: number,filter:string,category:number,name:string,sort:any): Observable<any>{
     let url : string = AUTH_API;
     if (!page){
         page = 0;
@@ -49,9 +49,36 @@ export class QuestionsService {
     }else{
       url = url + '?page=' + page;
     }
+    if (sort){
+      url = url+'&itensPerpage='+sort.itensPerPage+'&sortName='+this.getColumnName(sort.sortName)+'&sortDirection='+sort.sortDirection;
+    }
+
     //let url = AUTH_API + '/category?page=' + page + '&categoryId=' +category;
     return this.http.get( url , httpOptions);
   }
+
+  getColumnName(position){
+    if (position == 0){
+        return "id";
+    } else if (position == 1){
+        return "category.name";
+    } else if (position == 2){
+        return "question";
+    } else if (position == 3){
+      return "active";
+    } else if (position == 4){
+      return "weight";
+    } else if (position == 5){
+      return "isMulitpleChoice";
+    } else if (position == 7){
+      return "lastUpdateDate";
+    } else if (position == 8){
+      return "modifiedBy";
+    }else {
+      return "category.name";
+    }
+}
+
 
   inactivatedQuestion(id: number): Observable<any> {
     let url : string = AUTH_API + "/inactive";
