@@ -94,9 +94,16 @@
                     {{label |   uppercase}}
             </ng-container>
             <ng-container *ngIf="sortExclusion != z">
-                  <a (click)="onClickColumn(label,z)" [ngClass]="{'sort-by-up': tableLabelsDirections[z] ==='DESC','sort-by-down': tableLabelsDirections[z] ==='ASC'}"  class="sort-by">
-                    {{label |   uppercase}}
-                  </a>  
+                  <ng-container *ngIf="adminModule != 'Y'">
+                        <a (click)="onClickColumn(label,z)" [ngClass]="{'sort-by-up': tableLabelsDirections[z] ==='DESC','sort-by-down': tableLabelsDirections[z] ==='ASC'}"  class="sort-by">
+                          {{label |   uppercase}}
+                        </a>  
+                  </ng-container>  
+                  <ng-container *ngIf="adminModule === 'Y'">
+                        <a (click)="onClickColumn(label,z)" [ngClass]="{'sort-by-admin-up': tableLabelsDirections[z] ==='DESC','sort-by-admin-down': tableLabelsDirections[z] ==='ASC'}"  class="sort-by-admin">
+                          {{label |   uppercase}}
+                        </a>  
+                  </ng-container>  
             </ng-container>
           </th>
           <th *ngIf="hideActionColumn == 'true' || onlyDeleteAction == 'true' " scope="col">{{locale.commons_actions}}</th>

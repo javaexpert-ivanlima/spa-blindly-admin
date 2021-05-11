@@ -17,7 +17,7 @@ export class UserAdminService {
 
   constructor(private http: HttpClient) { }
 
-  getAllAdminUsers(page: number,filter:string,name:string,login:string): Observable<any>{
+  getAllAdminUsers(page: number,filter:string,name:string,login:string,sort:any): Observable<any>{
     
     let url : string = AUTH_API;
     if (!page){
@@ -58,8 +58,34 @@ export class UserAdminService {
     }else{
       url = url + '?page=' + page;
     }
+    if (sort){
+      url = url+'&itensPerpage='+sort.itensPerPage+'&sortName='+this.getColumnName(sort.sortName)+'&sortDirection='+sort.sortDirection;
+    }
+
     return this.http.get( url , httpOptions);
   }
+
+  getColumnName(position){
+    if (position == 0){
+        return "id";
+    } else if (position == 1){
+        return "login";
+    } else if (position == 2){
+        return "name";
+    } else if (position == 3){
+        return "isSuper";
+    } else if (position == 4){
+      return "active";
+    } else if (position == 5){
+      return "blocked";
+    } else if (position == 6){
+      return "lastUpdateDate";
+    } else if (position == 7){
+      return "modifiedBy";
+    }else {
+      return "name";
+    }
+}
 
   createAdminUser(name: string,login: string,superUser: string,json: any){
     let url = AUTH_API;

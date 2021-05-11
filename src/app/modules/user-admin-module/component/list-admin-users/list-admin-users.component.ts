@@ -54,6 +54,7 @@ export class ListAdminUsersComponent implements OnInit {
 
   locale: any;
   hideAction: string = "NO";
+  sortObject: any = {"sortName":"name","sortDirection":"ASC","sortColumn":1,"itensPerPage":6};
 
   constructor(
     private formBuilder: FormBuilder,
@@ -157,7 +158,7 @@ export class ListAdminUsersComponent implements OnInit {
     this.spinnerService.hideSpinner();
     this.setupFilters();
     //preenche lista
-    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
     this.carregaPermissions();
   }
 
@@ -185,7 +186,7 @@ export class ListAdminUsersComponent implements OnInit {
     }
     this.spinnerService.setAdminUserObject(null);
     this.loadFilterFields();
-    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin);
+    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
   }
 
   loadFilterFields(){
@@ -206,9 +207,9 @@ export class ListAdminUsersComponent implements OnInit {
     }
 
   }
-  carregaAdminUser(page,search,name,login){
+  carregaAdminUser(page,search,name,login,sort){
     this.spinnerService.showSpinner();
-      this.userService.getAllAdminUsers(page,search,name,login).subscribe(
+      this.userService.getAllAdminUsers(page,search,name,login,sort).subscribe(
         data => {
           this.spinnerService.hideSpinner();
           this.rows =   data.data.content;
@@ -309,7 +310,7 @@ export class ListAdminUsersComponent implements OnInit {
         this.currentPage =0;
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_activatedsuccess +".");
-        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
       },
       err => {
         this.submittedRegister = true;
@@ -329,7 +330,7 @@ export class ListAdminUsersComponent implements OnInit {
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_deletedsuccess +".");
             this.confirmButton = false;
-            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
           },
           err => {
             this.submittedRegister = true;
@@ -350,7 +351,7 @@ export class ListAdminUsersComponent implements OnInit {
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.adminuser_theadminuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_unblockedsuccess +".");
             this.confirmButton = false;
-            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+            this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
           },
           err => {
             this.submittedRegister = true;
@@ -447,7 +448,7 @@ export class ListAdminUsersComponent implements OnInit {
   
   displayPage(page) {
     this.currentPage = page;
-    this.carregaAdminUser(page,this.searchFor,this.searchName,this.searchName);
+    this.carregaAdminUser(page,this.searchFor,this.searchName,this.searchName,this.sortObject);
   }
 
   updateAdminUser(id,form){
@@ -456,7 +457,7 @@ export class ListAdminUsersComponent implements OnInit {
     let json = this.getPermissionAsJson();
     this.userService.updateAdminUser(id,form,json).subscribe(
       data => {
-        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+        this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.adminuser_theadminuser + " ["+form.name.value+"] "+ this.locale.commons_updatedsuccess + ".");
       },
@@ -518,7 +519,7 @@ export class ListAdminUsersComponent implements OnInit {
     this.userService.createAdminUser(nameUser,login,isSuper,json).subscribe(
         data => {
           this.currentPage =0;
-          this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+          this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
           this.showConfirmation(this.locale.adminuser_theadminuser + " ["+nameUser+"] "+ this.locale.commons_createdsuccess + ".");
           this.spinnerService.hideSpinner();
       },
@@ -619,4 +620,13 @@ export class ListAdminUsersComponent implements OnInit {
           }
   }
 
+  changeItensPerPage(itens){
+    this.sortObject.itensPerPage = itens;
+    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
+  }
+
+  changeSort(obj){
+    this.sortObject = obj;
+    this.carregaAdminUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
+  }
 }

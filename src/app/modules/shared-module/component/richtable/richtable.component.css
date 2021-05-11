@@ -101,7 +101,10 @@ th a.sort-by {
     text-decoration: none;
     cursor: pointer;
 }
-a.sort-by:before,
+
+
+
+a.sort-by:before,a.sort-by-admin:before,a.sort-by-admin:after,
 a.sort-by:after {
 	border: 4px solid transparent;
 	content: "";
@@ -118,5 +121,20 @@ a.sort-by-up:before {
 }
 a.sort-by-down:after {
 	border-top-color: #666;
+	margin-top: 1px;
+}
+th a.sort-by-admin { 
+	padding-right: 18px;
+	position: relative;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+a.sort-by-admin-up:before {
+	border-bottom-color: white;
+	margin-top: -9px;
+}
+a.sort-by-admin-down:after {
+	border-top-color: white;
 	margin-top: 1px;
 }

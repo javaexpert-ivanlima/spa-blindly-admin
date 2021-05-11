@@ -156,7 +156,7 @@ export class ProfileComponent implements OnInit {
 
   getAdminUser(){
     this.spinner.showSpinner();
-      this.userService.getAllAdminUsers(0,"active",null,this.tokenStorage.getSub()).subscribe(
+      this.userService.getAllAdminUsers(0,"active",null,this.tokenStorage.getSub(),null).subscribe(
         data => {
           this.spinner.hideSpinner();
           this.rows =   data.data.content[0];
