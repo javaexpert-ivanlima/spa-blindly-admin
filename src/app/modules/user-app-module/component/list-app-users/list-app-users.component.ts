@@ -46,14 +46,15 @@ export class ListAppUsersComponent implements OnInit {
   appUserSelected: string = '';
   locale: any;
   hideAction: string = 'NO';
-  tableLabelsDirections: string[]  = ['NONE','NONE','NONE','NONE','NONE'];
+  tableLabelsDirections: string[]  = ['ASC','NONE','NONE','NONE','NONE'];
   sortName: string = "name";
   sort: any;
   itensPerPage: number = 6;
-  sortDirection: string;
-  sortPosition: number;
+  sortDirection: string = "ASC";
+  sortPosition: number = 0;
   sortExclusion: number;
-  sortObject: any;
+  sortObject: any = {"sortName":"name","sortDirection":"ASC","sortColumn":0,"itensPerPage":6};
+
 
 
   constructor(
