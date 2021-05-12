@@ -128,11 +128,11 @@
                       <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                           <tr>
-                            <th scope="col">{{locale.appusers_coluser}}</th>
-                            <th scope="col">{{locale.appusers_collogin}}</th>
-                            <th scope="col">{{locale.appusers_colstatus}}</th>
-                            <th scope="col">{{locale.appusers_colphotos}}</th>
-                            <th scope="col">{{locale.appusers_colcompletion}}</th>
+                            <th scope="col"><a (click)="onClickColumn(0)" [ngClass]="{'sort-by-up': tableLabelsDirections[0] ==='DESC','sort-by-down': tableLabelsDirections[0] ==='ASC'}"  class="sort-by">{{locale.appusers_coluser}}</a></th>
+                            <th scope="col"><a (click)="onClickColumn(1)" [ngClass]="{'sort-by-up': tableLabelsDirections[1] ==='DESC','sort-by-down': tableLabelsDirections[1] ==='ASC'}"  class="sort-by">{{locale.appusers_collogin}}</a></th>
+                            <th scope="col"><a (click)="onClickColumn(2)" [ngClass]="{'sort-by-up': tableLabelsDirections[2] ==='DESC','sort-by-down': tableLabelsDirections[2] ==='ASC'}"  class="sort-by">{{locale.appusers_colstatus}}</a></th>
+                            <th scope="col"><a (click)="onClickColumn(3)" [ngClass]="{'sort-by-up': tableLabelsDirections[3] ==='DESC','sort-by-down': tableLabelsDirections[3] ==='ASC'}"  class="sort-by">{{locale.appusers_colphotos}}</a></th>
+                            <th scope="col"><a (click)="onClickColumn(4)" [ngClass]="{'sort-by-up': tableLabelsDirections[4] ==='DESC','sort-by-down': tableLabelsDirections[4] ==='ASC'}"  class="sort-by">{{locale.appusers_colcompletion}}</a></th>
                             <th scope="col">{{locale.appusers_colaction}}</th>
                           </tr>
                         </thead>
@@ -216,6 +216,15 @@
                     <div *ngIf="pageable" class="mt-4 card-footer py-4">
                       <nav aria-label="...">
                         <ul class="pagination justify-content-end mb-0">
+                          <li *ngIf="pageable.totalPages > 1">
+                            <select (change)="onChange($event.target.value)" name="itensPerPage" id="itensPerPage">
+                                <option value="06">06</option>
+                                <option value="10">10</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select>
+                        </li>
+              
                           <li *ngIf="pageable.totalPages > 1" [ngClass]="{'disabled': pageable.first}" class="page-item">
                             <a class="page-link" (click)="displayPage(currentPage-1)" tabindex="-1">
                               <i class="fa fa-angle-left"></i>

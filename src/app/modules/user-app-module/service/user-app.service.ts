@@ -44,16 +44,34 @@ export class UserAppService {
     return url;
   }
 
-  getAllAppUsers(page: number,filter:string,name:string,login:string): Observable<any>{
+  getAllAppUsers(page: number,filter:string,name:string,login:string,sort:any): Observable<any>{
     
     let url : string = AUTH_API;
     if (!page){
         page = 0;
     }
     url = url + this.makeUrlFromAll(filter,page,name,login);
+    if (sort){
+      url = url+'&itensPerpage='+sort.itensPerPage+'&sortName='+this.getColumnName(sort.sortName)+'&sortDirection='+sort.sortDirection;
+    }   
     return this.http.get( url , httpOptions);
   }
 
+  getColumnName(position){
+    if (position == 0){
+        return "name";
+    } else if (position == 1){
+        return "login";
+    } else if (position == 2){
+        return "registerPhase";
+    } else if (position == 3){
+        return "photo.fileSize";
+    } else if (position == 4){
+      return "registerPhase";
+    } else {
+      return "name";
+    }
+}
   inactivatedAppUser(id: number): Observable<any> {
     let url : string = AUTH_API + "/inactive";
     return this.http.put( url , {"id":id},httpOptions);

@@ -46,6 +46,15 @@ export class ListAppUsersComponent implements OnInit {
   appUserSelected: string = '';
   locale: any;
   hideAction: string = 'NO';
+  tableLabelsDirections: string[]  = ['NONE','NONE','NONE','NONE','NONE'];
+  sortName: string = "name";
+  sort: any;
+  itensPerPage: number = 6;
+  sortDirection: string;
+  sortPosition: number;
+  sortExclusion: number;
+  sortObject: any;
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -75,7 +84,7 @@ export class ListAppUsersComponent implements OnInit {
     this.spinnerService.hideSpinner();
     this.setupFilters();
     //preenche lista
-    this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+    this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName,this.sortObject);
   }
   goResendMail(obj:any){
         this.hideAction = "NO";
@@ -184,7 +193,7 @@ export class ListAppUsersComponent implements OnInit {
     }
     this.spinnerService.setAdminUserObject(null);
     this.loadFilterFields();
-    this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin);
+    this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchLogin,this.sortObject);
   }
 
   loadFilterFields(){
@@ -205,9 +214,9 @@ export class ListAppUsersComponent implements OnInit {
     }
 
   }
-  carregaAppUser(page,search,name,login){
+  carregaAppUser(page,search,name,login,sort){
     this.spinnerService.showSpinner();
-      this.userService.getAllAppUsers(page,search,name,login).subscribe(
+      this.userService.getAllAppUsers(page,search,name,login,sort).subscribe(
         data => {
           this.spinnerService.hideSpinner();
           this.rows =   data.data.content;
@@ -268,7 +277,7 @@ export class ListAppUsersComponent implements OnInit {
     this.userService.activatedAppUser(id).subscribe(
       data => {
         //this.currentPage =0;
-        this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+        this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName,this.sortObject);
         this.spinnerService.hideSpinner();
         this.showConfirmation(this.locale.appuser_theappuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_activatedsuccess +".");
       },
@@ -287,7 +296,7 @@ export class ListAppUsersComponent implements OnInit {
     this.userService.inactivatedAppUser(id).subscribe(
           data => {
             //this.currentPage =0;
-            this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+            this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName,this.sortObject);
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.appuser_theappuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_deletedsuccess +".");
             this.confirmButton = false;
@@ -308,7 +317,7 @@ export class ListAppUsersComponent implements OnInit {
     this.userService.unblockedAppUser(id).subscribe(
           data => {
             //this.currentPage =0;
-            this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName);
+            this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName,this.sortObject);
             this.spinnerService.hideSpinner();
             this.showConfirmation(this.locale.appuser_theappuser + " ["+this.selectedID['name']+"] "+ this.locale.commons_unblockedsuccess +".");
             this.confirmButton = false;
@@ -356,7 +365,7 @@ export class ListAppUsersComponent implements OnInit {
 
   displayPage(page) {
     this.currentPage = page;
-    this.carregaAppUser(page,this.searchFor,this.searchName,this.searchName);
+    this.carregaAppUser(page,this.searchFor,this.searchName,this.searchName,this.sortObject);
   }
 
 
@@ -403,5 +412,31 @@ export class ListAppUsersComponent implements OnInit {
 
   goWelcome(){
     this.router.navigateByUrl('/');
+  }
+
+  onChange(deviceValue) {
+    this.itensPerPage = deviceValue;
+    this.sortObject.itensPerPage = deviceValue;
+    this.sortObject = {"sortName":this.sortName,"sortDirection":this.sortDirection,"itensPerPage":this.itensPerPage};
+    //recaregalista
+  }
+
+  onClickColumn(value){
+        if (this.tableLabelsDirections[value] == "ASC"){
+          this.sortDirection = "DESC";
+        }else{
+          this.sortDirection = "ASC";
+        }
+        this.tableLabelsDirections[value]=this.sortDirection;
+        this.sortName = value;
+        for(let cont = 0; cont < this.tableLabelsDirections.length;cont++){
+          if (value == cont){
+            this.tableLabelsDirections[cont] = this.sortDirection
+          }else{
+            this.tableLabelsDirections[cont] = "NONE";
+          }
+        }
+        this.sortObject = {"sortName":this.sortName,"sortDirection":this.sortDirection,"itensPerPage":this.itensPerPage};
+        this.carregaAppUser(this.currentPage,this.searchFor,this.searchName,this.searchName,this.sortObject);
   }
 }
