@@ -24,6 +24,7 @@ export class AdminUserAuditComponent implements OnInit {
   selectedID: number =0;
   selectedName: string;
   locale: any;
+  sortObject: any = {"sortName":"id","sortDirection":"DESC","sortColumn":1,"itensPerPage":6};
 
   constructor(
     private route: ActivatedRoute,
@@ -48,19 +49,19 @@ export class AdminUserAuditComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
-    this.carregaAdminUserAudit(this.currentPage,this.selectedID);
+    this.carregaAdminUserAudit(this.currentPage,this.selectedID,this.sortObject);
 
   }
 
   backButton(){
     this.router.navigateByUrl('admin_users/list');
   }
-  carregaAdminUserAudit(page: number,id:number) {
+  carregaAdminUserAudit(page: number,id:number,sort:any) {
     this.pageable = null;
     this.rows = null;
     this.title = this.locale.adminuser_audit + " - " + this.selectedName;
     this.spinnerService.showSpinner();
-    this.userService.getAuditAdminUser(page,id).subscribe(
+    this.userService.getAuditAdminUser(page,id,sort).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -73,10 +74,20 @@ export class AdminUserAuditComponent implements OnInit {
   }
   displayPage(page) {
     this.currentPage = page;
-    this.carregaAdminUserAudit(page,this.selectedID);
+    this.carregaAdminUserAudit(page,this.selectedID,this.sortObject);
   }
   goWelcome(){
     this.router.navigateByUrl('/');
+  }
+
+  changeItensPerPage(itens){
+    this.sortObject.itensPerPage = itens;
+    this.carregaAdminUserAudit(this.currentPage,this.selectedID,this.sortObject);
+  }
+
+  changeSort(obj){
+    this.sortObject = obj;
+    this.carregaAdminUserAudit(this.currentPage,this.selectedID,this.sortObject);
   }
 
 }

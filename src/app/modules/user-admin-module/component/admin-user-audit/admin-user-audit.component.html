@@ -10,6 +10,8 @@
                     </div>
                     <app-richtable 
                         (emitterPage)='displayPage($event)' [title]="title" [pageable]='pageable' [adminModule]="'Y'"
-                        [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]='false'>
+                        [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]='false'
+                        [sortDirection]="'ASC'" [sortPosition]="'1'" (emitterSort)="changeSort($event)"
+                        (emitterItensPerPage)="changeItensPerPage($event)">
                       </app-richtable>
 </div> 

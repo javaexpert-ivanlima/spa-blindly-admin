@@ -90,13 +90,34 @@ export class CategoryService {
     return this.http.put( AUTH_API , {"id":id,"nameCategory":category},httpOptions);
   }
 
-  getAuditCategory(page: number,id: number ): Observable<any> {
+  getAuditCategory(page: number,id: number,sort:any ): Observable<any> {
     let url : string = AUTH_API;
     if (!page){
         page = 0;
     }
     url = url + '/audit?id=' + id + '&page=' + page;
-   
+    if (sort){
+      url = url+'&itensPerpage='+sort.itensPerPage+'&sortName='+this.getColumnNameAudit(sort.sortName)+'&sortDirection='+sort.sortDirection;
+    }   
     return this.http.get( url , httpOptions);
   }
+
+  getColumnNameAudit(position){
+    if (position == 0){
+        return "tablePK";
+    } else if (position == 1){
+        return "changedDate";
+    } else if (position == 2){
+        return "changedBy";
+    } else if (position == 3){
+        return "columnName";
+    } else if (position == 4){
+      return "oldValue";
+    } else if (position == 5){
+      return "newValue";
+    } else {
+      return "changedDate";
+    }
+}
+
 }

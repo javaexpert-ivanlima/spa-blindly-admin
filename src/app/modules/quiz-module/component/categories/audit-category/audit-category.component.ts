@@ -25,6 +25,7 @@ export class AuditCategoryComponent implements OnInit {
   selectedID: number =0;
   selectedName: string;
   locale: any;
+  sortObject: any = {"sortName":"id","sortDirection":"DESC","sortColumn":1,"itensPerPage":6};
 
   constructor(
     private route: ActivatedRoute,
@@ -53,7 +54,7 @@ export class AuditCategoryComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
-    this.carregaCategoriesAudit(this.currentPage,this.selectedID);
+    this.carregaCategoriesAudit(this.currentPage,this.selectedID, this.sortObject);
 
   }
 
@@ -61,12 +62,12 @@ export class AuditCategoryComponent implements OnInit {
     //this._location.back();
     this.router.navigateByUrl('/categories/list');
   }
-  carregaCategoriesAudit(page: number,id:number) {
+  carregaCategoriesAudit(page: number,id:number,sort:any) {
     this.pageable = null;
     this.rows = null;
     this.title = this.locale.category_name + " " + this.selectedName + " - " + this.locale.commons_audit;
     this.spinnerService.showSpinner(); +
-    this.categoryService.getAuditCategory(page,id).subscribe(
+    this.categoryService.getAuditCategory(page,id,sort).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -79,10 +80,20 @@ export class AuditCategoryComponent implements OnInit {
   }
   displayPage(page) {
     this.currentPage = page;
-    this.carregaCategoriesAudit(page,this.selectedID);
+    this.carregaCategoriesAudit(page,this.selectedID,this.sortObject);
   }
 
   goWelcome(){
     this.router.navigateByUrl('/');
+  }
+
+  changeItensPerPage(itens){
+    this.sortObject.itensPerPage = itens;
+    this.carregaCategoriesAudit(this.currentPage,this.selectedID,this.sortObject);
+  }
+
+  changeSort(obj){
+    this.sortObject = obj;
+    this.carregaCategoriesAudit(this.currentPage,this.selectedID,this.sortObject);
   }
 }

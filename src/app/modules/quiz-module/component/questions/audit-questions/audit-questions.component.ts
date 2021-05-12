@@ -25,7 +25,8 @@ export class AuditQuestionsComponent implements OnInit {
   selectedID: number =0;
   selectedName: string;
   locale: any;
-  
+  sortObject: any = {"sortName":"id","sortDirection":"DESC","sortColumn":1,"itensPerPage":6};
+
 
   constructor(
     private route: ActivatedRoute,
@@ -54,7 +55,7 @@ export class AuditQuestionsComponent implements OnInit {
       this.router.navigateByUrl('/login/authenticate');
     }    
     this.spinnerService.hideSpinner();
-    this.carregaQuestionAudit(this.currentPage,this.selectedID);
+    this.carregaQuestionAudit(this.currentPage,this.selectedID,this.sortObject);
 
   }
 
@@ -62,12 +63,12 @@ export class AuditQuestionsComponent implements OnInit {
     //this._location.back();
     this.router.navigateByUrl('/questions/list');
   }
-  carregaQuestionAudit(page: number,id:number) {
+  carregaQuestionAudit(page: number,id:number,sort:any) {
     this.pageable = null;
     this.rows = null;
     this.title = this.selectedName + " - " + this.locale.commons_audit;
     this.spinnerService.showSpinner();
-    this.questionService.getAuditQuestion(page,id).subscribe(
+    this.questionService.getAuditQuestion(page,id,sort).subscribe(
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data.content;
@@ -80,10 +81,20 @@ export class AuditQuestionsComponent implements OnInit {
   }
   displayPage(page) {
     this.currentPage = page;
-    this.carregaQuestionAudit(page,this.selectedID);
+    this.carregaQuestionAudit(page,this.selectedID,this.sortObject);
   }
 
   goWelcome(){
     this.router.navigateByUrl('/');
+  }
+
+  changeItensPerPage(itens){
+    this.sortObject.itensPerPage = itens;
+    this.carregaQuestionAudit(this.currentPage,this.selectedID,this.sortObject);
+  }
+
+  changeSort(obj){
+    this.sortObject = obj;
+    this.carregaQuestionAudit(this.currentPage,this.selectedID,this.sortObject);
   }
 }
