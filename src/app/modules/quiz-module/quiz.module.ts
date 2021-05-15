@@ -13,7 +13,7 @@ import { CreateQuestionComponent } from './component';
 import { EditQuestionComponent } from './component';
 import { QuizOrderComponent } from './component';
 import { QuizPreviewComponent } from './component/questions/quiz-preview/quiz-preview.component';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -41,6 +41,7 @@ import { QuizPreviewComponent } from './component/questions/quiz-preview/quiz-pr
     CommonModule,
     FormsModule,
     SharedModule,
+    DragDropModule,
     LoginModule,
     ReactiveFormsModule,
     HttpClientModule

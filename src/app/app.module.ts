@@ -18,6 +18,7 @@ import { TokenStorageService } from './component/';
 import { TitleCasePipe } from '@angular/common';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { DragDropModule} from '@angular/cdk/drag-drop';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { environment } from '../environments/environment';
     SpinnerComponent
   ],
   imports: [
+    DragDropModule,
     BrowserModule,
     RouterModule,
     FormsModule,

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SpinnerShowService } from 'src/app/component/spinner';
 import { TokenStorageService } from 'src/app/component/';
 import { QuestionsService } from '../../../service';
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-quiz-order',
@@ -47,6 +48,22 @@ export class QuizOrderComponent implements OnInit {
   hideAction: string = "NO";
   locale: any;
 
+  list1 = [
+    "item 1",
+    "item 2",
+    "item 3",
+    "item 4",
+    "item 5"
+ ];
+
+ list2 = [
+    "item 6",
+    "item 7",
+    "item 8",
+    "item 9",
+    "item 10"
+ ];
+
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
@@ -54,11 +71,7 @@ export class QuizOrderComponent implements OnInit {
     private tokenStorage: TokenStorageService,
     private questionService: QuestionsService
     ) { 
-      this.quizOrderForm = this.formBuilder.group({
-        basicInfoForm: new FormGroup({
-          items:new FormArray([])
-        })
-      });  
+      
     }
 
   preview(){
@@ -70,15 +83,12 @@ export class QuizOrderComponent implements OnInit {
     this.submitted = true;
     this.errorMessage = null;
     //stop here if form is invalid
-    if (this.quizOrderForm.invalid) {
-            this.validation();
-            return;
-    }
+    
     this.spinnerService.showSpinner();
-    let questions: any = this.quizOrderForm.controls.basicInfoForm.controls.items.controls;
+    //let questions: any = this.quizOrderForm.controls.basicInfoForm.controls.items.controls;
     let obj: any[] = [];
-    questions.forEach(element => {
-      obj.push({"questionId":element.controls.questionID.value,"order":element.controls.questionOrder.value});
+    this.rows.forEach(element => {
+      obj.push({"questionId":element.id,"order":element.quizOrder});
     });
 
     this.questionService.setQuizOrder(obj).subscribe(
@@ -98,6 +108,15 @@ export class QuizOrderComponent implements OnInit {
       }
     );
   }
+
+  drop(event: CdkDragDrop<string[]>) {
+    //console.log(this.rows[event.previousIndex]);
+    //this.rows[event.previousIndex].quizOrder = event.currentIndex;
+    //this.rows[event.currentIndex].quizOrder = event.previousIndex;
+    moveItemInArray(this.rows, event.previousIndex, event.currentIndex);
+    this.fillOrder();
+  }
+
   ngOnInit(): void {
     this.hideBtn = "NO";
     //verificacao de sessao expirada
@@ -117,6 +136,13 @@ export class QuizOrderComponent implements OnInit {
     
   }
 
+  fillOrder(){
+    if (this.rows){
+      for(let i=0;i<this.rows.length;i++){
+        this.rows[i].quizOrder = i+1;
+      }
+    }
+  }
 
   carregaQuiz(){
     this.spinnerService.showSpinner();
@@ -124,17 +150,7 @@ export class QuizOrderComponent implements OnInit {
       data => {
         this.spinnerService.hideSpinner();
         this.rows =   data.data;
-        if ( this.quizOrderForm.controls.basicInfoForm.get('items').length> 0){
-          this.quizOrderForm.controls.basicInfoForm.controls.items = new FormArray([]);
-        }
-        if(this.rows.length > 0){
-          this.rows.forEach(element => {
-            this.quizOrderForm.controls.basicInfoForm.get('items').push(new FormGroup({
-              questionID:new FormControl(element.id,[Validators.required]),
-              questionOrder:new FormControl(element.quizOrder,[Validators.required])
-            }))
-          }); 
-        }
+        this.fillOrder();
       },
       err => {
         this.errorMessage =  this.spinnerService.handleError(err);

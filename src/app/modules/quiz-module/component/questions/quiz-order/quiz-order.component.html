@@ -17,11 +17,20 @@
                             {{locale.quiz_nocategory}}
                       </div>
                       <br/>
+
+                              <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">     
+                                <div class="example-box" *ngFor="let item of rows" cdkDrag>
+                                       {{item.quizOrder}} - {{item.question}}
+                                        
+                                </div>        
+                              </div>
+<!--
                       <form  [formGroup]="quizOrderForm" class="form-group" #f="ngForm" >
                         <app-richtable [basicInfoForm]="quizOrderForm.controls.basicInfoForm" *ngIf="rows?.length > 0" [title]="title"  (childID)='answers($event)'
                         [tableCols]='columns' [tableLabels]='labels' [tableData]='rows' [hideActionColumn]="'false'">
                         </app-richtable>
                       </form>
+                    -->
 </div> 
 
 <app-modal [modalID]="modalId" [hideCloseBtn]="hideBtn" [title]="titleModal"  (clickOK)="confirmOperation()" [hideAction]="hideAction"
